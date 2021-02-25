@@ -40,7 +40,7 @@ exports.load = (gateway, discord) => {
             discord.createMessage(msg, {
                 embed: {
                     title: "Wygenerowano",
-                    description: "```" + data + "```",
+                    description: `\`\`\`${data}\`\`\``,
                     footer: {
                         text: "Skyndalex - generator tekstu ascii."
                     },
@@ -63,7 +63,7 @@ exports.load = (gateway, discord) => {
             discord.createMessage(msg, {
                 embed: {
                     title: "Wygenerowano",
-                    description: "```" + data + "```",
+                    description: `\`\`\`${data}\`\`\``,
                     footer: {
                         text: "Skyndalex - generator tekstu ascii."
                     },
