@@ -160,16 +160,6 @@ exports.load = (gateway, discord) => {
         })
     })
 
-    gateway.command("tools", "say", "Wysyła tekst", "say (tekst)", ["powiedz"], (client, msg) => {
-        if (!client.args[0]) return client.events.error(client, "noargs", msg);
-
-        discord.createMessage(msg, {
-            embed: {
-                description: client.args.join(" "),
-                color: 0x2ecc71
-            }
-        })
-    })
 
     gateway.command("tools", "suggest", "Zaproponuj coś", "suggest (treść propozycji)", ["sugestia", "propozycja"], (client, msg) => {
         if (!client.args[0]) return client.events.error(client, "noargs", msg);
