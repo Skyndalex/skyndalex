@@ -34,8 +34,6 @@ gateway.event("MESSAGE_CREATE", (client, msg) => {
     })
 })
 
-gateway.event("ready", (client) => {
-    console.log("online");
-})
+gateway.event("ready", (client) => ())
 
 gateway.run()
