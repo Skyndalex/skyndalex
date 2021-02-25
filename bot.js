@@ -36,6 +36,30 @@ gateway.event("MESSAGE_CREATE", (client, msg) => {
 
 gateway.event("ready", (client) => {
     console.log("online");
+
+    setTimeout(() => {
+        const statuses = [
+            "oznacz mnie",
+            "skyndalex.tk",
+            `Liczba serwerów ${client.guilds.length}`
+        ]
+
+        const data = {
+            op: 3,
+            d: {
+                since: 91879201,
+                activites: [
+                    {
+                        name: statuses[Math.floor(Math.random() * statuses.length)],
+                        type: 1
+                    }
+                ],
+                afk: false
+            }
+        }
+
+        client.ws.send(JSON.stringify(data));
+    }, 10000)
 })
 
 gateway.run()
