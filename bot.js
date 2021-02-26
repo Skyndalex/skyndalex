@@ -1,5 +1,6 @@
 const gateway = require("./lib/gateway.js");
 const discord = require("./lib/discord.js");
+const { prefix } = require("./config.json");
 
 gateway.registerModules(gateway, discord, [
     "handler",
@@ -23,7 +24,7 @@ gateway.event("MESSAGE_CREATE", (client, msg) => {
                     fields: [
                         {
                             name: "Prefix",
-                            value: "s/",
+                            value: prefix,
                             inline: false
                         }
                     ],
