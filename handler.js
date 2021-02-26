@@ -36,6 +36,10 @@ exports.load = (gateway, discord) => {
                     responseText("Nie masz uprawnień");
                     break;
 
+                case "gban":
+                    responseText("Masz gbana");
+                    break;
+
                 case "unknown":
                     responseText(text);
                     break;
