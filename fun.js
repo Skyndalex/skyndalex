@@ -36,7 +36,7 @@ exports.load = (gateway, discord) => {
     gateway.command("fun", "ascii", "Wysyła tekst w ascii", "ascii (tekst)", [], (client, msg) => {
         if (!client.args[0]) return client.events.error(client, "noargs", msg);
 
-        figlet(client.args.join(" ").slice(1), (err, data) => {
+        figlet(client.args.join(" "), (err, data) => {
             discord.createMessage(msg, {
                 embed: {
                     title: "Wygenerowano",
