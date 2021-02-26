@@ -85,4 +85,21 @@ exports.load = (gateway, discord) => {
             }
         })
     })
+    gateway.command("bot", "ticket", "Zgłoś błąd", "ticket [treść buga]", [], (client,msg) => {
+        if (!client.args[0]) return client.events.error(client, "noargs", msg);
+        discord.createMessage({channel_id: "814868167746125855"}, {
+            embed: {
+                title: "Wysłano buga!",
+                description: `${client.args.join(' ')}\nUżytkownik: ${msg.author.username}\nID: ${msg.author.id}`,
+                color: 0x2ecc71
+            }
+        })
+        discord.createMessage(msg, {
+            embed: {
+                description: "Wysłano",
+                color: 0x2ecc71
+            }
+        })
+    })
+
 }
