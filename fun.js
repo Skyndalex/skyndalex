@@ -53,7 +53,7 @@ exports.load = (gateway, discord) => {
     gateway.command("fun", "ascii-3d", "Wysyła tekst w ascii", "ascii-3d (tekst)", [], (client, msg) => {
         if (!client.args[0]) return client.events.error(client, "noargs", msg);
 
-        figlet(client.args.join(" ").slice(1), {
+        figlet(client.args.join(" "), {
             font: "Larry 3D",
             horizontalLayout: "default",
             verticalLayout: "default",
