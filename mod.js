@@ -13,7 +13,7 @@ exports.load = (gateway, discord) => {
                 
                 discord.createMessage(msg, {
                     embed: {
-                        description: "Usunięto wiadomości",
+                        description: `Usunięto ${messages.length} wiadomości`,
                         color: 0x2ecc71
                     }
                 })
@@ -26,7 +26,7 @@ exports.load = (gateway, discord) => {
             if (!result) return client.events.error(client, "nopermission", msg);
             if (!msg.mentions[0]) return client.events.error(client, "noargs", msg);
 
-            client.args = client.args.slice(1).join(" ") || "nie podano powodu";
+            client.args = client.args.slice(1).join(" ") || "Brak";
 
             discord.kickMember(msg.guild_id, msg.mentions[0].id);
 
@@ -35,7 +35,7 @@ exports.load = (gateway, discord) => {
                     title: `Wyrzucono ${msg.mentions[0].username}`,
                     fields: [
                         {
-                            name: "Wyrzucił",
+                            name: "Moderator",
                             value: msg.author.username,
                             inline: false
                         },
@@ -56,7 +56,7 @@ exports.load = (gateway, discord) => {
             if (!result) return client.events.error(client, "nopermission", msg);
             if (!msg.mentions[0]) return client.events.error(client, "noargs", msg);
 
-            client.args = client.args.slice(1).join(" ") || "nie podano powodu";
+            client.args = client.args.slice(1).join(" ") || "Brak";
 
             discord.banMember(msg.guild_id, msg.mentions[0].id, client.args, "7");
 
@@ -65,7 +65,7 @@ exports.load = (gateway, discord) => {
                     title: `Zbanowano ${msg.mentions[0].username}`,
                     fields: [
                         {
-                            name: "Zbanował",
+                            name: "Moderator",
                             value: msg.author.username,
                             inline: false
                         },
