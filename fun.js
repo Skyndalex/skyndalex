@@ -218,6 +218,21 @@ exports.load = (gateway, discord) => {
             }
         })
     })
+    gateway.command("fun", "meme-en", "Wysyła mema z zagranicy", "meme-en", [], (client,msg) => {
+        fetch("https://some-random-api.ml/meme")
+            .then(resp => resp.json())
+            .then(resp => {
+                discord.createMessage(msg, {
+                    embed: {
+                        title: "Wygenerowano",
+                        image: {
+                            url: resp.image,
+                        },
+                        color: 0x2ecc71
+                    }
+                })
+            })
+    })
 
     gateway.command("fun", "ship", "ship", "ship (coś) (coś)", ["love"], (client, msg) => {
         if (!client.args[1]) return client.events.error(client, "noargs", msg);
