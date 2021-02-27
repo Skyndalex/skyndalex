@@ -5,7 +5,7 @@ exports.load = (gateway, discord) => {
     gateway.command("tools", "einfo", "Pokazuje informacje o emotce", "einfo (nazwa emotki)", ["emojiinfo"], (client, msg) => {
         if (!client.args[0]) return client.events.error(client, "noargs", msg);
 
-        const emoji = client.guilds.find(x => x.emojis.find(x => x.name == client.args[0])).emojis.find(x => x.name == client.args[0]);
+        const emoji = client.guilds.find(x => x.emojis.find(x => x.name === client.args[0])).emojis.find(x => x.name === client.args[0]);
         if (!emoji) return client.events.error(client, "unknown", msg, "Nie znaleziono takiej emotki");
 
         let created = moment(emoji.createdAt).format("LLLL");
