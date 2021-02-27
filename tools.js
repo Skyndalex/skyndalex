@@ -52,6 +52,7 @@ exports.load = (gateway, discord) => {
         discord.getGuild(msg.guild_id).then(guild => {
             discord.getGuildMember(msg.guild_id, msg.mentions[0].id).then(member => {
                 const roles = member.roles.map(role => guild.roles.find(x => x.id == role).name);
+                let created = moment(member.joined_at).format("LLLL")
 
                 discord.createMessage(msg, {
                     embed: {
@@ -74,7 +75,7 @@ exports.load = (gateway, discord) => {
                             },
                             {
                                 name: "Dołączył na serwer",
-                                value: member.joined_at,
+                                value: created,
                                 inline: false
                             }
                         ],
