@@ -3,7 +3,7 @@ exports.load = (gateway, discord) => {
         const owners = ["509014773006991376", "636096693712060416"];
         if (!owners.includes(msg.author.id)) return client.events.error(client, "nopermission", msg);
 
-        var result;
+        let result;
 
         try {
             result = eval(client.args.join(" "))
