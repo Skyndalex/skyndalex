@@ -22,7 +22,17 @@ exports.load = (gateway, discord) => {
             }
         })
     })
-
+    gateway.command("bot", "open-source", "Link do repozytorium", "repo", [], (client, msg) => {
+        discord.createMessage(msg, {
+            embed: {
+                description: "https://github.com/Korrumz2PL/skyndalex-public",
+                footer: {
+                    text: "Zachęcamy do nadania gwiazdki"
+                },
+                color: 0x2ecc71
+            }
+        })
+    })
     gateway.command("bot", "stats", "statystyki bota", "stats", [], (client, msg) => {
         let difference = Date.now() - client.uptime;
 
