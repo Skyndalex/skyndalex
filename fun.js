@@ -169,14 +169,14 @@ exports.load = (gateway, discord) => {
             .then(channel => {
                 if (!channel.nsfw) return client.events.error(client, "nsfw", msg);
 
-                fetch("https://cenzurabot.pl/api/memes")
+                fetch("https://cenzurabot.pl/api/memes/jbzd")
                     .then(resp => resp.json())
                     .then(resp => {
                         discord.createMessage(msg, {
                             embed: {
                                 title: "Wygenerowano",
                                 image: {
-                                    url: resp.jbzd
+                                    url: resp.meme
                                 },
                                 footer: {
                                     text: "Wygenerowano za pomocą cenzurabot.pl/api/memes"
