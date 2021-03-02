@@ -236,7 +236,7 @@ exports.load = (gateway, discord) => {
 
     gateway.command("fun", "ship", "ship", "ship (coś) (coś)", ["love"], (client, msg) => {
         if (!client.args[1]) return client.events.error(client, "noargs", msg);
-        
+
         discord.createMessage(msg, {
             embed: {
                 title: "Ship",
@@ -249,7 +249,7 @@ exports.load = (gateway, discord) => {
     gateway.command("fun", "nitro", "Wyszukuje emotke", "nitro (nazwa)", ["emotka"], (client, msg) => {
         var emoji;
         if (!client.args[0]) return client.events.error(client, "noargs", msg);
-        
+
         emoji = client.guilds.find(x => x.emojis.find(x => x.name == client.args[0]));
         if (!emoji) return client.events.error(client, "unknown", msg, "Nie znaleziono takiej emotki");
 
@@ -257,9 +257,20 @@ exports.load = (gateway, discord) => {
         var emoji_name = `<:${emoji.name}:${emoji.id}>`;
 
         if (emoji.animated) emoji_name = `<a:${emoji.name}:${emoji.id}>`;
-        
+
         discord.createMessage(msg, {
             content: emoji_name
         })
     })
+    /*
+    gateway.command("fun", "osiagniecie", "Generuje osiagniecie minecraft", "osiagniecie [tekst]", (client,msg) => {
+        discord.createMessage(msg, {
+            embed: {
+                title: 'Nowe osiągnięcie',
+                image: ''
+            }
+        })
+    })
+
+     */
 }
