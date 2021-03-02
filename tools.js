@@ -8,7 +8,7 @@ exports.load = (gateway, discord) => {
         const emoji = client.guilds.find(x => x.emojis.find(x => x.name === client.args[0])).emojis.find(x => x.name === client.args[0]);
         if (!emoji) return client.events.error(client, "unknown", msg, "Nie znaleziono takiej emotki");
 
-        let created = moment(emoji.createdAt).format("LLLL");
+      //  let created = moment(emoji_createdAt).format("LLLL");
 
         discord.createMessage(msg, {
             embed: {
@@ -26,7 +26,7 @@ exports.load = (gateway, discord) => {
                     },
                     {
                         name: "Stworzona",
-                        value: created,
+                        value: 'Niedostępne (nie działa)',
                         inline: false
                     },
                     {
@@ -225,7 +225,7 @@ exports.load = (gateway, discord) => {
                         icon_url: `https://cdn.discordapp.com/avatars/${msg.author.id}/${msg.author.avatar}.png`
                     },
                     title: "Dodano głosowanie!",
-                    description: client.args[0],
+                    description: client.args.join(' '),
                     footer: {
                         text: "Głosowanie wygenerowane przez bota skyndalex",
                         icon_url: `https://cdn.discordapp.com/avatars/${bot.id}/${bot.avatar}.png`
