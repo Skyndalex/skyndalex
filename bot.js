@@ -34,13 +34,16 @@ gateway.event("MESSAGE_CREATE", (client, msg) => {
         }
     })
 })
+const express = require('express')
+const app = express()
+const port = 3000
 
-const r = require('rethinkdb')
-let connection = null;
-r.connect({host: 'localhost', port: '28015'}, function(err, conn) {
-    if (err) throw err
-    connection = conn;
-    console.log('Successfully connected to database!')
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+})
+
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
 })
 
 gateway.event("ready", (client) => {
