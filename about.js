@@ -1,4 +1,5 @@
 const os = require("os");
+const { invitecode } = require("./config.json");
 
 exports.load = (gateway, discord) => {
     gateway.command("bot", "informacje", "informacje", "informacje", [], (client, msg) => {
@@ -78,7 +79,7 @@ exports.load = (gateway, discord) => {
     gateway.command("bot", "support", "Serwer support", "support", [], (client, msg) => {
         discord.createMessage(msg, {
             embed: {
-                description: "https://discord.gg/62JVxrU6kP",
+                description: `https://discord.gg/${invitecode}`,
                 footer: {
                     text: "Jeśli ktoś będzie wykorzystywał link do rajdów, zostanie unieważniony na 2 godziny."
                 },
@@ -90,7 +91,7 @@ exports.load = (gateway, discord) => {
     gateway.command("bot", "invite", "Zaproszenie do bota", "invite", [], (client, msg) => {
         discord.createMessage(msg, {
             embed: {
-                description: "https://discord.com/api/oauth2/authorize?client_id=804694672806379521&permissions=8&scope=bot",
+                description: `https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot`,
                 color: 0x2ecc71
             }
         })
