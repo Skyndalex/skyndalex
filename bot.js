@@ -36,7 +36,7 @@ gateway.event("MESSAGE_CREATE", (client, msg) => {
 })
 
 gateway.event("ready", (client) => {
-    console.log("online");
+    console.log("Successfully logged in!");
 })
 
 gateway.run()

@@ -5,7 +5,7 @@ exports.load = (gateway, discord) => {
         discord.createMessage(msg, {
             embed: {
                 title: "Informacje o bocie",
-                description: `Cześć! Jestem botem stworzonym przez Korrumz2#6892, głównie kierowanym do funkcji 4Fun. Posiadam ${Object.keys(client.commands).length} komend.`,
+                description: `Cześć! Jestem botem stworzonym przez Korrumz2#2137 oraz czubix#2202, głównie kierowanym do funkcji 4Fun. Posiadam ${Object.keys(client.commands).length} komend.`,
                 fields: [
                     {
                         name: "Statystyki",
