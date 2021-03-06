@@ -95,15 +95,18 @@ exports.load = (gateway, discord) => {
             }
         })
     })
-    gateway.command("bot", "ticket", "Zgłoś błąd", "ticket [treść buga]", [], (client,msg) => {
+
+    gateway.command("bot", "ticket", "Zgłoś błąd", "ticket [treść buga]", [], (client, msg) => {
         if (!client.args[0]) return client.events.error(client, "noargs", msg);
+
         discord.createMessage({channel_id: "814868167746125855"}, {
             embed: {
                 title: "Wysłano buga!",
-                description: `${client.args.join(' ')}\nUżytkownik: ${msg.author.username}\nID: ${msg.author.id}`,
+                description: `${client.args.join(" ")}\nUżytkownik: ${msg.author.username}\nID: ${msg.author.id}`,
                 color: 0x2ecc71
             }
         })
+
         discord.createMessage(msg, {
             embed: {
                 description: "Wysłano",
@@ -112,4 +115,14 @@ exports.load = (gateway, discord) => {
         })
     })
 
+    gateway.command("bot", "ping", "Pokazuje ping bota", "ping", [], (client, msg) => {
+        client.ping[msg.channel_id] = Date.now();
+
+        const data = {
+            op: 1,
+            d: 251
+        }
+
+        client.ws.send(JSON.stringify(data));
+    })
 }
