@@ -35,7 +35,7 @@ gateway.event("MESSAGE_CREATE", (client, msg) => {
     })
     const express = require('express')
     const app = express()
-    const port = 22
+    const port = 5222
 
     app.get('/', (req, res) => {
         res.send('OK')
