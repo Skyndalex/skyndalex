@@ -39,20 +39,20 @@ exports.load = (gateway, discord) => {
         const os = require('os')
 
 
-        let difference = Date.now() - client.uptime;
+        const difference = Date.now() - client.uptime;
 
-        let days = Math.floor(difference / 1000 / 60 / 60 / 24);
+        const days = Math.floor(difference / 1000 / 60 / 60 / 24);
         difference -= days * 1000 * 60 * 60 * 24;
 
-        let hours = Math.floor(difference / 1000 / 60 / 60);
+        const hours = Math.floor(difference / 1000 / 60 / 60);
         difference -= hours * 1000 * 60 * 60;
 
-        let minutes = Math.floor(difference / 1000 / 60);
+        const minutes = Math.floor(difference / 1000 / 60);
         difference -= minutes * 1000 * 60;
 
-        let seconds = Math.floor(difference / 1000);
+        const seconds = Math.floor(difference / 1000);
 
-        let uptime = `${days} dni, ${hours} godzin, ${minutes} minut oraz ${seconds} sekund`;
+        const uptime = `${days} dni, ${hours} godzin, ${minutes} minut oraz ${seconds} sekund`;
 
         discord.createMessage(msg, {
             embed: {
