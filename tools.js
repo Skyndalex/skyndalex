@@ -7,9 +7,6 @@ exports.load = (gateway, discord) => {
 
         const emoji = client.guilds.find(x => x.emojis.find(x => x.name === client.args[0])).emojis.find(x => x.name === client.args[0]);
         if (!emoji) return client.events.error(client, "unknown", msg, "Nie znaleziono takiej emotki");
-
-      //  let created = moment(emoji_createdAt).format("LLLL");
-
         discord.createMessage(msg, {
             embed: {
                 title: "Informacje o emotce",
@@ -23,11 +20,6 @@ exports.load = (gateway, discord) => {
                         name: "ID emotki",
                         value: emoji.id,
                         inline: false,
-                    },
-                    {
-                        name: "Stworzona",
-                        value: 'Niedostępne (nie działa)',
-                        inline: false
                     },
                     {
                         name: "Link do emoji",
@@ -48,7 +40,7 @@ exports.load = (gateway, discord) => {
 
     gateway.command("tools", "userinfo", "Pokazuje informacje o użytkowniku", "userinfo [osoba]", [], (client, msg) => {
         msg.mentions[0] = msg.mentions[0] || msg.author;
-        
+
         discord.getGuild(msg.guild_id).then(guild => {
             discord.getGuildMember(msg.guild_id, msg.mentions[0].id).then(member => {
                 const roles = member.roles.map(role => guild.roles.find(x => x.id == role).name);

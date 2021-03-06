@@ -247,14 +247,14 @@ exports.load = (gateway, discord) => {
     })
 
     gateway.command("fun", "nitro", "Wyszukuje emotke", "nitro (nazwa)", ["emotka"], (client, msg) => {
-        var emoji;
+        let emoji;
         if (!client.args[0]) return client.events.error(client, "noargs", msg);
 
         emoji = client.guilds.find(x => x.emojis.find(x => x.name == client.args[0]));
         if (!emoji) return client.events.error(client, "unknown", msg, "Nie znaleziono takiej emotki");
 
         emoji = emoji.emojis.find(x => x.name == client.args[0]);
-        var emoji_name = `<:${emoji.name}:${emoji.id}>`;
+        let emoji_name = `<:${emoji.name}:${emoji.id}>`;
 
         if (emoji.animated) emoji_name = `<a:${emoji.name}:${emoji.id}>`;
 
@@ -262,15 +262,4 @@ exports.load = (gateway, discord) => {
             content: emoji_name
         })
     })
-    /*
-    gateway.command("fun", "osiagniecie", "Generuje osiagniecie minecraft", "osiagniecie [tekst]", (client,msg) => {
-        discord.createMessage(msg, {
-            embed: {
-                title: 'Nowe osiągnięcie',
-                image: ''
-            }
-        })
-    })
-
-     */
 }

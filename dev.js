@@ -1,6 +1,6 @@
 exports.load = (gateway, discord) => {
     gateway.command("dev", "eval", "eval", "eval (kod)", [], (client, msg) => {
-        const owners = ["509014773006991376", "636096693712060416"];
+        let owners = ["509014773006991376", "636096693712060416"];
         if (!owners.includes(msg.author.id)) return client.events.error(client, "nopermission", msg);
 
         let result;
