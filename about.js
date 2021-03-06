@@ -34,12 +34,7 @@ exports.load = (gateway, discord) => {
         })
     })
     gateway.command("bot", "stats", "statystyki bota", "stats", [], (client, msg) => {
-        const moment = require('moment')
-        moment.locale('pl')
-        const os = require('os')
-
-
-        const difference = Date.now() - client.uptime;
+        let difference = Date.now() - client.uptime;
 
         const days = Math.floor(difference / 1000 / 60 / 60 / 24);
         difference -= days * 1000 * 60 * 60 * 24;
@@ -57,7 +52,7 @@ exports.load = (gateway, discord) => {
         discord.createMessage(msg, {
             embed: {
                 title: "Statystyki",
-                description: `**Czas działania:** ${uptime}\nStatus bota: [Kliknij](https://status.skyndalex.tk)`,
+                description: `**Czas działania:** ${uptime}`,
                 fields: [
                     {
                         name: "Liczba serwerów",
@@ -66,7 +61,7 @@ exports.load = (gateway, discord) => {
                     },
                     {
                         name: "Użycie pamięci RAM",
-                        value: `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB / ${(os.totalmem() / 1024 / 1024).toFixed(2)}`,
+                        value: `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)}/${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`,
                         inline: false
                     },
                     {
