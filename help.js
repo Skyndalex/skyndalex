@@ -11,7 +11,7 @@ exports.load = (gateway, discord) => {
         } else {
             let categories = {};
             const blacklist = ["help", "dev"];
-            const fields = [];
+            let fields = [];
 
             for (command in client.commands) {
                 if (!categories.hasOwnProperty(client.commands[command].category)) {

@@ -52,7 +52,7 @@ exports.load = (gateway, discord) => {
 
         let seconds = Math.floor(difference / 1000);
 
-        const uptime = `${days} dni, ${hours} godzin, ${minutes} minut oraz ${seconds} sekund`;
+        let uptime = `${days} dni, ${hours} godzin, ${minutes} minut oraz ${seconds} sekund`;
 
         discord.createMessage(msg, {
             embed: {
