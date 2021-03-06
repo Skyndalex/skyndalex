@@ -15,7 +15,7 @@ gateway.registerModules(gateway, discord, [
 gateway.event("MESSAGE_CREATE", (client, msg) => {
     discord.getCurrentUser().then(bot => {
         const prefixMention = new RegExp(`^<@!?${bot.id}>( |)$`);
-        
+
         if (msg.content.match(prefixMention)) {
             discord.createMessage(msg, {
                 embed: {
@@ -33,17 +33,22 @@ gateway.event("MESSAGE_CREATE", (client, msg) => {
             })
         }
     })
-    const express = require('express')
-    const app = express()
-    const port = 3000
+})
 
-    app.get('/', (req, res) => {
-        res.send('OK')
-    })
+const express = require('express')
+const app = express()
+const port = 3000
 
-    app.listen(port, () => {
-        console.log(`http://localhost:${port}`)
-    })
+app.get('/', (req, res) => {
+    res.send('OK!')
+})
+
+app.listen(port, () => {
+    console.log(`http://localhost:${port}`)
+})
+
+gateway.event("ready", (client) => {
+    console.log("Successfully logged in!");
 })
 
 gateway.run()
