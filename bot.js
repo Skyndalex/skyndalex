@@ -20,6 +20,27 @@ gateway.event("ready", (client) => {
     })
 
     console.log("Successfully logged in!");
+
+    setInterval(() => {
+        const statuses = [
+            "korrumz doda statusy"
+        ]
+
+        const data = {
+            op: 3,
+            d: {
+                since: null,
+                activities: [{
+                    name: statuses[Math.floor(Math.random() * statuses.length)],
+                    type: 1
+                }],
+                status: "dnd",
+                afk: false
+            }
+        }
+        
+        client.ws.send(JSON.stringify(data));
+    }, 10000)
 })
 
 gateway.event("MESSAGE_CREATE", (client, msg) => {
