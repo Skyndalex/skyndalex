@@ -25,7 +25,7 @@ exports.load = (gateway, discord) => {
     gateway.command("bot", "open-source", "Link do repozytorium", "repo", [], (client, msg) => {
         discord.createMessage(msg, {
             embed: {
-                description: "https://github.com/Korrumz2PL/krivebot-public,
+                description: "https://github.com/Korrumz2PL/krivebot,
                 footer: {
                     text: "Zachęcamy do nadania gwiazdki"
                 },
