@@ -71,17 +71,11 @@ gateway.event("MESSAGE_CREATE", (client, msg) => {
     })
 })
 
-const express = require('express')
-const app = express()
-const port = 3000
+const app = require("express")();
 
-app.get('/', (req, res) => {
-    res.send('OK!')
+app.get("/", (req, res) => {
+    res.send("OK!")
 })
 
-app.listen(port, () => {
-    console.log(`http://localhost:${port}`)
-})
-
-app.listen();
+app.listen(3000);
 gateway.run();
