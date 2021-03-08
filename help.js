@@ -38,7 +38,7 @@ exports.load = (gateway, discord) => {
             discord.createMessage(msg, {
                 embed: {
                     title: "Pomoc:",
-                    description: "Potrzebujesz pomocy? Wejdź na nasz support (s/support)",
+                    description: "Potrzebujesz pomocy? Wejdź na nasz support (?support)",
                     fields: fields,
                     color: 0x2ecc71
                 }

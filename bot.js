@@ -23,8 +23,12 @@ gateway.event("ready", (client) => {
 
     setInterval(() => {
         const statuses = [
-            "@Skyndalex",
-            "Prefix: s/"
+            "@Krive",
+            "Prefix: ?"
+            "krivebot.tk"
+            "krivebot.tk/donate"
+            "krivebot.tk/invite"
+            "krivebot.tk/discord"
         ]
 
         const data = {
@@ -35,7 +39,7 @@ gateway.event("ready", (client) => {
                     name: statuses[Math.floor(Math.random() * statuses.length)],
                     type: 1
                 }],
-                status: "dnd",
+                status: "online",
                 afk: false
             }
         }
@@ -52,7 +56,7 @@ gateway.event("MESSAGE_CREATE", (client, msg) => {
             discord.createMessage(msg, {
                 embed: {
                     title: "Oznaczyłeś mnie!",
-                    description: "Komenda pomocy: s/help",
+                    description: "Komenda pomocy: ?help",
                     fields: [
                         {
                             name: "Prefix",

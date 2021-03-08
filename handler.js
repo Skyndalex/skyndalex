@@ -8,7 +8,7 @@ exports.load = (gateway, discord) => {
                         description: errorMessage,
                         color: 0xe74c3c,
                         footer: {
-                            text: "Błąd || Skyndalex v1",
+                            text: "Błąd || Krive v1",
                             icon_url: `https://cdn.discordapp.com/avatars/${bot.id}/${bot.avatar}.png`
                         }
                     }
