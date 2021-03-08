@@ -24,10 +24,10 @@ gateway.event("ready", (client) => {
     setInterval(() => {
         const statuses = [
             "@Krive",
-            "Prefix: ?"
-            "krivebot.tk"
-            "krivebot.tk/donate"
-            "krivebot.tk/invite"
+            "Prefix: ?",
+            "krivebot.tk",
+            "krivebot.tk/donate",
+            "krivebot.tk/invite",
             "krivebot.tk/discord"
         ]
 
