@@ -7,4 +7,5 @@
 
 # Pomoc 
 Aby uzyskać pomoc stwórz nowy issue albo dołącz do naszego serwera wsparcia
- 
+ # Node.js
+ Użyj wersji node od wersji v14 - v15.
