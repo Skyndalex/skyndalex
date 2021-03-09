@@ -27,4 +27,16 @@ exports.load = (gateway, discord) => {
             },
         })
     });
+    gateway.command("dev", "ungban", "ungban", "ungban (użytkownik)", [], (client,msg) => {
+        const owners = ["509014773006991376", "636096693712060416"];
+        if (!owners.includes(msg.author.id)) return client.events.error(client, "nopermission", msg);
+
+        const user = msg.mentions[0] = msg.mentions[0] || msg.author;
+        discord.createMessage(msg, {
+            embed: {
+                description: `Usunięto gbana dla ${user.username}`,
+                color: 0x2ecc71
+            },
+        })
+    })
 }
