@@ -1,5 +1,5 @@
 {
     "token": "token",
-    "prefix": "prefix",
+    "defaultPrefix": "prefix",
     "gban": ["650463174444843030", "788321894767263754", "435029733344804874"]
 }
