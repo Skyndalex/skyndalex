@@ -10,13 +10,19 @@ gateway.registerModules(gateway, discord, [
     "dev",
     "tools",
     "about",
-    "mod"
+    "mod",
+    "config"
 ])
 
 gateway.event("ready", (client) => {
-    r.connect({host: "localhost", port: 28015}, (err, con) => {
-        if (err) console.log(err);
-        client.con = con;
+    r.db("guilds").table("prefix").run(client.con, (err, result) => {
+        if (result._responses[0]) {
+            const prefixes = result._responses[0].r;
+
+            prefixes.forEach(x => {
+                client.guilds.find(i => i.id === x.guild_id).prefix = x.prefix;
+            })
+        }
     })
 
     console.log("Successfully logged in!");

@@ -250,10 +250,10 @@ exports.load = (gateway, discord) => {
         let emoji;
         if (!client.args[0]) return client.events.error(client, "noargs", msg);
 
-        emoji = client.guilds.find(x => x.emojis.find(x => x.name == client.args[0]));
+        emoji = client.guilds.find(x => x.emojis.find(x => x.name === client.args[0]));
         if (!emoji) return client.events.error(client, "unknown", msg, "Nie znaleziono takiej emotki");
 
-        emoji = emoji.emojis.find(x => x.name == client.args[0]);
+        emoji = emoji.emojis.find(x => x.name === client.args[0]);
         let emoji_name = `<:${emoji.name}:${emoji.id}>`;
 
         if (emoji.animated) emoji_name = `<a:${emoji.name}:${emoji.id}>`;
