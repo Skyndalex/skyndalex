@@ -9,3 +9,7 @@
 Aby uzyskać pomoc stwórz nowy issue albo dołącz do naszego serwera wsparcia
  # Node.js
  Użyj wersji node od wersji v14 - v15.
+# Dokumentacja kodu
+Dokumentację kodu możesz znaleźć w zakładce 'Wiki'
+# Dokumentacja ustawień
+Dokumentacja ustawień znajduje się [Tutaj](https://github.com/Korrumz2PL/krivebot/blob/main/config-docs.md)
