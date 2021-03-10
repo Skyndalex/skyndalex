@@ -1,6 +1,6 @@
 const gateway = require("./lib/gateway.js");
 const discord = require("./lib/discord.js");
-const { prefix } = require("./config.json");
+const { prefix } = require("../config.json");
 const r = require("rethinkdb");
 
 gateway.registerModules(gateway, discord, [
