@@ -55,6 +55,7 @@ gateway.event("ready", (client) => {
 })
 
 gateway.event("MESSAGE_CREATE", (client, msg) => {
+    // n
     discord.getCurrentUser().then(bot => {
         const prefixMention = new RegExp(`^<@!?${bot.id}>( |)$`);
 
