@@ -1,9 +1,9 @@
 const gateway = require("./lib/gateway.js");
 const discord = require("./lib/discord.js");
-const { prefix } = require("./config.json");  
+const { prefix } = require("./config.json");
 const r = require("rethinkdb");
 
-gateway.registerModules(gateway, discord, [ //testowa zmiana
+gateway.registerModules(gateway, discord, [
     "handler",
     "help",
     "fun",
@@ -55,7 +55,6 @@ gateway.event("ready", (client) => {
 })
 
 gateway.event("MESSAGE_CREATE", (client, msg) => {
-    // n
     discord.getCurrentUser().then(bot => {
         const prefixMention = new RegExp(`^<@!?${bot.id}>( |)$`);
 
