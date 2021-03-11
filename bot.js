@@ -3,7 +3,7 @@ const discord = require("./lib/discord.js");
 const { prefix } = require("./config.json");  
 const r = require("rethinkdb");
 
-gateway.registerModules(gateway, discord, [
+gateway.registerModules(gateway, discord, [ //testowa zmiana
     "handler",
     "help",
     "fun",
