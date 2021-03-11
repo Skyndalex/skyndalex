@@ -88,7 +88,54 @@ exports.load = (gateway, discord) => {
                 })
             })
     })
-
+    gateway.command("fun", "kaczkoland", "Sprawdza statystyki gracza na serwerze kaczkoland.pl", "kaczkoland (gracz)", ["kaczkoland"], (client, msg) => {
+        const fetch = require('node-fetch')
+        fetch('https://api.kaczkoland.pl/all')
+            .then(res => res.json())
+            .then(req => {
+                const r = req.find(q => q.username === client.args[0])
+                discord.createMessage(msg, {
+                    embed: {
+                        title: 'Statystyki gracza na serwerze kaczkoland.pl',
+                        description: `Wyświetlam statystyki dla gracza: ${r.username}`,
+                        fields: [
+                            {
+                                name: 'Nazwa gracza',
+                                value: r.username,
+                            },
+                            {
+                                name: 'Wykopane diamenty',
+                                value: r.mined_diamonds,
+                            },
+                            {
+                                name: 'Ranga',
+                                value: r.primary_rank,
+                            },
+                            {
+                                name: 'Zabici gracze',
+                                value: r.player_kills,
+                            },
+                            {
+                                name: 'Wysłanych wiadomości',
+                                value: r.sent_messages,
+                            },
+                            {
+                                name: 'Scraftowanych itemów',
+                                value: r.crafted_items
+                            },
+                            {
+                                name: 'Położonych bloków',
+                                value: r.placed_blocks,
+                            },
+                            {
+                                name: 'Śmierci',
+                                value: r.deaths,
+                            },
+                        ],
+                    },
+                })
+            })
+    })
     gateway.command("fun", "cat", "cat", "cat", ["kot"], (client, msg) => {
         fetch("https://some-random-api.ml/img/cat")
             .then(resp => resp.json())
