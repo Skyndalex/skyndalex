@@ -43,6 +43,10 @@ exports.load = (gateway, discord) => {
                 case "unknown":
                     responseText(text);
                     break;
+
+                case "notfound":
+                    responseText('Nie znaleziono')
+                    break;
             }
         })
     })
