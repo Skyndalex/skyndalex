@@ -96,6 +96,7 @@ exports.load = (gateway, discord) => {
             .then(res => res.json())
             .then(req => {
                 const r = req.find(q => q.username === client.args[0])
+                if (!r) return client.events.error(client, 'notfound', msg)
                 discord.createMessage(msg, {
                     embed: {
                         title: 'Statystyki gracza na serwerze kaczkoland.pl',
