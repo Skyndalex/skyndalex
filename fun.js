@@ -91,11 +91,11 @@ exports.load = (gateway, discord) => {
     gateway.command("fun", "kaczkoland", "Sprawdza statystyki gracza na serwerze kaczkoland.pl", "kaczkoland (gracz)", ["kaczkoland"], (client, msg) => {
         if (!client.args[0]) return client.events.error(client, "noargs", msg);
 
-        const fetch = require('node-fetch')
         fetch('https://api.kaczkoland.pl/all')
             .then(res => res.json())
             .then(req => {
                 const r = req.find(q => q.username === client.args[0])
+                if (!r) return client.events.error(client, "noargs", msg);
                 discord.createMessage(msg, {
                     embed: {
                         title: 'Statystyki gracza na serwerze kaczkoland.pl',
