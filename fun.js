@@ -89,6 +89,8 @@ exports.load = (gateway, discord) => {
             })
     })
     gateway.command("fun", "kaczkoland", "Sprawdza statystyki gracza na serwerze kaczkoland.pl", "kaczkoland (gracz)", ["kaczkoland"], (client, msg) => {
+        if (!client.args[0]) return client.events.error(client, "noargs", msg);
+
         const fetch = require('node-fetch')
         fetch('https://api.kaczkoland.pl/all')
             .then(res => res.json())
@@ -132,6 +134,10 @@ exports.load = (gateway, discord) => {
                                 value: r.deaths,
                             },
                         ],
+                        color: 0x2ecc71,
+                        footer: {
+                            text: 'Pokazuje statystyki od ostatniej edycji!!! | Jeśli komenda nie odpowiada, nie może znaleźć gracza.'
+                        }
                     },
                 })
             })
