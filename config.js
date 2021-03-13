@@ -41,7 +41,15 @@ exports.load = (gateway, discord) => {
 
             if (!client.args[0]) return client.events.error(client, "noargs", msg);
 
-
+            discord.createMessage(msg, {
+                embed: {
+                    description: 'Komenda niedostępna (Dalej testowana)',
+                    color: 0x2ecc71,
+                    footer: {
+                        text: 'Ustawienia BETA'
+                    }
+                }
+            })
 
         })
     })
