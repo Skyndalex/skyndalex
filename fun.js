@@ -143,6 +143,15 @@ exports.load = (gateway, discord) => {
                 })
             })
     })
+    gateway.command("fun", "hypixel", "Pokazuje statystyki gracza na serwerze minecraft hypixel.net", "hypixel (gracz)", ["hyp"], (client, msg) => {
+        const fetch = require('node-fetch')
+        fetch('https://api.hypixel.net/player')
+            .then(res => res.json())
+            .then(res => {
+                const player = res.find(q => q.displayName === client.args[0])
+                if (!player) return client.events.error(client, 'notfound', msg)
+            })
+    })
     gateway.command("fun", "cat", "cat", "cat", ["kot"], (client, msg) => {
         fetch("https://some-random-api.ml/img/cat")
             .then(resp => resp.json())
@@ -158,6 +167,7 @@ exports.load = (gateway, discord) => {
                 })
             })
     })
+
 
     gateway.command("fun", "dog", "dog", "dog", ["pies"], (client, msg) => {
         fetch("https://some-random-api.ml/img/dog")

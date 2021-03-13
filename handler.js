@@ -40,7 +40,7 @@ exports.load = (gateway, discord) => {
                     break;
 
                 case "gban":
-                    responseText("Masz gbana");
+                    responseText("Posiadasz blokadę");
                     break;
 
                 case "unknown":
