@@ -16,9 +16,12 @@ exports.load = (gateway, discord) => {
             }
 
             switch (error) {
+                /* NIE RUSZAĆ
                 case "commandnotfound":
                     responseText("Nie znaleziono takiej komendy");
                     break;
+
+                 */
 
                 case "noargs":
                     responseText(`Poprawne użycie komendy to \`${client.command.usage}\``);
@@ -44,7 +47,7 @@ exports.load = (gateway, discord) => {
                     responseText(text);
                     break;
 
-                case "notfound":
+                case "notfound": // NIE RUSZAĆ
                     responseText('Nie znaleziono')
                     break;
             }

@@ -24,7 +24,6 @@ gateway.event("ready", (client) => {
             })
         }
     })
-
     console.log("Successfully logged in!");
 
     setInterval(() => {
