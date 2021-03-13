@@ -36,21 +36,15 @@ exports.load = (gateway, discord) => {
     })
     gateway.command("config", "broadcastconfig", "Kanał ogłoszeń", "broadcastconfig (kanał)", [], (client,msg) => {
 
-        permissions.hasPermission(msg, msg.author.id, "MANAGE_GUILD", (result) => {
-            if (!result) return client.events.error(client, "nopermission", msg);
-
-            if (!client.args[0]) return client.events.error(client, "noargs", msg);
-
             discord.createMessage(msg, {
                 embed: {
                     description: 'Komenda niedostępna (Dalej testowana)',
                     color: 0x2ecc71,
                     footer: {
                         text: 'Ustawienia BETA'
-                    }
-                }
+                    },
+                },
             })
 
         })
-    })
 }
