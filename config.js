@@ -22,13 +22,27 @@ exports.load = (gateway, discord) => {
 
             r.db("guilds").table("prefix").filter({guild_id: msg.guild_id}).update({prefix: client.args[0]}).run(client.con);
             client.guilds.find(x => x.id === msg.guild_id).prefix = client.args[0];
-            
+
             discord.createMessage(msg, {
                 embed: {
                     description: "Zmieniono prefix",
-                    color: 0x2ecc71
+                    color: 0x2ecc71,
+                    footer: {
+                        text: 'Ustawienia BETA'
+                    }
                 }
             })
+        })
+    })
+    gateway.command("config", "broadcastconfig", "Kanał ogłoszeń", "broadcastconfig (kanał)", [], (client,msg) => {
+
+        permissions.hasPermission(msg, msg.author.id, "MANAGE_GUILD", (result) => {
+            if (!result) return client.events.error(client, "nopermission", msg);
+
+            if (!client.args[0]) return client.events.error(client, "noargs", msg);
+
+
+
         })
     })
 }
