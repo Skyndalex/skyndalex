@@ -34,17 +34,18 @@ exports.load = (gateway, discord) => {
             })
         })
     })
-    gateway.command("config", "broadcastconfig", "Kanał ogłoszeń", "broadcastconfig (kanał)", [], (client,msg) => {
-
+    gateway.command("config", "broadcastchannel", "Zmienia kanał ogłoszeń na serwerze", "broadcastchannel #kanał", [], (client, msg) => {
+        permissions.hasPermission(msg, msg.author.id, "MANAGE_GUILD", (result) => {
+            if (!result) return client.events.error(client, "nopermission", msg);
+            const insertTo = r.db("settings").table("broadcastChannel").insert({id: `${msg.guild_id}`, broadcastChannel: `${client.args[0]}`}).run(client.con)
+            const updateTo = r.db('settings').table("broadcastChannel").update({status: "published"}).run(client.con)
             discord.createMessage(msg, {
                 embed: {
-                    description: 'Komenda niedostępna (Dalej testowana)',
-                    color: 0x2ecc71,
-                    footer: {
-                        text: 'Ustawienia BETA'
-                    },
-                },
+                    title: 'Pomyślnie zmieniono wartość.',
+                    description: `Ustawiono kanał ogłoszeń na `
+                }
             })
 
         })
+    })
 }
