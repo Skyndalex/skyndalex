@@ -2,7 +2,7 @@ const gateway = require("./lib/gateway.js");
 const discord = require("./lib/discord.js");
 const { prefix } = require("./config.json");
 const r = require("rethinkdb");
-
+const fetch = require('node-fetch')
 gateway.registerModules(gateway, discord, [
     "handler",
     "help",
@@ -48,7 +48,6 @@ gateway.event("ready", (client) => {
                 afk: false
             }
         }
-        
         client.ws.send(JSON.stringify(data));
     }, 10000)
 })
@@ -76,6 +75,7 @@ gateway.event("MESSAGE_CREATE", (client, msg) => {
     })
 })
 
+
 const app = require("express")();
 
 app.get("/", (req, res) => {
@@ -83,4 +83,5 @@ app.get("/", (req, res) => {
 })
 
 app.listen(3000);
+
 gateway.run();
