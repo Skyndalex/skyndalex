@@ -12,4 +12,4 @@ Aby uzyskać pomoc stwórz nowy issue albo dołącz do naszego serwera wsparcia
 # Dokumentacja kodu
 Dokumentację kodu możesz znaleźć w zakładce 'Wiki'
 # Dokumentacja ustawień
-Dokumentacja ustawień znajduje się [Tutaj](https://github.com/Korrumz2PL/krivebot/blob/main/config-docs.md)
+Dokumentacja ustawień znajduje się [Tutaj](https://github.com/Korrumz2PL/krivebot/tree/main/documentation)
