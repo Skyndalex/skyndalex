@@ -91,7 +91,6 @@ exports.load = (gateway, discord) => {
     gateway.command("fun", "kaczkoland", "Sprawdza statystyki gracza na serwerze kaczkoland.pl", "kaczkoland (gracz)", ["kaczkoland"], (client, msg) => {
         if (!client.args[0]) return client.events.error(client, "noargs", msg);
 
-        const fetch = require('node-fetch')
         fetch('https://api.kaczkoland.pl/all')
             .then(res => res.json())
             .then(req => {
@@ -144,12 +143,9 @@ exports.load = (gateway, discord) => {
             })
     })
     gateway.command("fun", "hypixel", "Pokazuje statystyki gracza na serwerze minecraft hypixel.net", "hypixel (gracz)", ["hyp"], (client, msg) => {
-        const fetch = require('node-fetch')
-        fetch('https://api.hypixel.net/player')
-            .then(res => res.json())
-            .then(res => {
-                const player = res.find(q => q.displayName === client.args[0])
-                if (!player) return client.events.error(client, 'notfound', msg)
+            discord.createMessage(msg, {
+                description: 'Aby wyświetlić bardziej szczegółowe statystyki, wpisz \`hypixel values\`',
+                title: 'nick',
             })
     })
     gateway.command("fun", "cat", "cat", "cat", ["kot"], (client, msg) => {
