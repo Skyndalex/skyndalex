@@ -10,7 +10,8 @@ gateway.registerModules(gateway, discord, [
     "mod",
     "config",
     "tools",
-    "about"
+    "about",
+    "economy"
 ])
 
 gateway.event("ready", (client) => {

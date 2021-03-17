@@ -9,6 +9,7 @@ exports.load = (gateway, discord) => {
                 nopermission: "Nie masz uprawnień",
                 gban: "Posiadasz blokade",
                 notfound: "Nie znaleziono",
+                beta: 'Komenda jest niedostępna!',
                 unknown: text
             }
 
