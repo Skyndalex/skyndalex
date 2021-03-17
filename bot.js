@@ -1,18 +1,16 @@
 const gateway = require("./lib/gateway.js");
 const discord = require("./lib/discord.js");
-const { prefix } = require("./config.json");
-const { defaultPrefix } = require("./config.json")
 const r = require("rethinkdb");
-const fetch = require('node-fetch')
+
 gateway.registerModules(gateway, discord, [
     "handler",
     "help",
-    "fun",
     "dev",
-    "tools",
-    "about",
+    "fun",
     "mod",
-    "config"
+    "config",
+    "tools",
+    "about"
 ])
 
 gateway.event("ready", (client) => {
@@ -25,6 +23,7 @@ gateway.event("ready", (client) => {
             })
         }
     })
+    
     console.log("Successfully logged in!");
 
     setInterval(() => {
@@ -49,49 +48,35 @@ gateway.event("ready", (client) => {
                 afk: false
             }
         }
+        
         client.ws.send(JSON.stringify(data));
     }, 10000)
 })
 
-    gateway.event("MESSAGE_CREATE", (client, msg) => {
-        discord.getCurrentUser().then(bot => {
-            async function f1() {
-                const prefixMention = new RegExp(`^<@!?${bot.id}>( |)$`);
-                if (msg.content.match(prefixMention)) {
-                    const res = await r.db("guilds").table('prefix').get(client.guilds.find(x => x.id == "id").prefix).run(client.con)
-                    const prefix = res.prefix ? res.prefix : "Brak";
-                    discord.createMessage(msg, {
-                        embed: {
-                            title: "Oznaczyłeś mnie! Jak się cieszę, że się mną zainteresowałeś",
-                            description: "Komenda pomocy: ?help",
-                            fields: [
-                                {
-                                    name: "Prefix",
-                                    value: prefix,
-                                },
-                                {
-                                  name: 'Prefix defaultowy',
-                                  value: defaultPrefix
-                                },
-                                {
-                                    name: 'Serwer discord bota',
-                                    value: '[Kliknij](https://krivebot.tk/discord)'
-                                },
-                                {
-                                    name: 'Dodaj bota',
-                                    value: '[Kliknij](https://krivebot.tk/invite)'
-                                }
-                            ],
-                            color: 0x2ecc71
+gateway.event("MESSAGE_CREATE", (client, msg) => {
+    client.bot.then(bot => {
+        const prefixMention = new RegExp(`^<@!?${bot.id}>( |)$`);
+
+        if (msg.content.match(prefixMention)) {
+            const prefix = client.guilds.find(x => x.id == msg.guild_id).prefix;
+            
+            discord.createMessage(msg, {
+                embed: {
+                    title: "Oznaczyłeś mnie!",
+                    description: `Komenda pomocy: ${prefix}help`,
+                    fields: [
+                        {
+                            name: "Prefix",
+                            value: prefix,
+                            inline: false
                         }
-                    })
-
+                    ],
+                    color: 0x2ecc71
                 }
-            }
-            f1()
-        })
+            })
+        }
     })
-
+})
 
 const app = require("express")();
 
@@ -100,5 +85,4 @@ app.get("/", (req, res) => {
 })
 
 app.listen(3000);
-
 gateway.run();
