@@ -1,6 +1,6 @@
 {
   "name": "krivebot",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "description": "- Support: [[Wejdź](https://discord.com/invite/62JVxrU6kP)]\r - Strona: [[Wejdź](https://skyndalex.tk)]\r - Dodaj bota: [[Dodaj](https://discord.com/oauth2/authorize?client_id=804694672806379521&scope=bot&permissions=8)]",
   "main": "bot.js",
   "directories": {
