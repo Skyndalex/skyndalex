@@ -1,15 +1,10 @@
-# Skyndalex - kod publiczny
+> Kod publiczny KriveBota
+* Informacje
+1. Strona internetowa: https://krivebot.tk
+2. Serwer discord: https://krivebot.tk/discord
+3. Dodawanie bota: https://krivebot.tk/invite
+4. Wspieranie bota: https://krivebot.tk/donate
 
-# Linki
-- Support: [[Wejdź](https://discord.com/invite/62JVxrU6kP)]
-- Strona: [[Wejdź](https://skyndalex.tk)]
-- Dodaj bota: [[Dodaj](https://discord.com/oauth2/authorize?client_id=804694672806379521&scope=bot&permissions=8)]
-
-# Pomoc 
-Aby uzyskać pomoc stwórz nowy issue albo dołącz do naszego serwera wsparcia
- # Node.js
- Użyj wersji node od wersji v14 - v15.
-# Dokumentacja kodu
-Dokumentację kodu możesz znaleźć w zakładce 'Wiki'
-# Dokumentacja ustawień
-Dokumentacja ustawień znajduje się [Tutaj](https://github.com/Korrumz2PL/krivebot/tree/main/documentation)
+> Dokumentacja
+* Gdzie znaleźć?
+#### Dokumentację można znaleźć w folderze `documentation`
