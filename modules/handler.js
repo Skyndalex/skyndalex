@@ -2,14 +2,13 @@ exports.load = (gateway, discord) => {
     gateway.event("error", (client, error, msg, text) => {
         client.bot.then(bot => {
             const errors = {
-                commandnotfound: "Nie znaleziono takiej komendy",
                 noargs: `Poprawne użycie komendy to \`${client.command.usage}\``,
-                cooldown: "Musisz poczekać 3 sekundy przed użyciem komendy",
                 nsfw: "Kanał musi być nsfw",
                 nopermission: "Nie masz uprawnień",
                 gban: "Posiadasz blokade",
                 notfound: "Nie znaleziono",
                 beta: 'Komenda jest niedostępna!',
+                notconfigured: 'Nie ustawiono wartości przez administracje serwera!',
                 unknown: text
             }
 

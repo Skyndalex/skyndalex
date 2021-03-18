@@ -324,17 +324,17 @@ exports.load = (gateway, discord) => {
         aliases: ["meme"],
         
         run: (client, msg) => {
-            fetch("https://api.aleks.ovh/fun/meme")
+            fetch("https://cenzurabot.pl/api/memes/kwejk")
                 .then(resp => resp.json())
                 .then(resp => {
                     discord.createMessage(msg, {
                         embed: {
                             title: "Wygenerowano",
                             image: {
-                                url: resp.image.link
+                                url: resp.meme
                             },
                             footer: {
-                                text: "Wygenerowano za pomocą api.aleks.ovh/fun/meme"
+                                text: "Wygenerowano za pomocą API cenzurabot.pl/api/memes/kwejk"
                             },
                             color: 0x2ecc71
                         }

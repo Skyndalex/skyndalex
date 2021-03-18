@@ -24,7 +24,61 @@ gateway.event("ready", (client) => {
             })
         }
     })
-    
+    // settings
+    r.db("settings").table("broadcastChannel").run(client.con, (err, result) => {
+        if (result._responses[0]) {
+            const broadcastChannels = result._responses[0].r;
+
+            broadcastChannels.forEach(x => {
+                client.guilds.find(i => i.id === x.guild_id).broadcastChannel = x.broadcastChannel;
+            })
+        }
+    })
+    r.db("settings").table("voteChannel").run(client.con, (err, result) => {
+        if (result._responses[0]) {
+            const voteChannels = result._responses[0].r;
+
+            voteChannels.forEach(x => {
+                client.guilds.find(i => i.id === x.guild_id).voteChannel = x.voteChannel;
+            })
+        }
+        r.db("settings").table("complaintChannel").run(client.con, (err, result) => {
+            if (result._responses[0]) {
+                const complaintChannels = result._responses[0].r;
+
+                complaintChannels.forEach(x => {
+                    client.guilds.find(i => i.id === x.guild_id).complaintChannel = x.complaintChannel
+                })
+            }
+        })
+    })
+    r.db("settings").table("suggestionChannel").run(client.con, (err, result) => {
+        if (result._responses[0]) {
+            const suggestionChannels = result._responses[0].r;
+
+            suggestionChannels.forEach(x => {
+                client.guilds.find(i => i.id === x.guild_id).suggestionChannel = x.suggestionChannel
+            })
+        }
+    })
+    r.db("settings").table("privateModChannel").run(client.con, (err, result) => {
+        if (result._responses[0]) {
+            const privateModChannels = result._responses[0].r;
+
+            privateModChannels.forEach(x => {
+                client.guilds.find(i => i.id === x.guild_id).privateModChannel = x.privateModChannel
+            })
+        }
+    })
+    r.db("settings").table("passChannel").run(client.con, (err, result) => {
+        if (result._responses[0]) {
+            const passChannels = result._responses[0].r;
+
+            passChannels.forEach(x => {
+                client.guilds.find(i => i.id === x.guild_id).passChannel = x.passChannel
+            })
+        }
+    })
     console.log("Successfully logged in!");
 
     setInterval(() => {
