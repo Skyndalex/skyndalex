@@ -9,7 +9,7 @@
 
 > Dokumentacja BOTA
 * Gdzie znaleźć?
-#### Dokumentację można znaleźć w zakładce "Wiki"
+#### Dokumentację można znaleźć w zakładce "Documentation"
 
 > Dokumentacja KODU
-#### Dokumentację kodu można znaleźć w folderze "Documentation"
+#### Dokumentację kodu można znaleźć w folderze "Wiki"
