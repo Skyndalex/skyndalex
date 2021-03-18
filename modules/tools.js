@@ -176,10 +176,12 @@ exports.load = (gateway, discord) => {
         run: (client, msg) => {
             if (!client.args[0]) return client.events.error(client, "noargs", msg);
 
-            discord.createMessage(msg, {
+            const channeltosend = client.guilds.find(x => x.id == msg.guild_id).broadcastChannel;
+            if (!channeltosend) return client.events.error(client, 'notconfigured', msg)
+            discord.createMessage({channel_id: channeltosend.id}, {
                 embed: {
-                    title: "Ogłoszenie",
-                    description: client.args.join(" "),
+                    title: "Nowe ogłoszenie!",
+                    description: client.args.join(' '),
                     color: 0x2ecc71
                 }
             })
@@ -270,10 +272,14 @@ exports.load = (gateway, discord) => {
         aliases: ["zaglosuj"],
         
         run: (client, msg) => {
+            // to fix
             if (!client.args[0]) return client.events.error(client, "noargs", msg);
 
+            const votechannelsended = client.guilds.find(x => x.id == msg.guild_id).voteChannel;
+            if (!votechannelsended) return client.events.error(client, 'notconfigured', msg)
+
             discord.getCurrentUser().then(bot => {
-                discord.createMessage(msg, {
+                discord.createMessage(msg, {channel_id: votechannelsended}, {
                     embed: {
                         author: {
                             name: msg.author.username + "#" + msg.author.discriminator,
@@ -288,8 +294,8 @@ exports.load = (gateway, discord) => {
                         color: 0x2ecc71
                     }
                 }).then(botMsg => {
-                    discord.createReaction(msg.channel_id, botMsg.id, "%F0%9F%91%8D");
-                    setTimeout(() => discord.createReaction(msg.channel_id, botMsg.id, "%F0%9F%91%8E"), 500);
+                    discord.createReaction(votechannelsended, botMsg.id, "%F0%9F%91%8D");
+                    setTimeout(() => discord.createReaction(votechannelsended, botMsg.id, "%F0%9F%91%8E"), 500);
                 })
             })
         }
