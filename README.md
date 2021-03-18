@@ -7,6 +7,9 @@
 * Zgłaszanie błędów
 1. Aby zgłosić błąd utwórz nowy issue z tytułem i opisem.
 
-> Dokumentacja
+> Dokumentacja BOTA
 * Gdzie znaleźć?
-#### Dokumentację można znaleźć w folderze `documentation`
+#### Dokumentację można znaleźć w zakładce "Wiki"
+
+> Dokumentacja KODU
+#### Dokumentację kodu można znaleźć w folderze "Documentation"
