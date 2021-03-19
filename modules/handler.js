@@ -2,7 +2,7 @@ exports.load = (gateway, discord) => {
     gateway.event("error", (client, error, msg, text) => {
         client.bot.then(bot => {
             const errors = {
-                noargs: `Poprawne użycie komendy to \`${client.command.usage}\``,
+                noargs: `Poprawne użycie komendy to \`${client.commands.usage}\``,
                 nsfw: "Kanał musi być nsfw",
                 nopermission: "Nie masz uprawnień",
                 gban: "Posiadasz blokade",
