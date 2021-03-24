@@ -1,6 +1,5 @@
 const permissions = require("../lib/permissions.js");
 const r = require("rethinkdb");
-
 exports.load = (gateway, discord, msg) => {
     gateway.command({
         category: "config",
@@ -10,24 +9,21 @@ exports.load = (gateway, discord, msg) => {
         aliases: [],
 
         run: (client, msg) => {
-            permissions.hasPermission(msg, msg.author_id, "MANAGE_GUILD", (result) => {
+            /*
+            permissions.hasPermission(msg, msg.author.id, "MANAGE_GUILD", (result) => {
                 if (!result) return client.events.error(client, "nopermission", msg);
                 const blacklist = ["\\n", "'", "\"", "`"];
 
                 if (!client.args[0]) return client.events.error(client, "noargs", msg);
                 if (blacklist.some(x => client.args[0].includes(x))) return client.events.error(client, "unknown", msg, "Nie można użyć tego znaku!");
 
-                r.db("guilds").table("prefix").filter({guild_id: msg.guild_id}).run(client.con, (err, result) => {
-                    if (!result._responses[0]) {
-                        r.db("guilds").table("prefix").insert({
-                            guild_id: msg.guild_id,
-                            prefix: client.args[0]
-                        }).run(client.con)
-                    }
-                });
+                r.db("krivebot").table("settings").insert({
+                    id: msg.guild_id,
+                    prefix: client.args[0]
+                }).run(client.con)
 
-                r.db("guilds").table("prefix").filter({guild_id: msg.guild_id}).update({prefix: client.args[0]}).run(client.con);
-                client.guilds.find(x => x.id === msg.guild_id).prefix = client.args[0];
+                r.db("krivebot").table("settings").update({prefix: client.args[0]}).run(client.con)
+                client.guilds.find(x => x.id === msg.guild_id).settings = client.args[0];
 
                 discord.createMessage(msg, {
                     embed: {
@@ -39,6 +35,9 @@ exports.load = (gateway, discord, msg) => {
                     }
                 })
             })
+
+             */
+            client.events.error(client, "beta", msg);
         }
     })
     gateway.command({
@@ -49,37 +48,32 @@ exports.load = (gateway, discord, msg) => {
         aliases: [],
 
         run: (client, msg) => {
-            permissions.hasPermission(msg, msg.author_id, "MANAGE_GUILD", (result) => {
-                if (!result) return client.events.error(client, "nopermission", msg);
+                permissions.hasPermission(msg, msg.author.id, "MANAGE_GUILD", (result) => {
+                    if (!result) return client.events.error(client, "nopermission", msg);
+                    if (!client.args[0]) return client.events.error(client, "noargs", msg);
 
-                const channel = client.guilds.find(x => x.id === msg.guild_id).channels.find(x => "<#" + x.id + ">" == client.args[0])
+                    const channel = client.guilds.find(x => x.id === msg.guild_id).channels.find(x => "<#" + x.id + ">" == client.args[0])
 
-                r.db("settings").table("broadcastChannel").filter({guild_id: msg.guild_id}).run(client.con, (err, result) => {
-                    if (!result._responses[0]) {
-                        r.db("settings").table("broadcastChannel").insert({
-                            guild_id: msg.guild_id,
-                            broadcastChannel: channel
-                        }).run(client.con)
-                    }
-                });
+                    r.db('krivebot').table("settings").insert({
+                        id: msg.guild_id,
+                        broadcastChannel: channel,
+                    }).run(client.con)
+                    r.db("krivebot").table("settings").get(msg.guild_id).update({broadcastChannel: channel}).run(client.con)
+                    client.guilds.find(x => x.id === msg.guild_id).settings = channel;
 
-                r.db("settings").table("broadcastChannel").filter({guild_id: msg.guild_id}).update({broadcastChannel: channel}).run(client.con);
-                client.guilds.find(x => x.id === msg.guild_id).broadcastChannel = channel;
-
-
-                discord.createMessage(msg, {
-                    embed: {
-                        title: 'Ustawienia - pomyślnie ustawiono',
-                        description: `Ustawiono wartość \`broadcastChannel\` przez ${msg.author.username}\nNowa wartość: <#${channel.id}>`,
-                        footer: {
-                            text: 'Ustawiono za pomocą bota KriveBot'
-                        },
-                        color: 0x2ecc71
-                    }
+                    discord.createMessage(msg, {
+                        embed: {
+                            title: 'Ustawienia - pomyślnie ustawiono',
+                            description: `Ustawiono wartość \`broadcastChannel\` przez ${msg.author.username}\nNowa wartość: <#${channel.id}>`,
+                            footer: {
+                                text: 'Ustawiono za pomocą bota KriveBot'
+                            },
+                            color: 0x2ecc71
+                        }
+                    })
                 })
-            })
-        },
-    })
+            }
+        })
     gateway.command({
         category: "config",
         name: "vote-channel",
@@ -90,22 +84,17 @@ exports.load = (gateway, discord, msg) => {
         run: (client, msg) => {
             permissions.hasPermission(msg, msg.author.id, "MANAGE_GUILD", (result) => {
                 if (!result) return client.events.error(client, "nopermission", msg);
-                if (!client.args[0]) return client.events.error(client, "noargs", msg)
+                if (!client.args[0]) return client.events.error(client, "noargs", msg);
 
                 const channel = client.guilds.find(x => x.id === msg.guild_id).channels.find(x => "<#" + x.id + ">" == client.args[0])
 
+                r.db("krivebot").table("settings").insert({
+                    id: msg.guild_id,
+                    voteChannel: channel
+                }).run(client.con)
 
-                r.db("settings").table("voteChannel").filter({guild_id: msg.guild_id}).run(client.con, (err, result) => {
-                    if (!result._responses[0]) {
-                        r.db("settings").table("voteChannel").insert({
-                            guild_id: msg.guild_id,
-                            voteChannel: channel
-                        }).run(client.con)
-                    }
-                });
-
-                r.db("settings").table("voteChannel").filter({guild_id: msg.guild_id}).update({voteChannel: channel}).run(client.con);
-                client.guilds.find(x => x.id === msg.guild_id).voteChannel = channel;
+                r.db("krivebot").table("settings").update({voteChannel: channel}).run(client.con)
+                client.guilds.find(x => x.id === msg.guild_id).settings = channel;
 
                 discord.createMessage(msg, {
                     embed: {
@@ -131,33 +120,28 @@ exports.load = (gateway, discord, msg) => {
         run: (client, msg) => {
             permissions.hasPermission(msg, msg.author.id, "MANAGE_GUILD", (result) => {
                 if (!result) return client.events.error(client, "nopermission", msg);
-                if (!client.args[0]) return client.events.error(client, "noargs", msg)
-            })
+                if (!client.args[0]) return client.events.error(client, "noargs", msg);
 
-            const channel = client.guilds.find(x => x.id === msg.guild_id).channels.find(x => "<#" + x.id + ">" == client.args[0])
+                const channel = client.guilds.find(x => x.id === msg.guild_id).channels.find(x => "<#" + x.id + ">" == client.args[0])
 
+               r.db("krivebot").table("settings").insert({
+                  id: msg.guild_id,
+                  complaintChannel: channel,
+               }).run(client.con)
 
-            r.db("settings").table("complaintChannel").filter({guild_id: msg.guild_id}).run(client.con, (err, result) => {
-                if (!result._responses[0]) {
-                    r.db("settings").table("complaintChannel").insert({
-                        guild_id: msg.guild_id,
-                        complaintChannel: channel
-                    }).run(client.con)
-                }
-            });
+                r.db("krivebot").table("settings").update({complaintChannel: channel}).run(client.con)
+                client.guilds.find(x => x.id === msg.guild_id).settings = channel;
 
-            r.db("settings").table("complaintChannel").filter({guild_id: msg.guild_id}).update({complaintChannel: channel}).run(client.con);
-            client.guilds.find(x => x.id === msg.guild_id).complaintChannel = channel;
-
-            discord.createMessage(msg, {
-                embed: {
-                    title: "Ustawienia - pomyślnie ustawiono",
-                    description: `Ustawiono wartość \`complaintChannel\` przez ${msg.author.username}\nNowa wartość: <#${channel.id}>`,
-                    footer: {
-                        text: "Ustawiono za pomocą bota KriveBOT"
-                    },
-                    color: 0x2ecc71
-                }
+                discord.createMessage(msg, {
+                    embed: {
+                        title: "Ustawienia - pomyślnie ustawiono",
+                        description: `Ustawiono wartość \`complaintChannel\` przez ${msg.author.username}\nNowa wartość: <#${channel.id}>`,
+                        footer: {
+                            text: "Ustawiono za pomocą bota KriveBOT"
+                        },
+                        color: 0x2ecc71
+                    }
+                })
             })
         }
     })
@@ -169,6 +153,7 @@ exports.load = (gateway, discord, msg) => {
         aliases: [],
 
         run: (client, msg) => {
+            /*
             permissions.hasPermission(msg, msg.author.id, "MANAGE_GUILD", (result) => {
                 if (!result) return client.events.error(client, "nopermission", msg);
                 if (!client.args[0]) return client.events.error(client, "noargs", msg)
@@ -198,6 +183,9 @@ exports.load = (gateway, discord, msg) => {
                     color: 0x2ecc71
                 }
             })
+
+             */
+            client.events.error(client, "beta", msg);
         }
     })
     gateway.command({
@@ -210,35 +198,28 @@ exports.load = (gateway, discord, msg) => {
         run: (client, msg) => {
             permissions.hasPermission(msg, msg.author.id, "MANAGE_GUILD", (result) => {
                 if (!result) return client.events.error(client, "nopermission", msg);
-                if (!client.args[0]) return client.events.error(client, "noargs", msg)
-            })
 
-            const channel = client.guilds.find(x => x.id === msg.guild_id).channels.find(x => "<#" + x.id + ">" == client.args[0])
+                const channel = client.guilds.find(x => x.id === msg.guild_id).channels.find(x => "<#" + x.id + ">" == client.args[0])
 
+                r.db("krivebot").table("settings").insert({
+                    id: msg.guild_id,
+                    modChannel: channel,
+                }).run(client.con)
 
-            r.db("settings").table("privateModChannel").filter({guild_id: msg.guild_id}).run(client.con, (err, result) => {
-                if (!result._responses[0]) {
-                    r.db("settings").table("privateModChannel").insert({
-                        guild_id: msg.guild_id,
-                        privateModChannel: channel
-                    }).run(client.con)
-                }
+                r.db("krivebot").table("settings").get(msg.guild_id).update({modChannel: channel}).run(client.con)
+                client.guilds.find(x => x.id === msg.guild_id).settings = channel;
+
+                discord.createMessage(msg, {
+                    embed: {
+                        title: "Ustawienia - pomyślnie ustawiono",
+                        description: `Ustawiono wartość \`private-mod-channel\` przez ${msg.author.username}\nNowa wartość: <#${channel.id}>`,
+                        footer: {
+                            text: "Ustawiono za pomocą bota KriveBOT"
+                        },
+                        color: 0x2ecc71
+                    }
+                })
             });
-
-            r.db("settings").table("privateModChannel").filter({guild_id: msg.guild_id}).update({privateModChannel: channel}).run(client.con);
-            client.guilds.find(x => x.id === msg.guild_id).privateModChannel = channel;
-
-            discord.createMessage(msg, {
-                embed: {
-                    title: "Ustawienia - ustawiono pomyślnie",
-                    description: `Ustawiono wartość \`privateModChannel\` przez ${msg.author.username}\nNowa wartość: <#${channel.id}>`,
-                    footer: {
-                        text: "Ustawiono za pomocą bota KriveBot"
-                    },
-                    color: 0x2ecc71
-                }
-            })
         }
     })
-
 }

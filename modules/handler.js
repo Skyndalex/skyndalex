@@ -2,13 +2,14 @@ exports.load = (gateway, discord) => {
     gateway.event("error", (client, error, msg, text) => {
         client.bot.then(bot => {
             const errors = {
-                noargs: `Poprawne użycie komendy to \`${client.commands.usage}\``,
+                noargs: `Poprawne użycie komendy to \`${client.command.usage}\``,
                 nsfw: "Kanał musi być nsfw",
                 nopermission: "Nie masz uprawnień",
                 gban: "Posiadasz blokade",
                 notfound: "Nie znaleziono",
                 beta: 'Komenda jest niedostępna!',
                 notconfigured: 'Nie ustawiono wartości przez administracje serwera!',
+                off: "Komenda została (tymczasowo) wyłączona. Przepraszamy!",
                 unknown: text
             }
 

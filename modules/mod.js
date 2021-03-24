@@ -37,6 +37,8 @@ exports.load = (gateway, discord) => {
         aliases: [],
         
         run: (client, msg) => {
+            /*
+
             permissions.hasPermission(msg, msg.author.id, "KICK_MEMBERS", (result) => {
                 if (!result) return client.events.error(client, "nopermission", msg);
                 if (!msg.mentions[0]) return client.events.error(client, "noargs", msg);
@@ -64,6 +66,9 @@ exports.load = (gateway, discord) => {
                     }
                 })
             })
+
+             */
+            client.events.error(client, "beta", msg);
         }
     })
 
@@ -75,6 +80,7 @@ exports.load = (gateway, discord) => {
         aliases: [],
         
         run: (client, msg) => {
+            /*
             permissions.hasPermission(msg, msg.author.id, "BAN_MEMBERS", (result) => {
                 if (!result) return client.events.error(client, "nopermission", msg);
                 if (!msg.mentions[0]) return client.events.error(client, "noargs", msg);
@@ -102,6 +108,8 @@ exports.load = (gateway, discord) => {
                     }
                 })
             })
+             */
+            client.events.error(client, "beta", msg);
         }
     })
 }

@@ -3,36 +3,6 @@ const os = require("os");
 exports.load = (gateway, discord) => {
     gateway.command({
         category: "bot",
-        name: "informacje",
-        description: "informacje",
-        usage: "informacje",
-        aliases: [],
-        
-        run: (client, msg) => {
-            discord.createMessage(msg, {
-                embed: {
-                    title: "Informacje o bocie",
-                    description: `Cześć! Jestem botem stworzonym przez Korrumz2#2137 oraz czubix#2202, głównie kierowanym do funkcji 4Fun. Posiadam ${Object.keys(client.commands).length} komend.`,
-                    fields: [
-                        {
-                            name: "Statystyki",
-                            value: `• Serwery: ${client.guilds.length}`,
-                            inline: false
-                        },
-                        {
-                            name: "Podziękowania dla",
-                            value: "• Wszystkich byłych programistów\n• Wszystkich osób które pomagały programistom\n• Moderatorów na serwerze discord\n• Wszystkich osób które wkładały chodź trochę prac w skyndalexie.",
-                            inline: false
-                        }
-                    ],
-                    color: 0x2ecc71
-                }
-            })
-        }
-    })
-
-    gateway.command({
-        category: "bot",
         name: "open-source",
         description: "Link do repozytorium",
         usage: "open-source",

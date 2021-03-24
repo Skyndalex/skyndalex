@@ -57,7 +57,7 @@ exports.load = (gateway, discord) => {
                         title: "Wygenerowano",
                         description: `\`\`\`${data}\`\`\``,
                         footer: {
-                            text: "Skyndalex - generator tekstu ascii."
+                            text: "KriveBot - generator tekstu ascii."
                         },
                         color: 0x2ecc71
                     }
@@ -88,7 +88,7 @@ exports.load = (gateway, discord) => {
                         title: "Wygenerowano",
                         description: `\`\`\`${data}\`\`\``,
                         footer: {
-                            text: "Skyndalex - generator tekstu ascii."
+                            text: "KriveBot - generator tekstu ascii."
                         },
                         color: 0x2ecc71
                     }

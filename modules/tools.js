@@ -1,6 +1,7 @@
 const moment = require("moment");
 moment.locale("pl");
-
+const r = require("rethinkdb")
+const permissions = require("../lib/permissions.js");
 exports.load = (gateway, discord) => {
     gateway.command({
         category: "tools",
@@ -174,17 +175,29 @@ exports.load = (gateway, discord) => {
         aliases: ["ogloszenie"],
         
         run: (client, msg) => {
-            if (!client.args[0]) return client.events.error(client, "noargs", msg);
-
-            const channeltosend = client.guilds.find(x => x.id == msg.guild_id).broadcastChannel;
-            if (!channeltosend) return client.events.error(client, 'notconfigured', msg)
-            discord.createMessage({channel_id: channeltosend.id}, {
-                embed: {
-                    title: "Nowe ogłoszenie!",
-                    description: client.args.join(' '),
-                    color: 0x2ecc71
+            permissions.hasPermission(msg, msg.author.id, "MANAGE_CHANNELS", (result) => {
+                if (!result) return client.events.error(client, "nopermission", msg);
+                async function broadcastChannelTool() {
+                    const bChannel = await r.db("krivebot").table("settings").get(msg.guild_id).run(client.con)
+                    discord.createMessage({channel_id: bChannel.broadcastChannel.id}, {
+                        embed: {
+                            title: "Nowe ogłoszenie!",
+                            description: client.args.join(' '),
+                            color: 0x2ecc71
+                        },
+                    })
+                    discord.createMessage(msg, {
+                        embed: {
+                            description: "Wysłano ogłoszenie!",
+                            footer: {
+                                text: "Ogłoszenia sponsorowane przez bota KriveBot"
+                            },
+                            color: 0x2ecc71
+                        }
+                    })
                 }
-            })
+                broadcastChannelTool()
+            });
         }
     })
 
@@ -217,14 +230,17 @@ exports.load = (gateway, discord) => {
         
         run: (client, msg) => {
             if (!client.args[0]) return client.events.error(client, "noargs", msg);
-
-            discord.createMessage(msg, {
-                embed: {
-                    title: "Zadano pytanie",
-                    description: client.args.join(" "),
-                    color: 0x2ecc71
-                }
-            })
+            async function f2() {
+                const aChannel = await r.db("krivebot").table("settings").get(msg.guild_id).run(client.con)
+                discord.createMessage({channel_id: aChannel.modChannel.id}, {
+                    embed: {
+                        title: "Zadano pytanie",
+                        description: client.args.join(" "),
+                        color: 0x2ecc71
+                    }
+                })
+            }
+            f2()
         }
     })
 
@@ -236,31 +252,34 @@ exports.load = (gateway, discord) => {
         aliases: ["report"],
         
         run: (client, msg) => {
-            if (!(msg.mentions[0] || client.args[1])) return client.events.error(client, "noargs", msg);
-
-            discord.createMessage(msg, {
-                embed: {
-                    title: "Dodano skargę!",
-                    fields: [
-                        {
-                            name: "Złożył skargę:",
-                            value: msg.author.username,
-                            inline: false
-                        },
-                        {
-                            name: "Zgłoszono:",
-                            value: msg.mentions[0].username,
-                            inline: false
-                        },
-                        {
-                            name: "Powód:",
-                            value: client.args.slice(1).join(" "),
-                            inline: false
-                        }
-                    ],
-                    color: 0x2ecc71
-                }
-            })
+            async function complaintConfigTool() {
+                if (!(msg.mentions[0] || client.args[1])) return client.events.error(client, "noargs", msg);
+                const coChannel = await r.db("krivebot").table("settings").get(msg.guild_id).run(client.con)
+                discord.createMessage({channel_id: coChannel.complaintChannel.id}, {
+                    embed: {
+                        title: "Dodano skargę!",
+                        fields: [
+                            {
+                                name: "Złożył skargę:",
+                                value: msg.author.username,
+                                inline: false
+                            },
+                            {
+                                name: "Zgłoszono:",
+                                value: msg.mentions[0].username,
+                                inline: false
+                            },
+                            {
+                                name: "Powód:",
+                                value: client.args.slice(1).join(" "),
+                                inline: false
+                            }
+                        ],
+                        color: 0x2ecc71
+                    }
+                })
+            }
+            complaintConfigTool()
         }
     })
 
@@ -272,32 +291,32 @@ exports.load = (gateway, discord) => {
         aliases: ["zaglosuj"],
         
         run: (client, msg) => {
-            // to fix
-            if (!client.args[0]) return client.events.error(client, "noargs", msg);
+            /*
+                if (!client.args[0]) return client.events.error(client, "noargs", msg);
 
-            const votechannelsended = client.guilds.find(x => x.id == msg.guild_id).voteChannel;
-            if (!votechannelsended) return client.events.error(client, 'notconfigured', msg)
-
-            discord.getCurrentUser().then(bot => {
-                discord.createMessage(msg, {channel_id: votechannelsended}, {
-                    embed: {
-                        author: {
-                            name: msg.author.username + "#" + msg.author.discriminator,
-                            icon_url: `https://cdn.discordapp.com/avatars/${msg.author.id}/${msg.author.avatar}.png`
-                        },
-                        title: "Dodano głosowanie!",
-                        description: client.args.join(' '),
-                        footer: {
-                            text: "Głosowanie wygenerowane przez bota skyndalex",
-                            icon_url: `https://cdn.discordapp.com/avatars/${bot.id}/${bot.avatar}.png`
-                        },
-                        color: 0x2ecc71
-                    }
-                }).then(botMsg => {
-                    discord.createReaction(votechannelsended, botMsg.id, "%F0%9F%91%8D");
-                    setTimeout(() => discord.createReaction(votechannelsended, botMsg.id, "%F0%9F%91%8E"), 500);
+                discord.getCurrentUser().then(bot => {
+                    discord.createMessage(msg, {channel_id: vChannel.voteChannel.id}, {
+                        embed: {
+                            author: {
+                                name: msg.author.username + "#" + msg.author.discriminator,
+                                icon_url: `https://cdn.discordapp.com/avatars/${msg.author.id}/${msg.author.avatar}.png`
+                            },
+                            title: "Dodano głosowanie!",
+                            description: client.args.join(' '),
+                            footer: {
+                                text: "Głosowanie wygenerowane przez bota skyndalex",
+                                icon_url: `https://cdn.discordapp.com/avatars/${bot.id}/${bot.avatar}.png`
+                            },
+                            color: 0x2ecc71
+                        }
+                    }).then(botMsg => {
+                        discord.createReaction(vChannel.voteChannel.id, botMsg.id, "%F0%9F%91%8D");
+                        setTimeout(() => discord.createReaction(vChannel.voteChannel.id, botMsg.id, "%F0%9F%91%8E"), 500);
+                    })
                 })
-            })
+             */
+            client.events.error(client, "beta", msg);
+
         }
     })
 }

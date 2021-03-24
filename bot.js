@@ -1,7 +1,7 @@
 const gateway = require("./lib/gateway.js");
 const discord = require("./lib/discord.js");
 const r = require("rethinkdb");
-
+const { defaultPrefix } = require("./config.json")
 gateway.registerModules(gateway, discord, [
     "handler",
     "help",
@@ -14,71 +14,13 @@ gateway.registerModules(gateway, discord, [
     "economy"
 ])
 
-gateway.event("ready", (client) => {
-    r.db("guilds").table("prefix").run(client.con, (err, result) => {
-        if (result._responses[0]) {
-            const prefixes = result._responses[0].r;
+gateway.event("ready", async(client) => {
 
-            prefixes.forEach(x => {
-                client.guilds.find(i => i.id === x.guild_id).prefix = x.prefix;
-            })
-        }
-    })
-    // settings
-    r.db("settings").table("broadcastChannel").run(client.con, (err, result) => {
-        if (result._responses[0]) {
-            const broadcastChannels = result._responses[0].r;
+    const a = await r.db("krivebot").table("settings").get("id").run(client.con);
+    const b = await r.db("krivebot").table("settings").filter({b : true}).coerceTo("array").run(client.con);
 
-            broadcastChannels.forEach(x => {
-                client.guilds.find(i => i.id === x.guild_id).broadcastChannel = x.broadcastChannel;
-            })
-        }
-    })
-    r.db("settings").table("voteChannel").run(client.con, (err, result) => {
-        if (result._responses[0]) {
-            const voteChannels = result._responses[0].r;
 
-            voteChannels.forEach(x => {
-                client.guilds.find(i => i.id === x.guild_id).voteChannel = x.voteChannel;
-            })
-        }
-        r.db("settings").table("complaintChannel").run(client.con, (err, result) => {
-            if (result._responses[0]) {
-                const complaintChannels = result._responses[0].r;
 
-                complaintChannels.forEach(x => {
-                    client.guilds.find(i => i.id === x.guild_id).complaintChannel = x.complaintChannel
-                })
-            }
-        })
-    })
-    r.db("settings").table("suggestionChannel").run(client.con, (err, result) => {
-        if (result._responses[0]) {
-            const suggestionChannels = result._responses[0].r;
-
-            suggestionChannels.forEach(x => {
-                client.guilds.find(i => i.id === x.guild_id).suggestionChannel = x.suggestionChannel
-            })
-        }
-    })
-    r.db("settings").table("privateModChannel").run(client.con, (err, result) => {
-        if (result._responses[0]) {
-            const privateModChannels = result._responses[0].r;
-
-            privateModChannels.forEach(x => {
-                client.guilds.find(i => i.id === x.guild_id).privateModChannel = x.privateModChannel
-            })
-        }
-    })
-    r.db("settings").table("passChannel").run(client.con, (err, result) => {
-        if (result._responses[0]) {
-            const passChannels = result._responses[0].r;
-
-            passChannels.forEach(x => {
-                client.guilds.find(i => i.id === x.guild_id).passChannel = x.passChannel
-            })
-        }
-    })
     console.log("Successfully logged in!");
 
     setInterval(() => {
@@ -113,25 +55,28 @@ gateway.event("MESSAGE_CREATE", (client, msg) => {
         const prefixMention = new RegExp(`^<@!?${bot.id}>( |)$`);
 
         if (msg.content.match(prefixMention)) {
-            const prefix = client.guilds.find(x => x.id == msg.guild_id).prefix;
-            
-            discord.createMessage(msg, {
-                embed: {
-                    title: "Oznaczyłeś mnie!",
-                    description: `Komenda pomocy: ${prefix}help`,
-                    fields: [
-                        {
-                            name: "Prefix",
-                            value: prefix,
-                            inline: false
-                        }
-                    ],
-                    color: 0x2ecc71
-                }
-            })
+           async function f1() {
+            //  const guildPrefix = await r.db("krivebot").table("settings").get(msg.guild_id).run(client.con)
+                discord.createMessage(msg, {
+                    embed: {
+                        title: "Oznaczyłeś mnie!",
+                        description: `Komenda pomocy: ${defaultPrefix}help`,
+                        fields: [
+                            {
+                                name: "Prefix",
+                                value: defaultPrefix,
+                                inline: false
+                            }
+                        ],
+                        color: 0x2ecc71
+                    }
+                })
+            }
+            f1()
         }
     })
 })
+
 
 const app = require("express")();
 
