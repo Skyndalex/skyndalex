@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "dayjs": "^1.10.4",
+    "discord.js-light": "^3.5.4",
+    "figlet": "^1.5.0",
+    "os": "^0.1.1",
+    "rethinkdb": "^2.4.2"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "krivebot-v2",
+  "version": "1.0.0",
+  "main": "server.js",
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
