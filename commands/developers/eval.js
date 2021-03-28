@@ -2,7 +2,7 @@ const Discord = require("discord.js-light");
 
 exports.run = async (client, message, args) => {
 	const arr = ["509014773006991376"];
-	if (!arr.includes(message.author.id)) return client.errorBuilder(message, `Potrzebujesz uprawnień developera aby użyć tej komendy!`)
+	if (!arr.includes(message.author.id)) return client.error(message, `Potrzebujesz uprawnień developera aby użyć tej komendy!`)
 	let cToken = new RegExp(client.token, "g");
   
 	if (!args[0]) return client.error(message, `Nie podano kodu wejściowego!`)

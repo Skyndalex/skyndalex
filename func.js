@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 module.exports = (client) => {
-    client.errorBuilder = async (message, text) => {
+    client.error = async (message, text) => {
         let embedError = new Discord.MessageEmbed()
             .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
             .setTitle(`Wystąpił błąd!`)

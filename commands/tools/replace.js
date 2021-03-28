@@ -1,7 +1,6 @@
 const Discord = require("discord.js-light")
 exports.run = async (client, message, args) => {
-     message.channel.send("Wszystkie komendy które wymagają dodatkowe uprawnienia działają od poziomu właściciela serwera (tymczasowo)! Przepraszamy!")
-     if (!message.member.hasPermission('MANAGE_CHANNELS')) return client.errorBuilder(message, `Nie masz permisji! `);
+     if (!message.member.hasPermission('MANAGE_CHANNELS')) return client.error(message, `Nie masz permisji! `);
 
 
     const kl = []

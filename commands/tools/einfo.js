@@ -1,7 +1,7 @@
 const dayjs = require("dayjs")
 dayjs.locale("pl")
 exports.run = async (client, message, args, level) => {
-    message.channel.send("Komenda nie działa.")
+    client.commandNotEnabled(message, "W trakcie prac")
 }
 exports.help = {
     name: "einfo",

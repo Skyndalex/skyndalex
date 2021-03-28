@@ -10,9 +10,18 @@
     "start": "node server.js"
   },
   "name": "krivebot-v2",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "main": "server.js",
   "author": "",
   "license": "ISC",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Korrumz2PL/krivebot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Korrumz2PL/krivebot/issues"
+  },
+  "homepage": "https://github.com/Korrumz2PL/krivebot#readme",
   "description": ""
 }

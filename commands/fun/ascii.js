@@ -3,7 +3,7 @@ const figlet = require('figlet');
 
 exports.run = async (client, message, args) => {
     let text = args.join('\n');
-    if (!text) return client.errorBuilder(message, 'Nie podałeś textu do przerobienia!');
+    if (!text) return client.error(message, 'Nie podałeś textu do przerobienia!');
 
     figlet(text, function(err, data) {
         if (err) {

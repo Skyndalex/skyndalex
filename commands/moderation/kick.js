@@ -3,7 +3,7 @@ exports.run = async (client, message, args) => {
     let member = message.mentions.members.first()
     if (!member) return client.errorBuilder(message, `Nie znaleziono użytkownika`)
 
-    if(!message.member.hasPermission('KICK_MEMBERS')) return client.errorBuilder(message, 'Nie masz permisji do wyrzucania!')
+    if(!message.member.hasPermission('KICK_MEMBERS')) return client.error(message, 'Nie masz permisji do wyrzucania!')
 
     if (!args[0]) return client.errorBuilder(message, `Nie podano użytkownika`)
 

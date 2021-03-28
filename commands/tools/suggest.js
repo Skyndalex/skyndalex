@@ -1,6 +1,6 @@
 const Discord = require("discord.js-light")
 exports.run = async (client, message, args, level) => {
-    if (!args[0]) return client.errorBuilder(message, `Nie podano treści propozycji!`)
+    if (!args[0]) return client.error(message, `Nie podano treści propozycji!`)
 
     let embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))

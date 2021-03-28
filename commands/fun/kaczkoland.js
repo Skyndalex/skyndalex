@@ -1,13 +1,13 @@
 const Discord = require("discord.js-light")
 const fetch = require("node-fetch")
 exports.run = async (client, message, args) => {
-    if (!args[0]) return client.errorBuilder(message, `Nie podano gracza!`)
+    if (!args[0]) return client.error(message, `Nie podano gracza!`)
 
     fetch("https://api.kaczkoland.pl/all")
         .then(res => res.json())
         .then(req => {
             const r = req.find(q => q.username === args[0]);
-            if (!r) return client.errorBuilder(message, `Nie znaleziono gracza!`)
+            if (!r) return client.error(message, `Nie znaleziono gracza!`)
 
             let embedStats = new Discord.MessageEmbed()
                 .setTitle(`Statystyki gracza na serwerze kaczkoland.pl`)

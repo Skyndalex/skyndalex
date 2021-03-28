@@ -1,6 +1,6 @@
 const Discord = require("discord.js-light")
 exports.run = async (client, message, args) => {
-    if (!message.member.hasPermission('MANAGE_MESSAGES')) return client.errorBuilder(message, `Nie masz permisji! `);
+    if (!message.member.hasPermission('MANAGE_MESSAGES')) return client.error(message, `Nie masz permisji! `);
     if (isNaN(args[0])) return client.error(message, 'To, co wpisałeś nie jest liczbą!');
     if (!args[0]) return client.error(message, 'Nie wpisano liczby wiadomości do skasowania!');
     if ((args[0] > 99) || (args[0] < 1)) return client.error(message, 'Maksymalna liczba wynosi 99, a minimalna to 1!');

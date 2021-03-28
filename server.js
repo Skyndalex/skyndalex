@@ -16,12 +16,6 @@ const r = require("rethinkdb")
 		async function connect() {
 			if (err) console.log(err)
 			client.con = con;
-
-			const a = await r.db("krivebot").table("settings").get("id").run(client.con);
-			const b = await r.db("krivebot").table("settings").filter({b : true}).coerceTo("array").run(client.con);
-
-			const c = await r.db("krivebot").table("gbans").get("userid").run(client.con);
-			const d = await r.db("krivebot").table("gbans").filter({b : true}).coerceTo("array").run(client.con);
 		}
 		connect()
 	})

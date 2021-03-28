@@ -1,11 +1,11 @@
 const Discord = require("discord.js-light")
 exports.run = async (client, message, args) => {
     let member = message.mentions.members.first()
-    if (!member) return client.errorBuilder(message, `Nie znaleziono użytkownika`)
+    if (!member) return client.error(message, `Nie znaleziono użytkownika`)
 
-    if(!message.member.hasPermission('BAN_MEMBERS')) return client.errorBuilder(message, 'Nie masz permisji do banowania!')
+    if(!message.member.hasPermission('BAN_MEMBERS')) return client.error(message, 'Nie masz permisji do banowania!')
 
-    if (!args[0]) return client.errorBuilder(message, `Nie podano użytkownika`)
+    if (!args[0]) return client.error(message, `Nie podano użytkownika`)
 
     member.ban({reason: `Banned by ${message.author.tag}`})
 

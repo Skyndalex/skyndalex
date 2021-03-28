@@ -1,6 +1,8 @@
 exports.run = async (client, message) => {
-    const msg = await message.channel.send("Obliczam ping...");
-    await msg.edit(`\`\`\`Ping: ${msg.createdTimestamp - message.createdTimestamp}\`\`\``);
+   let embed = new Discord.MessageEmbed()
+       .setDescription(`Ping: ${client.ws.ping}`)
+       .setColor("GREEN")
+    message.channel.send(embed)
 };
 
 exports.help = {
