@@ -1,19 +1,12 @@
 const Discord = require("discord.js");
 exports.run = async (client, message, args) => {
 if (!args[0]) return client.error(message, `Nie podałeś odpowiednich argumentów \`[author, title, description, footer, color]\``)
-
-    let author = args[0]
-    let title = args[1]
-    let description = args[2]
-    let footer = args[3]
-    let color = args[4]
-
     let embed = new Discord.MessageEmbed()
-        .setAuthor(author)
-        .setTitle(title)
-        .setDescription(description)
-        .setFooter(footer)
-        .setColor(color)
+        .setAuthor(args[0]||"Nie podano")
+        .setTitle(args[1]||"Nie podano")
+        .setDescription(args[2]||"Nie podano")
+        .setFooter(args[3]||"Nie podano")
+        .setColor(args[4]||"Nie podano")
     message.channel.send(embed)
 }
 exports.help = {

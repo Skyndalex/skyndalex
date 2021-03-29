@@ -3,12 +3,10 @@ exports.run = async (client, message, args) => {
      if (!message.member.hasPermission('MANAGE_CHANNELS')) return client.error(message, `Nie masz permisji! `);
 
 
-    const kl = []
     message.guild.channels.cache.forEach(k => {
         if (!k.name.includes("-")) return
         const g = k.name.replace("-", "ˑ")
         k.setName(g)
-        kl.push(g)
     });
     let embed = new Discord.MessageEmbed()
         .setDescription("Pomyślnie zamieniłem znak \`-\` we wszystkich nazwach kanału!")
