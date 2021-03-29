@@ -2,6 +2,7 @@
   "dependencies": {
     "dayjs": "^1.10.4",
     "discord.js-light": "^3.5.4",
+    "express": "^4.17.1",
     "figlet": "^1.5.0",
     "os": "^0.1.1",
     "rethinkdb": "^2.4.2"
@@ -14,7 +15,6 @@
   "main": "server.js",
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Korrumz2PL/krivebot.git"
