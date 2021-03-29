@@ -13,11 +13,8 @@ const client = new Discord.Client({
 const r = require("rethinkdb")
 
 	r.connect({db: "krivebot"}, (err, con) => {
-		async function connect() {
 			if (err) console.log(err)
-			client.con = con;
-		}
-		connect()
+		    client.con = con;
 	})
 client.on("ready", () => {
     console.log("client ready");

@@ -7,8 +7,6 @@ exports.run = async (client, message, args) => {
 
     figlet(text, function(err, data) {
         if (err) {
-            console.log(err);
-            console.dir(err);
             return client.error(message, `\`\`\`${err}\`\`\``);
         }
 
