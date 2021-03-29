@@ -4,9 +4,9 @@ module.exports = (client, message) => {
 
     let embedMention = new Discord.MessageEmbed()
         .setTitle(`Siemka!`)
-        .setDescription("Komenda pomocy to \`/\`")
+        .setDescription("Komenda pomocy to \`k?help\`")
         .addField("Strona internetowa bota", `[krivebot.xyz](${client.url})`)
-        .addField("Prefix", "/")
+        .addField("Prefix", "k?")
         .setURL(client.url)
         .setColor(`GREEN`)
 

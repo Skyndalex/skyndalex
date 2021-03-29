@@ -8,7 +8,7 @@ const client = new KriveManager({
 	cacheOverwrites: true,
 	cacheRoles: true,
 	cacheEmojis: true,
-	cachePresences: true
+	cachePresences: false,
 })
 
 const r = require("rethinkdb")
