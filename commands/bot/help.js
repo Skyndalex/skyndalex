@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
         .addField(`Zabawa`, `> \`\`\`${client.commands.filter(c => c.help.category==="fun").map(c => c.help.name).join(" | ")||"Brak"}\`\`\``)
         .addField(`Moderacja`, `> \`\`\`${client.commands.filter(c => c.help.category==="moderation").map(c => c.help.name).join(" | ")||"Brak"}\`\`\``)
         .addField(`Narzędzia`, `> \`\`\`${client.commands.filter(c => c.help.category==="tools").map(c => c.help.name).join(" | ")||"Brak"}\`\`\``)
-        .setURL("https://krivebot.xyz")
+        .setURL(client.url)
         .setColor("GREEN")
     message.channel.send(embed)
 }
