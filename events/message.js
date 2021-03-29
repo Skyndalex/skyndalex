@@ -1,7 +1,7 @@
+const Discord = require('discord.js-light')
 module.exports = (client, message) => {
     const { prefix }  = require("../config.json");
 
-    const Discord = require('discord.js-light')
     let embedMention = new Discord.MessageEmbed()
         .setTitle(`Siemka!`)
         .setDescription("Komenda pomocy to \`/\`")
