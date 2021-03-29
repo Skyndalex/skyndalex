@@ -5,8 +5,9 @@ module.exports = (client, message) => {
     let embedMention = new Discord.MessageEmbed()
         .setTitle(`Siemka!`)
         .setDescription("Komenda pomocy to \`/\`")
-        .addField("Strona internetowa bota", "[krivebot.xyz](https://krivebot.xyz)")
+        .addField("Strona internetowa bota", `[krivebot.xyz](${client.url})`)
         .addField("Prefix", "/")
+        .setURL(client.url)
         .setColor(`GREEN`)
 
     const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);

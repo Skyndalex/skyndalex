@@ -8,7 +8,7 @@ exports.run = async (client, message, args, level) => {
         .setTitle("Opublikowano nowe ogłoszenie")
         .setDescription(args.join(" "))
         .setColor("GREEN")
-        .setURL("https://krivebot.xyz")
+        .setURL(client.url)
     message.channel.send(embed)
 }
 exports.help = {

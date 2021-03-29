@@ -1,13 +1,14 @@
 const Discord = require("discord.js-light")
 const fs = require("fs")
 const { prefix, token } = require("./config.json")
-const client = new Discord.Client({
+const KriveManager = require("./Client.js")
+const client = new KriveManager({
 	cacheGuilds: true,
-    cacheChannels: true,
-    cacheOverwrites: true,
-    cacheRoles: true,
-    cacheEmojis: true,
-    cachePresences: false
+	cacheChannels: true,
+	cacheOverwrites: true,
+	cacheRoles: true,
+	cacheEmojis: true,
+	cachePresences: true
 })
 
 const r = require("rethinkdb")
