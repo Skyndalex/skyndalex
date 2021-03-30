@@ -7,7 +7,6 @@ exports.run = async (client, message, args) => {
     const user = message.mentions.users.first()||client.users.cache.get(args[0])||client.users.cache.get(args[1])
 
     if (!user) return client.error(message, `Nie znaleziono użytkownika`)
-
     if (!args[0]) return client.error(message, `Nie podano użytkownika`)
 
     r.table("gbans").filter({userid: user.id}).delete().run(client.con)
