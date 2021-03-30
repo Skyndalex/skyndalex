@@ -15,7 +15,7 @@ const app = express()
 const port = 6969
 
 app.get('/', (req, res) => {
-	res.send('Sended.')
+	res.send('Sent')
 })
 
 app.listen(port, () => {
