@@ -23,38 +23,13 @@ app.listen(port, () => {
 })
 const r = require("rethinkdb")
 	r.connect({db: "krivebot"}, (err, con) => {
-			if (err) console.log(err)
-		    client.con = con;
+		if (err) console.log(err)
+		client.con = con;
 	})
 client.on("ready", () => {
-	client.api.applications(client.user.id).commands.post({data: {
-			name: 'ping',
-			description: 'Oblicza ping bota'
-		}})
-	client.api.applications(client.user.id).commands.post({data: {
-			name: 'authors',
-			description: 'Autorzy bota'
-		}})
-	client.api.applications(client.user.id).commands.post({data: {
-			name: 'discord',
-			description: 'Zaproszenie na serwer discord bota'
-		}})
-	client.api.applications(client.user.id).commands.post({data: {
-			name: 'page',
-			description: 'Wysyła link do strony bota'
-		}})
-	client.api.applications(client.user.id).commands.post({data: {
-			name: 'invite',
-			description: 'Zaproś bota na serwer'
-		}})
-	client.api.applications(client.user.id).commands.post({data: {
-			name: 'public',
-			description: 'Link do kodu bota'
-		}})
-	console.log("client ready");
+	console.log("Client ready!")
 });
 client.ws.on('INTERACTION_CREATE',  interaction => {
-	const command = interaction.data.name.toLowerCase();
 	switch(interaction.data.name.toLowerCase()) {
 		case 'ping':
 			client.api.interactions(interaction.id, interaction.token).callback.post({
