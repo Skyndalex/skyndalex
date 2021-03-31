@@ -1,35 +1,32 @@
 const Discord = require("discord.js-light")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
-    /*
-    if (!message.member.hasPermission('ADMINISTRATOR')) return client.errorBuilder(message, `Nie masz permisji! `);
+    if (!message.member.hasPermission('ADMINISTRATOR')) return client.error(message, `Nie masz permisji! `);
     if (args[0] === "broadcastChannel") {
-        if (!args[0]) return client.errorBuilder(message, "Nie podano kanału!")
-        const settingsBroadcastChannel = message.mentions.channels.first()
-        const err = isNaN(settingsBroadcastChannel)
-        if (err === true) return client.errorBuilder(message, 'Nie znalazłem tego kanału')
-        if (settingsBroadcastChannel.type === "voice") return client.errorBuilder(message, 'Podałeś kanał głosowy! Proszę wpisać kanał tekstowy')
-        if (settingsBroadcastChannel.type === "category") return client.errorBuilder(message, 'Podałeś kategorię! Proszę wpisać kanał tekstowy')
+        if (!args[0]) return client.error(message, "Nie podano kanału!")
+        let channel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+        if (!channel) return client.error(message, `Nie znaleziono kanału!`)
+        if (channel.type === "voice") return client.error(message, 'Podałeś kanał głosowy! Proszę wpisać kanał tekstowy')
+        if (channel.type === "category") return client.error(message, 'Podałeś kategorię! Proszę wpisać kanał tekstowy')
 
         r.table("settings").insert({
             id: message.guild.id,
-            broadcastChannel: settingsBroadcastChannel
+            broadcastChannel: channel.id
         }).run(client.con)
 
-        r.table("settings").get("id").update({settingsBroadcastChannel: channel}).run(client.con)
+        r.table("settings").get(message.guild.id).update({broadcastChannel: channel.id}).run(client.con)
 
-        let embed1 = new Discord.MessageEmbed()
+        let embed = new Discord.MessageEmbed()
             .setTitle("Ustawiono")
-            .addField("Zmienna", "\`broadcastChannel\`")
-            .addField("Wartość", `<#${channel.id}>`)
+            .addField("Zmienna", "broadcastChannel")
+            .addField("Nowa wartość", `<#${channel.id}>`)
             .setColor("GREEN")
-        message.channel.send(embed1).catch(err => {
-            message.channel.send(err)
-        })
+            .setURL(client.url)
+        message.channel.send(embed)
     } else {
         let config = new Discord.MessageEmbed()
             .setTitle("Ustawienia serwerowe")
-            .setDescription("Użycie: \`set [zmienna] [wartość]\`\n\nLista zmiennych poniżej")
+            .setDescription("Użycie: \`set [zmienna] [wartość]\`\n\nLista zmiennych poniżej (to co jest po numerze)")
             .addField("\`[1] broadcastChannel\`", "Ustawia kanał ogłoszeń")
             .addField("\`[2] voteChannel\`", "Ustawia kanał głosowań")
             .addField("\`[3] private-mod-channel\`", "Ustawia kanał na którym wysyła pytania użytkowników i inne moderacyjne rzeczy")
@@ -43,8 +40,7 @@ exports.run = async (client, message, args) => {
         message.channel.send(config)
     }
 
-     */
-    client.commandNotEnabled(message, "Komenda dalej testowana")
+
 }
 exports.help = {
     name: "set",
