@@ -3,7 +3,6 @@ exports.run = async (client, message) => {
 let embed = new Discord.MessageEmbed()
     .setTitle("Social-media bota")
     .setDescription("Bardzo dużo osób się podszywa pod bota, właściciela... W tej komendzie znajdują się linki do oryginalnych, naszych kont")
-    .addField(`Strona internetowa", "[krivebot.xyz](${client.url})`)
     .addField("YouTube", "[Link](https://www.youtube.com/channel/UC_N99xLClLlM9t-DleWwrog)")
     .addField("Twitter", "[Link](https://twitter.com/Krive7)")
     .addField("Właściciel bota", "[Otwórz DM](https://discord.com/users/509014773006991376)")
