@@ -26,7 +26,6 @@ module.exports = async(client, message) => {
     if (!cmd) return;
 
     const gban = await r.table("gbans").get(message.author.id).run(client.con)
-    console.log(gban)
     if (gban) return client.error(message, "Masz gbana")
 
 

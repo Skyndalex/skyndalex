@@ -23,13 +23,76 @@ app.listen(port, () => {
 })
 
 const r = require("rethinkdb")
-r.connect({db: "krivebot"}, (con) => {
+r.connect({db: "krivebot"}, (err, con) => {
+	if (err) console.log(err)
 	client.con = con;
 })
 
-client.on("ready", () => {
-	console.log("Client ready!")
+client.ws.on('INTERACTION_CREATE',  interaction => {
+	switch(interaction.data.name.toLowerCase()) {
+		case 'ping':
+			client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: client.ws.ping
+					}
+				}
+			})
+			break;
+		case 'authors':
+			client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: "entity#8309"
+					}
+				}
+			})
+			break;
+		case 'discord':
+			client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: "https://krivebot.xyz/discord"
+					}
+				}
+			})
+			break;
+		case 'page':
+			client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: "https://krivebot.xyz"
+					}
+				}
+			})
+			break;
+		case 'invite':
+			client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: "https://krivebot.xyz/invite"
+					}
+				}
+			})
+			break;
+		case 'public':
+			client.api.interactions(interaction.id, interaction.token).callback.post({
+				data: {
+					type: 4,
+					data: {
+						content: "https://krivebot.xyz/public"
+					}
+				}
+			})
+			break;
+	}
 });
+console.log("Ready!")
 
 client.commands = new Discord.Collection();
 
