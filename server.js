@@ -12,7 +12,7 @@ const client = new KriveManager({
 })
 const express = require('express')
 const app = express()
-const port = 6969
+const port = 2222
 
 app.get('/', (req, res) => {
 	res.send('Sent')
