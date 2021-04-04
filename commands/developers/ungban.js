@@ -1,10 +1,11 @@
 const Discord = require("discord.js-light");
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
-    const arr = ["509014773006991376"];
-    if (!arr.includes(message.author.id)) return client.errorBuilder(message, `Potrzebujesz uprawnień developera aby użyć tej komendy!`)
+    let arr = ["509014773006991376"];
 
-    const user = message.mentions.users.first()||client.users.cache.get(args[0])||client.users.cache.get(args[1])
+    if (!arr.includes(message.author.id)) return client.error(message, `Potrzebujesz uprawnień developera aby użyć tej komendy!`)
+
+    const user = message.mentions.users.first()||client.users.cache.get(args[0])
 
     if (!user) return client.error(message, `Nie znaleziono użytkownika`)
     if (!args[0]) return client.error(message, `Nie podano użytkownika`)
@@ -19,5 +20,5 @@ exports.run = async (client, message, args) => {
 exports.help = {
     name: "ungban",
     description: "Usuwa blokadę na korzystanie z bota",
-    category: "dev"
+    category: "developers"
 }

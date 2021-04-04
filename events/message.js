@@ -1,5 +1,6 @@
 const Discord = require('discord.js-light')
-module.exports = (client, message) => {
+const r = require("rethinkdb")
+module.exports = async(client, message) => {
     const { prefix }  = require("../config.json");
 
     let embedMention = new Discord.MessageEmbed()
@@ -23,6 +24,12 @@ module.exports = (client, message) => {
 
     const cmd = client.commands.get(command) || client.commands.find(c => c.help.aliases && c.help.aliases == command);
     if (!cmd) return;
+
+    const gban = await r.table("gbans").get(message.author.id).run(client.con)
+    console.log(gban)
+    if (gban) return client.error(message, "Masz gbana")
+
+
 
     cmd.run(client, message, args);
 };
