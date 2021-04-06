@@ -3,8 +3,8 @@ const r = require('rethinkdb')
 exports.run = async (client, message, args, level) => {
     const arr = ["509014773006991376"];
     if (!arr.includes(message.author.id)) return client.error(message, `Potrzebujesz uprawnień developera aby użyć tej komendy!`)
+    let user = message.mentions.users.first()
 
-    const user = message.mentions.users.first()||client.users.cache.get(args[0])
 
     if (!user) return client.error(message, `Nie znaleziono użytkownika`)
     if (!args[0]) return client.error(message, `Nie podano użytkownika`)

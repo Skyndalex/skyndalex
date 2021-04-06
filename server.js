@@ -8,7 +8,7 @@ const client = new KriveManager({
 	cacheOverwrites: true,
 	cacheRoles: true,
 	cacheEmojis: true,
-	cachePresences: false,
+	cachePresences: true,
 })
 const express = require('express')
 const app = express()
