@@ -11,5 +11,14 @@ class KriveManager extends Client {
         this.footer = `KriveBot ${this.version} || ${this.discord}`
 
     }
+     error(message, text, footer = "Błąd", color = "RED") {
+        let embedError = new Discord.MessageEmbed()
+            .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
+            .setTitle(`Błąd!`)
+            .setDescription(text)
+            .setColor(color)
+            .setFooter(this.footer)
+        return message.channel.send(embedError)
+    }
 }
 module.exports = KriveManager;
