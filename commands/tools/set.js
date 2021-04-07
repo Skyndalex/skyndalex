@@ -7,9 +7,9 @@ exports.run = async (client, message, args) => {
             if (!args[0]) return client.error(message, "Nie podano kanału!")
             let bChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
             if (!bChannel) return client.error(message, `Nie znaleziono kanału!`)
-            if (bChannel.type === "text") return client.error(message, 'Podałeś kategorię bądź typ kanału głosowy. Prosze podać kanał tekstowy')
-
-
+            if (bChannel.type === "voice") return client.error(message, 'Podałeś kanał głosowy! Proszę wpisać kanał tekstowy')
+            if (bChannel.type === "category") return client.error(message, 'Podałeś kategorię! Proszę wpisać kanał tekstowy')
+            A
             r.table("settings").update({broadcastChannel: bChannel.id}).run(client.con)
 
             let broadcastChannelConfigEmbed = new Discord.MessageEmbed()
@@ -55,7 +55,21 @@ exports.run = async (client, message, args) => {
             message.channel.send(voteChannelConfigEmbed)
             break;
         case 'private-mod-channel':
-            client.commandNotEnabled(message, "Komenda będzie dostępna 07.04.2021")
+            if (!args[0]) return client.error(message, "Nie podano kanału!")
+            let pmChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!pmChannel) return client.error(message, `Nie znaleziono kanału!`)
+            if (pmChannel.type === "voice") return client.error(message, 'Podałeś kanał głosowy! Proszę wpisać kanał tekstowy')
+            if (pmChannel.type === "category") return client.error(message, 'Podałeś kategorię! Proszę wpisać kanał tekstowy')
+
+            r.table("settings").update({passChannel: pmChannel.id}).run(client.con)
+
+            let pmChannelConfigEmbed = new Discord.MessageEmbed()
+                .setTitle("Ustawiono")
+                .addField("Zmienna", "private-mod-channel")
+                .addField("Nowa wartość", `<#${pmChannel.id}>`)
+                .setColor("GREEN")
+                .setURL(client.url)
+            message.channel.send(pmChannelConfigEmbed)
             break;
         case 'passChannel':
             if (!args[0]) return client.error(message, "Nie podano kanału!")
@@ -68,7 +82,7 @@ exports.run = async (client, message, args) => {
 
             let passChannelConfigEmbed = new Discord.MessageEmbed()
                 .setTitle("Ustawiono")
-                .addField("Zmienna", "voteChannel")
+                .addField("Zmienna", "passChannel")
                 .addField("Nowa wartość", `<#${pChannel.id}>`)
                 .setColor("GREEN")
                 .setURL(client.url)
@@ -91,6 +105,21 @@ exports.run = async (client, message, args) => {
                 .setURL(client.url)
             message.channel.send(globalBroadcastChannelConfigEmbed)
             break;
+        case 'autoRole':
+            if (!args[0]) return client.error(message, "Nie podano kanału!")
+            let autoRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
+            if (!autoRole) return client.error(message, "Nie znalazłem roli")
+
+            r.table("settings").update({autoRole: autoRole.id}).run(client.con)
+
+            let autoRoleConfigEmbed = new Discord.MessageEmbed()
+                .setTitle("Ustawiono")
+                .addField("Zmienna", "autoRole")
+                .addField("Nowa wartość", `<@${autoRole.id}>`)
+                .setColor("GREEN")
+                .setURL(client.url)
+            message.channel.send(autoRoleConfigEmbed)
+            break;
         case 'default':
         default:
             let embed = new Discord.MessageEmbed()
@@ -103,6 +132,7 @@ exports.run = async (client, message, args) => {
                 .addField("\`[5] suggestChannel\`", "Kanał propozycji")
                 .addField("\`[6] globalBroadcastChannel\`", "Kanał globalnych ogłoszeń bota **[zalecane]**")
                 .addField("\`[7] prefix\`", "Customowy prefix serwerowy")
+                .addField("\`[8] autoRole\`", "Ustawia autorole na serwerze")
                 .setFooter("Ustawienia ról w tym miejscu > set-roles")
                 .setColor("GREEN")
             message.channel.send(embed)
