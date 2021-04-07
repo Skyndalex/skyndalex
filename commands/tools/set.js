@@ -7,8 +7,7 @@ exports.run = async (client, message, args) => {
             if (!args[0]) return client.error(message, "Nie podano kanału!")
             let bChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
             if (!bChannel) return client.error(message, `Nie znaleziono kanału!`)
-            if (bChannel.type === "voice") return client.error(message, 'Podałeś kanał głosowy! Proszę wpisać kanał tekstowy')
-            if (bChannel.type === "category") return client.error(message, 'Podałeś kategorię! Proszę wpisać kanał tekstowy')
+            if (bChannel.type === "text") return client.error(message, 'Podałeś kategorię bądź typ kanału głosowy. Prosze podać kanał tekstowy')
 
 
             r.table("settings").update({broadcastChannel: bChannel.id}).run(client.con)
@@ -59,7 +58,21 @@ exports.run = async (client, message, args) => {
             client.commandNotEnabled(message, "Komenda będzie dostępna 07.04.2021")
             break;
         case 'passChannel':
-            client.commandNotEnabled(message, "Komenda będzie dostępna 07.04.2021")
+            if (!args[0]) return client.error(message, "Nie podano kanału!")
+            let pChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!pChannel) return client.error(message, `Nie znaleziono kanału!`)
+            if (pChannel.type === "voice") return client.error(message, 'Podałeś kanał głosowy! Proszę wpisać kanał tekstowy')
+            if (pChannel.type === "category") return client.error(message, 'Podałeś kategorię! Proszę wpisać kanał tekstowy')
+
+            r.table("settings").update({passChannel: pChannel.id}).run(client.con)
+
+            let passChannelConfigEmbed = new Discord.MessageEmbed()
+                .setTitle("Ustawiono")
+                .addField("Zmienna", "voteChannel")
+                .addField("Nowa wartość", `<#${pChannel.id}>`)
+                .setColor("GREEN")
+                .setURL(client.url)
+            message.channel.send(passChannelConfigEmbed)
             break;
         case 'globalBroadcastChannel':
             if (!args[0]) return client.error(message, "Nie podano kanału!")
