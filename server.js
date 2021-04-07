@@ -1,6 +1,6 @@
 const Discord = require("discord.js-light")
 const fs = require("fs")
-const { prefix, token } = require("./config.json")
+const { token } = require("./config.json")
 const KriveManager = require("./Client.js")
 const client = new KriveManager({
 	cacheGuilds: true,
