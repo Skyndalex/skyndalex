@@ -1,7 +1,7 @@
 const Discord = require("discord.js-light");
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
-    let arr = ["509014773006991376"];
+    let arr = ["509014773006991376", "484419302200442890"];
 
     if (!arr.includes(message.author.id)) return client.error(message, `Potrzebujesz uprawnień developera aby użyć tej komendy!`)
 
