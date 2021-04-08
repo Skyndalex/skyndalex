@@ -9,7 +9,6 @@ exports.run = async (client, message, args) => {
             if (!bChannel) return client.error(message, `Nie znaleziono kanału!`)
             if (bChannel.type === "voice") return client.error(message, 'Podałeś kanał głosowy! Proszę wpisać kanał tekstowy')
             if (bChannel.type === "category") return client.error(message, 'Podałeś kategorię! Proszę wpisać kanał tekstowy')
-            A
             r.table("settings").update({broadcastChannel: bChannel.id}).run(client.con)
 
             let broadcastChannelConfigEmbed = new Discord.MessageEmbed()
