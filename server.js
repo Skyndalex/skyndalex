@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
-	console.log(`http://localhost:${port}`)
+	console.log(`Express server started`)
 })
 
 const r = require("rethinkdb")
@@ -92,29 +92,25 @@ client.ws.on('INTERACTION_CREATE',  interaction => {
 			break;
 	}
 });
-console.log("Ready!")
-
 client.commands = new Discord.Collection();
 
 fs.readdirSync("./commands/").forEach(dir => {
 	const commands = fs.readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js"));
-
 	for (let file of commands) {
 		let pull = require(`./commands/${dir}/${file}`);
 		if (pull.help && pull.help.name) {
-			console.log(`Loaded command: ${file}`);
 			client.commands.set(pull.help.name, pull);
 		} else {
 			continue;
 		}
 	}
 });
-
+console.log(`Loaded ${client.commands.size} commands`)
+console.log("Starting...")
 const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith(".js"));
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	const eventName = file.split(".")[0];
-	console.log(`Loaded event: ${file}`);
 	client.on(eventName, event.bind(null, client));
 }
 
