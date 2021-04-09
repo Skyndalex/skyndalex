@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
 
     r.table("gbans").filter({userid: user.id}).delete().run(client.con)
 
-    let embed = new Discord.MessageEmbed()
+    const embed = new Discord.MessageEmbed()
         .setDescription(`Usunięto gbana dla ${user.tag}`)
         .setColor("GREEN")
     message.channel.send(embed)

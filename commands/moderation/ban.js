@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
 
     member.ban({reason: `Banned by ${message.author.tag}`})
 
-        let embed = new Discord.MessageEmbed()
+        const embed = new Discord.MessageEmbed()
             .setTitle("Zbanowano pomyślnie użytkownika!")
             .addField("Serwer", message.guild.name)
             .addField("Moderator", message.author.tag)

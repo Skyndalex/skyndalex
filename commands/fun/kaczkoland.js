@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
             const r = req.find(q => q.username === args[0]);
             if (!r) return client.error(message, `Nie znaleziono gracza!`)
 
-            let embedStats = new Discord.MessageEmbed()
+            const embedStats = new Discord.MessageEmbed()
                 .setTitle(`Statystyki gracza na serwerze kaczkoland.pl`)
                 .setDescription(`Nazwa gracza: ${r.username} (UUID: ${r.uuid})`)
                 .addField("Ranga", r.primary_rank)

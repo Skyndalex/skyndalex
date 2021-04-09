@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
 
     const channel = await r.table("settings").get(message.guild.id).run(client.con)
 
-    let embed = new Discord.MessageEmbed()
+    const embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
         .setTitle("Opublikowano nowe, globalne ogłoszenie!")
         .setDescription(`${args.join(" ")}\n\nOpublikował: ${message.author.tag}`)

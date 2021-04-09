@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
         let embed = new Discord.MessageEmbed()
             .setTitle('Wygenerowano')
             .setDescription(`\`\`\`${data}\`\`\``)
-            .setFooter('KriveBot - generator tekstu ascii.')
+            .setFooter(client.footer)
             .setColor('GREEN')
 
         message.channel.send(embed);

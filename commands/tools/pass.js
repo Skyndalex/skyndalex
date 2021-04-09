@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
     const channel = await r.table("settings").get(message.guild.id).run(client.con)
     if (!channel) return client.error(message, `Nie ustawiono kanału ogłoszeń`)
 
-    let embed = new Discord.MessageEmbed()
+    const embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
         .setTitle("Opublikowano nowe podanie!")
         .setDescription(args.join(" "))

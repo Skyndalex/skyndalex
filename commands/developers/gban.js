@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
         gbanReason: args.join(" ").slice(1),
     }).run(client.con)
 
-    let embed = new Discord.MessageEmbed()
+    const embed = new Discord.MessageEmbed()
         .setTitle("Nadano gbana")
         .addField("Przez", message.author.tag)
         .addField("Dla", user.tag)

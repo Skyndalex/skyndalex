@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
         "Chyba nie"
     ]
 
-    let embed = new Discord.MessageEmbed()
+    const embed = new Discord.MessageEmbed()
         .addField('Twoje pytanie', args.join(' '))
         .addField('Odpowiedź', reponses.random())
         .setColor('GREEN')

@@ -8,7 +8,8 @@ exports.run = async (client, message, args) => {
         const g = k.name.replace("-", "ˑ")
         k.setName(g)
     });
-    let embed = new Discord.MessageEmbed()
+
+    const embed = new Discord.MessageEmbed()
         .setDescription("Pomyślnie zamieniłem znak \`-\` we wszystkich nazwach kanału!")
         .setColor("GREEN")
     message.channel.send(embed)

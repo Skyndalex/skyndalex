@@ -6,7 +6,7 @@ exports.run = async (client, message, args, level) => {
     const channel = await r.table("settings").get(message.guild.id).run(client.con)
     if (!channel) return client.error(message, `Nie ustawiono kanału propozycji!`)
 
-    let embed = new Discord.MessageEmbed()
+    const embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
         .setTitle("Opublikowano nową propozycję")
         .setDescription(args.join(" "))

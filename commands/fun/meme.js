@@ -5,7 +5,7 @@ exports.run = async (client, message) => {
     fetch("https://cenzurabot.pl/api/memes/kwejk")
         .then(resp => resp.json())
         .then(resp => {
-            let embed = new Discord.MessageEmbed()
+            const embed = new Discord.MessageEmbed()
                 .setTitle("Wygenerowano mema!")
                 .setImage(resp.meme)
                 .setFooter("Wygenerowano za pomocą API https://cenzurabot.pl/api/memes/kwejk")

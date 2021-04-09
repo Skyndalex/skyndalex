@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
     if ((args[0] > 99) || (args[0] < 1)) return client.error(message, 'Maksymalna liczba wynosi 99, a minimalna to 1!');
     message.channel.bulkDelete(args[0]);
 
-    let embed = new Discord.MessageEmbed()
+    const embed = new Discord.MessageEmbed()
         .setDescription("Usunięto wiadomości")
         .setColor("GREEN")
     message.channel.send(embed)
