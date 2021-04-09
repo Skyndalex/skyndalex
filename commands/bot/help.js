@@ -1,7 +1,15 @@
 exports.run = async (client, message, args) => {
     const Discord = require('discord.js-light')
-    let embed = new Discord.MessageEmbed()
+    let commandsf = [
+        "set",
+        "8ball",
+        "ship",
+        "work",
+
+    ]
+    const embed = new Discord.MessageEmbed()
         .setTitle(`Pomoc (${client.commands.size})`)
+        .setDescription(`Potrzebujesz pomocy? Wejdź na nasz [support](${client.url}/discord)\nPotrzebujesz pomocy z ustawianiem? Zobacz naszą [dokumentację](https://docs.krivebot.xyz)`)
         .addField(`Bot`, `> \`\`${client.commands.filter(c => c.help.category==="bot").map(c => c.help.name).join(" | ")||"Brak"}\`\``)
         .addField(`Zabawa`, `> \`\`${client.commands.filter(c => c.help.category==="fun").map(c => c.help.name).join(" | ")||"Brak"}\`\``)
         .addField(`Moderacja`, `> \`\`${client.commands.filter(c => c.help.category==="moderation").map(c => c.help.name).join(" | ")||"Brak"}\`\``)
@@ -9,6 +17,7 @@ exports.run = async (client, message, args) => {
         .addField(`Zarządzanie botem`, `> \`\`${client.commands.filter(c => c.help.category==="developers").map(c => c.help.name).join(" | ")||"Brak"}\`\``)
         .addField(`Ekonomia`, `> \`\`${client.commands.filter(c => c.help.category==="economy").map(c => c.help.name).join(" | ")||"Brak"}\`\``)
         .setColor("GREEN")
+        .setFooter(`KriveBot team poleca komende ${commandsf.random()}`)
     message.channel.send(embed)
 }
 exports.help = {
