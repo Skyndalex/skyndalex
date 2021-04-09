@@ -7,6 +7,7 @@ exports.run = async (client, message, args) => {
         .addField(`Moderacja`, `> \`\`${client.commands.filter(c => c.help.category==="moderation").map(c => c.help.name).join(" | ")||"Brak"}\`\``)
         .addField(`Narzędzia`, `> \`\`${client.commands.filter(c => c.help.category==="tools").map(c => c.help.name).join(" | ")||"Brak"}\`\``)
         .addField(`Zarządzanie botem`, `> \`\`${client.commands.filter(c => c.help.category==="developers").map(c => c.help.name).join(" | ")||"Brak"}\`\``)
+        .addField(`Ekonomia`, `> \`\`${client.commands.filter(c => c.help.category==="economy").map(c => c.help.name).join(" | ")||"Brak"}\`\``)
         .setColor("GREEN")
     message.channel.send(embed)
 }
