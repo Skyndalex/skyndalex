@@ -1,4 +1,4 @@
-const Discord = require("discord.js-light");
+const Discord = require("discord.js");
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
         let luck = (Math.floor(Math.random() * (85 - 0) + 0))
@@ -14,8 +14,9 @@ exports.run = async (client, message, args) => {
     }).run(client.con)
 
     const d = await r.table("economy").get(message.author.id).run(client.con)
-    console.log(d)
-   r.expr(d.money).add(luck).update({money: luck}).coerceTo("number").run(client.con)
+
+    r.table("economy").update({money: d.money + luck}).run(client.con)
+
 
 }
 exports.help = {
