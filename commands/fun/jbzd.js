@@ -1,5 +1,6 @@
 const fetch = require("node-fetch")
-const Discord = require("discord.js-light")
+const Discord = require("discord.js")
+
 exports.run = async (client, message) => {
     const channel = message.channel
     if (!channel.nsfw) return client.error(message, `Ten kanał musi być NSFW `)
