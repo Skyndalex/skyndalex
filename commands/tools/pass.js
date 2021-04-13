@@ -1,4 +1,5 @@
-const Discord = require("discord.js-light")
+const Discord = require("discord.js")
+
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
     if (!args[0]) return client.error(message, `Nie podano treści ogłoszenia!`)
@@ -11,9 +12,11 @@ exports.run = async (client, message, args) => {
         .setTitle("Opublikowano nowe podanie!")
         .setDescription(args.join(" "))
         .setColor("GREEN")
-        .setURL(client.url)
     client.channels.cache.get(channel.passChannel).send(embed)
-    message.channel.send("Wysłano podanie.")
+
+    const sent = new Discord.MessageEmbed()
+        .setDescription("Opublikowano podanie!")
+        .setColor("GREEN")
 }
 exports.help = {
     name: "pass",
