@@ -1,4 +1,5 @@
-const Discord = require("discord.js-light")
+const Discord = require("discord.js")
+
 exports.run = async (client, message, args) => {
     let iq = Math.floor(Math.random() * (100 - 0) + 0)
 
