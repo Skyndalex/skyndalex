@@ -1,5 +1,6 @@
+const Discord = require('discord.js')
+
 exports.run = async (client, message, args) => {
-    const Discord = require('discord.js-light')
     let commandsf = [
         "set",
         "8ball",
