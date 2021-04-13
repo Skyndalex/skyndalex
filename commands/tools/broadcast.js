@@ -1,4 +1,4 @@
-const Discord = require("discord.js-light")
+const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
     if(!message.member.hasPermission('MANAGE_CHANNELS')) return client.error(message, 'Nie masz permisji!')
@@ -12,9 +12,12 @@ exports.run = async (client, message, args) => {
         .setTitle("Opublikowano nowe ogłoszenie")
         .setDescription(args.join(" "))
         .setColor("GREEN")
-        .setURL(client.url)
     client.channels.cache.get(channel.broadcastChannel).send(embed)
-    message.channel.send("Wysłano ogłoszenie.")
+
+    const sent = new Discord.MessageEmbed()
+        .setDescription("Wysłano ogłoszenie!")
+        .setColor("GREEN")
+    message.channel.send(sent)
 }
 exports.help = {
     name: "broadcast",
