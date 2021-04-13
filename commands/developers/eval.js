@@ -1,4 +1,4 @@
-const Discord = require("discord.js-light");
+const Discord = require("discord.js");
 
 exports.run = async (client, message, args) => {
 	let arr = ["509014773006991376", "484419302200442890", "817883855310684180"];
