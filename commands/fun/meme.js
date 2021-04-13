@@ -1,5 +1,5 @@
 const fetch = require("node-fetch")
-const Discord = require("discord.js-light")
+const Discord = require("discord.js")
 exports.run = async (client, message) => {
     message.channel.send("Generuję... Może to trochę potrwać.")
     fetch("https://cenzurabot.pl/api/memes/kwejk")
