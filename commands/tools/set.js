@@ -1,4 +1,4 @@
-const Discord = require("discord.js-light")
+const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
     if (!message.member.hasPermission('ADMINISTRATOR')) return client.error(message, `Nie masz permisji! `);
@@ -133,6 +133,22 @@ exports.run = async (client, message, args) => {
                 .setURL(client.url)
             message.channel.send(autoRoleConfigEmbed)
             break;
+        case 'mutedRole':
+            if (!args[0]) return client.error(message, "Nie podano roli!")
+
+            let mutedrole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
+            if (!mutedrole) return client.error(message, "Nie znalazłem roli")
+
+            r.table("settings").update({mutedRole: mutedrole.id}).run(client.con)
+
+            const mutedRoleConfigEmbed = new Discord.MessageEmbed()
+                .setTitle("Ustawiono")
+                .addField("Zmienna", "mutedRole")
+                .addField("Nowa wartość", `<@${mutedrole.id}>`)
+                .setColor("GREEN")
+                .setURL(client.url)
+            message.channel.send(mutedRoleConfigEmbed)
+            break;
         case 'default':
         default:
             const embed = new Discord.MessageEmbed()
@@ -146,6 +162,8 @@ exports.run = async (client, message, args) => {
                 .addField("\`[6] globalBroadcastChannel\`", "Kanał globalnych ogłoszeń bota **[zalecane]**")
                 .addField("\`[7] prefix\`", "Customowy prefix serwerowy")
                 .addField("\`[8] autoRole\`", "Ustawia autorole na serwerze")
+                .addField("\`[9] mutedRole\`", "Wycisza użytkownika")
+                .setFooter("W wersji bota v4.0 konfiguracja przejdzie drastyczne zmiany funkcjonalne jak i w wyglądzie.")
                 .setFooter("Ustawienia ról w tym miejscu > set-roles")
                 .setColor("GREEN")
             message.channel.send(embed)
