@@ -8,6 +8,8 @@ exports.run = async (client, message, args) => {
     ]
     if (!usersWhoCanUseMusic.includes(message.author.id)) return client.error(message, "Ta komenda została stworzona na użytek prywatny! Wkrótce będzie publiczna.")
 
+    if (!args[0]) return client.error(message, "Nie podano argumentów!")
+
     const voiceChannel = message.member.voice.channel;
     if (!voiceChannel) return client.error(message, "Musisz być na kanale głosowym, aby użyć tej komendy!")
 
@@ -16,12 +18,9 @@ exports.run = async (client, message, args) => {
     if (!permissions.has("CONNECT")) return client.error(message, "Nie posiadasz permisji \`CONNECT\`")
     if (!permissions.has("SPEAK")) return client.error(message, "Nie posiadasz permisji \`SPEAK\`")
 
-    if (!args.length) return client.error(message, "Musisz napisać jakiś argument.")
 
     const connection = await message.member.voice.channel.join()
 
-    const video = ytdl(args.join(" "))
-    message.channel.send("Szukam....")
 
     const playedEmbed = new Discord.MessageEmbed()
         .setDescription("Pomyślnie odtworzono muzykę")
@@ -30,19 +29,20 @@ exports.run = async (client, message, args) => {
         .setColor("GREEN")
     message.channel.send(playedEmbed)
 
-        const dispatcher = connection.play(video, {seek: 0})
+    const dispatcher = connection.play(ytdl(args.join(" ")));
 
-        dispatcher.setVolume(30)
 
-        const embede = new Discord.MessageEmbed()
-            .setDescription("Skończyłem odtwarzać muzykę.")
-            .setColor("GREEN")
+    dispatcher.setVolume(100)
 
-        dispatcher.on('finish', async() => {
-            await message.member.voice.channel.leave()
-            message.channel.send(embede)
+    const embede = new Discord.MessageEmbed()
+        .setDescription("Skończyłem odtwarzać muzykę.")
+        .setColor("GREEN")
 
-        });
+    dispatcher.on('finish', async() => {
+        await message.member.voice.channel.leave()
+        message.channel.send(embede)
+
+    });
 
 }
 exports.help = {
