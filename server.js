@@ -1,4 +1,4 @@
-const Discord = require("discord.js-light")
+const Discord = require("discord.js")
 const fs = require("fs")
 const { token } = require("./config.json")
 const KriveManager = require("./Client.js")
@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
 	console.log(`Express server started`)
 })
+
 
 const r = require("rethinkdb")
 r.connect({db: "krivebot"}, (err, con) => {
