@@ -1,4 +1,4 @@
-const Discord = require("discord.js-light")
+const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args, level) => {
     if(!message.member.hasPermission('MANAGE_CHANNELS')) return client.error(message, 'Nie masz permisji!')

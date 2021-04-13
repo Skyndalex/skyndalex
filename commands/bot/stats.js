@@ -1,4 +1,5 @@
-const Discord = require("discord.js-light")
+const Discord = require("discord.js")
+
 const os = require("os")
 exports.run = async (client, message, args) => {
     let statEmbed = new Discord.MessageEmbed()
@@ -8,7 +9,7 @@ exports.run = async (client, message, args) => {
         .addField(`Liczba użytkowników`,`${client.users.cache.size}`, true)
         .addField(`Liczba kanałów`, `${client.channels.cache.size}`, true)
         .addField(`Użycie pamięci RAM`, `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)}/${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`, true)
-        .addField('Wersja discord.js-light', `${Discord.version}`, true)
+        .addField('Wersja discord.js', `${Discord.version}`, true)
         .addField(`Wersja node.js`, `${process.version}`, true)
     message.channel.send(statEmbed);
 

@@ -1,4 +1,5 @@
-const Discord = require("discord.js-light")
+const Discord = require("discord.js")
+
 exports.run = async (client, message) => {
 let embed = new Discord.MessageEmbed()
     .setTitle("Social-media bota")

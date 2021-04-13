@@ -1,4 +1,4 @@
-const Discord = require("discord.js-light")
+const Discord = require("discord.js")
 exports.run = async (client, message, args) => {
     if (!args[0]) return client.error(message, `Podaj argumenty!`)
 

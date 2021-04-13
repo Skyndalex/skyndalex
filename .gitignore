@@ -1,3 +1,6 @@
 /config.json
 /node_modules
 /rethinkdb-2.3.6
+/ffmpeg.exe
+/ffplay.exe
+/ffprobe.exe

@@ -1,4 +1,4 @@
-const Discord = require("discord.js-light")
+const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args, level) => {
     if (!args[0]) return client.error(message, `Nie podano treści propozycji!`)
