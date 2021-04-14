@@ -1,0 +1,49 @@
+{
+  "8ball": {
+    "responses": ["Yes", "No"]
+  },
+  "help": {
+    "fun": "Fun",
+    "tools": "Tools",
+    "VC management": "VC management"
+  },
+  "kick": {
+    "noreason": "No reason provided",
+    "nopermissions": "You do not have a correct permissions!",
+    "notfound": "Not found.",
+    "kicked": "Kicked!",
+    "error": "You can't kick this user!"
+  },
+  "work": {
+    "cooldown": "Please wait 2 minutes!"
+  },
+  "daily-reward": {
+    "cooldown": "Please wait 12h!"
+  },
+  "voteadmin": {
+    "notfound": "Not found"
+  },
+  "voteban": {
+    "notfound": "Not found"
+  },
+  "alkomat": {
+    "noargs": "No arguments provided"
+  },
+  "ship": {
+    "noargs": "No args provided"
+  },
+  "kaczkoland": {
+    "notfound": "Player not found!",
+    "noargs": "No args provided!",
+    "rank": "Rank",
+    "messages": "Sent messages",
+    "deaths": "Deaths",
+    "mined_diamonds": "Mined diamonds",
+    "killed_mobs": "Killed mobs",
+    "mined_blocks": "Mined blocks",
+    "walked_cm": "Walked cm",
+    "money": "Money",
+    "crafted_items": "Crafted items",
+    "placed_blocks": "Placed blocks"
+  },
+}
