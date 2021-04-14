@@ -1,0 +1,57 @@
+{
+  "8ball": {
+    "responses": ["Tak", "Nie"]
+  },
+  "help": {
+    "fun": "Zabawa",
+    "tools": "Narzędzia",
+    "VC management": "Zarządzanie kanałami VC",
+    "economy": "Ekonomia",
+    "developers": "Zarządzanie botem",
+    "moderation": "Moderacja"
+  },
+  "kick": {
+    "noreason": "Nie podałeś powodu!",
+    "nopermissions": "Nie masz odpowiednich permisji.",
+    "notfound": "Nie znaleziono",
+    "kicked": "Wyrzucono!",
+    "error": "Nie możesz wyrzucić tego użytkownika!"
+  },
+  "work": {
+    "cooldown": "Proszę poczekać 2 minuty!"
+  },
+  "daily-reward": {
+    "cooldown": "Proszę poczekać 12h!"
+  },
+  "voteadmin": {
+    "notfound": "Nie znaleziono"
+  },
+  "voteban": {
+    "notfound": "Nie znaleziono"
+  },
+  "alkomat": {
+    "noargs": "Nie podałeś argumentów"
+  },
+  "ship": {
+    "noargs": "Nie podałeś argumentów"
+  },
+  "kaczkoland": {
+    "notfound": "Nie znaleziono gracza!",
+    "noargs": "Nie podałeś argumentów",
+    "rank": "Ranga",
+    "messages": "Wysłanych wiadomości",
+    "deaths": "Śmierci",
+    "mined_diamonds": "Wykopanych diamentów",
+    "killed_mobs": "Zabitych mobów",
+    "mined_blocks": "Wykopanych bloków",
+    "walked_cm": "Zwalczonych cm",
+    "money": "Stan konta",
+    "crafted_items": "Scraftowanych itemów",
+    "placed_blocks": "Położonych bloków"
+  },
+  "profile": {
+    "profileoff": "Profil jest wyłączony!",
+    "activated": "Pomyślnie włączono profil.",
+    "variableoff": "Zmienna została pomyślnie usunięta!"
+  }
+}

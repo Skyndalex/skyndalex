@@ -5,7 +5,10 @@
   "help": {
     "fun": "Fun",
     "tools": "Tools",
-    "VC management": "VC management"
+    "VC management": "VC management",
+    "moderation": "Moderation",
+    "dev": "Developers",
+    "economy": "Economy"
   },
   "kick": {
     "noreason": "No reason provided",
@@ -46,4 +49,9 @@
     "crafted_items": "Crafted items",
     "placed_blocks": "Placed blocks"
   },
+  "profile": {
+    "profileoff": "Profile is off!",
+    "activated": "Profile is activated.",
+    "variableoff": "Value successfully deleted"
+  }
 }
