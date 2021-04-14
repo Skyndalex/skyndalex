@@ -16,7 +16,7 @@ const myProfile = await r.table('profiles').get(message.author.id).run(client.co
         case 'view':
             let user = await client.users.fetch(args[1]).catch(err=>{}) || message.mentions.users.first() || message.author
             let profile = await r.table('profiles').get(user.id).run(client.con)
-            if(profile?.activate!==true) return client.error(message, 'Profil podanego użytkownika jest wyłączony')
+            if(!profile?.activate) return client.error(message, 'Profil podanego użytkownika jest wyłączony')
             let profileEmbed = new Discord.MessageEmbed()
             .setColor('GREEN')
             .setTitle(`Profil użytkownika ${user.tag}`)
@@ -34,7 +34,7 @@ const myProfile = await r.table('profiles').get(message.author.id).run(client.co
             message.channel.send(profileEmbed)
         break;
         case 'set':
-            if(myProfile?.activate!==true) return client.error(message, 'Profil podanego użytkownika jest wyłączony')
+            if(!myProfile?.activate) return client.error(message, 'Profil podanego użytkownika jest wyłączony')
             if(!args[2]) return client.error(message, 'Nie podałeś co mam ustawić lub na co mam to ustawić.')
             switch(args[1]) {
                 case 'name':
