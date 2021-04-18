@@ -1,7 +1,19 @@
-# KriveBot
+# Klonowanie
 
-## Kod publiczny bota [Krive](https://krivebot.ml). 
+```
+git clone https://github.com/Korrumz2PL/krivebot/
+```
 
-> Serwer Discord
+# Włączanie
+1. Zainstaluj paczki NPM (npm install)
+2. Wpisz node server.js
 
-https://discord.gg/NdD3UguKmS
+# Pomoc
+> Serwer support
+https://discord.gg/38g4qCsu
+---
+> Dokumentacja
+https://docs.krivebot.xyz
+---
+> Status
+> https://status.krivebot.xyz
