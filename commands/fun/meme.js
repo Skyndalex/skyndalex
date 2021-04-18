@@ -1,14 +1,17 @@
 const fetch = require("node-fetch")
 const Discord = require("discord.js")
 exports.run = async (client, message) => {
-    message.channel.send("Generuję... Może to trochę potrwać.")
-    fetch("https://cenzurabot.pl/api/memes/kwejk")
-        .then(resp => resp.json())
-        .then(resp => {
+    const fetch = require('node-fetch')
+    const { parse } = require('node-html-parser')
+    fetch('https://memy.jeja.pl/losowe')
+        .then(res => res.text())
+        .then(body => {
+            const root = parse(body)
+            const img = parse(root.querySelector('.ob-left-image').toString())
+            const mem = img.querySelector('img').getAttribute('src')
+
             const embed = new Discord.MessageEmbed()
-                .setTitle("Wygenerowano mema!")
-                .setImage(resp.meme)
-                .setFooter("Wygenerowano za pomocą API https://cenzurabot.pl/api/memes/kwejk")
+                .setImage(mem)
                 .setColor("GREEN")
             message.channel.send(embed)
         })

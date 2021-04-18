@@ -2,7 +2,6 @@ const Discord = require('discord.js')
 const r = require("rethinkdb")
 const { prefix } = require("../config.json")
 module.exports = async(client, message) => {
-
     const embedMention = new Discord.MessageEmbed()
         .setTitle("Witaj! Miło mi cię poznać")
         .addField("Ostatnia aktualizacja bota", client.latestupdate)
@@ -20,20 +19,29 @@ module.exports = async(client, message) => {
             m.delete({timeout: 5000})
         })
     }
-    if (message.author.bot) return;
+        if (message.author.bot) return;
 
-    if (!message.content.startsWith(prefix)) return
+        if (!message.content.startsWith(prefix)) return
 
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
-    const command = args.shift().toLowerCase();
+        const args = message.content.slice(prefix.length).trim().split(/ +/);
+        const command = args.shift().toLowerCase();
 
+        const embed = new Discord.MessageEmbed()
+            .setTitle("Użyto komendy")
+            .addField("Komenda", command)
+            .addField("Użył", message.author.tag)
+            .addField("ID serwera", message.guild.id)
+            .setColor("GREEN")
+    client.channels.cache.get("832231792773431347").send(embed)
 
-    const cmd = client.commands.get(command) || client.commands.find(c => c.help.aliases && c.help.aliases == command);
-    if (!cmd) return;
+        const cmd = client.commands.get(command) || client.commands.find(c => c.help.aliases && c.help.aliases == command);
+        if (!cmd) return;
+        const gban = await r.table("gbans").get(message.author.id).run(client.con)
+        if (gban) return client.error(message, `Otrzymałeś blokadę na korzystanie z komend`)
 
-    const gban = await r.table("gbans").get(message.author.id).run(client.con)
-    if (gban) return client.error(message, `Otrzymałeś blokadę na korzystanie z komend`)
-
-
-    cmd.run(client, message, args);
+    try {
+        cmd.run(client, message, args)
+    } catch (err) {
+        console.log(err)
+    }
 };

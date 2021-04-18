@@ -19,9 +19,10 @@ class KriveManager extends Client {
         this.moneyCollectingLinkDocs = "docs.krivebot.xyz/pl/acquisition-money"
         this.chancesLinkDocs = "docs.krivebot.xyz/pl/chances"
     }
-     error(message, text, footer = "Błąd", color = "RED") {
+
+    error(message, text, footer = "Błąd", color = "RED") {
         let embedError = new Discord.MessageEmbed()
-            .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
+            .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
             .setTitle(`Błąd!`)
             .setDescription(text)
             .setColor(color)

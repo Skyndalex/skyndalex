@@ -2,6 +2,7 @@ const Discord = require("discord.js")
 const fs = require("fs")
 const { token } = require("./config.json")
 const KriveManager = require("./Client.js")
+const r = require("rethinkdb")
 const client = new KriveManager({
 	cacheGuilds: true,
 	cacheChannels: true,
@@ -10,6 +11,11 @@ const client = new KriveManager({
 	cacheEmojis: true,
 	cachePresences: true,
 })
+
+client.perms = [
+	"817883855310684180",
+	"484419302200442890",
+]
 const express = require('express')
 const app = express()
 const port = 2222
@@ -22,12 +28,14 @@ app.listen(port, () => {
 	console.log(`Express server started`)
 })
 
-
-const r = require("rethinkdb")
 r.connect({db: "krivebot"}, (err, con) => {
 	if (err) console.log(err)
 	client.con = con;
 })
+
+client.commands = new Discord.Collection();
+
+// TODO: przenieść slash komendy do innegoo plyku SlashCommands.js
 
 client.ws.on('INTERACTION_CREATE',  interaction => {
 	switch(interaction.data.name.toLowerCase()) {
@@ -46,7 +54,7 @@ client.ws.on('INTERACTION_CREATE',  interaction => {
 				data: {
 					type: 4,
 					data: {
-						content: "entity#8309"
+						content: "entity2#8571"
 					}
 				}
 			})
@@ -93,7 +101,6 @@ client.ws.on('INTERACTION_CREATE',  interaction => {
 			break;
 	}
 });
-client.commands = new Discord.Collection();
 
 fs.readdirSync("./commands/").forEach(dir => {
 	const commands = fs.readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js"));

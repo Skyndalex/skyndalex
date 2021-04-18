@@ -2,7 +2,21 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
     const guild = client.guilds.cache.get(args[0])||message.guild
+    switch(args[1]) {
+        case 'name':
+            if (!args[2]) return client.error(message, "Nie podałeś argumentów!");
+            const myShopName = args.slice(2).join(" ")
 
+            r.table("ServerEconomy").update({shopName: myShopName}).run(client.con)
+
+            const myShopNameConfig = new Discord.MessageEmbed()
+                .setTitle("Skonfigurowano nazwę sklepu")
+                .addField("Nowa nazwa", myShopName)
+                .addField("Nazwe utworzył", message.author.tag)
+                .setColor("GREEN")
+            return message.channel.send(myShopNameConfig)
+            break;
+    }
     switch (args[0]) {
         case 'config':
             const config = new Discord.MessageEmbed()
@@ -18,10 +32,12 @@ exports.run = async (client, message, args) => {
             break;
 
         default:
+            const myShopNameFromConfig = r.table("ServerEconomy").get(message.guild.id).run(client.con)
+
             const help = new Discord.MessageEmbed()
                 .setTitle("Nowy konfigurator sklepów")
                 .setDescription("Aby ustawić sklep wpisz \`shop config\`.\nNatomiast ceny itemków znajdziesz pod komendą \`shop prices\`")
-                .addField("Nazwa sklepiku", "Nie ustawiono nazwy sklepu!")
+                .addField("Nazwa sklepiku", myShopNameFromConfig.shopName)
                 .addField("Opis sklepiku", "Nie ustawiono opisu sklepu!")
                 .addField("Itemy", "W sklepie nie ma itemów!")
                 .setFooter(client.footer)
