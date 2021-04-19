@@ -30,14 +30,13 @@ exports.run = async (client, message, args) => {
                 .setColor("GREEN")
             message.channel.send(config)
             break;
-
         default:
             const myShopNameFromConfig = r.table("ServerEconomy").get(message.guild.id).run(client.con)
-
+            console.log(myShopNameFromConfig)
             const help = new Discord.MessageEmbed()
                 .setTitle("Nowy konfigurator sklepów")
                 .setDescription("Aby ustawić sklep wpisz \`shop config\`.\nNatomiast ceny itemków znajdziesz pod komendą \`shop prices\`")
-                .addField("Nazwa sklepiku", myShopNameFromConfig.shopName)
+                .addField("Nazwa sklepiku", myShopNameFromConfig.shopName||"Nie ustawiono nazwy sklepu!")
                 .addField("Opis sklepiku", "Nie ustawiono opisu sklepu!")
                 .addField("Itemy", "W sklepie nie ma itemów!")
                 .setFooter(client.footer)
