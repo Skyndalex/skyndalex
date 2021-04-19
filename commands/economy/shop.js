@@ -2,6 +2,12 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
     const guild = client.guilds.cache.get(args[0])||message.guild
+
+    switch(args[2]) {
+        case 'add':
+            return message.channel.send("test")
+            break;
+    }
     switch(args[1]) {
         case 'name':
             if (!args[2]) return client.error(message, "Nie podałeś argumentów!");
@@ -29,6 +35,13 @@ exports.run = async (client, message, args) => {
                 .addField("Nazwę utworzył", message.author.tag)
                 .setColor("GREEN")
            return message.channel.send(myShopDescConfig)
+        case 'items':
+            const items = new Discord.MessageEmbed()
+                .setTitle("Itemy dodane przez ciebie")
+                .setDescription("Brak itemów!\nDodaj je za pomocą komendy \`shop config items add/remove\`")
+                .setColor("GREEN")
+            return message.channel.send(items)
+        break;
     }
     switch (args[0]) {
         case 'config':
@@ -43,16 +56,30 @@ exports.run = async (client, message, args) => {
                 .setColor("GREEN")
            return message.channel.send(config)
             break;
+        case 'items':
+            const embedItems = new Discord.MessageEmbed()
+                .setTitle("Itemy na serwerze")
+                .addField("Brak itemów", "Brak kosztów")
+                .setColor("GREEN")
+            return message.channel.send(embedItems)
+        case 'prices':
+            const pricesItemsEmbed = new Discord.MessageEmbed()
+                .setTitle("Ustawianie ceny itemów")
+                .addField("Dodawanie ceny", "\`shop prices add [id itemku] [nowa cena]\`")
+                .addField("Informacje", "Użyj \`shop prices add\` po więcej informacji.")
+                .setColor("GREEN")
+            return message.channel.send(pricesItemsEmbed)
+        break;
         default:
             const myShopNameFromConfig = r.table("ServerEconomy").get(message.guild.id).run(client.con)
             console.log(myShopNameFromConfig)
             const help = new Discord.MessageEmbed()
                 .setTitle("Nowy konfigurator sklepów")
                 .setDescription("Aby ustawić sklep wpisz \`shop config\`.\nNatomiast ceny itemków znajdziesz pod komendą \`shop prices\`")
-                .addField("Nazwa sklepiku", myShopNameFromConfig.shopName||"Nie ustawiono nazwy sklepu!")
-                .addField("Opis sklepiku", "Nie ustawiono opisu sklepu!")
-                .addField("Itemy", "W sklepie nie ma itemów!")
-                .setFooter(client.footer)
+                .addField("Nazwa sklepiku", `> ${myShopNameFromConfig.shopName||"\`Nie ustawiono opisu sklepu\`"}`)
+                .addField("Opis sklepiku", "> \`Nie ustawiono opisu sklepu!\`")
+                .addField("Itemy", "> \`shop items\`")
+                .setFooter(client.economyFooter)
                 .setColor("GREEN")
             message.channel.send(help)
             break;
