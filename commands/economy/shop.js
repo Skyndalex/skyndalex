@@ -71,12 +71,12 @@ exports.run = async (client, message, args) => {
             return message.channel.send(pricesItemsEmbed)
         break;
         default:
-            const myShopNameFromConfig = r.table("ServerEconomy").get(message.guild.id).run(client.con)
+            const myShopNameFromConfig = await r.table("ServerEconomy").get(message.guild.id)("shopName").run(client.con)
             console.log(myShopNameFromConfig)
             const help = new Discord.MessageEmbed()
                 .setTitle("Nowy konfigurator sklepów")
                 .setDescription("Aby ustawić sklep wpisz \`shop config\`.\nNatomiast ceny itemków znajdziesz pod komendą \`shop prices\`")
-                .addField("Nazwa sklepiku", `> ${myShopNameFromConfig.shopName||"\`Nie ustawiono opisu sklepu\`"}`)
+                .addField("Nazwa sklepiku", `> ${myShopNameFromConfig||"\`Nie ustawiono opisu sklepu\`"}`)
                 .addField("Opis sklepiku", "> \`Nie ustawiono opisu sklepu!\`")
                 .addField("Itemy", "> \`shop items\`")
                 .setFooter(client.economyFooter)
