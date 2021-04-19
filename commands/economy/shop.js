@@ -16,6 +16,19 @@ exports.run = async (client, message, args) => {
                 .setColor("GREEN")
             return message.channel.send(myShopNameConfig)
             break;
+
+        case 'description':
+            if (!args[2]) return client.error(message, "Nie podano argumentów!")
+            const myShopDesc = args.slice(2).join(" ")
+
+            r.table("ServerEconomy").update({shopDesc: myShopDesc}).run(client.con)
+
+            const myShopDescConfig = new Discord.MessageEmbed()
+                .setTitle("Skonfigurowano opis sklepu")
+                .addField("Nowy opis", myShopDesc)
+                .addField("Nazwę utworzył", message.author.tag)
+                .setColor("GREEN")
+           return message.channel.send(myShopDescConfig)
     }
     switch (args[0]) {
         case 'config':
@@ -28,7 +41,7 @@ exports.run = async (client, message, args) => {
                 .addField("> \`shop config prices [ID itemu/nazwa/część nazwy] [cena]\`", "Konfiguracja ceny przedmiotu")
                 .setFooter(client.footer)
                 .setColor("GREEN")
-            message.channel.send(config)
+           return message.channel.send(config)
             break;
         default:
             const myShopNameFromConfig = r.table("ServerEconomy").get(message.guild.id).run(client.con)
