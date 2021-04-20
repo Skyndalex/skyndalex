@@ -149,11 +149,43 @@ exports.run = async (client, message, args) => {
                 .setURL(client.url)
             message.channel.send(mutedRoleConfigEmbed)
             break;
+        case 'vcMutedRole':
+            if (!args[0]) return client.error(message, "Nie podano roli!")
+
+            let vcMutedRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
+            if (!vcMutedRole) return client.error(message, "Nie znalazłem roli")
+
+            r.table("settings").update({vcMutedRole: vcMutedRole.id}).run(client.con)
+
+            const vcMutedRoleConfigEmbed = new Discord.MessageEmbed()
+                .setTitle("Ustawiono")
+                .addField("Zmienna", "vcMutedRole")
+                .addField("Nowa wartość", `<@${vcMutedRole.id}>`)
+                .setColor("GREEN")
+                .setURL(client.url)
+            message.channel.send(vcMutedRoleConfigEmbed)
+            break;
+        case 'vcBanRole':
+            if (!args[0]) return client.error(message, "Nie podano roli!")
+
+            let vcBanRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
+            if (!vcBanRole) return client.error(message, "Nie znalazłem roli")
+
+            r.table("settings").update({vcBanRole: vcBanRole.id}).run(client.con)
+
+            const vcBanRoleConfigEmbed = new Discord.MessageEmbed()
+                .setTitle("Ustawiono")
+                .addField("Zmienna", "vcBanRole")
+                .addField("Nowa wartość", `<@${vcBanRole.id}>`)
+                .setColor("GREEN")
+                .setURL(client.url)
+            message.channel.send(vcBanRoleConfigEmbed)
+            break;
         case 'default':
         default:
             const embed = new Discord.MessageEmbed()
                 .setTitle("Ustawienia serwerowe")
-                .setDescription("Nie wiesz, jak czegoś ustawić? Wejdź [[TUTAJ]](https://docs.krivebot.xyz/en/ustawienia-kanaly)")
+                .setDescription("Nie wiesz, jak czegoś ustawić? Wejdź [TUTAJ](https://docs.krivebot.xyz/en/ustawienia-kanaly)")
                 .addField("\`[1] broadcastChannel\`", "Kanał ogłoszeniowy")
                 .addField("\`[2] voteChannel\`", "Kanał głosowań")
                 .addField("\`[3] private-mod-channel\`", "Kanał dla moderacji serwera")
@@ -163,8 +195,10 @@ exports.run = async (client, message, args) => {
                 .addField("\`[7] prefix\`", "Customowy prefix serwerowy")
                 .addField("\`[8] autoRole\`", "Ustawia autorole na serwerze")
                 .addField("\`[9] mutedRole\`", "Wycisza użytkownika")
+                .addField("\`[10] vcMutedRole\`", "Rola wyciszonego na kanale głosowym")
+                .addField("\`[11] vcBanRole\`", "Rola która blokuje użytkownikowi możliwość dołączenia na kanał głosowy")
                 .setFooter("W wersji bota v4.0 konfiguracja przejdzie drastyczne zmiany funkcjonalne jak i w wyglądzie.")
-                .setFooter("Ustawienia ról w tym miejscu > set-roles")
+                .setFooter(client.setFooter)
                 .setColor("GREEN")
             message.channel.send(embed)
             break;

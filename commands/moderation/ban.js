@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
             .addField("Serwer", message.guild.name)
             .addField("Moderator", message.author.tag)
             .addField("Użytkownik", member.tag)
-            .setFooter("KriveBot --> Zbanowano pomyślnie!")
+            .setFooter(client.moderationFooter)
             .setColor("#ff8900")
         message.channel.send(embed)
 }

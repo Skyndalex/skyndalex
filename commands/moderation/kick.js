@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
         .setTitle("Wyrzucono pomyślnie użytkownika!")
         .addField("Serwer", message.guild.name)
         .addField("Moderator", message.author.tag)
-        .setFooter("KriveBot --> Wyrzucono pomyślnie!")
+        .setFooter(client.moderationFooter)
         .setColor("#ff8900")
     message.channel.send(embed)
 }

@@ -22,6 +22,7 @@ exports.run = async (client, message, args) => {
         .setTitle("Wyłączono wyciszenie użytkownika!")
         .addField("Odciszył", message.author.tag)
         .addField("Odciszony użytkownik", user.tag)
+        .setFooter(client.moderationFooter)
         .setColor("GREEN")
     message.channel.send(embed)
 }
