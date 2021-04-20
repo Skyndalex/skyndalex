@@ -10,6 +10,6 @@ module.exports = async(client, guild) => {
    }).run(client.con)
 
     await r.table("ServerEconomy").insert({
-        guildID: guild.id
+        id: guild.id
     }).run(client.con)
 }

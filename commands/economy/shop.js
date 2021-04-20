@@ -71,7 +71,7 @@ exports.run = async (client, message, args) => {
             return message.channel.send(pricesItemsEmbed)
         break;
         default:
-            const myShopNameFromConfig = await r.table("ServerEconomy").get(message.guild.id)("shopName").run(client.con)
+            const myShopNameFromConfig = await r.table("ServerEconomy").get(message.guild.id).pluck("shopName").run(client.con)
             console.log(myShopNameFromConfig)
             const help = new Discord.MessageEmbed()
                 .setTitle("Nowy konfigurator sklepów")
