@@ -9,14 +9,16 @@ module.exports = async(client, message) => {
         .addField("Discord", client.discord)
         .addField("Dokumentacja", client.docsLink)
         .addField("Strona główna", client.url)
+        .addField("Zalecane akcje (1)", client.PermissionsNotify)
+        .addField("Zalecane akcje (2)", client.securityNotify)
         .addField("Prefix", prefix)
-        .setFooter("Wersja bota v4.0 drastycznie się zmieni: Nowe konfiguratory, panel, reactionrole, publiczna muzyka i wiele więcej!")
+        .setFooter(client.mentionFooter)
         .setThumbnail(client.user.displayAvatarURL({size: 1024}))
         .setColor("GREEN")
     const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
     if (message.content.match(prefixMention)) {
         return message.channel.send(embedMention).then(m => {
-            m.delete({timeout: 5000})
+            m.delete({timeout: 300000})
         })
     }
         if (message.author.bot) return;
