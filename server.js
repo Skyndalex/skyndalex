@@ -35,73 +35,6 @@ r.connect({db: "krivebot"}, (err, con) => {
 
 client.commands = new Discord.Collection();
 
-// TODO: przenieść slash komendy do innegoo plyku SlashCommands.js
-
-client.ws.on('INTERACTION_CREATE',  interaction => {
-	switch(interaction.data.name.toLowerCase()) {
-		case 'ping':
-			client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
-					data: {
-						content: client.ws.ping
-					}
-				}
-			})
-			break;
-		case 'authors':
-			client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
-					data: {
-						content: "entity2#8571"
-					}
-				}
-			})
-			break;
-		case 'discord':
-			client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
-					data: {
-						content: "https://krivebot.xyz/discord"
-					}
-				}
-			})
-			break;
-		case 'page':
-			client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
-					data: {
-						content: "https://krivebot.xyz"
-					}
-				}
-			})
-			break;
-		case 'invite':
-			client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
-					data: {
-						content: "https://krivebot.xyz/invite"
-					}
-				}
-			})
-			break;
-		case 'public':
-			client.api.interactions(interaction.id, interaction.token).callback.post({
-				data: {
-					type: 4,
-					data: {
-						content: "https://krivebot.xyz/public"
-					}
-				}
-			})
-			break;
-	}
-});
-
 fs.readdirSync("./commands/").forEach(dir => {
 	const commands = fs.readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js"));
 	for (let file of commands) {
@@ -113,15 +46,17 @@ fs.readdirSync("./commands/").forEach(dir => {
 		}
 	}
 });
-console.log(`Loaded ${client.commands.size} commands`)
-console.log("Starting...")
+
+
 const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith(".js"));
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	const eventName = file.split(".")[0];
 	client.on(eventName, event.bind(null, client));
 }
-
+console.log(`Loaded ${client.commands.size} commands`)
+console.log("Starting...")
+console.log("Ready!")
 require("./func.js")(client);
 
 client.login(token)
