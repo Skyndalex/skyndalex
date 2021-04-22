@@ -17,6 +17,7 @@ exports.run = async (client, message, args) => {
         .addField(`Narzędzia`, `> \`\`${client.commands.filter(c => c.help.category==="tools").map(c => c.help.name).join(" | ")||"Brak"}\`\``)
         .addField(`Zarządzanie botem`, `> \`\`${client.commands.filter(c => c.help.category==="developers").map(c => c.help.name).join(" | ")||"Brak"}\`\``)
         .addField(`Ekonomia`, `> \`\`${client.commands.filter(c => c.help.category==="economy").map(c => c.help.name).join(" | ")||"Brak"}\`\``)
+        .addField("Zarządzanie kanałami VC", `> \`${client.commands.filter(c => c.help.category==="vcmanagement").map(c => c.help.name).join(" | ")||"Brak"}\``)
         .setColor("GREEN")
         .setFooter(`KriveBot team poleca komende ${commandsf.random()}`)
     message.channel.send(embed)
