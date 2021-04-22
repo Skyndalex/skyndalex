@@ -14,7 +14,7 @@ class KriveManager extends Client {
         this.latestupdate = `USERS & ECONOMY UPDATE`
         this.twitter = "https://krivebot.xyz/twitter"
         this.youtube = "https://krivebot.xyz/youtube"
-
+        this.statuspage = "https://status.krivebot.xyz"
         // version
 
         this.economyVersion = "0.8"
