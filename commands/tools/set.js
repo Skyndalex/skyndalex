@@ -197,6 +197,8 @@ exports.run = async (client, message, args) => {
                 .addField("\`[9] mutedRole\`", "Wycisza użytkownika")
                 .addField("\`[10] vcMutedRole\`", "Rola wyciszonego na kanale głosowym")
                 .addField("\`[11] vcBanRole\`", "Rola która blokuje użytkownikowi możliwość dołączenia na kanał głosowy")
+                .addField("\`[12] notifyBroadcastRole\`", "Rola do powiadomień o ogłoszeniach na serwerze")
+                .addField("\`[13] notifyVotingRole\`", "Rola do powiadomień o głosowaniach na serwerze")
                 .setFooter("W wersji bota v4.0 konfiguracja przejdzie drastyczne zmiany funkcjonalne jak i w wyglądzie.")
                 .setFooter(client.setFooter)
                 .setColor("GREEN")
