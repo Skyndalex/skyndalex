@@ -9,6 +9,7 @@ module.exports = async(client, message) => {
         .addField("Discord", client.discord)
         .addField("Dokumentacja", client.docsLink)
         .addField("Strona główna", client.url)
+        .addField("Status serwisów", client.statuspage)
         .addField("Zalecane akcje (1)", client.PermissionsNotify)
         .addField("Zalecane akcje (2)", client.securityNotify)
         .addField("Prefix", prefix)
