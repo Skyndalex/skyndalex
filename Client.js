@@ -50,6 +50,10 @@ class KriveManager extends Client {
 
         this.PermissionsNotify = "Bardzo prosimy o zabezpieczenie swojego serwera przed rajdami czy też nawet zniszczeniem serwera. Dbamy o wasze bezpieczeństwo i nie chcemy aby stało się coś złego. Dlatego, pod ŻADNYM pozorem nie dawajcie botu poufnych permisji tj. Oznaczanie wszystkich, administrator, usuwanie kanałów itp."
         this.securityNotify = "Przeczytaj nasz wpis o zabezpieczeniach waszego serwera."
+
+        // devPermissions
+
+
     }
 
     error(message, text, footer = "Błąd", color = "RED") {
