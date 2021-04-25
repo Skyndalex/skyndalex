@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {
 	  	let evaled = eval(code);
 
 	  	if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
-	  	message.channel.send(`\`\`\`js\n${clean(evaled)}\`\`\``);
+	  	message.channel.send(`\`\`\`js\nconst r = require("rethinkdb")\n${clean(evaled)}\`\`\``);
 
 	} catch (err) {
 	  	message.channel.send(`\`\`\`js\n${clean(err)}\n\`\`\``);
