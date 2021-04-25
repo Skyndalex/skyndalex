@@ -181,6 +181,41 @@ exports.run = async (client, message, args) => {
                 .setURL(client.url)
             message.channel.send(vcBanRoleConfigEmbed)
             break;
+        case 'notifyBroadcastRole':
+            if (!args[0]) return client.error(message, "Nie podano roli!")
+
+            let notifyBroadcastRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
+            if (!notifyBroadcastRole) return client.error(message, "Nie znalazłem roli")
+
+            r.table("settings").update({notifyBroadcastRole: notifyBroadcastRole.id}).run(client.con)
+
+            const notifyBroadcastRoleConfigEmbed = new Discord.MessageEmbed()
+                .setTitle("Ustawiono")
+                .addField("Zmienna", "notifyBroadcastRole")
+                .addField("Nowa wartość", `<@&${notifyBroadcastRole.id}>`)
+                .setColor("GREEN")
+                .setURL(client.url)
+             message.channel.send(notifyBroadcastRoleConfigEmbed)
+            break;
+        case 'notifyVotingRole':
+            if (!args[0]) return client.error(message, "Nie podano roli!")
+
+            let notifyVotingRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
+            if (!notifyVotingRole) return client.error(message, "Nie znalazłem roli")
+
+            r.table("settings").update({notifyVotingRole: notifyVotingRole.id}).run(client.con)
+
+            const notifyVotingRoleConfigEmbed = new Discord.MessageEmbed()
+                .setTitle("Ustawiono")
+                .addField("Zmienna", "notifyVotingRole")
+                .addField("Nowa wartość", `<@&${notifyVotingRole.id}>`)
+                .setColor("GREEN")
+                .setURL(client.url)
+            message.channel.send(notifyVotingRoleConfigEmbed)
+            break;
+        case 'userRole':
+            message.channel.send("t")
+            break
         case 'default':
         default:
             const embed = new Discord.MessageEmbed()
@@ -199,6 +234,9 @@ exports.run = async (client, message, args) => {
                 .addField("\`[11] vcBanRole\`", "Rola która blokuje użytkownikowi możliwość dołączenia na kanał głosowy")
                 .addField("\`[12] notifyBroadcastRole\`", "Rola do powiadomień o ogłoszeniach na serwerze")
                 .addField("\`[13] notifyVotingRole\`", "Rola do powiadomień o głosowaniach na serwerze")
+                .addField("\`[14] userRole\`", "Rola użytkownika")
+                .addField("\`[15] reactBanRole\`", "Rola do banowania na reakcje")
+                .addField("\`[16] whiteListRole\`", "Rola, która omija wszelkie roli serwerowe itp. (soon)")
                 .setFooter("W wersji bota v4.0 konfiguracja przejdzie drastyczne zmiany funkcjonalne jak i w wyglądzie.")
                 .setFooter(client.setFooter)
                 .setColor("GREEN")
