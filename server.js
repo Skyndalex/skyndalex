@@ -21,11 +21,11 @@ const app = express()
 const port = 2222
 
 app.get('/', (req, res) => {
-	res.send('Sent')
+	res.send("Connected")
 })
 
 app.listen(port, () => {
-	console.log(`Express server started`)
+	console.log(`Connected to https://localhost:${port}`)
 })
 
 r.connect({db: "krivebot"}, (err, con) => {
@@ -34,7 +34,7 @@ r.connect({db: "krivebot"}, (err, con) => {
 })
 
 client.commands = new Discord.Collection();
-
+client.snipes = new Discord.Collection()
 fs.readdirSync("./commands/").forEach(dir => {
 	const commands = fs.readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js"));
 	for (let file of commands) {
@@ -55,8 +55,7 @@ for (const file of eventFiles) {
 	client.on(eventName, event.bind(null, client));
 }
 console.log(`Loaded ${client.commands.size} commands`)
-console.log("Starting...")
-console.log("Ready!")
+console.log("Client ready!")
 require("./func.js")(client);
 
 client.login(token)
