@@ -1,8 +1,8 @@
 const Discord = require("discord.js");
 const r = require('rethinkdb')
 exports.run = async (client, message, args) => {
-    const arr = ["509014773006991376", "484419302200442890"];
-    if (!arr.includes(message.author.id)) return client.error(message, `Potrzebujesz uprawnień developera aby użyć tej komendy!`)
+    let dv = ["817883855310684180"];
+    if (!dv.includes(message.author.id)) return client.error(message, `Potrzebujesz uprawnień developera aby użyć tej komendy!`)
     let user = message.mentions.users.first()
 
 
