@@ -11,6 +11,7 @@ exports.run = async (client, message) => {
             const mem = img.querySelector('img').getAttribute('src')
 
             const embed = new Discord.MessageEmbed()
+                .setTitle("Źródło: https://memy.jeja.pl/losowe")
                 .setImage(mem)
                 .setColor("GREEN")
             message.channel.send(embed)
