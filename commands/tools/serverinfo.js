@@ -1,5 +1,5 @@
 const Discord = require("discord.js")
-exports.run = async (client, message, args, level) => {
+exports.run = (client, message, args, level) => {
 
     const guild = client.guilds.cache.get(args[0])||message.guild
     if (!guild) return client.error(message, "Nie znalazłem serwera!")
