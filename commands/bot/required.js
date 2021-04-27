@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 
 exports.run = async (client, message, args) => {
-
+/*
     const reactionsPreparing = new Discord.MessageEmbed()
         .setDescription("Oczekiwanie na reakcje...")
         .setColor("GREEN")
@@ -46,6 +46,9 @@ exports.run = async (client, message, args) => {
         }
         reaction.users.remove(message.author.id)
     })
+
+ */
+    client.commandNotEnabled(message, "Przeniesione do wersji 3.1")
 }
 exports.help = {
     name: "required",
