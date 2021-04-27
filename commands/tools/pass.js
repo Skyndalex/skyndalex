@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
-
 const r = require("rethinkdb")
+
 exports.run = async (client, message, args) => {
     if (!args[0]) return client.error(message, `Nie podano treści ogłoszenia!`)
 
