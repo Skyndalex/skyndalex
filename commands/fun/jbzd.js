@@ -10,7 +10,6 @@ exports.run = async (client, message) => {
             const embed = new Discord.MessageEmbed()
                 .setTitle("Wygenerowano jbzd!")
                 .setImage(resp.meme)
-                .setFooter("Wygenerowano za pomocą API https://cenzurabot.pl/api/memes/jbzd")
                 .setColor("GREEN")
             message.channel.send(embed)
         })
