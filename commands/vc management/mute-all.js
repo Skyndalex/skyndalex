@@ -5,6 +5,7 @@ exports.run = async (client, message, args) => {
     const channel = message.channel
     const members = channel.members
 
+    if (!members) return client.error(message, "Nie znaleziono")
     members.forEach(member => {
             member.voice.setMute(true)
             member.voice.setDeaf(true)
