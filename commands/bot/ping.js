@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 
-exports.run = async (client, message) => {
+exports.run = (client, message) => {
    let embed = new Discord.MessageEmbed()
        .setDescription(`Ping: ${client.ws.ping}`)
        .setColor("GREEN")
