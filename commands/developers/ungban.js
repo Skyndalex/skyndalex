@@ -1,11 +1,10 @@
 const Discord = require("discord.js");
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
-    let arr = ["817883855310684180"];
+    let dev = ["817883855310684180"];
+    if (!dev.includes(message.author.id)) return client.error(message, `Potrzebujesz uprawnień developera aby użyć tej komendy!`)
 
-    if (!arr.includes(message.author.id)) return client.error(message, `Potrzebujesz uprawnień developera aby użyć tej komendy!`)
-
-    const user = message.mentions.users.first()||client.users.cache.get(args[0])
+    let user = message.mentions.users.first()
 
     if (!user) return client.error(message, `Nie znaleziono użytkownika`)
     if (!args[0]) return client.error(message, `Nie podano użytkownika`)
