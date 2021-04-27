@@ -1,5 +1,7 @@
 const Discord = require("discord.js")
 exports.run = async (client, message, args) => {
+    if(!message.member.hasPermission('MANAGE_CHANNELS')) return client.error(message, 'Nie masz permisji!')
+
     /*
     if (!args[0]) return client.error(message, "Nie podano argumentów!")
 
@@ -17,7 +19,7 @@ exports.run = async (client, message, args) => {
     message.channel.send(embed)
 
      */
-    client.commandNotEnabled(message, "Testy")
+    client.commandNotEnabled(message, "Przeniesione do wersji 3.1")
 }
 exports.help = {
     name: "vckick",
