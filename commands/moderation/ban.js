@@ -7,13 +7,18 @@ exports.run = async (client, message, args) => {
 
     if (!args[0]) return client.error(message, `Nie podano użytkownika`)
 
-    member.ban({reason: `Banned by ${message.author.tag}`})
+
+    if (member.id === message.author.id) return client.error(message, 'Nie możesz zbanować samego siebie!')
+    if (member.id === message.guild.ownerID) return client.error(message, 'Nie możesz zbanować właściciela serwera')
+    if (member.roles.highest.rawPosition >= message.member.roles.highest.rawPosition) return client.error(message, 'Nie możesz zbanować użytkownika z taką samą lub wyższą rolą')
+
+   await member.ban({reason: `Banned by ${message.author.tag}`})
 
         const embed = new Discord.MessageEmbed()
             .setTitle("Zbanowano pomyślnie użytkownika!")
             .addField("Serwer", message.guild.name)
             .addField("Moderator", message.author.tag)
-            .addField("Użytkownik", member.tag)
+            .addField("Użytkownik", member.user.tag)
             .setFooter(client.moderationFooter)
             .setColor("#ff8900")
         message.channel.send(embed)
