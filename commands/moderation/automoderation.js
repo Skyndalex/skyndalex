@@ -1,6 +1,7 @@
 const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
+    if(!message.member.hasPermission('MANAGE_GUILD')) return client.error(message, 'Nie masz permisji!')
     switch (args[0]) {
         case 'add':
             if (!args[1]) return client.error(message, "Nie podałeś argumentu, który mam dodać!")
