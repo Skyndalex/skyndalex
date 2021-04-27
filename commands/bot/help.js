@@ -1,12 +1,13 @@
 const Discord = require('discord.js')
 
-exports.run = async (client, message, args) => {
+exports.run = (client, message, args) => {
     let commandsf = [
         "set",
         "8ball",
         "ship",
         "work",
-
+        "bal",
+        "stats"
     ]
     const embed = new Discord.MessageEmbed()
         .setTitle(`Pomoc (${client.commands.size})`)
