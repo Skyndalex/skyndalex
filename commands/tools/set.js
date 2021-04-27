@@ -214,13 +214,16 @@ exports.run = async (client, message, args) => {
             message.channel.send(notifyVotingRoleConfigEmbed)
             break;
         case 'userRole':
-            message.channel.send("t")
+            client.commandNotEnabled(message, "Przeniesione do wersji 3.1")
             break
+        case 'reactBanRole':
+            client.commandNotEnabled(message, "Przeniesione do wersji 3.1")
+            break;
         case 'default':
         default:
             const embed = new Discord.MessageEmbed()
                 .setTitle("Ustawienia serwerowe")
-                .setDescription("Nie wiesz, jak czegoś ustawić? Wejdź [TUTAJ](https://docs.krivebot.xyz/en/ustawienia-kanaly)")
+                .setDescription(`Nie wiesz, jak czegoś zrobić? Odwiedź naszą dokumentacje!\nKonfiguracja kanałów: [Klik!](${client.config_docs})\nKonfiguracja ról: [Klik!](${client.config_roles_docs})`)
                 .addField("\`[1] broadcastChannel\`", "Kanał ogłoszeniowy")
                 .addField("\`[2] voteChannel\`", "Kanał głosowań")
                 .addField("\`[3] private-mod-channel\`", "Kanał dla moderacji serwera")
@@ -237,7 +240,7 @@ exports.run = async (client, message, args) => {
                 .addField("\`[14] userRole\`", "Rola użytkownika")
                 .addField("\`[15] reactBanRole\`", "Rola do banowania na reakcje")
                 .addField("\`[16] whiteListRole\`", "Rola, która omija wszelkie roli serwerowe itp. (soon)")
-                .setFooter("W wersji bota v4.0 konfiguracja przejdzie drastyczne zmiany funkcjonalne jak i w wyglądzie.")
+                .setFooter(client.docsLink)
                 .setFooter(client.setFooter)
                 .setColor("GREEN")
             message.channel.send(embed)
