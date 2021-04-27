@@ -15,6 +15,7 @@ class KriveManager extends Client {
         this.twitter = "https://krivebot.xyz/twitter"
         this.youtube = "https://krivebot.xyz/youtube"
         this.statuspage = "https://status.krivebot.xyz"
+
         // version
 
         this.economyVersion = "0.8"
@@ -22,13 +23,16 @@ class KriveManager extends Client {
         this.version = "v3.0"
         this.moderationVersion = "v1.0"
         this.setVersion = "v1.5"
-
+        this.requestVersion = "v1.0"
         // otherlinks
 
         this.docsLink = "docs.krivebot.xyz"
         this.statusLink = "status.krivebot.xyz"
 
         //docsLinks (None)
+
+        this.config_docs = "https://docs.krivebot.xyz/pl/config"
+        this.config_roles_docs = "https://docs.krivebot.xyz/pl/roles-config"
 
         // footers
 
@@ -38,6 +42,7 @@ class KriveManager extends Client {
         this.moderationFooter = `${this.botname} moderacja ${this.moderationVersion}`
         this.setFooter = `${this.botname} ustawienia ${this.setVersion} || w wersji bota v4.0 ustawienia przejdą kompletną przebudowę i zostaną globalnie zresetowane.`
         this.mentionFooter = `Stworzone z ❤ przez entity2#8571 || UWAGA: przy nowej wersji 4.0 ustawienia serwerowe, ekonomia i inne rzeczy związane z bazą danych zostaną globalnie zresetowane!!! || Wiadomość zostanie usunięta za 5 minut.`
+        this.requestFooter = `${this.botname} request ${this.requestVersion}`
         // messages
 
         this.off1Message = "Ups! Komenda **vctempban** jest niedostępna bądź pozostanie przeniesiona do wersji bota 4.0! Prosimy o cierpliwość"
@@ -53,7 +58,7 @@ class KriveManager extends Client {
 
         // devPermissions
 
-
+        this.dmEntity = "https://discord.com/users/817883855310684180"
     }
 
     error(message, text, footer = "Błąd", color = "RED") {
