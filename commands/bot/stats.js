@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
-
 const os = require("os")
+
 exports.run = async (client, message, args) => {
     let statEmbed = new Discord.MessageEmbed()
         .setColor('GREEN')
