@@ -1,5 +1,6 @@
 const Discord = require("discord.js")
 exports.run = async (client, message, args) => {
+    /*
     const snipes = await client.snipes.get(message.channel) || [];
     const snipedmsg = snipes[args[0] - 1 || 0];
 
@@ -11,6 +12,9 @@ exports.run = async (client, message, args) => {
         .setColor("GREEN")
     if (snipedmsg.attachment) embed.setImage(snipedmsg.attachment);
     message.channel.send(embed)
+
+     */
+    client.commandNotEnabled(message, "Przeniesione do wersji 3.1")
 }
 exports.help = {
     name: "snipe",
