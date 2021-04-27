@@ -1,6 +1,8 @@
 const Discord = require('discord.js')
 const r = require("rethinkdb")
 const { prefix } = require("../config.json")
+const cooldown = new Set;
+
 module.exports = async(client, message) => {
     const embedMention = new Discord.MessageEmbed()
         .setTitle("Witaj! Miło mi cię poznać")
@@ -42,9 +44,15 @@ module.exports = async(client, message) => {
         const gban = await r.table("gbans").get(message.author.id).run(client.con)
         if (gban) return client.error(message, `Otrzymałeś blokadę na korzystanie z komend`)
 
-    try {
+    let whitelist = ["817883855310684180"];
+
+    if (cooldown.has(message.author.id) && !whitelist.includes(message.author.id)) {
+        client.error(message, 'Musisz jeszcze poczekać 2 sekundy aby użyć jeszcze raz tą komendę! (czas resetuje się po użyciu w czasie trwania cooldownu)');
+    } else {
+
         cmd.run(client, message, args)
-    } catch (err) {
-        console.log(err)
-    }
-};
+
+        cooldown.add(message.author.id);
+        setTimeout(() => cooldown.delete(message.author.id), 2000);
+        }
+    };
