@@ -1,14 +1,13 @@
 const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args, level) => {
+    /*
     if(!message.member.hasPermission('MANAGE_CHANNELS')) return client.error(message, 'Nie masz permisji!')
 
     if (!args[0]) return client.error(message, `Nie podano treści głosowania!`)
 
-    const notifyRole = await r.table("settings").get(message.guild.id).run(client.con)
-
-    const channel = await r.table("settings").get(message.guild.id).run(client.con)
-    if (channel) return client.error(message, `Nie ustawiono kanału głosowań`)
+    const channel = await r.table("settings").get(message.guild.id)("notifyVotingRole").run(client.con)
+    if (!channel) return client.error(message, `Nie ustawiono kanału głosowań`)
 
     const embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
@@ -16,13 +15,14 @@ exports.run = async (client, message, args, level) => {
         .setDescription(args.join(" "))
         .setColor("GREEN")
         .setURL(client.url)
-        client.channels.cache.get(channel.voteChannel).send(embed).then(m => {
+    client.channels.cache.get(channel).send(embed).then(m => {
         m.react("👍")
         m.react("👎")
     })
     message.channel.send("Opublikowano nowe głosowanie")
 
-    client.channels.cache.get(channel.votingChannel).send(`<@&${notifyRole.notifyVotingRole}`)
+     */
+    client.commandNotEnabled(message, "Przeniesione do werjsi 3.1")
 }
 exports.help = {
     name: "voting",

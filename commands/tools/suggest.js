@@ -3,7 +3,7 @@ const r = require("rethinkdb")
 exports.run = async (client, message, args, level) => {
     if (!args[0]) return client.error(message, `Nie podano treści propozycji!`)
 
-    const channel = await r.table("settings").get(message.guild.id).run(client.con)
+    const channel = await r.table("settings").get(message.guild.id)("suggestionsChannel").run(client.con)
     if (!channel) return client.error(message, `Nie ustawiono kanału propozycji!`)
 
     const embed = new Discord.MessageEmbed()
@@ -12,7 +12,7 @@ exports.run = async (client, message, args, level) => {
         .setDescription(args.join(" "))
         .setColor("GREEN")
         .setURL("https://krivebot.xyz")
-    client.channels.cache.get(channel.suggestionsChannel).send(embed).then(m => {
+    client.channels.cache.get(channel).send(embed).then(m => {
         m.react("👍")
         m.react("👎")
     })

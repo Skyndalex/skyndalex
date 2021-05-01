@@ -4,7 +4,7 @@ exports.run = async (client, message, args) => {
     if(!message.member.hasPermission('MANAGE_CHANNELS')) return client.error(message, 'Nie masz permisji!')
     if (!args[0]) return client.error(message, `Nie podano treści ogłoszenia!`)
 
-    const channel = await r.table("settings").get(message.guild.id).run(client.con)
+    const channel = await r.table("settings").get(message.guild.id)("broadcastChannel").run(client.con)
     if (!channel) return client.error(message, `Nie ustawiono kanału ogłoszeń`)
 
     const embed = new Discord.MessageEmbed()
@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
         .setTitle("Opublikowano nowe ogłoszenie")
         .setDescription(args.join(" "))
         .setColor("GREEN")
-    client.channels.cache.get(channel.broadcastChannel).send(embed)
+    client.channels.cache.get(channel).send(embed)
 
     const sent = new Discord.MessageEmbed()
         .setDescription("Wysłano ogłoszenie!")
