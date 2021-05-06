@@ -142,7 +142,7 @@ exports.run = async (client, message, args) => {
                     message.channel.send(embedProfileConfigReddit)
                     break;
                 default:
-                    message.channel.send('jak ty to kurwa wypierdoliłeś')
+                    client.error(message, "Nie znaleziono wartości.")
                     break;
             }
             break;

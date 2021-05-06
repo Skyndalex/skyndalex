@@ -1,6 +1,7 @@
 const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
+    /*
     const guild = client.guilds.cache.get(args[0])||message.guild
 
     switch(args[2]) {
@@ -85,6 +86,9 @@ exports.run = async (client, message, args) => {
             break;
 
     }
+
+     */
+    client.commandNotEnabled(message, "Przeniesione do wersji 3.1")
 }
 
 exports.help = {

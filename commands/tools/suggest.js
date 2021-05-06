@@ -11,7 +11,6 @@ exports.run = async (client, message, args, level) => {
         .setTitle("Opublikowano nową propozycję")
         .setDescription(args.join(" "))
         .setColor("GREEN")
-        .setURL("https://krivebot.xyz")
     client.channels.cache.get(channel).send(embed).then(m => {
         m.react("👍")
         m.react("👎")

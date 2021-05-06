@@ -2,6 +2,7 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
     if(!message.member.hasPermission('MANAGE_GUILD')) return client.error(message, 'Nie masz permisji!')
+    /*
     switch (args[0]) {
         case 'add':
             if (!args[1]) return client.error(message, "Nie podałeś argumentu, który mam dodać!")
@@ -27,6 +28,9 @@ exports.run = async (client, message, args) => {
                 .setColor("GREEN")
             message.channel.send(embed)
     }
+
+     */
+    client.commandNotEnabled(message, "Przeniesione do wersji 3.1")
 }
 exports.help = {
     name: "automoderation",

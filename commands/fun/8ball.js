@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
 exports.run = async (client, message, args) => {
-    if (!args[0]) return client.error(message, `Napisz pytanie!`);
+    if (!args[0]) return client.sender(message, "204: No content", "Nie podałeś argumentów.", client.footer, "RED")
 
     let reponses = [
         "Tak",
@@ -9,13 +9,16 @@ exports.run = async (client, message, args) => {
         "Chyba tak",
         "Chyba nie"
     ]
-
-    const embed = new Discord.MessageEmbed()
-        .addField('Twoje pytanie', args.join(' '))
-        .addField('Odpowiedź', reponses.random())
-        .setColor('GREEN')
-
-    message.channel.send(embed);
+        client.sender(message, "", "", "", "GREEN", [
+            {
+                name: "Twoje pytanie",
+                value: args.slice(" ").join(" "),
+            },
+            {
+                name: "Odpowiedź",
+                value: reponses.random(),
+            }
+        ])
 };
 
 exports.help = {

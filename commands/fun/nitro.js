@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
     const emoji = client.emojis.cache.find(x => x.name === args[0])
     if (!emoji) return client.error(message, `Nie znalazłem tego emoji (musisz wpisać NAZWĘ bez dwukropek.)`)
 
-    message.channel.send(emoji.toString())
+    message.channel.send(emoji.toString().toLowerCase())
 };
 
 exports.help = {

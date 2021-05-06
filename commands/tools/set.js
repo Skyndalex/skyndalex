@@ -19,7 +19,6 @@ exports.run = async (client, message, args) => {
                 .addField("Zmienna", "broadcastChannel")
                 .addField("Nowa wartość", `<#${bChannel.id}>`)
                 .setColor("GREEN")
-                .setURL(client.url)
             message.channel.send(broadcastChannelConfigEmbed)
             break;
         case 'suggestionsChannel':
@@ -38,7 +37,6 @@ exports.run = async (client, message, args) => {
                 .addField("Zmienna", "suggestionsChannel")
                 .addField("Nowa wartość", `<#${sChannel.id}>`)
                 .setColor("GREEN")
-                .setURL(client.url)
             message.channel.send(suggestionsChannelConfigEmbed)
             break;
         case 'voteChannel':
@@ -57,7 +55,6 @@ exports.run = async (client, message, args) => {
                 .addField("Zmienna", "voteChannel")
                 .addField("Nowa wartość", `<#${vChannel.id}>`)
                 .setColor("GREEN")
-                .setURL(client.url)
             message.channel.send(voteChannelConfigEmbed)
             break;
         case 'private-mod-channel':
@@ -76,7 +73,6 @@ exports.run = async (client, message, args) => {
                 .addField("Zmienna", "private-mod-channel")
                 .addField("Nowa wartość", `<#${pmChannel.id}>`)
                 .setColor("GREEN")
-                .setURL(client.url)
             message.channel.send(pmChannelConfigEmbed)
             break;
         case 'passChannel':
@@ -95,7 +91,6 @@ exports.run = async (client, message, args) => {
                 .addField("Zmienna", "passChannel")
                 .addField("Nowa wartość", `<#${pChannel.id}>`)
                 .setColor("GREEN")
-                .setURL(client.url)
             message.channel.send(passChannelConfigEmbed)
             break;
         case 'globalBroadcastChannel':
@@ -114,7 +109,6 @@ exports.run = async (client, message, args) => {
                 .addField("Zmienna", "globalBroadcastChannel")
                 .addField("Nowa wartość", `<#${gbChannel.id}>`)
                 .setColor("GREEN")
-                .setURL(client.url)
             message.channel.send(globalBroadcastChannelConfigEmbed)
             break;
         case 'autoRole':
@@ -130,7 +124,6 @@ exports.run = async (client, message, args) => {
                 .addField("Zmienna", "autoRole")
                 .addField("Nowa wartość", `<@${autoRole.id}>`)
                 .setColor("GREEN")
-                .setURL(client.url)
             message.channel.send(autoRoleConfigEmbed)
             break;
         case 'mutedRole':
@@ -146,7 +139,6 @@ exports.run = async (client, message, args) => {
                 .addField("Zmienna", "mutedRole")
                 .addField("Nowa wartość", `<@${mutedrole.id}>`)
                 .setColor("GREEN")
-                .setURL(client.url)
             message.channel.send(mutedRoleConfigEmbed)
             break;
         case 'vcMutedRole':
@@ -162,7 +154,6 @@ exports.run = async (client, message, args) => {
                 .addField("Zmienna", "vcMutedRole")
                 .addField("Nowa wartość", `<@${vcMutedRole.id}>`)
                 .setColor("GREEN")
-                .setURL(client.url)
             message.channel.send(vcMutedRoleConfigEmbed)
             break;
         case 'vcBanRole':
@@ -178,7 +169,6 @@ exports.run = async (client, message, args) => {
                 .addField("Zmienna", "vcBanRole")
                 .addField("Nowa wartość", `<@${vcBanRole.id}>`)
                 .setColor("GREEN")
-                .setURL(client.url)
             message.channel.send(vcBanRoleConfigEmbed)
             break;
         case 'notifyBroadcastRole':
@@ -194,7 +184,6 @@ exports.run = async (client, message, args) => {
                 .addField("Zmienna", "notifyBroadcastRole")
                 .addField("Nowa wartość", `<@&${notifyBroadcastRole.id}>`)
                 .setColor("GREEN")
-                .setURL(client.url)
              message.channel.send(notifyBroadcastRoleConfigEmbed)
             break;
         case 'notifyVotingRole':
@@ -210,40 +199,112 @@ exports.run = async (client, message, args) => {
                 .addField("Zmienna", "notifyVotingRole")
                 .addField("Nowa wartość", `<@&${notifyVotingRole.id}>`)
                 .setColor("GREEN")
-                .setURL(client.url)
             message.channel.send(notifyVotingRoleConfigEmbed)
             break;
         case 'userRole':
-            client.commandNotEnabled(message, "Przeniesione do wersji 3.1")
-            break
+            if (!args[0]) return client.error(message, "Nie podano roli!")
+
+            let userRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
+            if (!userRole) return client.error(message, "Nie znalazłem roli")
+
+            r.table("settings").update({userRole: userRole.id}).run(client.con)
+
+            const userRoleConfigEmbed = new Discord.MessageEmbed()
+                .setTitle("Ustawiono")
+                .addField("Zmienna", "userRole")
+                .addField("Nowa wartość", `<@&${userRole.id}>`)
+                .setColor("GREEN")
+            message.channel.send(userRoleConfigEmbed)
+            break;
         case 'reactBanRole':
             client.commandNotEnabled(message, "Przeniesione do wersji 3.1")
             break;
+        case 'roles':
+            const embedRoles = new Discord.MessageEmbed()
+                .setTitle("Ustawienia ról - zmienne")
+                .addField("> \`autoRole\`", "Ustawienia autoroli")
+                .addField("> \`vcMutedRole\`", "Ustawienia roli która uniemożliwia mówienie na kanale VC")
+                .addField("> \`vcBanRole\`", "Ustawienia roli która uniemożliwia dołączanie na kanał VC")
+                .addField("> \`mutedRole\`", "Ogólna rola wyciszonego")
+                .addField("> \`notifyBroadcastRole\`", "Rola która oznacza użytkowników przy ogłaszaniu")
+                .addField('> \`notifyVotingRole\`', "Rola która oznacza użytkowników przy głosowaniu")
+                .addField("> \`reactBanRole\`", "Rola która uniemożliwia dodawanie reakcji")
+                .addField("> \`whiteListRole\`", "Rola która omija wszelkie logi serwerowe (soon)")
+                .setColor("GREEN")
+            message.channel.send(embedRoles)
+            break;
+        case 'channels':
+            client.sender(message, "Ustawienia kanałów - zmienne", "", client.footer, "GREEN", [
+                {
+                     name: "> \`broadcastChannel\`",
+                     value: "Kanał ogłoszeniowy"
+                },
+                {
+                    name: "> \`voteChannel\`",
+                    value: "Kanał głosowań"
+                },
+                {
+                    name: "> \`passChannel\`",
+                    value: "Kanał podań"
+                },
+                {
+                    name: "> \`suggestChannel\`",
+                    value: "Kanał propozycji"
+                },
+                {
+                    name: "> \`globalBroadcastChannel\`",
+                    value: "Kanał globalnych ogłoszeń"
+                },
+                {
+                    name: "> \`private-mod-channel\`",
+                    value: "Prywatny kanał moderacji. Absolutnie nie wiem po co."
+                }
+            ])
+            break;
+        case 'welcome':
+            const embedWelcome = new Discord.MessageEmbed()
+                .setTitle("Ustawienia powitań - zmienne")
+                .addField("> \`welcomeChannel\`", "Kanał powitań")
+                .addField("> \`welcomeTextDesc\`", "Tekst opisu powitań")
+                .addField("> \`welcomeTextTitle\`", "Tekst tytułu powitań")
+                .addField("> \`welcomeTextFooter\`", "Tekst footeru powitań")
+                .setFooter("UWAGA! Powitania będą dopiero w wersji 3.2. Prosimy o cierpliwość!!! (na razie da się tylko ustawiać)")
+                .setColor("GREEN")
+            message.channel.send(embedWelcome)
+
+
+            break;
+        case 'goodbyes':
+            const embedGoodbyes = new Discord.MessageEmbed()
+                .setTitle("Ustawienia pożegnań - zmienne")
+                .addField("> \`goodbyesChannel\`", "Kanał pożegnań")
+                .addField("> \`goodbyesTextDesc\`", "Tekst opisu pożegnań")
+                .addField("> \`goodbyesTextTitle\`", "Tekst tytułu pożegnań")
+                .addField("> \`goodbyesTextFooter\`", "Tekst footeru pożegnań")
+                .setFooter("UWAGA! Pożegnania będą dopiero w wersji 3.2. Prosimy o cierpliwość!!! (na razie da się tylko ustawiać)")
+                .setColor("GREEN")
+            message.channel.send(embedGoodbyes)
+            break;
         case 'default':
         default:
-            const embed = new Discord.MessageEmbed()
-                .setTitle("Ustawienia serwerowe")
-                .setDescription(`Nie wiesz, jak czegoś zrobić? Odwiedź naszą dokumentacje!\nKonfiguracja kanałów: [Klik!](${client.config_docs})\nKonfiguracja ról: [Klik!](${client.config_roles_docs})`)
-                .addField("\`[1] broadcastChannel\`", "Kanał ogłoszeniowy")
-                .addField("\`[2] voteChannel\`", "Kanał głosowań")
-                .addField("\`[3] private-mod-channel\`", "Kanał dla moderacji serwera")
-                .addField("\`[4] passChannel\`", "Kanał podań")
-                .addField("\`[5] suggestChannel\`", "Kanał propozycji")
-                .addField("\`[6] globalBroadcastChannel\`", "Kanał globalnych ogłoszeń bota **[zalecane]**")
-                .addField("\`[7] prefix\`", "Customowy prefix serwerowy")
-                .addField("\`[8] autoRole\`", "Ustawia autorole na serwerze")
-                .addField("\`[9] mutedRole\`", "Wycisza użytkownika")
-                .addField("\`[10] vcMutedRole\`", "Rola wyciszonego na kanale głosowym")
-                .addField("\`[11] vcBanRole\`", "Rola która blokuje użytkownikowi możliwość dołączenia na kanał głosowy")
-                .addField("\`[12] notifyBroadcastRole\`", "Rola do powiadomień o ogłoszeniach na serwerze")
-                .addField("\`[13] notifyVotingRole\`", "Rola do powiadomień o głosowaniach na serwerze")
-                .addField("\`[14] userRole\`", "Rola użytkownika")
-                .addField("\`[15] reactBanRole\`", "Rola do banowania na reakcje")
-                .addField("\`[16] whiteListRole\`", "Rola, która omija wszelkie roli serwerowe itp. (soon)")
-                .setFooter(client.docsLink)
-                .setFooter(client.setFooter)
-                .setColor("GREEN")
-            message.channel.send(embed)
+            client.sender(message, "Ustawienia serwerowe", "Niedawno zmienilismy wygląd serwerowych ustawień. [Dowiedz się tutaj, jak tym operować.](https://docs.krivebot.xyz)", client.footer, "GREEN", [
+                {
+                    name: "> \`set roles\`",
+                    value: "Ustawienia ról"
+                },
+                {
+                    name: "> \`set channels\`",
+                    value: "Ustawienia kanałów"
+                },
+                {
+                    name: "> \`set welcome\`",
+                    value: "Ustawienia powitań"
+                },
+                {
+                    name: "> \`set goodbyes\`",
+                    value: "Ustawienia pożegnań"
+                }
+            ])
             break;
     }
 }

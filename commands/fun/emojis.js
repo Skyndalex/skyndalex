@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 exports.run = async (client, message, args) => {
     if (!args[0]) return client.error(message, `Nie podano tekstu!`)
     let text = args.splice('').join(' ')
-    if (text.length > 1000) return client.error(message, "Teskt nie może być większy niż 1000 znaków")
+    if (text.length > 1000) return client.error(message, "Tekst nie może być większy niż 1000 znaków")
     let replaced = text
         .replace(/a/gi, '🇦 ')
         .replace(/ą/gi, '🇦 ')

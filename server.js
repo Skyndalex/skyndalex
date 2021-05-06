@@ -3,15 +3,9 @@ const fs = require("fs")
 const { token } = require("./config.json")
 const KriveManager = require("./Client.js")
 const r = require("rethinkdb")
-const client = new KriveManager({
-	cacheGuilds: true,
-	cacheChannels: true,
-	cacheOverwrites: true,
-	cacheRoles: true,
-	cacheEmojis: true,
-	cachePresences: true,
-})
-
+const client = new KriveManager()
+require("./dashboard/dashboard").run(client);
+require("./games/games").run(client)
 client.perms = [
 	"817883855310684180",
 	"484419302200442890",

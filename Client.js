@@ -55,7 +55,11 @@ class KriveManager extends Client {
 
         this.PermissionsNotify = "Bardzo prosimy o zabezpieczenie swojego serwera przed rajdami czy też nawet zniszczeniem serwera. Dbamy o wasze bezpieczeństwo i nie chcemy aby stało się coś złego. Dlatego, pod ŻADNYM pozorem nie dawajcie botu poufnych permisji tj. Oznaczanie wszystkich, administrator, usuwanie kanałów itp."
         this.securityNotify = "Przeczytaj nasz wpis o zabezpieczeniach waszego serwera."
-
+        this.profileDisabled = "Profil jest wyłączony!"
+        this.profileNotVariableFound = "Nie znaleziono wartości"
+        this.profileEnabled = "Włączono profil"
+        this.userNotFound = "Nie znaleziono użytkownika."
+        this.playerNotFound = "Nie znaleziono gracza."
         // devPermissions
 
         this.dmEntity = "https://discord.com/users/817883855310684180"
@@ -69,6 +73,19 @@ class KriveManager extends Client {
             .setColor(color)
             .setFooter(this.footer)
         return message.channel.send(embedError)
+    }
+    async sender (message, title, text, footer, color, fields = [] ) {
+        const senderEmbed = new Discord.MessageEmbed()
+            .setTitle(title)
+            .setDescription(text)
+            .setColor(color)
+            .setFooter(footer)
+        if (fields.length) senderEmbed.addFields(fields);
+        return message.channel.send(senderEmbed)
+    }
+
+    async function (message, title, text, footer, color, fieldname, fieldvalue) {
+
     }
 }
 module.exports = KriveManager;
