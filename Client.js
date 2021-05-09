@@ -2,6 +2,7 @@ const { Client } = require("discord.js")
 const Discord = require("discord.js")
 
 class KriveManager extends Client {
+
     constructor(clientOptions) {
         super(clientOptions);
         // texts
@@ -20,7 +21,7 @@ class KriveManager extends Client {
 
         this.economyVersion = "0.8"
         this.musicVersion = "0.5"
-        this.version = "v3.0"
+        this.version = "v3.1"
         this.moderationVersion = "v1.0"
         this.setVersion = "v1.5"
         this.requestVersion = "v1.0"
@@ -64,26 +65,6 @@ class KriveManager extends Client {
 
         this.dmEntity = "https://discord.com/users/817883855310684180"
     }
-
-    error(message, text, footer = "Błąd", color = "RED") {
-        let embedError = new Discord.MessageEmbed()
-            .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
-            .setTitle(`Błąd!`)
-            .setDescription(text)
-            .setColor(color)
-            .setFooter(this.footer)
-        return message.channel.send(embedError)
-    }
-     sender (message, title, text, footer, color, fields = [], image) {
-        const senderEmbed = new Discord.MessageEmbed()
-            .setTitle(title)
-            .setDescription(text)
-            .setColor(color)
-            .setFooter(footer)
-            .setImage(image)
-        if (fields.length) senderEmbed.addFields(fields);
-        return message.channel.send(senderEmbed)
-    }
     authorSender (message, title, text, footer, color, fields = [], image) {
         const authorSenderEmbed = new Discord.MessageEmbed()
             .setTitle(title)
@@ -93,7 +74,21 @@ class KriveManager extends Client {
             .setImage(image)
         if (fields.length) authorSenderEmbed.addFields(fields)
 
-        return message.author.send(authorSenderEmbed)
+        return message.author.send(authorSenderEmbed).catch(err => {
+            this.sender(message, "400: Bad request", "Nie mogliśmy wysłać powiadomienia użytkownikowi na prywatną wiadomość, ponieważ posiada zablokowane DM.", "Ta wiadomość zostanie usunięta za 1 minutę", "RED", "", "").then(h => {
+                h.delete({timeout: 60000})
+            })
+        })
+    }
+    sender (message, title, text, footer, color, fields = [], image) {
+        const senderEmbed = new Discord.MessageEmbed()
+            .setTitle(title)
+            .setDescription(text)
+            .setColor(color)
+            .setFooter(footer)
+            .setImage(image)
+        if (fields.length) senderEmbed.addFields(fields);
+        return message.channel.send(senderEmbed)
     }
 }
 module.exports = KriveManager;
