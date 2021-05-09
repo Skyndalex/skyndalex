@@ -5,11 +5,7 @@ exports.run = async (client, message, args) => {
     fetch('https://some-random-api.ml/img/koala')
         .then(res => res.json())
         .then(res => {
-            const embed = new Discord.MessageEmbed()
-                .setColor("GREEN")
-                .setTitle("Wygenerowano")
-                .setImage(res.link)
-            message.channel.send(embed);
+            client.sender(message, "Wygenerowano", "", "", "GREEN", "", res.link)
         })
 };
 

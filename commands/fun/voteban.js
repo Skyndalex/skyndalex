@@ -1,9 +1,9 @@
 const Discord = require("discord.js")
 exports.run = async (client, message, args) => {
-    if (!args[0]) return client.error(message, `Podaj argumenty!`)
+    if (!args[0]) return client.sender(message, "401: No content", "Nie podano argumentu!", client.footer, "RED", "", "")
 
-    message.react('👍')
-    message.react('👎')
+    await message.react('👍')
+    await message.react('👎')
 }
 exports.help = {
     name: "voteban",

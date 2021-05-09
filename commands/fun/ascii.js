@@ -10,13 +10,7 @@ exports.run = async (client, message, args) => {
             return client.error(message, `\`\`\`${err}\`\`\``);
         }
 
-        let embed = new Discord.MessageEmbed()
-            .setTitle('Wygenerowano')
-            .setDescription(`\`\`\`${data}\`\`\``)
-            .setFooter(client.footer)
-            .setColor('GREEN')
-
-        message.channel.send(embed);
+        client.sender(message, "", `\`\`\`${data}\`\`\``, client.footer, "GREEN", "")
     })
 };
 

@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
 	res.send("Connected")
 })
 
+//TODO: rewrite
 app.listen(port, () => {
 	console.log(`Connected to https://localhost:${port}`)
 })

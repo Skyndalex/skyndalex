@@ -15,6 +15,9 @@ exports.run = async (client, message) => {
                 .setImage(mem)
                 .setColor("GREEN")
             message.channel.send(embed)
+
+            client.sender(message, "Wygenerowano", "", "", "GREEN", "", mem)
+
         })
 }
 exports.help = {

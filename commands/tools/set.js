@@ -1,6 +1,8 @@
 const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
+    //TODO: emoji-suggestions
+    //TODO: allow attachements
     if (!message.member.hasPermission('ADMINISTRATOR')) return client.error(message, `Nie masz permisji! `);
     switch (args[0]) {
         case 'broadcastChannel':

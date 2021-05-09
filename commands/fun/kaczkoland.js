@@ -8,23 +8,50 @@ exports.run = async (client, message, args) => {
         .then(res => res.json())
         .then(req => {
             const r = req.find(q => q.username === args[0]);
-            if (!r) return client.error(message, `Nie znaleziono gracza!`)
+            if (!r) return client.sender("Błąd: 404. Not found.", "Nie znaleziono gracza na serwerze kaczkoland.pl", "", "RED", "", "")
 
-            const embedStats = new Discord.MessageEmbed()
-                .setTitle(`Statystyki gracza na serwerze kaczkoland.pl`)
-                .setDescription(`Nazwa gracza: ${r.username} (UUID: ${r.uuid})`)
-                .addField("Ranga", r.primary_rank)
-                .addField("Wysłanych wiadomości", r.sent_messages)
-                .addField("Zwalczonych cm", r.walked_cm)
-                .addField("Stan konta", r.money)
-                .addField("Scraftowanych itemów", r.crafted_items)
-                .addField("Położonych bloków", r.placed_blocks)
-                .addField("Śmierci", r.deaths)
-                .addField("Wykopanych diamentów", r.mined_diamonds)
-                .addField("Wykopanych bloków", r.mined_blocks)
-                .addField("Zabitych mobów", r.mob_kills)
-                .setColor("GREEN")
-            message.channel.send(embedStats)
+            client.sender(message, "Statystyki gracza na serwerze kaczkoland.pl", `Nazwa gracza: ${r.username} (UUID: ${r.uuid}`, "", "GREEN", [
+                {
+                    name: "Ranga",
+                    value: r.primary_rank
+                },
+                {
+                    name: "Wysłanych wiadomości",
+                    value: r.sent_messages
+                },
+                {
+                    name: "Zwalczonych cm",
+                    value: r.walked_cm
+                },
+                {
+                    name: "Stan konta",
+                    value: r.money
+                },
+                {
+                    name: "Scraftowanych itemów",
+                    value: r.crafted_items
+                },
+                {
+                    name: "Położonych bloków",
+                    value: r.placed_blocks
+                },
+                {
+                    name: "Śmierci",
+                    value: r.deaths
+                },
+                {
+                    name: "Wykopanych diamentów",
+                    value: r.mined_diamonds
+                },
+                {
+                    name: "Wykopanych bloków",
+                    value: r.mined_blocks
+                },
+                {
+                    name: "Zabitych mobów",
+                    value: r.mob_kills
+                }
+            ])
         })
 }
 exports.help = {

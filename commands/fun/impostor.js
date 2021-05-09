@@ -1,17 +1,14 @@
 const Discord = require('discord.js');
 
 module.exports.run = async (client, message, args) => {
-    if (!args[0]) return client.error(message, `Nie podano użytkownika!`)
+    if (!args[0]) return client.sender(message, "405: Method not allowed", "Niedozwolona metoda! Musisz podać użytkownika..", client.footer, "GREEN", "", "")
 
     let user = client.users.cache.get(args[0])||message.mentions.users.first()||message.author()
-    if (!user) return client.error(message, `Nie znaleziono użytkownika`)
+    if (!user) return client.sender(message, "404: Not found", "Bot nie znalazł podanego użytkownika.", client.footer, "RED", "", "")
 
     let imp = ["jest impostorem", "nie jest impostorem"]
 
-    const embed = new Discord.MessageEmbed()
-        .setDescription(`<@${user.id}> ${imp.random()}`)
-        .setColor(`GREEN`)
-    message.channel.send(embed)
+    client.sender(message, "", `<@${user.id} ${imp.random()}`, "", "GREEN", "", "")
 }
 exports.help = {
     name: "impostor",

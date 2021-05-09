@@ -74,18 +74,26 @@ class KriveManager extends Client {
             .setFooter(this.footer)
         return message.channel.send(embedError)
     }
-    async sender (message, title, text, footer, color, fields = [] ) {
+     sender (message, title, text, footer, color, fields = [], image) {
         const senderEmbed = new Discord.MessageEmbed()
             .setTitle(title)
             .setDescription(text)
             .setColor(color)
             .setFooter(footer)
+            .setImage(image)
         if (fields.length) senderEmbed.addFields(fields);
         return message.channel.send(senderEmbed)
     }
+    authorSender (message, title, text, footer, color, fields = [], image) {
+        const authorSenderEmbed = new Discord.MessageEmbed()
+            .setTitle(title)
+            .setDescription(text)
+            .setColor(color)
+            .setFooter(footer)
+            .setImage(image)
+        if (fields.length) authorSenderEmbed.addFields(fields)
 
-    async function (message, title, text, footer, color, fieldname, fieldvalue) {
-
+        return message.author.send(authorSenderEmbed)
     }
 }
 module.exports = KriveManager;

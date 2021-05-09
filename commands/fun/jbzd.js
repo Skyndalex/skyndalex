@@ -7,15 +7,11 @@ exports.run = async (client, message) => {
     fetch("https://cenzurabot.pl/api/memes/jbzd")
         .then(resp => resp.json())
         .then(resp => {
-            const embed = new Discord.MessageEmbed()
-                .setTitle("Wygenerowano jbzd!")
-                .setImage(resp.meme)
-                .setColor("GREEN")
-            message.channel.send(embed)
+            client.sender(message, "Wygenerowano jbzd!", "", "", "GREEN", "", resp.meme)
         })
 }
 exports.help = {
     name: "jbzd",
-    description: "Generuje obrazek z strony jbzd",
+    description: "Generuje obrazek z strony jbzd.com.pl",
     category: "fun",
 }

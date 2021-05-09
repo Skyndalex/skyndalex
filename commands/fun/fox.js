@@ -5,11 +5,7 @@ exports.run = async (client, message, args) => {
     fetch('https://some-random-api.ml/img/fox')
         .then(res => res.json())
         .then(res => {
-            const embed = new Discord.MessageEmbed()
-                .setTitle("Wygenerowano")
-                .setImage(res.link)
-                .setColor("GREEN")
-            message.channel.send(embed);
+            client.sender(message, "Wygenerowano", "", "", "GREEN", "", res.link)
         })
 };
 exports.help = {
