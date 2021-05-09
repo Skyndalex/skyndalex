@@ -21,7 +21,7 @@ module.exports = async(client, message) => {
     const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
     if (message.content.match(prefixMention)) {
         return message.channel.send(embedMention).then(m => {
-            m.delete({timeout: 300000})
+            m.delete({timeout: 60000 })
         })
     }
         if (message.author.bot) return;
