@@ -3,16 +3,16 @@ const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
     //TODO: emoji-suggestions
     //TODO: allow attachements
-    if (!message.member.hasPermission('ADMINISTRATOR')) return client.error(message, `Nie masz permisji! `);
+    if(!message.member.hasPermission("ADMINISTRATOR")) return client.sender(message, "401: Unauthorized", "Nie masz permisji! \`ADMINISTRATOR\`", client.footer, "RED", "", "")
     switch (args[0]) {
         case 'broadcastChannel':
-            if (!args[0]) return client.error(message, "Nie podano kanału!")
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
 
-            let bChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
-            if (!bChannel) return client.error(message, `Nie znaleziono kanału!`)
+            let bChannel = message.guild.channels.cache.find( c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!bChannel) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
 
-            if (bChannel.type === "voice") return client.error(message, 'Podałeś kanał głosowy! Proszę wpisać kanał tekstowy')
-            if (bChannel.type === "category") return client.error(message, 'Podałeś kategorię! Proszę wpisać kanał tekstowy')
+            if (bChannel.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (bChannel.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
             r.table("settings").update({broadcastChannel: bChannel.id}).run(client.con)
 
@@ -24,13 +24,13 @@ exports.run = async (client, message, args) => {
             message.channel.send(broadcastChannelConfigEmbed)
             break;
         case 'suggestionsChannel':
-            if (!args[0]) return client.error(message, "Nie podano kanału!")
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
 
             let sChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
-            if (!sChannel) return client.error(message, `Nie znaleziono kanału!`)
+            if (!sChannel) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
 
-            if (sChannel.type === "voice") return client.error(message, 'Podałeś kanał głosowy! Proszę wpisać kanał tekstowy')
-            if (sChannel.type === "category") return client.error(message, 'Podałeś kategorię! Proszę wpisać kanał tekstowy')
+            if (sChannel.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (sChannel.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
             r.table("settings").update({suggestionsChannel: sChannel.id}).run(client.con)
 
@@ -42,13 +42,13 @@ exports.run = async (client, message, args) => {
             message.channel.send(suggestionsChannelConfigEmbed)
             break;
         case 'voteChannel':
-            if (!args[0]) return client.error(message, "Nie podano kanału!")
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
 
             let vChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
-            if (!vChannel) return client.error(message, `Nie znaleziono kanału!`)
+            if (!vChannel) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
 
-            if (vChannel.type === "voice") return client.error(message, 'Podałeś kanał głosowy! Proszę wpisać kanał tekstowy')
-            if (vChannel.type === "category") return client.error(message, 'Podałeś kategorię! Proszę wpisać kanał tekstowy')
+            if (vChannel.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (vChannel.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
             r.table("settings").update({voteChannel: vChannel.id}).run(client.con)
 
@@ -60,13 +60,13 @@ exports.run = async (client, message, args) => {
             message.channel.send(voteChannelConfigEmbed)
             break;
         case 'private-mod-channel':
-            if (!args[0]) return client.error(message, "Nie podano kanału!")
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
 
             let pmChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
-            if (!pmChannel) return client.error(message, `Nie znaleziono kanału!`)
+            if (!pmChannel) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
 
-            if (pmChannel.type === "voice") return client.error(message, 'Podałeś kanał głosowy! Proszę wpisać kanał tekstowy')
-            if (pmChannel.type === "category") return client.error(message, 'Podałeś kategorię! Proszę wpisać kanał tekstowy')
+            if (pmChannel.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (pmChannel.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
             r.table("settings").update({passChannel: pmChannel.id}).run(client.con)
 
@@ -78,13 +78,13 @@ exports.run = async (client, message, args) => {
             message.channel.send(pmChannelConfigEmbed)
             break;
         case 'passChannel':
-            if (!args[0]) return client.error(message, "Nie podano kanału!")
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
 
             let pChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
-            if (!pChannel) return client.error(message, `Nie znaleziono kanału!`)
+            if (!pChannel) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
 
-            if (pChannel.type === "voice") return client.error(message, 'Podałeś kanał głosowy! Proszę wpisać kanał tekstowy')
-            if (pChannel.type === "category") return client.error(message, 'Podałeś kategorię! Proszę wpisać kanał tekstowy')
+            if (pChannel.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (pChannel.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
             r.table("settings").update({passChannel: pChannel.id}).run(client.con)
 
@@ -96,144 +96,130 @@ exports.run = async (client, message, args) => {
             message.channel.send(passChannelConfigEmbed)
             break;
         case 'globalBroadcastChannel':
-            if (!args[0]) return client.error(message, "Nie podano kanału!")
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
 
             let gbChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
-            if (!gbChannel) return client.error(message, `Nie znaleziono kanału!`)
+            if (!gbChannel) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
 
-            if (gbChannel.type === "voice") return client.error(message, 'Podałeś kanał głosowy! Proszę wpisać kanał tekstowy')
-            if (gbChannel.type === "category") return client.error(message, 'Podałeś kategorię! Proszę wpisać kanał tekstowy')
+            if (gbChannel.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (gbChannel.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
             r.table("settings").update({globalBroadcastChannel: gbChannel.id}).run(client.con)
 
-            const globalBroadcastChannelConfigEmbed = new Discord.MessageEmbed()
-                .setTitle("Ustawiono")
-                .addField("Zmienna", "globalBroadcastChannel")
-                .addField("Nowa wartość", `<#${gbChannel.id}>`)
-                .setColor("GREEN")
-            message.channel.send(globalBroadcastChannelConfigEmbed)
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "globalBroadcastChannel"}, {name: "Nowa wartość", value: `<@${gbChannel.id}>`}])
+
             break;
         case 'autoRole':
-            if (!args[0]) return client.error(message, "Nie podano roli!")
-
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano roli!", client.footer, "RED", "", "")
             let autoRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
-            if (!autoRole) return client.error(message, "Nie znalazłem roli")
+            if (!autoRole) return client.sender(message, "404: Not found", "Nie znaleziono roli!", client.footer, "RED", "", "")
 
             r.table("settings").update({autoRole: autoRole.id}).run(client.con)
 
-            const autoRoleConfigEmbed = new Discord.MessageEmbed()
-                .setTitle("Ustawiono")
-                .addField("Zmienna", "autoRole")
-                .addField("Nowa wartość", `<@${autoRole.id}>`)
-                .setColor("GREEN")
-            message.channel.send(autoRoleConfigEmbed)
             break;
         case 'mutedRole':
-            if (!args[0]) return client.error(message, "Nie podano roli!")
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano roli!", client.footer, "RED", "", "")
 
             let mutedrole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
-            if (!mutedrole) return client.error(message, "Nie znalazłem roli")
+            if (!mutedrole) return client.sender(message, "404: Not found", "Nie znaleziono roli!", client.footer, "RED", "", "")
 
             r.table("settings").update({mutedRole: mutedrole.id}).run(client.con)
 
-            const mutedRoleConfigEmbed = new Discord.MessageEmbed()
-                .setTitle("Ustawiono")
-                .addField("Zmienna", "mutedRole")
-                .addField("Nowa wartość", `<@${mutedrole.id}>`)
-                .setColor("GREEN")
-            message.channel.send(mutedRoleConfigEmbed)
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "mutedRole"}, {name: "Nowa wartość", value: `<@${mutedrole.id}>`}])
+
             break;
         case 'vcMutedRole':
-            if (!args[0]) return client.error(message, "Nie podano roli!")
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano roli!", client.footer, "RED", "", "")
 
             let vcMutedRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
-            if (!vcMutedRole) return client.error(message, "Nie znalazłem roli")
+            if (!vcMutedRole) return client.sender(message, "404: Not found", "Nie znaleziono roli!", client.footer, "RED", "", "")
 
             r.table("settings").update({vcMutedRole: vcMutedRole.id}).run(client.con)
 
-            const vcMutedRoleConfigEmbed = new Discord.MessageEmbed()
-                .setTitle("Ustawiono")
-                .addField("Zmienna", "vcMutedRole")
-                .addField("Nowa wartość", `<@${vcMutedRole.id}>`)
-                .setColor("GREEN")
-            message.channel.send(vcMutedRoleConfigEmbed)
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "vcMutedRole"}, {name: "Nowa wartość", value: `<@${vcMutedRole.id}>`}])
+
             break;
         case 'vcBanRole':
-            if (!args[0]) return client.error(message, "Nie podano roli!")
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano roli!", client.footer, "RED", "", "")
 
             let vcBanRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
-            if (!vcBanRole) return client.error(message, "Nie znalazłem roli")
+            if (!vcBanRole) return client.sender(message, "404: Not found", "Nie znaleziono roli!", client.footer, "RED", "", "")
 
             r.table("settings").update({vcBanRole: vcBanRole.id}).run(client.con)
 
-            const vcBanRoleConfigEmbed = new Discord.MessageEmbed()
-                .setTitle("Ustawiono")
-                .addField("Zmienna", "vcBanRole")
-                .addField("Nowa wartość", `<@${vcBanRole.id}>`)
-                .setColor("GREEN")
-            message.channel.send(vcBanRoleConfigEmbed)
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "vcBanRole"}, {name: "Nowa wartość", value: `<@&${vcBanRole.id}`}])
             break;
         case 'notifyBroadcastRole':
-            if (!args[0]) return client.error(message, "Nie podano roli!")
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano roli!", client.footer, "RED", "", "")
 
             let notifyBroadcastRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
-            if (!notifyBroadcastRole) return client.error(message, "Nie znalazłem roli")
+            if (!notifyBroadcastRole) return client.sender(message, "404: Not found", "Nie znaleziono roli!", client.footer, "RED", "", "")
 
             r.table("settings").update({notifyBroadcastRole: notifyBroadcastRole.id}).run(client.con)
 
-            const notifyBroadcastRoleConfigEmbed = new Discord.MessageEmbed()
-                .setTitle("Ustawiono")
-                .addField("Zmienna", "notifyBroadcastRole")
-                .addField("Nowa wartość", `<@&${notifyBroadcastRole.id}>`)
-                .setColor("GREEN")
-             message.channel.send(notifyBroadcastRoleConfigEmbed)
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "notifyBroadcastRole"}, {name: "Nowa wartość", value: `<@&${notifyBroadcastRole.id}`}])
+
             break;
         case 'notifyVotingRole':
-            if (!args[0]) return client.error(message, "Nie podano roli!")
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano roli!", client.footer, "RED", "", "")
 
             let notifyVotingRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
-            if (!notifyVotingRole) return client.error(message, "Nie znalazłem roli")
+            if (!notifyVotingRole) return client.sender(message, "404: Not found", "Nie znaleziono roli!", client.footer, "RED", "", "")
 
             r.table("settings").update({notifyVotingRole: notifyVotingRole.id}).run(client.con)
 
-            const notifyVotingRoleConfigEmbed = new Discord.MessageEmbed()
-                .setTitle("Ustawiono")
-                .addField("Zmienna", "notifyVotingRole")
-                .addField("Nowa wartość", `<@&${notifyVotingRole.id}>`)
-                .setColor("GREEN")
-            message.channel.send(notifyVotingRoleConfigEmbed)
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "notifyVotingRole"}, {name: "Nowa wartość", value: `<@&${notifyVotingRole.id}`}])
+
             break;
         case 'userRole':
-            if (!args[0]) return client.error(message, "Nie podano roli!")
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano roli!", client.footer, "RED", "", "")
 
             let userRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
-            if (!userRole) return client.error(message, "Nie znalazłem roli")
+            if (!userRole) return client.sender(message, "404: Not found", "Nie znaleziono roli!", client.footer, "RED", "", "")
 
             r.table("settings").update({userRole: userRole.id}).run(client.con)
 
-            const userRoleConfigEmbed = new Discord.MessageEmbed()
-                .setTitle("Ustawiono")
-                .addField("Zmienna", "userRole")
-                .addField("Nowa wartość", `<@&${userRole.id}>`)
-                .setColor("GREEN")
-            message.channel.send(userRoleConfigEmbed)
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "userRole"}, {name: "Nowa wartość", value: `<@&${userRole.id}`}])
+
             break;
         case 'reactBanRole':
-            client.commandNotEnabled(message, "Przeniesione do wersji 3.1")
+            client.sender(message, "301: Moved Permanently", "Tymczasowo przeniesiono do wersji 3.2/3.3", client.footer, "GREEN", "", "")
             break;
         case 'roles':
-            const embedRoles = new Discord.MessageEmbed()
-                .setTitle("Ustawienia ról - zmienne")
-                .addField("> \`autoRole\`", "Ustawienia autoroli")
-                .addField("> \`vcMutedRole\`", "Ustawienia roli która uniemożliwia mówienie na kanale VC")
-                .addField("> \`vcBanRole\`", "Ustawienia roli która uniemożliwia dołączanie na kanał VC")
-                .addField("> \`mutedRole\`", "Ogólna rola wyciszonego")
-                .addField("> \`notifyBroadcastRole\`", "Rola która oznacza użytkowników przy ogłaszaniu")
-                .addField('> \`notifyVotingRole\`', "Rola która oznacza użytkowników przy głosowaniu")
-                .addField("> \`reactBanRole\`", "Rola która uniemożliwia dodawanie reakcji")
-                .addField("> \`whiteListRole\`", "Rola która omija wszelkie logi serwerowe (soon)")
-                .setColor("GREEN")
-            message.channel.send(embedRoles)
+            client.sender(message, "Ustawienia ról - zmienne", "", "", "GREEN", [
+                {
+                    name: "> \`autoRole\`",
+                    value: "Ustawienia autoroli"
+                },
+                {
+                    name: "> \`vcMutedRole\`",
+                    value: "Ustawienia roli wyciszonego na kanale VC"
+                },
+                {
+                    name: "> \`vcBanRole\`",
+                    value: "Ustawienia roli użytkownika, który nie może dołączać na kanały głosowe."
+                },
+                {
+                    name: "> \`mutedRole\`",
+                    value: "Ustawienia roli wyciszonego"
+                },
+                {
+                    name: "> \`notifyBroadcastRole\`",
+                    value: "Ustawienia roli która oznacza użytkownika podczas wysyłania ogłoszenia",
+                },
+                {
+                    name: "> \`notifyVotingRole\`",
+                    value: "Ustawienia roli która oznacza użytkownika podczas wysyłania głosowania"
+                },
+                {
+                    name: "> \`reactBanRole\`",
+                    value: "Ustawienia roli która nie może dodawać reakcji"
+                },
+                {
+                    name: "> \`whiteListRole\`",
+                    value: "Wkrótce użycie!"
+                }
+            ])
             break;
         case 'channels':
             client.sender(message, "Ustawienia kanałów - zmienne", "", client.footer, "GREEN", [
@@ -264,32 +250,48 @@ exports.run = async (client, message, args) => {
             ])
             break;
         case 'welcome':
-            const embedWelcome = new Discord.MessageEmbed()
-                .setTitle("Ustawienia powitań - zmienne")
-                .addField("> \`welcomeChannel\`", "Kanał powitań")
-                .addField("> \`welcomeTextDesc\`", "Tekst opisu powitań")
-                .addField("> \`welcomeTextTitle\`", "Tekst tytułu powitań")
-                .addField("> \`welcomeTextFooter\`", "Tekst footeru powitań")
-                .setFooter("UWAGA! Powitania będą dopiero w wersji 3.2. Prosimy o cierpliwość!!! (na razie da się tylko ustawiać)")
-                .setColor("GREEN")
-            message.channel.send(embedWelcome)
-
-
+            client.sender(message, "Ustawienia powitań - zmienne", "", "UWAGA! Powitania będą dopiero w wersji 3.2. Nie są jeszcze dostępne!!!", "GREEN", [
+                {
+                    name: "> \`welcomeChannel\`",
+                    value: "Kanał powitań"
+                },
+                {
+                    name: "> \`welcomeTextDesc\`",
+                    value: "Tekst opisu powitań"
+                },
+                {
+                    name: "> \`welcomeTextTitle\`",
+                    value: " Tekst tytułu powitań"
+                },
+                {
+                    name: "> \`welcomeTextFooter\`",
+                    value: "Tekst footeru powitań"
+                }
+            ])
             break;
         case 'goodbyes':
-            const embedGoodbyes = new Discord.MessageEmbed()
-                .setTitle("Ustawienia pożegnań - zmienne")
-                .addField("> \`goodbyesChannel\`", "Kanał pożegnań")
-                .addField("> \`goodbyesTextDesc\`", "Tekst opisu pożegnań")
-                .addField("> \`goodbyesTextTitle\`", "Tekst tytułu pożegnań")
-                .addField("> \`goodbyesTextFooter\`", "Tekst footeru pożegnań")
-                .setFooter("UWAGA! Pożegnania będą dopiero w wersji 3.2. Prosimy o cierpliwość!!! (na razie da się tylko ustawiać)")
-                .setColor("GREEN")
-            message.channel.send(embedGoodbyes)
+            client.sender(message, "Ustawienia pożegnań - zmienne", "", "UWAGA! pożegnania będa dopiero w werjsi 3.2. Nie są jeszcze dostępne!!!", "GREEN", [
+                {
+                    name: "> \`goodbyesChannel\`",
+                    value: "Kanał pożegnań",
+                },
+                {
+                    name: "> \`goodbyesTextDesc\`",
+                    value: "Tekst opisu pożegnań"
+                },
+                {
+                    name: "> \`goodbyesTextTitle\`",
+                    value: "Tekst tytułu pożegnań"
+                },
+                {
+                    name: "> \`goodbyesTextFooter\`",
+                    value: "Tekst footeru pożegnań"
+                }
+            ])
             break;
         case 'default':
         default:
-            client.sender(message, "Ustawienia serwerowe", "Niedawno zmienilismy wygląd serwerowych ustawień. [Dowiedz się tutaj, jak tym operować.](https://docs.krivebot.xyz)", client.footer, "GREEN", [
+            client.sender(message, "Ustawienia serwerowe", "Niedawno zmienilismy wygląd serwerowych ustawień. [Dowiedz się tutaj, jak tym operować.](https://docs.krivebot.xyz)", "", "GREEN", [
                 {
                     name: "> \`set roles\`",
                     value: "Ustawienia ról"
