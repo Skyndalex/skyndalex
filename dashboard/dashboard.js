@@ -2,6 +2,7 @@ const express = require("express");
 const app = express()
 
 exports.run = (client) => {
+    /*
     app.set('view engine', 'ejs')
     app.set("views", __dirname + "/views");
 
@@ -20,4 +21,6 @@ exports.run = (client) => {
         //TODO: front-end
     })
     app.listen(1276, () => console.log("Dashboard running at http://localhost:1267"))
+
+     */
 }
