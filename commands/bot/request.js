@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
         "779643124578254858", // lexer
     ]
     if (cooldown.has(message.author.id)) {
-        client.error(message, "Poczekaj 5 minut zanim ponownie wyślesz request!")
+        client.sender(message, "403: Forbidden", "Poczekaj 5 minut zanim ponownie wyślesz request!", "Spam ticketami grozi blokadą na korzystanie z bota!", "RED", "", "")
     } else {
   switch (args[0]) {
       case 'technic':
@@ -21,11 +21,7 @@ exports.run = async (client, message, args) => {
               .addField("ID zgłaszającego", message.author.id)
               .setColor("GREEN")
           technicRequests.send(embed)
-
-          const sentRequestTechnic = new Discord.MessageEmbed()
-              .setDescription("Wysłano zgłoszenie do ekipy bota. Prosimy posiadać odblokowane DM, abyśmy mogli odpowiedzieć.\nWysłano do działu: **pomoc techniczna**")
-              .setColor("GREEN")
-          message.channel.send(sentRequestTechnic)
+          client.sender(message, "", "Wysłano zgłoszenie do ekipy bota. Prosimy posiadać odblokowane DM, abyśmy mogli odpowiedzieć.\nWysłano do działu: **pomoc techniczna**", "", "GREEN", "", "")
           break;
       case 'opinions':
           let opinionsRequests = client.channels.cache.get("829816326188564510")
@@ -37,10 +33,8 @@ exports.run = async (client, message, args) => {
               .setColor("GREEN")
           opinionsRequests.send(embed2)
 
-          const sentRequestOpinions = new Discord.MessageEmbed()
-              .setDescription("Wysłano zgłoszenie do ekipy bota. Prosimy posiadać odblokowane DM, abyśmy mogli odpowiedzieć.\nWysłano do działu: **opinions**")
-              .setColor("GREEN")
-          message.channel.send(sentRequestOpinions)
+          client.sender(message, "", "Wysłano zgłoszenie do ekipy bota. Prosimy posiadać odblokowane DM, abyśmy mogli odpowiedzieć.\nWysłano do działu: **opinions**", "", "GREEN", "", "")
+
           break;
       case 'bugs':
           let bugsRequest = client.channels.cache.get("829817201321443368")
@@ -56,6 +50,9 @@ exports.run = async (client, message, args) => {
               .setDescription("Wysłano zgłoszenie do ekipy bota. Prosimy posiadać odblokowane DM, abyśmy mogli odpowiedzieć.\nWysłano do działu: **bugs**")
               .setColor("GREEN")
           message.channel.send(sentRequestBugs)
+
+          client.sender(message, "", "Wysłano zgłoszenie do ekipy bota. Prosimy posiadać odblokowane DM, abyśmy mogli odpowiedzieć.\nWysłano do działu: **bugs**", "", "GREEN", "", "")
+
           break;
       case 'suggest':
           const suggestChannel = client.channels.cache.get("836363614699913227")
@@ -67,21 +64,24 @@ exports.run = async (client, message, args) => {
               .setColor("GREEN")
           suggestChannel.send(embed4)
 
-          const sentRequestSuggest = new Discord.MessageEmbed()
-              .setDescription("Wysłano propozycję!")
-              .setColor("GREEN")
-          message.channel.send(sentRequestSuggest)
+          client.sender(message, "", "Wysłano zgłoszenie do ekipy bota. Prosimy posiadać odblokowane DM, abyśmy mogli odpowiedzieć.\nWysłano do działu: **suggest**", "", "GREEN", "", "")
+
           break;
       default:
-          const embedDefault = new Discord.MessageEmbed()
-              .setTitle("Zaawansowana pomoc")
-              .setDescription("[Dokumentacja](https://docs.krivebot.xyz) nie starczy? Potrzebujesz więcej pomocy z botem? Trafiłeś w idealne miejsce!")
-              .addField("Pomoc techniczna", "\`request technic [treść]\`")
-              .addField("Opinie", "\`request opinions [opinia]\`")
-              .addField("Błędy", "\`request bugs [błąd]\`")
-              .setFooter(client.requestFooter)
-              .setColor("GREEN")
-          message.channel.send(embedDefault)
+          client.sender(message, "Zaawansowana pomoc", "[Dokumentacja](https://docs.krivebot.xyz) nie starczy? Potrzebujesz więcej pomocy z botem? Trafiłeś w idealne miejsce!", "", "GREEN", [
+              {
+                  name: "Pomoc techniczna",
+                  value: "\`reuest technic [treść]\`"
+              },
+              {
+                  name: "Opinie",
+                  value: "\`request opinions [opinia]\`"
+              },
+              {
+                  name: "Błędy",
+                  value: "\`request bugs [bug]\`"
+              }
+          ])
           break;
           }
      }
