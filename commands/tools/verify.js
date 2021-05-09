@@ -22,9 +22,11 @@ exports.run = async (client, message, args) => {
     message.member.roles.add(role).catch(err=>message.channel.send(`Nastąpił problem! Błąd to: ${err}`))
 
     client.sender(message, "Powodzenie", `Zweryfikowano pomyślnie użytkownika ${message.author.tag}!`, "Krive verification v1.0", "GREEN", "", "")
-    client.sender(message, "UWAGA!", "System weryfikacji jest w bardzo wczesnej wersji. Kod został przepisany z starego bota (wersja z 2020 roku) i bardzo łatwo go ominąć z selfbotem. Są to tylko testy beta. Prosimy nie korzystać z niej w 100% na serwerze!", "Krive verification v1.0", "RED", "", "")
+    client.sender(message, "UWAGA!", "System weryfikacji jest w bardzo wczesnej wersji. Kod został przepisany z starego bota (wersja z 2020 roku) i bardzo łatwo go ominąć z selfbotem. Są to tylko testy beta. Prosimy nie korzystać z niej w 100% na serwerze!", "Ta wiadomość zniknie za minutę", "RED", "", "").then(h => {
+        h.delete({timeout: 60000})
+    })
 
-    client.authorSender(message, "AKCJA: Weryfikacja użytkownika", "Wykryto akcję pod nazwą:\n \`verification\`.\nDane akcji poniżej:", "Krive verification v1.0", "GREEN", [
+    client.authorSender(message, "Nowa aktywność!", "Dane akcji poniżej:", "Krive verification v1.0", "GREEN", [
         {
             name: "Serwer",
             value: message.guild.name
@@ -42,8 +44,8 @@ exports.run = async (client, message, args) => {
             value: message.guild.ownerID
         },
         {
-            name: "ID zweryfikowanego użytkownika",
-            value: message.author.tag
+            name: "Nazwa akcji",
+            value: "verify (Server Verification)"
         }
     ])
 }
