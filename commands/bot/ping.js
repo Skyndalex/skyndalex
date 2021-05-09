@@ -5,6 +5,8 @@ exports.run = (client, message) => {
        .setDescription(`Ping: ${client.ws.ping}`)
        .setColor("GREEN")
     message.channel.send(embed)
+
+    client.sender(message, "", `Ping: ${client.ws.ping}ms`, "", "GREEN", "", "")
 };
 
 exports.help = {
