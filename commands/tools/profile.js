@@ -31,6 +31,7 @@ exports.run = async (client, message, args) => {
             if(profile.twitter) profileEmbed.addField('Twitter', profile.twitter)
             if(profile.twitch) profileEmbed.addField('Twitch', profile.twitch)
             if(profile.reddit) profileEmbed.addField('Reddit', profile.reddit)
+            if (profile.badge) profileEmbed.addField('Odznaki', profile.badge)
             profileEmbed.setFooter(client.footer)
             message.channel.send(profileEmbed)
             break;

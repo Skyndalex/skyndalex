@@ -1,12 +1,7 @@
 const Discord = require("discord.js")
 
 exports.run = (client, message) => {
-   let embed = new Discord.MessageEmbed()
-       .setDescription(`Ping: ${client.ws.ping}`)
-       .setColor("GREEN")
-    message.channel.send(embed)
-
-    client.sender(message, "", `Ping: ${client.ws.ping}ms`, "", "GREEN", "", "")
+    client.sender(message, "", `Opóźnienie bota: ${client.ws.ping}ms\nOpóźnienie API discorda: ${Date.now() - message.createdTimestamp}ms`, "", "GREEN", "", "")
 };
 
 exports.help = {

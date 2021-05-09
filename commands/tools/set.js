@@ -16,12 +16,7 @@ exports.run = async (client, message, args) => {
 
             r.table("settings").update({broadcastChannel: bChannel.id}).run(client.con)
 
-            const broadcastChannelConfigEmbed = new Discord.MessageEmbed()
-                .setTitle("Ustawiono")
-                .addField("Zmienna", "broadcastChannel")
-                .addField("Nowa wartość", `<#${bChannel.id}>`)
-                .setColor("GREEN")
-            message.channel.send(broadcastChannelConfigEmbed)
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "broadcastChannel"}, {name: "Nowa wartość", value: `<#${bChannel.id}>`}])
             break;
         case 'suggestionsChannel':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
@@ -34,12 +29,8 @@ exports.run = async (client, message, args) => {
 
             r.table("settings").update({suggestionsChannel: sChannel.id}).run(client.con)
 
-            const suggestionsChannelConfigEmbed = new Discord.MessageEmbed()
-                .setTitle("Ustawiono")
-                .addField("Zmienna", "suggestionsChannel")
-                .addField("Nowa wartość", `<#${sChannel.id}>`)
-                .setColor("GREEN")
-            message.channel.send(suggestionsChannelConfigEmbed)
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "suggestionsChannel"}, {name: "Nowa wartość", value: `<#${sChannel.id}>`}])
+
             break;
         case 'voteChannel':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
@@ -52,12 +43,8 @@ exports.run = async (client, message, args) => {
 
             r.table("settings").update({voteChannel: vChannel.id}).run(client.con)
 
-            const voteChannelConfigEmbed = new Discord.MessageEmbed()
-                .setTitle("Ustawiono")
-                .addField("Zmienna", "voteChannel")
-                .addField("Nowa wartość", `<#${vChannel.id}>`)
-                .setColor("GREEN")
-            message.channel.send(voteChannelConfigEmbed)
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "voteChannel"}, {name: "Nowa wartość", value: `<#${vChannel.id}>`}])
+
             break;
         case 'private-mod-channel':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
@@ -70,12 +57,8 @@ exports.run = async (client, message, args) => {
 
             r.table("settings").update({passChannel: pmChannel.id}).run(client.con)
 
-            const pmChannelConfigEmbed = new Discord.MessageEmbed()
-                .setTitle("Ustawiono")
-                .addField("Zmienna", "private-mod-channel")
-                .addField("Nowa wartość", `<#${pmChannel.id}>`)
-                .setColor("GREEN")
-            message.channel.send(pmChannelConfigEmbed)
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "private-mod-channel"}, {name: "Nowa wartość", value: `<#${pmChannel.id}>`}])
+
             break;
         case 'passChannel':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
@@ -88,12 +71,8 @@ exports.run = async (client, message, args) => {
 
             r.table("settings").update({passChannel: pChannel.id}).run(client.con)
 
-            const passChannelConfigEmbed = new Discord.MessageEmbed()
-                .setTitle("Ustawiono")
-                .addField("Zmienna", "passChannel")
-                .addField("Nowa wartość", `<#${pChannel.id}>`)
-                .setColor("GREEN")
-            message.channel.send(passChannelConfigEmbed)
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "passChannel"}, {name: "Nowa wartość", value: `<#${pChannel.id}>`}])
+
             break;
         case 'globalBroadcastChannel':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
@@ -109,12 +88,59 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "globalBroadcastChannel"}, {name: "Nowa wartość", value: `<@${gbChannel.id}>`}])
 
             break;
+
+        case 'welcomeChannel':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            let wChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!wChannel) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+            if (wChannel.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (wChannel.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            r.table("settings").update({welcomeChannel: wChannel.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "welcomeChannel"}, {name: "Nowa wartość", value: `<@${wChannel.id}>`}])
+            break;
+        case 'welcomeTextDesc':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano tekstu!", client.footer, "RED", "", "")
+
+            let wtd = args.slice(1).join(" ")
+
+            r.table("settings").update({welcomeTextDesc: wtd}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "welcomeTextDesc"}, {name: "Nowa wartość", value: `${wtd}`}])
+
+            break;
+        case 'welcomeTextTitle':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano tekstu!", client.footer, "RED", "", "")
+
+            let wtt = args.slice(1).join(" ")
+
+            r.table("settings").update({welcomeTextTitle: wtt}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "welcomeTextTitle"}, {name: "Nowa wartość", value: `${wtt}`}])
+
+            break;
+        case 'welcomeTextFooter':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            let wtf = args.slice(1).join(" ")
+
+            r.table("settings").update({welcomeTextFooter: wtf}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "welcomeTextFooter"}, {name: "Nowa wartość", value: `${wtf}`}])
+
+            break;
+
         case 'autoRole':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano roli!", client.footer, "RED", "", "")
             let autoRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
             if (!autoRole) return client.sender(message, "404: Not found", "Nie znaleziono roli!", client.footer, "RED", "", "")
 
             r.table("settings").update({autoRole: autoRole.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "autoRole"}, {name: "Nowa wartość", value: `<#${autoRole.id}>`}])
 
             break;
         case 'mutedRole':

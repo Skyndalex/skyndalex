@@ -65,7 +65,7 @@ class KriveManager extends Client {
 
         this.dmEntity = "https://discord.com/users/817883855310684180"
     }
-    authorSender (message, title, text, footer, color, fields = [], image) {
+   authorSender (message, title, text, footer, color, fields = [], image) {
         const authorSenderEmbed = new Discord.MessageEmbed()
             .setTitle(title)
             .setDescription(text)

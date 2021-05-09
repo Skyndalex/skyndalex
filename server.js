@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
 	res.send("Connected")
 })
 
+
 //TODO: rewrite
 app.listen(port, () => {
 	console.log(`Connected to https://localhost:${port}`)
@@ -28,8 +29,10 @@ r.connect({db: "krivebot"}, (err, con) => {
 	client.con = con;
 })
 
+
+
 client.commands = new Discord.Collection();
-client.snipes = new Discord.Collection()
+
 fs.readdirSync("./commands/").forEach(dir => {
 	const commands = fs.readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js"));
 	for (let file of commands) {
