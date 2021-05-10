@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
-    if(!message.member.hasPermission('MANAGE_CHANNELS')) return client.error(message, 'Nie masz permisji!')
+    if(!message.member.hasPermission('MANAGE_CHANNELS')) return client.sender(message, "401: Unauthorized", "Nie masz permisji! \`ADMINISTRATOR\`", client.footer, "RED", "", "")
     if (!args[0]) return client.error(message, `Nie podano treści ogłoszenia!`)
 
     const channel = await r.table("settings").get(message.guild.id)("broadcastChannel").run(client.con)

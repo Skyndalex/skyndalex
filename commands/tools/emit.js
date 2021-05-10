@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 exports.run = async (client, message, args, level) => {
-    if(!message.member.hasPermission('MANAGE_CHANNELS')) return client.error(message, 'Nie masz permisji!')
+    if(!message.member.hasPermission('MANAGE_CHANNELS')) return client.sender(message, "401: Unauthorized", "Nie masz permisji! \`ADMINISTRATOR\`", client.footer, "RED", "", "")
 
     switch (args[0]) {
         case 'guildMemberAdd':
