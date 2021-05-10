@@ -12,4 +12,8 @@ module.exports = async(client, guild) => {
     await r.table("ServerEconomy").insert({
         id: guild.id
     }).run(client.con)
+
+    await r.table("system").insert({
+        id: guild.id
+    }).run(client.con)
 }

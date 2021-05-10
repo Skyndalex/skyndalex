@@ -123,16 +123,36 @@ exports.run = async (client, message, args) => {
 
             break;
         case 'welcomeTextFooter':
-            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano tekstu!", client.footer, "RED", "", "")
 
             let wtf = args.slice(1).join(" ")
 
             r.table("settings").update({welcomeTextFooter: wtf}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "welcomeTextFooter"}, {name: "Nowa wartość", value: `${wtf}`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "welcomeTextAuthor"}, {name: "Nowa wartość", value: `${wtf}`}])
 
             break;
 
+        case 'welcomeTextAuthor':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano tekstu!", client.footer, "RED", "", "")
+
+            let wta = args.slice(1).join(" ")
+
+            r.table("settings").update({welcomeTextAuthor: wta}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "welcomeTextAuthor"}, {name: "Nowa wartość", value: `${wta}`}])
+
+            break;
+        case 'welcomeColorHex':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano koloru (Użyj HEX lub nazwy np. GREEN) !", client.footer, "RED", "", "")
+
+            let wch = args.slice(1).join(" ")
+
+            r.table("settings").update({welcomeColorHex: wch}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "welcomeTextAuthor"}, {name: "Nowa wartość", value: `${wch}`}])
+
+            break;
         case 'autoRole':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano roli!", client.footer, "RED", "", "")
             let autoRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()

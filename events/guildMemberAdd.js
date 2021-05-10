@@ -4,17 +4,19 @@ module.exports = async (client, member) => {
     const role = await r.table('settings').get(member.guild.id)("autoRole").run(client.con)
     member.roles.add(role)
 
-
     const channel = await r.table('settings').get(member.guild.id)("welcomeChannel").run(client.con)
-
+    const wAuthor = await r.table("settings").get(member.guild.id)("welcomeTextAuthor").run(client.con)
     const wTitle = await r.table("settings").get(member.guild.id)("welcomeTextTitle").run(client.con)
     const wDesc = await r.table("settings").get(member.guild.id)("welcomeTextDesc").run(client.con)
     const wFooter = await r.table("settings").get(member.guild.id)("welcomeTextFooter").run(client.con)
+    const wColor = await r.table("settings").get(member.guild.id)("welcomeColorHex").run(client.con)
 
     const embed = new Discord.MessageEmbed()
+        .setAuthor(wAuthor)
+        .setFooter(wFooter)
         .setTitle(wTitle)
         .setDescription(wDesc)
         .setFooter(wFooter)
-        .setColor("GREEN")
+        .setColor(wColor)
     member.guild.channels.cache.get(channel).send(embed)
 }
