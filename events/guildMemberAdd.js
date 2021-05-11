@@ -1,8 +1,11 @@
 const r = require('rethinkdb')
 const Discord = require("discord.js")
 module.exports = async (client, member) => {
+    /*
     const role = await r.table('settings').get(member.guild.id)("autoRole").run(client.con)
     member.roles.add(role)
+
+     */
 
     const channel = await r.table('settings').get(member.guild.id)("welcomeChannel").run(client.con)
     const wAuthor = await r.table("settings").get(member.guild.id)("welcomeTextAuthor").run(client.con)
