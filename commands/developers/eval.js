@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 exports.run = async (client, message, args) => {
 	let dev = ["817883855310684180"];
-	if (!dev.includes(message.author.id)) return client.error(message, `Potrzebujesz uprawnień developera aby użyć tej komendy!`)
+	if (!dev.includes(message.author.id)) return message.channel.send("hehe")
 	let cToken = new RegExp(client.token, "g");
   
 	if (!args[0]) return client.error(message, `Nie podano kodu wejściowego!`)
