@@ -102,6 +102,19 @@ exports.run = async (client, message, args) => {
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "welcomeChannel"}, {name: "Nowa wartość", value: `<@${wChannel.id}>`}])
             break;
+        case 'goodbyeChannel':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            let gChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!gChannel) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+            if (gChannel.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (gChannel.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            r.table("settings").update({goodbyeChannel: gChannel.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "goodbyesChannel"}, {name: "Nowa wartość", value: `<@${gChannel.id}>`}])
+            break;
         case 'welcomeTextDesc':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano tekstu!", client.footer, "RED", "", "")
 
