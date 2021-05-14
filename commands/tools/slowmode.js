@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
     if (isNaN(args[0])) return client.sender(message, "405: Method not allowed", "To nie jest liczba! (Musisz wpisać samą liczbę, bez literki **s**", client.footer, "RED", "", "")
     if ((args[0] > 21600) || (args[0] < -0)) return client.sender(message, "405: Method not allowed", "Dłuższy czas cooldownu nie powinien przekraczać 6h!", client.footer, "RED", "", "")
 
-    await message.channel.setRateLimitPerUser(args[0])
+    const rateLimitPerUser = await message.channel.setRateLimitPerUser(args[0])
 
     /*
     const embed = new Discord.MessageEmbed()
