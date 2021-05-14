@@ -1,4 +1,4 @@
-const r = require('rethinkdb')
+ const r = require('rethinkdb')
 const Discord = require("discord.js")
 module.exports = async (client, member) => {
         /*
