@@ -10,6 +10,7 @@ exports.run = async (client, message, args) => {
     if (!message.member.hasPermission(["ADMINISTRATOR"])) return message.channel.send("Nie masz permisji do rozpoczęcia konkursu!")
     let item = "";
     let time;
+   // let founder = args[2]
 
     let winnerCount;
     for (let i = 1; i < args.length; i++) {
@@ -28,6 +29,7 @@ exports.run = async (client, message, args) => {
         long: true
     }), true);
     embed.addField("Organizator", message.author.tag)
+ //  embed.addField("Fundator", founder||"Brak")
     embed.setFooter("Zareaguj reakcję aby dołączyć");
     const embedSent = await message.channel.send(embed);
     embedSent.react("🎉");
