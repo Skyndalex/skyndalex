@@ -18,23 +18,23 @@ exports.run = async (client, message, args) => {
             for (let i in json.username_history) {
                 data.push(json.username_history[i].username);
             }
-
+            if (!data) return message.channel.send("LOL JESTEM GEJEM")
             client.sender(message, `Informacje o koncie minecraft: ${json.username}`, ``, ``, `GREEN`, [
                 {
                     name: "Konto stworzono o:",
-                    value: json.created_at
+                    value: json.created_at||"Nie znaleziono danych: \`created_at\`"
                 },
                 {
                     name: "Nazwa użytkownika",
-                    value: json.username
+                    value: json.username||"Nie znaleziono danych: \`username\`"
                 },
                 {
                     name: "UUID",
-                    value: json.uuid
+                    value: json.uuid||"Nie znaleziono danych: \`uuid\`"
                 },
                 {
                     name: "Historia nicków (najstarszy --> najnowszy)",
-                    value: `\`\`\`${data.join(" , ")}\`\`\``
+                    value: `\`\`\`${data.join(" , ")}\`\`\``||"Nie znaleziono danych: \`username_history\`"
                 }
             ])
         })
