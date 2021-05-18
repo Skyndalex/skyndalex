@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
     if(!message.member.hasPermission('ADMINISTRATOR')) return client.sender(message, "401: Unauthorized", "Nie masz permisji! \`ADMINISTRATOR\`", client.footer, "RED", "", "")
-
+/*
     switch(args[0]) {
         case 'add':
             const blacklistword = args.slice(1).join(" ")
@@ -33,6 +33,9 @@ exports.run = async (client, message, args) => {
                 }
             ])
     }
+
+ */
+    message.channel.send("Wkrótce, w panelu!")
 }
 exports.help = {
     name: "automod",
