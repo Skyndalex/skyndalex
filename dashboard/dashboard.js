@@ -13,8 +13,7 @@ const url = require("url")
 const mStore = MemoryStore(session);
 exports.run = (client) => {
     app.set('view engine', 'ejs')
-    app.set("views", __dirname + "views");
-
+    app.set("views", __dirname + "/views/pages");
 
     passport.serializeUser((user, done) => {
         done(null, user);
@@ -28,7 +27,7 @@ exports.run = (client) => {
             clientID: "829812129074774086",
             clientSecret: clientSecret,
             callbackURL: "http://localhost:1276/callback", // The url that will handle callbacks.
-            scope: ["identify", "guilds"] // Get tag and profile picture + servers user is in.
+            scope: ["identify", "guilds", "guilds.join"] // Get tag and profile picture + servers user is in.
         },
         (accessToken, refreshToken, profile, done) => {
             process.nextTick(() => done(null, profile));
@@ -68,12 +67,12 @@ exports.run = (client) => {
             req.session.backURL = null;
             res.redirect(url);
         } else {
-            res.redirect("general");
+            res.redirect("/");
         }
     });
 
     app.get("/dashboard", (req, res) => {
-        res.render("./views/pages/general", {
+        res.render("pages/general", {
             bot: client,
             user: req.isAuthenticated() ? req.user : null
         })
@@ -85,30 +84,16 @@ exports.run = (client) => {
         res.redirect("/login"); // And we redirect it to our login handler that will do the job.
     };
 
-    /*
-    const render = (req, res, template, data = {}) => {
-        const baseData = {
-            bot: client, // Your discord client.
-            path: req.path, // Current path of the url
-            user: req.isAuthenticated() ? req.user : null // If user is authenticated, we pass user, otherwise null.
-        };
-
-        const mergedData = Object.assign(baseData, data); // We merge the base data with data provided to function.
-        const templatePath = path.resolve(`${templateDirectory}${path.sep}${template}`); // We resolve the template.
-
-        res.render(templatePath, mergedData); // We render the template.
-    };
-
-     */
     app.get("/logout", function (req, res) {
         req.session.destroy(() => { // We destroy session
             req.logout(); // Inside callback we logout user
-            res.redirect("/"); // And to make sure he isnt on any pages that require authorization, we redirect it to main page.
+            res.redirect("logout.ejs"); // And to make sure he isnt on any pages that require authorization, we redirect it to main page.
         });
     });
     app.get("/", function (req, res) {
-        res.render('./views/pages/general', {
-            bot: client
+        res.render('general.ejs', {
+            bot: client,
+            user: req.isAuthenticated() ? req.user : null
         })
     })
     app.listen(1276, () => console.log("Dashboard running at http://localhost:1267"))
