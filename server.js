@@ -57,6 +57,7 @@ console.log(`Loaded ${client.commands.size} commands`)
 console.log("Client ready!")
 
 require("./func.js")(client);
-require("./subordinate/array")(client)
 
+require("./subordinate/array")(client)
+require("./subordinate/apikeys")(client)
 client.login(token)

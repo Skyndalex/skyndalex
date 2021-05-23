@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
      */
 
     const user = args[0]
-    if (!user) return message.channel.send("Brak użytkownika")
+    if (!user) return message.channel.send("Brak użytkownika\nŻĄDANE: \`github_user\`")
 
     fetch(`https://api.github.com/users/${user}`)
         .then(res => res.json())
@@ -25,67 +25,67 @@ exports.run = async (client, message, args) => {
             client.sender(message, `Informacje o koncie github: ${json.name}`, ``, ``, `GREEN`, [
                 {
                     name: "Nazwa użytkownika",
-                    value: json.name
+                    value: json.name||"Nie znaleziono informacji"
                 },
                 {
                     name: "Link do profilu",
-                    value: json.html_url
+                    value: json.html_url||"Nie znaleziono informacji"
                 },
                 {
                     name: "Link do obserwujących użytkownika",
-                    value: json.followers_url
+                    value: json.followers_url||"Nie znaleziono informacji"
                 },
                 {
                     name: "Link do użytkowników obserwowanych przez użytkownika",
-                    value: json.followind_url
+                    value: json.followind_url||"Nie znaleziono informacji"
                 },
                 {
                     name: "Typ użytkownika",
-                    value: json.type
+                    value: json.type||"Nie znaleziono informacji"
                 },
                 {
                     name: "Firma",
-                    value: json.company||"Brak"
+                    value: json.company||"Nie znaleziono informacji"
                 },
                 {
                     name: "Blog",
-                    value: json.blog||"Brak"
+                    value: json.blog||"Nie znaleziono informacji"
                 },
                 {
                     name: "Państwo",
-                    value: json.location
+                    value: json.location||"Nie znaleziono informacji"
                 },
                 {
                     name: "Adres e-mail (Podany w serwisie GitHub)",
-                    value: json.email
+                    value: json.email||"Nie znaleziono informacji"
                 },
                 {
                     name: "Bio",
-                    value: json.bio
+                    value: json.bio||"Nie znaleziono informacji"
                 },
                 {
                     name: "Liczba publicznych repozytorium",
-                    value: json.public_repos
+                    value: json.public_repos||"Nie znaleziono informacji"
                 },
                 {
                     name: "Liczba publicznych gistów",
-                    value: json.public_gists
+                    value: json.public_gists||"Nie znaleziono informacji"
                 },
                 {
                     name: "Obserwujący",
-                    value: json.followers
+                    value: json.followers||"Nie znaleziono informacji"
                 },
                 {
                     name: "Obserwuje",
-                    value: json.following
+                    value: json.following||"Nie znaleziono informacji"
                 },
                 {
                     name: "Ostatnia aktualizacja konta",
-                    value: json.updated_at
+                    value: json.updated_at||"Nie znaleziono informacji"
                 },
                 {
                     name: "Konto stworzono o",
-                    value: json.created_at
+                    value: json.created_at||"Nie znaleziono informacji"
                 }
             ])
         })
