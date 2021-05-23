@@ -4,15 +4,15 @@ const { token } = require("./config.json")
 const KriveManager = require("./Client.js")
 const r = require("rethinkdb")
 const client = new KriveManager()
-require("./dashboard/dashboard").run(client);
-require("./games/games").run(client)
-client.perms = [
-	"817883855310684180",
-	"484419302200442890",
-]
 const express = require('express')
 const app = express()
 const port = 2222
+
+require("./dashboard/dashboard").run(client);
+require("./games/games").run(client)
+require("./func.js")(client);
+require("./subordinate/array")(client)
+require("./subordinate/apikeys")(client)
 
 app.get('/', (req, res) => {
 	res.send("Connected")
@@ -55,9 +55,4 @@ for (const file of eventFiles) {
 
 console.log(`Loaded ${client.commands.size} commands`)
 console.log("Client ready!")
-
-require("./func.js")(client);
-
-require("./subordinate/array")(client)
-require("./subordinate/apikeys")(client)
 client.login(token)

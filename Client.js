@@ -21,7 +21,7 @@ class KriveManager extends Client {
 
         this.economyVersion = "0.8"
         this.musicVersion = "0.5"
-        this.version = "v3.2"
+        this.version = "v3.5"
         this.moderationVersion = "v1.0"
         this.setVersion = "v1.5"
         this.requestVersion = "v1.0"
