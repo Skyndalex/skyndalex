@@ -2,12 +2,6 @@ const Discord = require("discord.js");
 const cooldown = new Set;
 
 exports.run = async (client, message, args) => {
-    let requestModerators = [
-        "682572949219180547", // cyber
-        "829789505237024778", // inkatail
-        "494017032283619329", // rkubapl
-        "779643124578254858", // lexer
-    ]
     if (cooldown.has(message.author.id)) {
         client.sender(message, "403: Forbidden", "Poczekaj 5 minut zanim ponownie wyślesz request!", "Spam ticketami grozi blokadą na korzystanie z bota!", "RED", "", "")
     } else {
@@ -67,8 +61,21 @@ exports.run = async (client, message, args) => {
           client.sender(message, "", "Wysłano zgłoszenie do ekipy bota. Prosimy posiadać odblokowane DM, abyśmy mogli odpowiedzieć.\nWysłano do działu: **suggest**", "", "GREEN", "", "")
 
           break;
+      case 'beta':
+          const betaChannel = client.channels.cache.get("846121325444857906")
+
+          const embed5 = new Discord.MessageEmbed()
+              .setDescription(args.slice(1).join(" "))
+              .addField("Zgłosił", message.author.tag)
+              .addField("ID zgłaszającego", message.author.id)
+              .setColor("GREEN")
+          betaChannel.send(embed5)
+
+          client.sender(message, "", "Wysłano zgłoszenie do ekipy bota. Prosimy posiadać odblokowane DM, abyśmy mogli odpowiedzieć.\nWysłano do działu: **beta**", "", "GREEN", "", "")
+
+          break;
       default:
-          client.sender(message, "Zaawansowana pomoc", "[Dokumentacja](https://docs.krivebot.xyz) nie starczy? Potrzebujesz więcej pomocy z botem? Trafiłeś w idealne miejsce!", "", "GREEN", [
+          client.sender(message, "Zaawansowana pomoc", "[Dokumentacja](https://docs.krivebot.xyz) nie starczy? Potrzebujesz więcej pomocy z botem? Trafiłeś w idealne miejsce!", "UWAGA: Cooldown obejmuje całą komendę! Używaj jej ostrożnie", "GREEN", [
               {
                   name: "Pomoc techniczna",
                   value: "\`reuest technic [treść]\`"
@@ -80,6 +87,10 @@ exports.run = async (client, message, args) => {
               {
                   name: "Błędy",
                   value: "\`request bugs [bug]\`"
+              },
+              {
+                  name: "Rekrutacja na beta-testerów",
+                  value: "\`request beta [treść]\`"
               }
           ])
           break;

@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
      - id
      - node_id
      - name
-     - full_name
+     - full_nam
      - private
      - owner
      - html_url

@@ -52,8 +52,11 @@ for (const file of eventFiles) {
 	const eventName = file.split(".")[0];
 	client.on(eventName, event.bind(null, client));
 }
+
 console.log(`Loaded ${client.commands.size} commands`)
 console.log("Client ready!")
+
 require("./func.js")(client);
+require("./subordinate/array")(client)
 
 client.login(token)
