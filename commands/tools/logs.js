@@ -94,6 +94,19 @@ exports.run = async (client, message, args) => {
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "guildBanAdd"}, {name: "Nowa wartość", value: `<@${guildBanAddLog.id}>`}])
             break;
+        case 'guildBanRemove':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            const guildBanRemoveLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!guildBanRemoveLog) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+            if (guildBanRemoveLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (guildBanRemoveLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            await r.table("settings").update({guildBanRemoveLog: guildBanRemoveLog.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "guildBanRemove"}, {name: "Nowa wartość", value: `<@${guildBanRemoveLog.id}>`}])
+            break;
         default:
             client.sender(message, "Ustawienia logów serwerowych", "Potrzebujesz logów? Trafiłeś w idealne miejsce!", "Ustawienia logów: logs channelCreate #kanał", "GREEN", [
                 {
