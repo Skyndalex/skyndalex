@@ -11,6 +11,8 @@ exports.run = async (client, message, args, level) => {
         .setTitle("Opublikowano nową propozycję")
         .setDescription(args.join(" "))
         .setColor("GREEN")
+    if (message.attachments.map(a=>a.url)[0]) embed.setImage(message.attachments.map(a=>a.url)[0])
+    if (message.attachments.map(a=>a.url)[0]) embed.setFooter('W obrazku pokazane jest tylko jedno pierwsze zdjęcie!');
     client.channels.cache.get(channel).send(embed).then(m => {
         m.react("👍")
         m.react("👎")
