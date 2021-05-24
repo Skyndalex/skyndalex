@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "broadcastChannel"}, {name: "Nowa wartość", value: `<#${bChannel.id}>`}])
             break;
-        case 'suggestionsChannel':
+        case 'suggestChannel':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
 
             let sChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
@@ -114,6 +114,36 @@ exports.run = async (client, message, args) => {
             r.table("settings").update({goodbyeChannel: gChannel.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "goodbyesChannel"}, {name: "Nowa wartość", value: `<@${gChannel.id}>`}])
+            break;
+        case 'complaintChannel':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            let cChannel =  message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!cChannel) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+
+            if (cChannel.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (cChannel.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            r.table("settings").update({complaintChannel: cChannel.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "complaintChannel"}, {name: "Nowa wartość", value: `<@${cChannel.id}>`}])
+
+            break;
+        case 'emojiSuggestChannel':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            let esChannel =  message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!esChannel) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+
+            if (esChannel.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (esChannel.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            r.table("settings").update({emojiSuggestChannel: esChannel.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiSuggestChannel"}, {name: "Nowa wartość", value: `<@${esChannel.id}>`}])
+
             break;
         case 'welcomeTextDesc':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano tekstu!", client.footer, "RED", "", "")
@@ -305,6 +335,14 @@ exports.run = async (client, message, args) => {
                 {
                     name: "> \`private-mod-channel\`",
                     value: "Prywatny kanał moderacji. Absolutnie nie wiem po co."
+                },
+                {
+                    name: "> \`complaintChannel\`",
+                    value: "Kanał skarg"
+                },
+                {
+                    name: "\`emojiSuggestChannel\`",
+                    value: "Kanał propozycji emoji"
                 }
             ])
             break;
