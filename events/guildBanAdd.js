@@ -6,5 +6,10 @@ module.exports = async (client, guild, user) => {
     const logEmbed = new Discord.MessageEmbed()
         .setTitle("Zbanowano użytkownika!")
         .setColor("RED")
+        .addField("Nazwa użytkownika", user.username)
+        .addField("Tag użytkownika", user.discriminator)
+        .addField("Pełna nazwa użytkownika", user.tag)
+        .addField("ID", user.id)
 
+    guild.channels.cache.get(logChannel).send(logEmbed)
 }
