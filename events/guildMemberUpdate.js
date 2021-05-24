@@ -18,6 +18,7 @@ module.exports = async (client, oldMember, newMember) => {
             .addField("Nazwa po", newMember.user.username)
             .addField("Pseudonim przed", oldMember.nickname)
             .addField("Pseudonim po", newMember.nickname)
+            .setColor("GREEN")
         newMember.guild.channels.cache.get(logChannel).send(logEmbed)
 
     }
