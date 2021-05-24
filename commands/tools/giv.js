@@ -2,14 +2,13 @@ const ms = require("ms")
 const Discord = require("discord.js")
 exports.run = async (client, message, args) => {
     /*
-    jakby ktoś szukał kodu
     https://stackoverflow.com/questions/62086666/discord-js-bot-giveaway-command-embedsent-reactions-get-is-not-a-function
      */
-
     const messageArray = message.content.split(" ");
     if (!message.member.hasPermission(["ADMINISTRATOR"])) return message.channel.send("Nie masz permisji do rozpoczęcia konkursu!")
     let item = "";
     let time;
+
    // let founder = args[2]
 
     let winnerCount;
