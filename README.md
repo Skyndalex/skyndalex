@@ -16,4 +16,4 @@ https://discord.gg/38g4qCsu
 https://docs.krivebot.xyz
 ---
 > Status
-> https://status.krivebot.xyz
+> https://status.krivebot.xyz Nie działa.
