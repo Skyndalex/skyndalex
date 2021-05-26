@@ -137,6 +137,19 @@ exports.run = async (client, message, args) => {
              */
             message.channel.send("soon")
             break;
+        case 'inviteCreate':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            const inviteCreateLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!inviteCreateLog) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+            if (inviteCreateLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (inviteCreateLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            await r.table("settings").update({inviteCreateLog: inviteCreateLog.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "inviteCreate"}, {name: "Nowa wartość", value: `<@${inviteCreateLog.id}>`}])
+            break;
         default:
             client.sender(message, "Ustawienia logów serwerowych", "Potrzebujesz logów? Trafiłeś w idealne miejsce!", "Ustawienia logów: logs channelCreate #kanał", "GREEN", [
                 {
