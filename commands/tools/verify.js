@@ -1,4 +1,3 @@
-const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
     //TYMCZASOWO: przepisane z starej wersji 3.0 Skyndalexa (2020)
