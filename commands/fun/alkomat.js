@@ -1,4 +1,3 @@
-const Discord = require("discord.js")
 exports.run = async (client, message, args) => {
     let v = Math.floor(Math.random() * (10 - 0) + 0)
 
