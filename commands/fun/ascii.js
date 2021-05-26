@@ -1,4 +1,3 @@
-const Discord = require('discord.js');
 const figlet = require('figlet');
 
 exports.run = async (client, message, args) => {
