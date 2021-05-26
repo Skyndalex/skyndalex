@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-
 module.exports.run = async (client, message, args) => {
     if (!args[0]) return client.sender(message, "405: Method not allowed", "Niedozwolona metoda! Musisz podać użytkownika..", client.footer, "GREEN", "", "")
 
