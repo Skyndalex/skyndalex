@@ -1,4 +1,3 @@
-const Discord = require("discord.js")
 exports.run = async (client, message, args) => {
     const member = message.mentions.members.first()
     if (!member) return client.sender(message, "404: Not found", "Nie znaleziono użytkownika!", client.footer, "RED", "", "")
