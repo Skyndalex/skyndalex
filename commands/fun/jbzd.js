@@ -1,5 +1,4 @@
 const fetch = require("node-fetch")
-const Discord = require("discord.js")
 
 exports.run = async (client, message) => {
     const channel = message.channel
