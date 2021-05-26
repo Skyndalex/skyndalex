@@ -1,5 +1,3 @@
-const Discord = require("discord.js")
-
 exports.run = (client, message) => {
     client.sender(message, "", `Opóźnienie bota: ${client.ws.ping}ms\nOpóźnienie API discorda: ${Date.now() - message.createdTimestamp}ms`, "", "GREEN", "", "")
 };
