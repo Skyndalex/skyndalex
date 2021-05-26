@@ -1,4 +1,3 @@
-const Discord = require("discord.js")
 exports.run = async (client, message, args) => {
     if (!message.member.hasPermission('MANAGE_CHANNELS')) return  client.sender(message, "401: Unauthorized", "Nie masz permisji! \`MANAGE_CHANNELS\`", client.footer, "RED", "", "")
 
