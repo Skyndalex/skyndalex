@@ -32,6 +32,7 @@ r.connect({db: "krivebot"}, (err, con) => {
 
 
 client.commands = new Discord.Collection();
+// client.events = new Discord.Collection()
 
 fs.readdirSync("./commands/").forEach(dir => {
 	const commands = fs.readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js"));
@@ -54,5 +55,5 @@ for (const file of eventFiles) {
 }
 
 console.log(`Loaded ${client.commands.size} commands`)
-console.log("Client ready!")
+// console.log(`Loaded ${client.events.size} events`)
 client.login(token)
