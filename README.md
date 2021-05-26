@@ -17,3 +17,8 @@ https://docs.krivebot.xyz
 ---
 > Status
 > https://status.krivebot.xyz Nie działa.
+
+# Ważna informacja!
+
+W kodzie jest wiele pustych i niedokończonych plików. Jest pełno dziur przez które pojawia się 2137 logów w konsoli. Nie wszystkie poprawki są publikowane co wiąże się z niebezpieczeństwem dla twoich użytkowników w przypadku użyciu tego kodu do swojego bota. Bardzo prosimy z rozwagą z wszystkiego korzystać, jeżeli w ogóle się na tym nie znasz. 
+Dziękujemy!
