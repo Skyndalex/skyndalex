@@ -1,4 +1,3 @@
-const Discord = require("discord.js")
 exports.run = async (client, message, args) => {
     let percent = Math.floor(Math.random() * (100 - 0) + 0)
 
