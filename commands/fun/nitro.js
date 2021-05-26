@@ -1,4 +1,3 @@
-const Discord = require('discord.js')
 exports.run = async (client, message, args) => {
     if (!args[0]) return client.error(message, `Podaj nazwę emoji`)
 
