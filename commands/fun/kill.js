@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-
 exports.run = (client, message, args) => {
     if (!args[0]) return client.error(message, "Nie podano")
 
