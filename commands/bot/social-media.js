@@ -1,17 +1,18 @@
-const Discord = require("discord.js")
-
 exports.run = (client, message) => {
-
-const embed = new Discord.MessageEmbed()
-    .setTitle("Social-media")
-    .setDescription("Bardzo dużo osób się podszywa pod bota, właściciela... W tej komendzie znajdują się linki do oryginalnych, naszych kont")
-    .addField("YouTube", `[Link](${client.youtube})`)
-    .addField("Twitter", `[Link](${client.twitter})`)
-    .addField("Właściciel bota", `[Otwórz DM](${client.dmEntity})`)
-    .addField("Dokumentacja", `[Zobacz](${client.docsLink})`)
-    .setFooter("Zachęcamy do zasubskrybowania nas na social-mediach!")
-    .setColor("GREEN")
-    message.channel.send(embed)
+    client.sender(message, "Social-media", "Bardzo dużo osób zaczęło się pod nas podszywać i wiele osób dla żartu zaczęło zamiast normalnych kont subskrybować podróby. Dlatego załączamy tutaj listę naszych oficjalnych kont na mediach społecznościowych.", "", "GREEN", [
+        {
+            name: "YouYube",
+            value: `[Link](${client.youtube}`
+        },
+        {
+            name: "Twitter",
+            value: `[Link](${client.twitter}`
+        },
+        {
+            name: "Dokumentacja",
+            value: `[Link](${client.docsLink})`
+        }
+    ])
 };
 
 exports.help = {
