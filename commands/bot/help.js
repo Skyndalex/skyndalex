@@ -1,5 +1,3 @@
-const Discord = require('discord.js')
-
 exports.run = (client, message, args) => {
     let command = args[0]
     if (client.commands.get(command)) {
