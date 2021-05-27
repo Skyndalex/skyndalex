@@ -1,5 +1,13 @@
 exports.run = async (client, message, args) => {
     switch (args[0]) {
+        case 'global':
+            client.sender(message, "Lista permisji -> global", "Menu: \`global\`", "UWAGA: Permisje są w wczesnej wersji!", "GREEN", [
+                {
+                    name: "Globalne",
+                    value: client.globalPermissionsArray
+                }
+            ])
+            break;
         default:
             client.sender(message, "Pomoc do permisji użytkowników", "", "", "GREEN", [
                 {
