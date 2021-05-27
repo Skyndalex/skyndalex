@@ -9,5 +9,5 @@ module.exports = async (client, invite) => {
         .addField("Link", invite.url)
         logEmbed.setTimestamp()
         .setColor("GREEN")
-    invite.channel.guild.channels.cache.get(logChannel).send(logEmbed)
+    invite.guild.channels.cache.get(logChannel).send(logEmbed)
 }
