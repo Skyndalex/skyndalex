@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 exports.run = async (client, message, args, level) => {
-   const user = message.mentions.users.first()
+    const user = message.mentions.users.first()  || client.users.cache.get(args[0]) || message.author;
     let userStatus = {
         online: "Dostępny",
         offline: "Niedostępny",
@@ -18,7 +18,7 @@ exports.run = async (client, message, args, level) => {
         .addField("Nazwa użytkownika", user.username)
         .addField("ID użytkownika", user.id)
         .addField("Pełna nazwa użytkownika", user.tag)
-        .addField("Status", userStatus)
+        .addField("Status", userStatus[user.presence.status])
         .addField("Czy jest botem?", bot[user.bot])
         .addField("Lista ról, które posiada użytkownik", `\`${member.roles.cache.map(r => r.name).join(" | ")}\``)
         .setColor("GREEN")
