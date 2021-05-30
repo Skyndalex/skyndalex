@@ -4,3 +4,6 @@
 /ffmpeg.exe
 /ffplay.exe
 /ffprobe.exe
+/commands/developers/eval.js
+/commands/developers/secretCommand.js
+/commands/developers/global-send.js
