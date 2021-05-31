@@ -13,7 +13,7 @@ require("./games/games").run(client)
 require("./func.js")(client);
 require("./subordinate/array")(client)
 require("./subordinate/apikeys")(client)
-
+require("./site-new/static").run(client)
 app.get('/', (req, res) => {
 	res.send("Connected")
 })

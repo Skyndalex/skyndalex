@@ -1,0 +1,30 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Padauk:wght@700&display=swap');
+body {
+    background-color: #1d1e21;
+}
+
+.navbar-brand {
+    font-family: Padauk;
+    font-size: 35px;
+    color: #ede4e4;
+    position: relative;
+    left: 20px;
+}
+.nav-link {
+    font-family: Padauk;
+    font-size: 20px;
+    color: #ede4e4;
+    position: relative;
+    left: 20px;
+}
+.btn-login {
+    background-color: #7289da;
+    border: none;
+    padding: 10px 28px;
+}
+.btn-invite {
+    background-color: #7289da;
+    border: none;
+    padding: 10px 28px;
+}
