@@ -5,20 +5,20 @@ exports.run = (client, message, args) => {
             client.commands.get(command) ||
             client.commands.get(client.aliases.get(command))
 
-            client.sender(message, "Informacje o komendzie", `Nazwa komendy: **${command.help.name}**`, "", "GREEN", [
-                {
-                    name: "> Opis komendy:",
-                    value: command.help.description||"Brak"
-                },
-                {
-                    name: "> Kategoria",
-                    value: command.help.category||"Brak"
-                },
-                {
-                    name: "> Nazwa komendy",
-                    value: command.help.name||"Brak"
-                }
-            ])
+        client.sender(message, "Informacje o komendzie", `Nazwa komendy: **${command.help.name}**`, "", "GREEN", [
+            {
+                name: "> Opis komendy:",
+                value: command.help.description||"Brak"
+            },
+            {
+                name: "> Kategoria",
+                value: command.help.category||"Brak"
+            },
+            {
+                name: "> Nazwa komendy",
+                value: command.help.name||"Brak"
+            }
+        ])
     } else {
         client.sender(message, `Pomoc (${client.commands.size})`, `Potrzebujesz pomocy? Wejdź na nasz [support](${client.url}/discord)\nPotrzebujesz pomocy z ustawianiem? Zobacz naszą [dokumentację](${client.docsLink})`, "Aby zobaczyć więcej informacji o komendzie, użyj komendy help [nazwa]", "GREEN", [
             {
