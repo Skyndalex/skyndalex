@@ -1,5 +1,5 @@
 /* fonts */
-@import url('https://fonts.googleapis.com/css2?family=Odibee+Sans&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&family=Odibee+Sans&family=Roboto&display=swap');
 body {
     background-color: #1d1e21;
 }
@@ -11,7 +11,7 @@ body {
     left: 20px;
 }
 .nav-link {
-    font-family: Padauk;
+    font-family: Noto Sans JP;
     font-size: 20px;
     color: #ede4e4;
     position: relative;
@@ -23,6 +23,9 @@ body {
     padding: 10px 28px;
     color: white;
     border-radius: 10px;
+    box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
 }
 .btn-invite {
     background-color: #7289da;
@@ -30,6 +33,9 @@ body {
     padding: 10px 28px;
     color: white;
     border-radius: 10px;
+    box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
 }
 
 .hero {
@@ -42,7 +48,7 @@ body {
     right: 200px;
     text-align: center;
     font-size: 100px;
-    font-family: Odibee Sans;
+    font-family: Noto Sans JP;
     color: white;
 }
 .hero-text2 {
@@ -52,7 +58,7 @@ body {
     right: 465px;
     text-align: center;
     font-size: 30px;
-    font-family: Odibee Sans;
+    font-family: Noto Sans JP;
     color: white;
 }
 .btn-login-hero {
@@ -65,6 +71,10 @@ body {
     left: 550px;
     padding: 15px 32px;
     border-radius: 10px;
+    box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    transition: background .3s;
 }
 .btn-discord-hero {
     background-color: #34e718;
@@ -76,4 +86,35 @@ body {
     left: 700px;
     padding: 15px 32px;
     border-radius: 10px;
+    box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
 }
+.card {
+    width: 300px;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #99aab5;
+    background-clip: border-box;
+    border: 1px solid #d2d2dc;
+    border-radius: 7px;
+    -webkit-box-shadow: 0px 0px 5px 0px rgb(249, 249, 250);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1);
+    box-shadow: 0px 0px 5px 0px rgb(161, 163, 164);
+    left: 450px;
+    transition: background .3s;
+}
+
+.cookies a {
+    text-decoration: none;
+    color: #000;
+    margin-top: 8px
+}
+
+.cookies a:hover {
+    text-decoration: none;
+    color: blue;
+    margin-top: 8px
+}
+
