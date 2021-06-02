@@ -1,5 +1,6 @@
 /* fonts */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&family=Odibee+Sans&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;900&family=Noto+Sans+TC:wght@700&display=swap');
 body {
     background-color: #1d1e21;
 }
@@ -9,13 +10,14 @@ body {
     color: #ede4e4;
     position: relative;
     left: 20px;
+    font-family: Noto Sans TC;
 }
 .nav-link {
     font-family: Noto Sans JP;
-    font-size: 20px;
+    font-size: 15px;
     color: #ede4e4;
     position: relative;
-    left: 20px;
+    left: 30px;
 }
 .btn-login {
     background-color: #7289da;
@@ -47,26 +49,36 @@ body {
     width: 70%;
     right: 200px;
     text-align: center;
-    font-size: 100px;
-    font-family: Noto Sans JP;
+    font-size: 80px;
+    font-family: Noto Sans TC;
     color: white;
 }
 .hero-text2 {
     position: absolute;
-    top: 45%;
+    top: 40%;
     width: 30%;
     right: 465px;
     text-align: center;
     font-size: 30px;
     font-family: Noto Sans JP;
-    color: white;
+    color: rgb(218, 218, 218);
+}
+.servers {
+    position: absolute;
+    top: 55%;
+    width: 30%;
+    right: 465px;
+    text-align: center;
+    font-size: 15px;
+    font-family: Noto Sans JP;
+    color: #7289da;
 }
 .btn-login-hero {
     background-color: #34e718;
     border: none;
     color: white;
     position: absolute;
-    top: 60%;
+    top: 65%;
     width: 10%;
     left: 550px;
     padding: 15px 32px;
@@ -81,7 +93,7 @@ body {
     border: none;
     color: white;
     position: absolute;
-    top: 60%;
+    top: 65%;
     width: 10%;
     left: 700px;
     padding: 15px 32px;
@@ -89,32 +101,5 @@ body {
     box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
     -webkit-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
     -moz-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
-}
-.card {
-    width: 300px;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #99aab5;
-    background-clip: border-box;
-    border: 1px solid #d2d2dc;
-    border-radius: 7px;
-    -webkit-box-shadow: 0px 0px 5px 0px rgb(249, 249, 250);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1);
-    box-shadow: 0px 0px 5px 0px rgb(161, 163, 164);
-    left: 450px;
-    transition: background .3s;
-}
-
-.cookies a {
-    text-decoration: none;
-    color: #000;
-    margin-top: 8px
-}
-
-.cookies a:hover {
-    text-decoration: none;
-    color: blue;
-    margin-top: 8px
 }
 

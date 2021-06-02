@@ -14,6 +14,7 @@ const mStore = MemoryStore(session);
 exports.run = (client) => {
     app.set('view engine', 'ejs')
     app.set("views", __dirname);
+    app.use(express.static(__dirname + '/public'));
 
     passport.serializeUser((user, done) => {
         done(null, user);
