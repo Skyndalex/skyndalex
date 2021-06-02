@@ -1,7 +1,7 @@
 exports.run = async (client, message, args) => {
-    if (!args[0]) return client.error(message, `Nie podano tekstu!`)
+    if (!args[0]) return client.sender(message, "204: No content", "Nie podałeś argumentów.", client.footer, "RED")
     let text = args.splice('').join(' ')
-    if (text.length > 1000) return client.error(message, "Tekst nie może być większy niż 1000 znaków")
+    if (text.length > 1000) return message.channel.send("Tekst nie może być większy niż 1000 znaków")
     let replaced = text
         .replace(/a/gi, '🇦 ')
         .replace(/ą/gi, '🇦 ')

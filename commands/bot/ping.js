@@ -1,5 +1,5 @@
 exports.run = (client, message) => {
-    client.sender(message, "", `Opóźnienie bota: ${client.ws.ping}ms\nOpóźnienie API discorda: ${Date.now() - message.createdTimestamp}ms`, "", "GREEN", "", "")
+    client.sender(message, "", `Opóźnienie bota: ${client.ws.ping}ms\nOpóźnienie API: ${Date.now() - message.createdTimestamp}ms`, "", "GREEN", "", "")
 };
 
 exports.help = {

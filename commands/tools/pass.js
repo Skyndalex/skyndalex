@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
     if (!args[0]) return client.error(message, `Nie podano treści ogłoszenia!`)
 
     const channel = await r.table("settings").get(message.guild.id)("passChannel").run(client.con)
-    if (!channel) return client.error(message, `Nie ustawiono kanału ogłoszeń`)
+    if (!channel) return message.channel.send(`Nie ustawiono kanału podań`)
 
     const embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))

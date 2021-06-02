@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 exports.run = async (client, message, args, level) => {
     const emoji = client.emojis.cache.get(args[0]) || client.emojis.cache.find(emoji => emoji.name === args[0])
-    if (!emoji) return client.error(message, "Proszę wpisać __nazwę__ emoji.")
+    if (!emoji) return message.channel.send("Proszę podać nazwę emoji. __Nazwę__.")
 
     let animated = {
         true: "Tak",

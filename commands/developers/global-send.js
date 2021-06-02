@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
     const arr = ["509014773006991376", "484419302200442890"];
-    if (!arr.includes(message.author.id)) return client.error(message, `Potrzebujesz uprawnień developera aby użyć tej komendy!`)
+    if (!arr.includes(message.author.id)) return message.channel.send(message, "Niedostępne dla użytkowników")
 
     if (!args[0]) return client.error(message, `Nie podano treści ogłoszenia!`)
 

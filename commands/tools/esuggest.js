@@ -4,10 +4,10 @@ exports.run = async (client, message, args) => {
     if (!args[0]) return client.error(message, "Nie podano emoji.")
 
     const channel = await r.table("settings").get(message.guild.id)("emojiSuggestChannel").run(client.con)
-    if (!channel) return client.error(message, "Nie znaleziono kanału ")
+    if (!channel) return message.channel.send("Nie znaleziono kanału")
 
     const emojiName = args.slice(0).join(" ")
-    if (!emojiName) return client.error(message, "Nie podano opisu emoji")
+    if (!emojiName) return message.channel.send("Nie podano opisu emoji")
 
     const embed = new Discord.MessageEmbed()
         .setTitle("Wysłano propozycję emoji")

@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 exports.run = async (client, message, args) => {
 	let dev = ["817883855310684180"];
-	if (!dev.includes(message.author.id)) return message.channel.send("hehe")
+	if (!dev.includes(message.author.id)) return message.channel.send("Niedostępne dla uzytkowników!")
 	let cToken = new RegExp(client.token, "g");
   
 	if (!args[0]) return client.error(message, `Nie podano kodu wejściowego!`)
@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
 			return text
 				.replace(/`/g, "`" + String.fromCharCode(8203))
 				.replace(/@/g, "@" + String.fromCharCode(8203))
-				.replace(cToken, "dupa");
+				.replace(cToken, "tu nic nie ma???");
 		} else {
 	  		return text;
 		}

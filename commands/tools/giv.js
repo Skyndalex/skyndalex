@@ -17,8 +17,8 @@ exports.run = async (client, message, args) => {
     }
     time = args[0];
 
-    if (!time) return client.error(message, "Nie podano czasu! \`(giv [czas] [nagroda])\`")
-    if (!item) return client.error(message, "Nie podano nagrody!")
+    if (!time) return message.channel.send("Nie podano czasu!")
+    if (!item) return message.channel.send("Nie podano nagrody!")
 
     const embed = new Discord.MessageEmbed();
     embed.setColor(0x3333ff);

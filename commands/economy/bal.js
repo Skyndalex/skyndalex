@@ -5,9 +5,9 @@ exports.run = async (client, message, args) => {
     const user = message.mentions.users.first()  || client.users.cache.get(args[0]) || message.author;
 
     const { money } = await r.table("economy").get(user.id).run(client.con)
-    if (!money) return client.error(message, "Ups! Coś poszło nie tak. Najprawdopodobniej użytkownik nie ma żadnych monet na koncie")
+    if (!money) return message.channel.send("Coś poszło nie tak! Najprawdopodobniej użytkownik nie posiada monet na koncie")
 
-    if (!user) return client.error(message, "Nie znalazłem użytkownika.")
+    if (!user) return message.channel.send("Brak użytkownika")
 
     const embed = new Discord.MessageEmbed()
         .setTitle("Stan konta")

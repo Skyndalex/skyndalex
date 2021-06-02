@@ -1,4 +1,5 @@
 exports.run = async (client, message, args) => {
+    /*
     switch (args[0]) {
         case 'global':
             client.sender(message, "Lista permisji -> global", "Menu: \`global\`", "UWAGA: Permisje są w wczesnej wersji!", "GREEN", [
@@ -93,6 +94,9 @@ exports.run = async (client, message, args) => {
 
             ])
     }
+
+     */
+    message.channel.send("Soon:tm:")
 }
 exports.help = {
     name: "permissions",

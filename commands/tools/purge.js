@@ -1,10 +1,10 @@
 const Discord = require("discord.js")
 
 exports.run = async (client, message, args) => {
-    if (!message.member.hasPermission('MANAGE_MESSAGES')) return client.error(message, `Nie masz permisji! `);
-    if (isNaN(args[0])) return client.error(message, 'To, co wpisałeś nie jest liczbą!');
-    if (!args[0]) return client.error(message, 'Nie wpisano liczby wiadomości do skasowania!');
-    if ((args[0] > 99) || (args[0] < 1)) return client.error(message, 'Maksymalna liczba wynosi 99, a minimalna to 1!');
+    if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send("Nie masz permisji")
+    if (isNaN(args[0])) return message.channel.send('To, co wpisałeś nie jest liczbą!');
+    if (!args[0]) return message.channel.send('Nie wpisano liczby wiadomości do skasowania!');
+    if ((args[0] > 99) || (args[0] < 1)) return message.channel.send('Maksymalna liczba wynosi 99, a minimalna to 1!');
 
     const purgedTo = await message.channel.bulkDelete(args[0]);
 

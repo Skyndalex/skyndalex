@@ -2,10 +2,10 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
     if(!message.member.hasPermission('MANAGE_CHANNELS')) return client.sender(message, "401: Unauthorized", "Nie masz permisji! \`ADMINISTRATOR\`", client.footer, "RED", "", "")
-    if (!args[0]) return client.error(message, `Nie podano treści ogłoszenia!`)
+    if (!args[0]) return client.sender(message, "204: No content", "Nie podałeś argumentów.", client.footer, "RED")
 
     const channel = await r.table("settings").get(message.guild.id)("broadcastChannel").run(client.con)
-    if (!channel) return client.error(message, `Nie ustawiono kanału ogłoszeń`)
+    if (!channel) return message.channel.send("Nie ustawiono kanału!")
 
     const embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))

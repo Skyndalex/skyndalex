@@ -10,6 +10,7 @@ exports.run = async (client, message, args) => {
       - skin: [url, data]
       - created_at
      */
+
     fetch(`https://api.ashcon.app/mojang/v2/user/${args[0]}`)
         .then(res => res.json())
         .then(json => {
@@ -18,7 +19,7 @@ exports.run = async (client, message, args) => {
             for (let i in json.username_history) {
                 data.push(json.username_history[i].username);
             }
-            if (!data) return message.channel.send("LOL JESTEM GEJEM")
+            if (!data) return message.channel.send("Nie znaleziono użytkownika")
             client.sender(message, `Informacje o koncie minecraft: ${json.username}`, ``, ``, `GREEN`, [
                 {
                     name: "Konto stworzono o:",

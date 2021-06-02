@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
      */
 
     const user = args[0]
-    if (!user) return message.channel.send("Brak użytkownika\nŻĄDANE: \`github_user\`")
+    if (!user) return client.sender(message, "204: No content", "Nie podałeś argumentów.", client.footer, "RED")
 
     fetch(`https://api.github.com/users/${user}`)
         .then(res => res.json())

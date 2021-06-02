@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
 
     const member = message.mentions.members.first() || message.guild.members.cache.get(args[0])
 
-    if (!member) return client.error(message, "Nie znaleziono użytkownika!")
+    if (!member) return message.channel.send("Nie znaleziono użytkownika!")
 
     if (member.id === message.author.id) return  client.sender(message, "405: Method Not Allowed", "Niedozwolona metoda! Nie możesz odciszyć samego siebie!", client.footer, "RED", "", "")
     if (member.id === message.guild.ownerID) return  client.sender(message, "405: Method Not Allowed", "Niedozwolona metoda! Nie możesz odciszyć właściciela serwera!!", client.footer, "RED", "", "")
