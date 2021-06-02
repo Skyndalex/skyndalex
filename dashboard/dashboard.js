@@ -13,7 +13,7 @@ const url = require("url")
 const mStore = MemoryStore(session);
 exports.run = (client) => {
     app.set('view engine', 'ejs')
-    app.set("views", __dirname + "/views/pages");
+    app.set("views", __dirname);
 
     passport.serializeUser((user, done) => {
         done(null, user);
@@ -91,7 +91,7 @@ exports.run = (client) => {
         });
     });
     app.get("/", function (req, res) {
-        res.render('general.ejs', {
+        res.render('./views/pages/general.ejs', {
             bot: client,
             user: req.isAuthenticated() ? req.user : null
         })
