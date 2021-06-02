@@ -15,7 +15,7 @@
 
     <!-- css -->
 
-    <link rel="stylesheet" href="./views/src/stylesheet.css">
+    <link href="/css/stylesheet.css" rel="stylesheet" type="text/css">
 
     <meta charset="UTF-8">
 </head>
@@ -43,12 +43,16 @@
     </div>
 </nav>
 
+<section id="info-hero">
+    <div class="hero">
+        <h1 class="hero-text"> Krive </h1>
+        <h2 class="hero-text2"> Nasz bot. Twój serwer. Wspaniały serwer. </h2>
+    </div>
 
-<h1> Testowe statystyki </h1>
+    <a href="https://panel.krivebot.xyz/callback"> <button class="btn-login-hero" style="position: absolute; right: 50px;"> Logowanie </button> </a>
+    <a href="https://krivebot.xyz/discord"> <button class="btn-discord-hero" style="position: absolute; right: 50px;"> Support </button> </a>
 
-<h2> Liczba użytkowników: <%= bot.users.cache.size %></h2>
-<h2> Liczba kanałów: <%= bot.channels.cache.size %> </h2>
-<h2> Liczba emotek: <%= bot.emojis.cache.size %></h2>
+</section>
 
 </body>
 

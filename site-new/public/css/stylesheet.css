@@ -1,0 +1,79 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Odibee+Sans&family=Roboto&display=swap');
+body {
+    background-color: #1d1e21;
+}
+
+.navbar-brand {
+    font-size: 30px;
+    color: #ede4e4;
+    position: relative;
+    left: 20px;
+}
+.nav-link {
+    font-family: Padauk;
+    font-size: 20px;
+    color: #ede4e4;
+    position: relative;
+    left: 20px;
+}
+.btn-login {
+    background-color: #7289da;
+    border: none;
+    padding: 10px 28px;
+    color: white;
+    border-radius: 10px;
+}
+.btn-invite {
+    background-color: #7289da;
+    border: none;
+    padding: 10px 28px;
+    color: white;
+    border-radius: 10px;
+}
+
+.hero {
+    text-align: center;
+}
+.hero-text {
+    position: absolute;
+    top: 20%;
+    width: 70%;
+    right: 200px;
+    text-align: center;
+    font-size: 100px;
+    font-family: Odibee Sans;
+    color: white;
+}
+.hero-text2 {
+    position: absolute;
+    top: 45%;
+    width: 30%;
+    right: 465px;
+    text-align: center;
+    font-size: 30px;
+    font-family: Odibee Sans;
+    color: white;
+}
+.btn-login-hero {
+    background-color: #34e718;
+    border: none;
+    color: white;
+    position: absolute;
+    top: 60%;
+    width: 10%;
+    left: 550px;
+    padding: 15px 32px;
+    border-radius: 10px;
+}
+.btn-discord-hero {
+    background-color: #34e718;
+    border: none;
+    color: white;
+    position: absolute;
+    top: 60%;
+    width: 10%;
+    left: 700px;
+    padding: 15px 32px;
+    border-radius: 10px;
+}

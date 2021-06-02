@@ -3,6 +3,7 @@ const app = express()
 exports.run = (client) => {
     app.set("view engine", "ejs")
     app.set("views", __dirname)
+    app.use(express.static(__dirname + '/public'));
 
     app.get('/', function (req, res) {
         res.render('./views/src/new.ejs', {
