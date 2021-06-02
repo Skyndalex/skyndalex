@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 
 exports.run = (client, message, args) => {
-     if (!message.member.hasPermission('MANAGE_CHANNELS')) return client.error(message, `Nie masz permisji! `);
+     if (!message.member.hasPermission('MANAGE_CHANNELS')) return message.channel.send("Nie masz permisji!")
 
 
     message.guild.channels.cache.forEach(k => {

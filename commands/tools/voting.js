@@ -3,10 +3,10 @@ const r = require("rethinkdb")
 exports.run = async (client, message, args, level) => {
     if(!message.member.hasPermission('MANAGE_CHANNELS')) return client.sender(message, "401: Unauthorized", "Nie masz permisji! \`ADMINISTRATOR\`", client.footer, "RED", "", "")
 
-    if (!args[0]) return client.error(message, `Nie podano treści głosowania!`)
+    if (!args[0]) return message.channel.send("Nie podano treści głosowania.")
 
     const channel = await r.table("settings").get(message.guild.id)("voteChannel").run(client.con)
-    if (!channel) return client.error(message, `Nie ustawiono kanału głosowań`)
+    if (!channel) return message.channel.send("Nie ustawiono kanału!")
 
     const embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))

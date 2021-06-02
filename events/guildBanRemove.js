@@ -7,10 +7,10 @@ module.exports = async (client, guild, user) => {
         const logEmbed = new Discord.MessageEmbed()
             .setTitle("Odbanowano użytkownika!")
             .setColor("GREEN")
-            .addField("Nazwa użytkownika", user.username)
-            .addField("Tag użytkownika", user.discriminator)
-            .addField("Pełna nazwa użytkownika", user.tag)
-            .addField("ID", user.id)
+            .addField("Nazwa użytkownika", user.username ||"Brak")
+            .addField("Tag użytkownika", user.discriminator ||"Brak")
+            .addField("Pełna nazwa użytkownika", user.tag ||"Brak")
+            .addField("ID", user.id ||"Brak")
 
         guild.channels.cache.get(logChannel).send(logEmbed)
     } catch {

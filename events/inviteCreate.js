@@ -6,8 +6,8 @@ module.exports = async (client, invite) => {
 
         const logEmbed = new Discord.MessageEmbed()
             .setTitle("Utworzono zaproszenie!")
-            .addField("Kanał z zaproszeniem", invite.channel)
-            .addField("Link", invite.url)
+            .addField("Kanał z zaproszeniem", invite.channel ||"Brak")
+            .addField("Link", invite.url ||"Brak")
         logEmbed.setTimestamp()
             .setColor("GREEN")
         invite.guild.channels.cache.get(logChannel).send(logEmbed)

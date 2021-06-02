@@ -10,9 +10,9 @@ module.exports = async (client, oldChannel, newChannel) => {
         if (oldChannel.type === "category") {
             const logEmbed1 = new Discord.MessageEmbed()
                 .setTitle("Wykryto edycję kategorii!")
-                .addField("Nazwa kategorii", oldChannel.name)
-                .addField("Nazwa kategorii po edycji", newChannel.name)
-                .addField("ID", oldChannel.id)
+                .addField("Nazwa kategorii", oldChannel.name ||"Brak")
+                .addField("Nazwa kategorii po edycji", newChannel.name ||"Brak")
+                .addField("ID", oldChannel.id ||"Brak")
                 .setColor("#1aebc4")
             oldChannel.guild.channels.cache.get(logChannel).send(logEmbed1)
         } else {

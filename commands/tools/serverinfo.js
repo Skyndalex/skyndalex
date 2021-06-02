@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 exports.run = (client, message, args, level) => {
 
     const guild = client.guilds.cache.get(args[0])||message.guild
-    if (!guild) return client.error(message, "Nie znalazłem serwera!")
+    if (!guild) return message.channel.send("Nie znalazłem serwera")
 
     const embed = new Discord.MessageEmbed()
         .setTitle("Informacje o serwerze")
