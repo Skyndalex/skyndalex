@@ -10,5 +10,8 @@ exports.run = (client) => {
             bot: client
         })
     })
+    app.get('*', function(req, res){
+        res.render('./views/src/404.ejs')
+    });
 }
 app.listen(3214, () => console.log("Site running at http://localhost:1267"))
