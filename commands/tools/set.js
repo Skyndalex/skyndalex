@@ -142,7 +142,20 @@ exports.run = async (client, message, args) => {
             r.table("settings").update({emojiSuggestChannel: esChannel.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiSuggestChannel"}, {name: "Nowa wartość", value: `<@${esChannel.id}>`}])
+            break;
+        case 'advSuggestChannel':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
 
+            let advSuggestChannel =  message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!advSuggestChannel) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+
+            if (advSuggestChannel.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (advSuggestChannel.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            r.table("settings").update({advancedSuggestChannel: advSuggestChannel.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "advSuggestChannel"}, {name: "Nowa wartość", value: `<@${advSuggestChannel.id}>`}])
             break;
         case 'welcomeTextDesc':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano tekstu!", client.footer, "RED", "", "")
