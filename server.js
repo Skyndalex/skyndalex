@@ -45,17 +45,12 @@ fs.readdirSync("./commands/").forEach(dir => {
 		}
 	}
 });
-
-try {
 	const eventFiles = fs.readdirSync("./events").filter(file => file.endsWith(".js"));
 	for (const file of eventFiles) {
 		const event = require(`./events/${file}`);
 		const eventName = file.split(".")[0];
-		client.on(eventName, event.bind(null, client));
+		client.on(eventName, event.bind(null, client))
 	}
-} catch (err) {
-	client.channels.cache.get("847202921770647602").send(err)
-}
 
 console.log(`Loaded ${client.commands.size} commands`)
 // console.log(`Loaded ${client.events.size} events`)
