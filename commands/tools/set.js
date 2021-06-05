@@ -355,7 +355,12 @@ exports.run = async (client, message, args) => {
                 {
                     name: "\`emojiSuggestChannel\`",
                     value: "Kanał propozycji emoji"
-                }
+                },
+                {
+                    name: "> \`advSuggestChannel\`",
+                    value: "Kanał zaawansowanych propozycji. [\`ACTION: Docs\`](https://docs.krivebot.xyz/pl/adv-suggestions)"
+                },
+                message.channel.send("Lista niedziałających ustawień:\n \`advSuggestChannel\`")
             ])
             break;
         case 'welcome':
