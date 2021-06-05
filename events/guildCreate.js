@@ -18,4 +18,7 @@ module.exports = async(client, guild) => {
     await r.table("system").insert({
         id: guild.id
     }).run(client.con)
+    await r.table("notifications").insert({
+        id: guild.id
+    }).run(client.con)
 }
