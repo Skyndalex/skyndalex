@@ -9,7 +9,7 @@ module.exports = async(client, message) => {
         .setTitle("Witaj!")
         .addField("> Komenda pomocy", ";help")
         .addField("> Uptime", require("moment").duration(client.uptime).humanize())
-        .addField("> Prefix", ";")
+        .addField("> Prefix", `${prefix}`)
         .setColor("GREEN")
     const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
     if (message.content.match(prefixMention)) {
@@ -34,17 +34,29 @@ module.exports = async(client, message) => {
 
     const cmd = client.commands.get(command) || client.commands.find(c => c.help.aliases && c.help.aliases == command);
     if (!cmd) return;
-    const gban = await r.table("gbans").get(message.author.id).run(client.con)
-    if (gban) return client.error(message, `Otrzymałeś blokadę na korzystanie z komend`)
 
-    let whitelist = ["817883855310684180"];
+    const gban = await r.table("gbans").get(message.author.id).run(client.con)
+    if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "GREEN", "", "", "")
+
+    try {
+        const adv = await r.table("settings").get(message.guild.id)("advancedSuggestChannel").run(client.con)
+        const suggestion = args.slice(0).join(" ")
+
+        if (message.channel.id === adv) {
+            if (message.content === "test") {
+                message.channel.send("Test")
+            }
+        }
+    } catch (err) {
+        console.log(err)
+    }
+
+    let whitelist = [];
 
     if (cooldown.has(message.author.id) && !whitelist.includes(message.author.id)) {
-        client.error(message, 'Musisz jeszcze poczekać 2 sekundy aby użyć jeszcze raz tą komendę! (czas resetuje się po użyciu w czasie trwania cooldownu)');
+        client.sender(message, "Zwolnij!", "Zbyt szybko korzystasz z komend! Poczekaj około 2 sekundy [Zobacz dokumentację](https://docs.krivebot.xyz/pl/cooldowns).", "", "GREEN", "", "", "")
     } else {
-
         cmd.run(client, message, args)
-
         cooldown.add(message.author.id);
         setTimeout(() => cooldown.delete(message.author.id), 2000);
     }
