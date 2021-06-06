@@ -51,7 +51,7 @@ module.exports = async(client, message) => {
         console.log(err)
     }
 
-    let whitelist = [];
+    let whitelist = ["817883855310684180"];
 
     if (cooldown.has(message.author.id) && !whitelist.includes(message.author.id)) {
         client.sender(message, "Zwolnij!", "Zbyt szybko korzystasz z komend! Poczekaj około 2 sekundy [Zobacz dokumentację](https://docs.krivebot.xyz/pl/cooldowns).", "", "GREEN", "", "", "")
