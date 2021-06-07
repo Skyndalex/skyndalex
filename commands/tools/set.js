@@ -361,7 +361,6 @@ exports.run = async (client, message, args) => {
                     value: "Kanał zaawansowanych propozycji. [\`ACTION: Docs\`](https://docs.krivebot.xyz/pl/adv-suggestions)"
                 },
             ])
-            message.channel.send("Lista niedziałających ustawień:\n \`advSuggestChannel\`")
             break;
         case 'welcome':
             client.sender(message, "Ustawienia powitań - zmienne", "", "UWAGA! Powitania będą dopiero w wersji 3.2. Nie są jeszcze dostępne!!!", "GREEN", [
