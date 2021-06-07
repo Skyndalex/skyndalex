@@ -215,7 +215,7 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "roleDelete"}, {name: "Nowa wartość", value: `<#${roleDeleteLog.id}>`}])
             break;
         default:
-            client.sender(message, "Ustawienia logów serwerowych", "Potrzebujesz logów? Trafiłeś w idealne miejsce!", "Ustawienia logów: logs channelCreate #kanał", "GREEN", [
+            client.sender(message, "Ustawienia logów serwerowych", "Potrzebujesz logów? Trafiłeś w idealne miejsce! [Dokumentacja](https://docs.krivebot.xyz/logs)", "Ustawienia logów: logs channelCreate #kanał", "GREEN", [
                 {
                     name: "> \`channelCreate\`",
                     value: "Logi - tworzenie kanałów",
