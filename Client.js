@@ -19,7 +19,7 @@ class KriveManager extends Client {
 
         // version
 
-        this.version = "v3.7"
+        this.version = "v3.8"
         this.moderationVersion = "v1.5"
         this.setVersion = "v2.0"
 
