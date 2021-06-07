@@ -175,6 +175,7 @@ exports.run = async (client, message, args) => {
             await r.table("settings").update({messageDeleteLog: messageDeleteLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "messageDelete"}, {name: "Nowa wartość", value: `<#${messageDeleteLog.id}>`}])
+            break;
         case 'roleCreate':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
 
