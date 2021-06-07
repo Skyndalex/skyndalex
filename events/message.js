@@ -5,6 +5,10 @@ const cooldown = new Set;
 const moment = require("moment")
 moment.locale("pl")
 module.exports = async(client, message) => {
+
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const command = args.shift().toLowerCase();
+
     const embedMention = new Discord.MessageEmbed()
         .setTitle("Witaj!")
         .addField("> Komenda pomocy", ";help")
@@ -17,22 +21,29 @@ module.exports = async(client, message) => {
             m.delete({timeout: 60000 })
         })
     }
-    if (message.author.bot) return;
 
-    if (!message.content.startsWith(prefix)) return
+    //TODO: switch
 
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
-    const command = args.shift().toLowerCase();
+    try {
+       const adv = await r.table("settings").get(message.guild.id)("advancedSuggestChannel").run(client.con)
 
-    const adv = await r.table("settings").get(message.guild.id)("advancedSuggestChannel").run(client.con)
-    const suggestion = args.slice(0).join(" ")
-
-    if (message.channel.id === adv) {
-        if (message.content === args.slice(0).join(" ")) {
-            await message.delete()
-            message.channel.send(`Published new suggestion! (Server ID: ${message.guild.id}\nUser ID: ${message.author.id}\nSuggestion: ${suggestion}`)
+        if (message.channel.id === adv) {
+            if (message.content) {
+                message.delete()
+                const embed = new Discord.MessageEmbed()
+                    .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
+                    .setDescription(message.content)
+                    .setColor("GREEN")
+                if (message.attachments.map(a=>a.url)[0]) embed.setImage(message.attachments.map(a=>a.url)[0])
+                message.channel.send(embed)
+            }
         }
+    } catch (err) {
+        null;
     }
+
+    if (message.author.bot) return;
+    if (!message.content.startsWith(prefix)) return
 
     const embed = new Discord.MessageEmbed()
         .setTitle("Użyto komendy")
