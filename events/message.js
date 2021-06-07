@@ -24,6 +24,16 @@ module.exports = async(client, message) => {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
+    const adv = await r.table("settings").get(message.guild.id)("advancedSuggestChannel").run(client.con)
+    const suggestion = args.slice(0).join(" ")
+
+    if (message.channel.id === adv) {
+        if (message.content === args.slice(0).join(" ")) {
+            await message.delete()
+            message.channel.send(`Published new suggestion! (Server ID: ${message.guild.id}\nUser ID: ${message.author.id}\nSuggestion: ${suggestion}`)
+        }
+    }
+
     const embed = new Discord.MessageEmbed()
         .setTitle("Użyto komendy")
         .addField("Komenda", command)
@@ -36,20 +46,7 @@ module.exports = async(client, message) => {
     if (!cmd) return;
 
     const gban = await r.table("gbans").get(message.author.id).run(client.con)
-    if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "GREEN", "", "", "")
-
-    try {
-        const adv = await r.table("settings").get(message.guild.id)("advancedSuggestChannel").run(client.con)
-        const suggestion = args.slice(0).join(" ")
-
-        if (message.channel.id === adv) {
-            if (message.content === "test") {
-                message.channel.send("Test")
-            }
-        }
-    } catch (err) {
-        console.log(err)
-    }
+    if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "RED", "", "", "")
 
     let whitelist = ["817883855310684180"];
 
