@@ -41,7 +41,7 @@ module.exports = async(client, message) => {
                 })
             }
         }
-    } catch (err) {
+    } catch {
         null;
     }
 
