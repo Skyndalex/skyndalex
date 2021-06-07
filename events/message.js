@@ -35,7 +35,10 @@ module.exports = async(client, message) => {
                     .setDescription(message.content)
                     .setColor("GREEN")
                 if (message.attachments.map(a=>a.url)[0]) embed.setImage(message.attachments.map(a=>a.url)[0])
-                message.channel.send(embed)
+                message.channel.send(embed).then(m => {
+                    m.react('👍')
+                    m.react('👎')
+                })
             }
         }
     } catch (err) {
