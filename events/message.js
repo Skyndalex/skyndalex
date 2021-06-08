@@ -26,26 +26,26 @@ module.exports = async(client, message) => {
 
     try {
        const adv = await r.table("settings").get(message.guild.id)("advancedSuggestChannel").run(client.con)
+        if (message.author.bot) return;
 
-        if (message.channel.id === adv) {
-            if (message.content) {
-                message.delete()
+        switch (message.channel.id === adv) { // error: unkown message
+        default:
+                await message.delete()
                 const embed = new Discord.MessageEmbed()
                     .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
                     .setDescription(message.content)
                     .setColor("GREEN")
-                if (message.attachments.map(a=>a.url)[0]) embed.setImage(message.attachments.map(a=>a.url)[0])
+                if (message.attachments.map(a => a.url)[0]) embed.setImage(message.attachments.map(a => a.url)[0])
                 message.channel.send(embed).then(m => {
                     m.react('👍')
                     m.react('👎')
                 })
-            }
-        }
+                break;
+    }
     } catch {
         null;
     }
 
-    if (message.author.bot) return;
     if (!message.content.startsWith(prefix)) return
 
     const embed = new Discord.MessageEmbed()
