@@ -11,10 +11,14 @@ exports.run = async (client, message) => {
         })
 
      */
-    message.channel.send("Jeszcze nie niedostępne!")
+
+    const channel = message.channel;
+    if (!channel.nsfw) return client.sender(message, "Niedozwolone!", "Ten kanał musi być NSFW aby użyć tej komendy.", "", "RED", "")
+
+    client.sender(message, "Brak funkcji!", "Wygląda na to, że funkcja w bocie została usunięta bądź jest **naprawiana**/tworzona.")
 }
 exports.help = {
     name: "jbzd",
     description: "Generuje obrazek z strony jbzd.com.pl",
-    category: "fun",
+    category: "nsfw",
 }
