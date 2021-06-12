@@ -3,7 +3,7 @@ const app = express()
 const passport = require("passport")
 const passportDiscord = require("passport-discord")
 const Strategy = passportDiscord.Strategy;
-const { clientSecret } = require("../config.json")
+// const { clientSecret } = require("src/events/config.json")
 const ejs = require("ejs")
 const bodyParser = require("body-parser")
 const session = require("express-session");
@@ -12,6 +12,7 @@ const path = require("path")
 const url = require("url")
 const mStore = MemoryStore(session);
 exports.run = (client) => {
+/*
     app.set('view engine', 'ejs')
     app.set("views", __dirname);
     app.use(express.static(__dirname + '/public'));
@@ -33,6 +34,7 @@ exports.run = (client) => {
         (accessToken, refreshToken, profile, done) => {
             process.nextTick(() => done(null, profile));
         });
+
 
     passport.use(strategy);
 
@@ -98,4 +100,7 @@ exports.run = (client) => {
         })
     })
     app.listen(1276, () => console.log("Dashboard running at http://localhost:1267"))
+
+ */
+
 }
