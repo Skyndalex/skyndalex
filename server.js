@@ -6,7 +6,7 @@ const client = new KriveManager()
 const express = require('express')
 const app = express()
 const port = 2222
-const { token } = require("./config.json")
+const { token } = require("./src/events/config.json")
 
 require("./src/dashboard/dashboard").run(client);
 require("./src/games/games").run(client)
@@ -26,9 +26,8 @@ app.listen(port, () => {
 
 
 client.commands = new Discord.Collection();
-// client.events = new Discord.Collection()
 
-fs.readdirSync("./commands/").forEach(dir => {
+fs.readdirSync("./src/commands").forEach(dir => {
 	const commands = fs.readdirSync(`./src/commands/${dir}/`).filter(file => file.endsWith(".js"));
 	for (const file of commands) {
 		let pull = require(`./src/commands/${dir}/${file}`);
@@ -46,11 +45,11 @@ fs.readdirSync("./commands/").forEach(dir => {
 		client.on(eventName, event.bind(null, client))
 	}
 
-r.connect({db: "krivebot"}, (err, con) => {
+
+r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 21}, function(err, con) {
 	if (err) console.log(err)
 	client.con = con;
 })
 
 console.log(`Loaded ${client.commands.size} commands`)
-// console.log(`Loaded ${client.events.size} events`)
 client.login(token)
