@@ -12,10 +12,10 @@ class KriveManager extends Client {
         this.url = "https://krivebot.xyz"
         this.discord = "https://krivebot.xyz/discord"
         this.botname = `KriveBot`
-        this.latestupdate = `USERS & ECONOMY UPDATE`
+     //   this.latestupdate = `USERS & ECONOMY UPDATE`
         this.twitter = "https://krivebot.xyz/twitter"
         this.youtube = "https://krivebot.xyz/youtube"
-        this.statuspage = "https://status.krivebot.xyz"
+     //   this.statuspage = "https://status.krivebot.xyz"
 
         // version
 
@@ -26,7 +26,7 @@ class KriveManager extends Client {
         // otherlinks
 
         this.docsLink = "docs.krivebot.xyz"
-        this.statusLink = "status.krivebot.xyz"
+      //  this.statusLink = "status.krivebot.xyz"
 
         // footers
 
