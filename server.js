@@ -24,19 +24,13 @@ app.listen(port, () => {
 	console.log(`Connected to https://localhost:${port}`)
 })
 
-r.connect({db: "krivebot"}, (err, con) => {
-	if (err) console.log(err)
-	client.con = con;
-})
-
-
 
 client.commands = new Discord.Collection();
 // client.events = new Discord.Collection()
 
 fs.readdirSync("./commands/").forEach(dir => {
 	const commands = fs.readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js"));
-	for (let file of commands) {
+	for (const file of commands) {
 		let pull = require(`./commands/${dir}/${file}`);
 		if (pull.help && pull.help.name) {
 			client.commands.set(pull.help.name, pull);
@@ -51,6 +45,11 @@ fs.readdirSync("./commands/").forEach(dir => {
 		const eventName = file.split(".")[0];
 		client.on(eventName, event.bind(null, client))
 	}
+
+r.connect({db: "krivebot"}, (err, con) => {
+	if (err) console.log(err)
+	client.con = con;
+})
 
 console.log(`Loaded ${client.commands.size} commands`)
 // console.log(`Loaded ${client.events.size} events`)

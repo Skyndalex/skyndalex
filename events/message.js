@@ -9,6 +9,17 @@ module.exports = async(client, message) => {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
+    /* rethinkdb config
+
+    const economy = await r.db("krivebot").tableCreate('economy').run(client.con)
+    const gbans = await r.db("krivebot").tableCreate("gbans").run(client.con)
+    const moderation = await r.db("krivebot").tableCreate("moderation").run(client.con)
+    const notifications = await r.db("krivebot").tableCreate("notifications").run(client.con)
+    const profiles = await r.db("krivebot").tableCreate("profiles").run(client.con)
+    const settings = await r.db("krivebot").tableCreate("settings").run(client.con)
+    const system = await r.db("krivebot").tableCreate("system").run(client.con)
+     */
+
     const embedMention = new Discord.MessageEmbed()
         .setTitle("Witaj!")
         .addField("> Komenda pomocy", ";help")
@@ -24,20 +35,21 @@ module.exports = async(client, message) => {
 
     if (message.author.bot) return;
 
+
     try {
         const adv = await r.table("settings").get(message.guild.id)("advancedSuggestChannel").run(client.con)
 
         if (message.channel.id === adv) {
-                message.delete()
-                const embed = new Discord.MessageEmbed()
-                    .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
-                    .setDescription(message.content)
-                    .setColor("GREEN")
-                if (message.attachments.map(a=>a.url)[0]) embed.setImage(message.attachments.map(a=>a.url)[0])
-                message.channel.send(embed).then(m => {
-                    m.react('👍')
-                    m.react('👎')
-                })
+            message.delete()
+            const embed = new Discord.MessageEmbed()
+                .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
+                .setDescription(message.content)
+                .setColor("GREEN")
+            if (message.attachments.map(a=>a.url)[0]) embed.setImage(message.attachments.map(a=>a.url)[0])
+            message.channel.send(embed).then(m => {
+                m.react('👍')
+                m.react('👎')
+            })
         }
     } catch {
         null;

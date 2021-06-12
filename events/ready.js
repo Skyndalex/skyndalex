@@ -1,4 +1,4 @@
 module.exports = (client) => {
-    let statuses = [`@${client.botname}`, `${client.botname} ${client.latestupdate}`, `${client.url}/discord`, `${client.url}/public`, `${client.url}/donate`, `${client.url}/invite`]
-    setInterval(() => client.user.setActivity(statuses.random(), {type: "LISTENING"}), 10000)
+    let statuses = "KriveBot - front-end, innovation, professional update v4.0"
+    setInterval(() => client.user.setActivity(statuses, {type: "PLAYING"}), 10000)
 }

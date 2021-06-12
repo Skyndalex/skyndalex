@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
 
            await r.table("settings").update({channelCreateLog: channelCreateLog.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelCreate"}, {name: "Nowa wartość", value: `<@${channelCreateLog.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelCreate"}, {name: "Nowa wartość", value: `<#${channelCreateLog.id}>`}])
 
             break;
         case 'channelDelete':
@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
 
             await r.table("settings").update({channelDeleteLog: channelDeleteLog.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelDelete"}, {name: "Nowa wartość", value: `<@${channelDeleteLog.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelDelete"}, {name: "Nowa wartość", value: `<#${channelDeleteLog.id}>`}])
             break;
         case 'channelUpdate':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
@@ -40,7 +40,7 @@ exports.run = async (client, message, args) => {
 
             await r.table("settings").update({channelUpdateLog: channelUpdateLog.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelUpdate"}, {name: "Nowa wartość", value: `<@${channelUpdateLog.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelUpdate"}, {name: "Nowa wartość", value: `<#${channelUpdateLog.id}>`}])
             break;
         case 'emojiCreate':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
@@ -53,7 +53,7 @@ exports.run = async (client, message, args) => {
 
             await r.table("settings").update({emojiCreateLog: emojiCreateLog.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiCreate"}, {name: "Nowa wartość", value: `<@${emojiCreateLog.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiCreate"}, {name: "Nowa wartość", value: `<#${emojiCreateLog.id}>`}])
             break;
         case 'emojiDelete':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
@@ -66,7 +66,7 @@ exports.run = async (client, message, args) => {
 
             await r.table("settings").update({emojiDeleteLog: emojiDeleteLog.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiDelete"}, {name: "Nowa wartość", value: `<@${emojiDeleteLog.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiDelete"}, {name: "Nowa wartość", value: `<#${emojiDeleteLog.id}>`}])
             break;
         case 'emojiUpdate':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
@@ -79,7 +79,7 @@ exports.run = async (client, message, args) => {
 
             await r.table("settings").update({emojiUpdateLog: emojiUpdateLog.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiUpdate"}, {name: "Nowa wartość", value: `<@${emojiUpdateLog.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiUpdate"}, {name: "Nowa wartość", value: `<#${emojiUpdateLog.id}>`}])
             break;
         case 'guildBanAdd':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
@@ -92,7 +92,7 @@ exports.run = async (client, message, args) => {
 
             await r.table("settings").update({guildBanAddLog: guildBanAddLog.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "guildBanAdd"}, {name: "Nowa wartość", value: `<@${guildBanAddLog.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "guildBanAdd"}, {name: "Nowa wartość", value: `<#${guildBanAddLog.id}>`}])
             break;
         case 'guildBanRemove':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
@@ -105,7 +105,7 @@ exports.run = async (client, message, args) => {
 
             await r.table("settings").update({guildBanRemoveLog: guildBanRemoveLog.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "guildBanRemove"}, {name: "Nowa wartość", value: `<@${guildBanRemoveLog.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "guildBanRemove"}, {name: "Nowa wartość", value: `<#${guildBanRemoveLog.id}>`}])
             break;
         case 'guildMemberUpdate':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
@@ -118,7 +118,7 @@ exports.run = async (client, message, args) => {
 
             await r.table("settings").update({guildMemberUpdateLog: guildMemberUpdateLog.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "guildMemberUpdate"}, {name: "Nowa wartość", value: `<@${guildMemberUpdateLog.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "guildMemberUpdate"}, {name: "Nowa wartość", value: `<#${guildMemberUpdateLog.id}>`}])
             break;
         case 'guildUpdate':
             /*
@@ -132,7 +132,7 @@ exports.run = async (client, message, args) => {
 
             await r.table("settings").update({guildUpdateLog: guildUpdateLog.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "guildUpdate"}, {name: "Nowa wartość", value: `<@${guildUpdateLog.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "guildUpdate"}, {name: "Nowa wartość", value: `<#${guildUpdateLog.id}>`}])
 
              */
             message.channel.send("soon")
@@ -148,7 +148,7 @@ exports.run = async (client, message, args) => {
 
             await r.table("settings").update({inviteCreateLog: inviteCreateLog.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "inviteCreate"}, {name: "Nowa wartość", value: `<@${inviteCreateLog.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "inviteCreate"}, {name: "Nowa wartość", value: `<#${inviteCreateLog.id}>`}])
             break;
         case 'messageDeleteBulk':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
@@ -161,7 +161,7 @@ exports.run = async (client, message, args) => {
 
             await r.table("settings").update({messageDeleteBulkLog: messageDeleteBulkLog.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "messageDeleteBulk"}, {name: "Nowa wartość", value: `<@${messageDeleteBulkLog.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "messageDeleteBulk"}, {name: "Nowa wartość", value: `<#${messageDeleteBulkLog.id}>`}])
             break;
         case 'messageDelete':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")

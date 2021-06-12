@@ -46,6 +46,10 @@ exports.run = (client, message, args) => {
                 value: `> \`${client.commands.filter(c => c.help.category === "economy").map(c => c.help.name).join(" | ") || "Brak"}\``
             },
             {
+              name: "NSFW (Ostrożnie)",
+              value: `> \`${client.commands.filter(c => c.help.category === "nsfw").map(c => c.help.name).join(" | ") || "Brak"}\``
+            },
+            {
                 name: "Zarządzanie kanałami VC",
                 value: `> \`${client.commands.filter(c => c.help.category === "vcmanagement").map(c => c.help.name).join(" | ") || "Brak"}\``
             }

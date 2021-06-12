@@ -1,6 +1,5 @@
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
-    //TODO: emoji-suggestions
     //TODO: allow attachements
     if(!message.member.hasPermission("ADMINISTRATOR")) return client.sender(message, "401: Unauthorized", "Nie masz permisji! \`ADMINISTRATOR\`", client.footer, "RED", "", "")
     switch (args[0]) {
@@ -141,7 +140,7 @@ exports.run = async (client, message, args) => {
 
             r.table("settings").update({emojiSuggestChannel: esChannel.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiSuggestChannel"}, {name: "Nowa wartość", value: `<@${esChannel.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiSuggestChannel"}, {name: "Nowa wartość", value: `<#${esChannel.id}>`}])
             break;
         case 'advSuggestChannel':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
@@ -155,7 +154,8 @@ exports.run = async (client, message, args) => {
 
             r.table("settings").update({advancedSuggestChannel: advSuggestChannel.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "advSuggestChannel"}, {name: "Nowa wartość", value: `<@${advSuggestChannel.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "advSuggestChannel"}, {name: "Nowa wartość", value: `<#${advSuggestChannel.id}>`}])
+            client.sender(message, "UWAGA!", "Zaawansowane propozycje są w wersji [\`Early Development Build\`](https://docs.krivebot.xyz/pl/early-development-build). Przez to czasami resetuje się kanał i trzeba ustawiać od nowa. Korzystaj z tego ostrożnie!", "", "RED", "", "", "")
             break;
         case 'welcomeTextDesc':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano tekstu!", client.footer, "RED", "", "")
@@ -215,7 +215,7 @@ exports.run = async (client, message, args) => {
 
             r.table("settings").update({autoRole: autoRole.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "autoRole"}, {name: "Nowa wartość", value: `<#${autoRole.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "autoRole"}, {name: "Nowa wartość", value: `<@&${autoRole.id}>`}])
 
             break;
         case 'mutedRole':
@@ -226,7 +226,7 @@ exports.run = async (client, message, args) => {
 
             r.table("settings").update({mutedRole: mutedrole.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "mutedRole"}, {name: "Nowa wartość", value: `<@${mutedrole.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "mutedRole"}, {name: "Nowa wartość", value: `<@&${mutedrole.id}>`}])
 
             break;
         case 'vcMutedRole':
@@ -237,7 +237,7 @@ exports.run = async (client, message, args) => {
 
             r.table("settings").update({vcMutedRole: vcMutedRole.id}).run(client.con)
 
-            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "vcMutedRole"}, {name: "Nowa wartość", value: `<@${vcMutedRole.id}>`}])
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "vcMutedRole"}, {name: "Nowa wartość", value: `<@&${vcMutedRole.id}>`}])
 
             break;
         case 'vcBanRole':
@@ -284,7 +284,18 @@ exports.run = async (client, message, args) => {
 
             break;
         case 'reactBanRole':
-            client.sender(message, "301: Moved Permanently", "Tymczasowo przeniesiono do wersji 3.2/3.3", client.footer, "GREEN", "", "")
+            client.sender(message, "301: Moved Permanently", "Tymczasowo przeniesiono do innej wersji", client.footer, "GREEN", "", "")
+            break;
+        case 'whiteListRole':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano roli!", client.footer, "RED", "", "")
+
+            let whiteListRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
+            if (!whiteListRole) return client.sender(message, "404: Not found", "Nie znaleziono roli!", client.footer, "RED", "", "")
+
+            r.table("settings").update({whiteListRole: whiteListRole.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "whiteListRole"}, {name: "Nowa wartość", value: `<@&${whiteListRole.id}`}])
+
             break;
         case 'roles':
             client.sender(message, "Ustawienia ról - zmienne", "", "", "GREEN", [
@@ -318,7 +329,7 @@ exports.run = async (client, message, args) => {
                 },
                 {
                     name: "> \`whiteListRole\`",
-                    value: "Wkrótce użycie!"
+                    value: "Omija niektóre rzeczy"
                 }
             ])
             break;
