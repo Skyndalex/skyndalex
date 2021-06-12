@@ -1,4 +1,4 @@
-/config.json
+/src/events/config.json
 /node_modules
 /rethinkdb-2.3.6
 /ffmpeg.exe
@@ -7,3 +7,5 @@
 /commands/developers/eval.js
 /commands/developers/secretCommand.js
 /commands/developers/global-send.js
+/.idea
+/src/events/config.json
