@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 const r = require("rethinkdb")
-const { prefix } = require("../config.json")
+const { prefix } = require("./config.json")
 const cooldown = new Set;
 const moment = require("moment")
 moment.locale("pl")
@@ -25,6 +25,7 @@ module.exports = async(client, message) => {
         .addField("> Komenda pomocy", ";help")
         .addField("> Uptime", require("moment").duration(client.uptime).humanize())
         .addField("> Prefix", `${prefix}`)
+        .addField("> Autor", client.users.cache.get("817883855310684180").tag)
         .setColor("GREEN")
     const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
     if (message.content.match(prefixMention)) {
