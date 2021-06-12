@@ -8,13 +8,18 @@ exports.run = async (client, message, args, level) => {
     const channel = await r.table("settings").get(message.guild.id)("voteChannel").run(client.con)
     if (!channel) return message.channel.send("Nie ustawiono kanału!")
 
+    const notifyRole = await r.table("settings").get(message.guild.id)("votingPing").run(client.con)
+    if (!notifyRole) return null;
+
     const embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
         .setTitle("Opublikowano nowe głosowanie")
         .setDescription(args.join(" "))
         .setColor("GREEN")
     if (message.attachments.map(a=>a.url)[0]) embed.setImage(message.attachments.map(a=>a.url)[0])
-    if (message.attachments.map(a=>a.url)[0]) embed.setFooter('W obrazku pokazane jest tylko jedno pierwsze zdjęcie!');
+    client.channels.cache.get(channel).send(`<@&${notifyRole}>`).then(ping => {
+        ping.delete({timeout: 1000})
+    })
     client.channels.cache.get(channel).send(embed).then(m => {
         m.react("👍")
         m.react("👎")

@@ -7,15 +7,19 @@ exports.run = async (client, message, args) => {
     const channel = await r.table("settings").get(message.guild.id)("broadcastChannel").run(client.con)
     if (!channel) return message.channel.send("Nie ustawiono kanału!")
 
+    const notifyRole = await r.table("settings").get(message.guild.id)("broadcastPing").run(client.con)
+    if (!notifyRole) return null;
+
     const embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
         .setTitle("Opublikowano nowe ogłoszenie")
         .setDescription(args.join(" "))
         .setColor("GREEN")
     if (message.attachments.map(a=>a.url)[0]) embed.setImage(message.attachments.map(a=>a.url)[0])
-    if (message.attachments.map(a=>a.url)[0]) embed.setFooter('W obrazku pokazane jest tylko jedno pierwsze zdjęcie!');
     client.channels.cache.get(channel).send(embed)
-
+    client.channels.cache.get(channel).send(`<@&${notifyRole}>`).then(ping => {
+        ping.delete({timeout: 1000})
+    })
     const sent = new Discord.MessageEmbed()
         .setDescription("Wysłano ogłoszenie!")
         .setColor("GREEN")

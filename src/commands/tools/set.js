@@ -297,6 +297,28 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "whiteListRole"}, {name: "Nowa wartość", value: `<@&${whiteListRole.id}`}])
 
             break;
+        case 'broadcast-ping':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano roli!", client.footer, "RED", "", "")
+
+            let broadcastPingRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
+            if (!broadcastPingRole) return client.sender(message, "404: Not found", "Nie znaleziono roli!", client.footer, "RED", "", "")
+
+            r.table("settings").update({broadcastPing: broadcastPingRole.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "broadcast-ping"}, {name: "Nowa wartość", value: `<@&${broadcastPingRole.id}>`}])
+
+            break;
+        case 'voting-ping':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano roli!", client.footer, "RED", "", "")
+
+            let votingPingRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
+            if (!votingPingRole) return client.sender(message, "404: Not found", "Nie znaleziono roli!", client.footer, "RED", "", "")
+
+            r.table("settings").update({votingPing: votingPingRole.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "voting-ping"}, {name: "Nowa wartość", value: `<@&${votingPingRole.id}>`}])
+
+            break;
         case 'roles':
             client.sender(message, "Ustawienia ról - zmienne", "", "", "GREEN", [
                 {
@@ -330,6 +352,14 @@ exports.run = async (client, message, args) => {
                 {
                     name: "> \`whiteListRole\`",
                     value: "Omija niektóre rzeczy"
+                },
+                {
+                    name: "> \`broadcast-ping\`",
+                    value: "Rola do powiadamiania o ogłoszeniach"
+                },
+                {
+                    name: "> \`voting-ping\`",
+                    value: "Rola do powiadamiania o głosowaniach"
                 }
             ])
             break;
