@@ -47,19 +47,16 @@ body {
 }
 
 .hero-text {
-    text-align: center;
     font-size: 80px;
     font-family: Noto Sans TC;
     color: white;
 }
 .hero-text2 {
-    text-align: center;
     font-size: 30px;
     font-family: Noto Sans JP;
     color: rgb(218, 218, 218);
 }
 .servers {
-    text-align: center;
     font-size: 15px;
     font-family: Noto Sans JP;
     color: #7289da;
@@ -86,4 +83,7 @@ body {
     -webkit-box-shadow: 7px 7px 5px -4px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 7px 7px 5px -4px rgba(0, 0, 0, 0.75);
 
+}
+.container {
+    justify-content: center
 }
