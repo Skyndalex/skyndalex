@@ -1,6 +1,13 @@
 /* fonts */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;900&family=Noto+Sans+TC:wght@700&display=swap');
+
+@media only screen and (max-width: 600px) {
+
+}
+* {
+    box-sizing: border-box;
+}
 body {
     background-color: #1d1e21;
 }
@@ -39,34 +46,19 @@ body {
     -moz-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
 }
 
-.hero {
-    text-align: center;
-}
 .hero-text {
-    position: absolute;
-    top: 20%;
-    width: 70%;
-    right: 200px;
     text-align: center;
     font-size: 80px;
     font-family: Noto Sans TC;
     color: white;
 }
 .hero-text2 {
-    position: absolute;
-    top: 40%;
-    width: 30%;
-    right: 465px;
     text-align: center;
     font-size: 30px;
     font-family: Noto Sans JP;
     color: rgb(218, 218, 218);
 }
 .servers {
-    position: absolute;
-    top: 55%;
-    width: 30%;
-    right: 465px;
     text-align: center;
     font-size: 15px;
     font-family: Noto Sans JP;
@@ -76,10 +68,6 @@ body {
     background-color: #34e718;
     border: none;
     color: white;
-    position: absolute;
-    top: 65%;
-    width: 10%;
-    left: 550px;
     padding: 15px 32px;
     margin:0 0.3em 0.3em 0;
     border-radius: 10px;
@@ -92,21 +80,10 @@ body {
     background-color: #34e718;
     border: none;
     color: white;
-    position: absolute;
-    top: 65%;
-    width: 10%;
-    left: 700px;
     padding: 15px 32px;
     border-radius: 10px;
-    box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
-    -moz-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
-}
-.early-version {
-    color: white;
-    top: 80%;
-    left: 610px;
-    width: 10%;
-    position: absolute;
-    font-size: 15px;
+    box-shadow: 7px 7px 5px -4px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 7px 7px 5px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 7px 7px 5px -4px rgba(0, 0, 0, 0.75);
+
 }

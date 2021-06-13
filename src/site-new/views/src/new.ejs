@@ -1,7 +1,6 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--
     Author: Korrumz2
@@ -17,6 +16,8 @@
     <!-- css -->
 
     <link href="/css/stylesheet.css" rel="stylesheet" type="text/css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -40,16 +41,19 @@
         </ul>
     </div>
 </nav>
-<section id="info-hero">
-    <div class="hero">
-        <h1 class="hero-text"> KriveBot </h1>
-        <h2 class="hero-text2"> Wygoda, funkcjonalność, oraz szybkość. </h2>
-        <h2 class="servers"> Nasz bot jest aktualnie na <%= bot.guilds.cache.size %> serwerach!</h2>
-    </div>
 
-    <a href="https://panel.krivebot.xyz/login"> <button class="btn-login-hero" style="position: absolute; right: 50px;"> Logowanie </button> </a>
-    <a href="https://krivebot.xyz/discord"> <button class="btn-discord-hero" style="position: absolute; right: 50px;"> Support </button> </a>
-    <h6 class="early-version"> Early Development Build [PRE-ALPHA v0.1]</h6>
-</section>
+<!-- end nav -->
+
+<center>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <h3 class="hero-text"> KriveBot </h3>
+            <p class="hero-text2"> Bot stworzony specjalnie dla ciebie! </p>
+            <p class="servers"> Serwery: <%= bot.guilds.cache.size %></p>
+        </div>
+    </div>
+</div>
+</center>
 </body>
 </html>
