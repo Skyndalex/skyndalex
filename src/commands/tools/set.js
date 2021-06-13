@@ -319,6 +319,18 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "voting-ping"}, {name: "Nowa wartość", value: `<@&${votingPingRole.id}>`}])
 
             break;
+        case 'prefix':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano roli!", client.footer, "RED", "", "")
+
+            let prefixConf = args[1]
+
+            if (!prefixConf) return client.sender(message, "Nie podano!", "Proszę podać prefix!", client.footer, "RED", "", "")
+
+            r.table("settings").update({prefix: prefixConf}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "prefix"}, {name: "Nowa wartość", value: `${prefixConf}`}])
+
+            break;
         case 'roles':
             client.sender(message, "Ustawienia ról - zmienne", "", "", "GREEN", [
                 {
@@ -461,6 +473,10 @@ exports.run = async (client, message, args) => {
                 {
                     name: "> \`set goodbyes\`",
                     value: "Ustawienia pożegnań"
+                },
+                {
+                    name: "> \`Inne ustawienia:\`",
+                    value: "prefix"
                 }
             ])
             break;

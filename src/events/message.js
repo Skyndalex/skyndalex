@@ -55,7 +55,10 @@ module.exports = async(client, message) => {
     } catch {
         null;
     }
-    if (!message.content.startsWith(prefix)) return
+
+    const prefixFromDB = await r.table("settings").get(message.guild.id)("prefix").run(client.con)
+
+    if (!message.content.startsWith(prefixFromDB)) return
 
     const embed = new Discord.MessageEmbed()
         .setTitle("Użyto komendy")
