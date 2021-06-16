@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
 
     const password = `bla123${Math.floor(Math.random() * (10000 - 0) + 0)}blabla (no scam)`
 
-    const logins = ["pasztetowo123", "minecrafterrr10003", "MrBoombastic", "Korrumz2", "ŚwinkaMorska320", "TwójDarmowyHacker10391", "JestemZaPIS"]
+    const logins = ["pasztetowo123", "minecrafterrr10003", "MrBoombastic", "Korrumz2 (Debil lol)", "ŚwinkaMorska320", "TwójDarmowyHacker10391", "JestemZaPIS"]
     const emails = ["nI@gmail.com", "secret@krivebot.xyz", "support@krivebot.xyz", "verifikejszyn@gmail.com", "email102020@gmail.com"]
 
     const embed1 = new Discord.MessageEmbed()
