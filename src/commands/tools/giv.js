@@ -1,9 +1,11 @@
 const ms = require("ms")
 const Discord = require("discord.js")
+const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
     /*
     https://stackoverflow.com/questions/62086666/discord-js-bot-giveaway-command-embedsent-reactions-get-is-not-a-function
      */
+
     const messageArray = message.content.split(" ");
     if (!message.member.hasPermission(["ADMINISTRATOR"])) return message.channel.send("Nie masz permisji do rozpoczęcia konkursu!")
     let item = "";
@@ -15,20 +17,22 @@ exports.run = async (client, message, args) => {
     for (let i = 1; i < args.length; i++) {
         item += (args[i] + " ");
     }
-    time = args[0];
+    time = await r.table("giveaways").update({time: args[0]}).run(client.con)
 
     if (!time) return message.channel.send("Nie podano czasu!")
     if (!item) return message.channel.send("Nie podano nagrody!")
+
+    const timeFromDB = await r.table("giveaways").get(message.guild.id)("time").run(client.con)
 
     const embed = new Discord.MessageEmbed();
     embed.setColor(0x3333ff);
     embed.setTitle("Nowy giveaway!");
     embed.setDescription(`Do wygrania: **${item}**`);
-    embed.addField(`Czas trwania:`, ms(ms(time), {
+    embed.addField(`Czas trwania:`, ms(ms(timeFromDB), {
         long: true
     }), true);
     embed.addField("Organizator", message.author.tag)
- //  embed.addField("Fundator", founder||"Brak")
+    embed.addField("Czas zapisany w bazie", timeFromDB)
     embed.setFooter("Zareaguj reakcję aby dołączyć");
     const embedSent = await message.channel.send(embed);
     embedSent.react("🎉");
@@ -56,7 +60,7 @@ exports.run = async (client, message, args) => {
             })
             client.sender(message, "Wygrano giveaway!", `🎉 **${winner.toString()}** wygrał **${item}**! Gratulacje!`, "", "0x3333ff", "", "")
         }
-    }, ms(time));
+    }, ms(timeFromDB));
 }
 exports.help = {
     name: "giv",
