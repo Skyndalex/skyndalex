@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
     const emails = ["nI@gmail.com", "secret@krivebot.xyz", "support@krivebot.xyz", "verifikejszyn@gmail.com", "email102020@gmail.com"]
 
     const embed1 = new Discord.MessageEmbed()
-        .setTitle("Hackowanie!")
+        .setTitle("UWAGA! HACKUJĘ!!!!")
         .setDescription("Pobieram dane...")
         .setColor("GREEN")
 
