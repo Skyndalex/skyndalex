@@ -20,7 +20,7 @@ exports.run = (client, message, args) => {
             }
         ])
     } else {
-        client.sender(message, `Pomoc (${client.commands.size})`, `Potrzebujesz pomocy? Wejdź na nasz [support](${client.url}/discord)\nPotrzebujesz pomocy z ustawianiem? Zobacz naszą [dokumentację](${client.docsLink})`, "Aby zobaczyć więcej informacji o komendzie, użyj komendy help [nazwa]", "GREEN", [
+        client.sender(message, `Pomoc (${client.commands.size})`, `Potrzebujesz pomocy? Wejdź na nasz [support](${client.url}/discord)\nPotrzebujesz pomocy z ustawianiem? Zobacz naszą [dokumentację](https://docs.krivebot.xyz)`, "Aby zobaczyć więcej informacji o komendzie, użyj komendy help [nazwa]", "GREEN", [
             {
                 name: "Bot",
                 value: `> \`${client.commands.filter(c => c.help.category === "bot").map(c => c.help.name).join(' | ') || "Brak"}\``
