@@ -281,6 +281,66 @@ exports.run = async (client, message, args) => {
                     name: "> \`roleUpdate\`",
                     value: "Logi - aktualizowanie roli"
                 },
+                {
+                    name: "> \`broadcastLogs\`",
+                    value: "Logi - wysyłanie ogłoszenia"
+                },
+                {
+                    name: "> \`votingLogs\`",
+                    value: "Logi - wysyłanie głosowania"
+                },
+                {
+                    name: "> \`cooldownLogs\`",
+                    value: "Logi - włączanie cooldownu"
+                },
+                {
+                    name: "> \`suggestionLogs\`",
+                    value: "Logi - dodawanie sugestii"
+                },
+                {
+                    name: "> \`emojiSuggestionsLogs\`",
+                    value: "Logi - dodawanie sugestii emoji"
+                },
+                {
+                    name: "> \`complaintLogs\`",
+                    value: "Logi - dodawanie skarg"
+                },
+                {
+                    name: "> \`clearLogs\`",
+                    value: "Logi - czyszczenie czatu"
+                },
+                {
+                    name: "> \`channelBlockLogs\`",
+                    value: "Logi - blokowanie kanału"
+                },
+                {
+                    name: "> \`channelUnblockLogs\`",
+                    value: "Logi - odblokowywanie czatu"
+                },
+                {
+                    name: "> \`setLogs\`",
+                    value: "Logi - ustawianie opcji"
+                },
+                {
+                    name: "> \`giveawayLogs\`",
+                    value: "Logi - tworzenie giveawayi"
+                },
+                {
+                    name: "> \`speedGiveawayLogs\`",
+                    value: "Logi - tworzenie szybkich giveawayi"
+                },
+                {
+                    name: "> \`verificationLogs",
+                    value: "Logi - weryfikacja"
+                },
+                {
+                    name: "> \`muteLogs\`",
+                    value: "Logi - wyciszanie użytkownika",
+                },
+                {
+                    name: "> \`unmuteLogs\`",
+                    value: "Logi - odciszanie użytkownika"
+                }
             ])
     }
 }
