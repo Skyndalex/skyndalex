@@ -24,6 +24,8 @@ exports.run = async (client, message, args) => {
         .setDescription("Wysłano ogłoszenie!")
         .setColor("GREEN")
     message.channel.send(sent)
+
+    const logChannel = await r.table("logs")
 }
 exports.help = {
     name: "broadcast",

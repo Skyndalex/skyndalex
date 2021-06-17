@@ -11,7 +11,7 @@ exports.run = async (client, message, args, channel) => {
             let dev = ["817883855310684180"]
             if (!dev.includes(message.author.id)) return client.sender(message, "Niedostępne!", "Tylko dla deweloperów bota!", "", "RED", "", "")
 
-            client.emit('guildMemberAdd', message.member)
+            client.emit('guildCreate', message.guild.id)
 
             client.sender(message, "Wykonano pomyślnie!", "Wykonano event \`guildCreate\`", "", "GREEN", "", "")
             break;
