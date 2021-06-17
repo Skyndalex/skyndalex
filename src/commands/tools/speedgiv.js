@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
     if(user.id===message.author.id) return message.channel.send("Z samym sobą chcesz rozpocząć szybki giveaway?")
 
     const reward = args.slice(1).join(" ")
-    if (!reward) return   client.sender(message, "405: Method not allowed", "Nie podano nagrody!", client.footer, "RED", "", "")
+    if (!reward) return client.sender(message, "405: Method not allowed", "Nie podano nagrody!", client.footer, "RED", "", "")
     const embedS = new Discord.MessageEmbed()
         .setTitle("W toku!")
         .setDescription(`${message.author.tag} walczy o **${reward}** z użytkownikiem ${user.tag}!`)
