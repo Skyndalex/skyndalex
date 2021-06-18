@@ -56,7 +56,7 @@ module.exports = async(client, message) => {
         null;
     }
 
-    const prefixFromDB = await r.table("settings").get(message.guild.id)("prefix").run(client.con)
+    const prefixFromDB = await r.table("settings").get(message.guild.id)("prefix").default(prefix).run(client.con)
 
     if (!message.content.startsWith(prefixFromDB)) return
 
