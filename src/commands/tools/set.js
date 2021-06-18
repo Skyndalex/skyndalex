@@ -329,7 +329,6 @@ exports.run = async (client, message, args) => {
             r.table("settings").update({prefix: prefixConf}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "prefix"}, {name: "Nowa wartość", value: `${prefixConf}`}])
-
             break;
         case 'roles':
             client.sender(message, "Ustawienia ról - zmienne", "", "", "GREEN", [
