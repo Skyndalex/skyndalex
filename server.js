@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 	res.send("Connected")
 })
 
-// testowa zmiana 
+// testowa zmiana2
 //TODO: rewrite
 app.listen(port, () => {
 	console.log(`Connected to https://localhost:${port}`)
