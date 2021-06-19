@@ -84,6 +84,7 @@ body {
     -moz-box-shadow: 7px 7px 5px -4px rgba(0, 0, 0, 0.75);
 
 }
-.container {
-    justify-content: center
+.col-sm-4 {
+    align-items: center;
+    justify-content: center;
 }

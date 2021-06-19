@@ -1,6 +1,5 @@
 const r = require("rethinkdb")
 module.exports = async(client, guild) => {
-
    await r.table("settings").insert({
         id: guild.id
     }).run(client.con)

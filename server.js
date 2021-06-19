@@ -7,7 +7,7 @@ const express = require('express')
 const app = express()
 const port = 2222
 const { token } = require("./src/events/config.json")
-
+const os = require("os")
 require("./src/dashboard/dashboard").run(client);
 require("./src/games/games").run(client)
 require("./func")(client);
@@ -44,8 +44,14 @@ fs.readdirSync("./src/commands").forEach(dir => {
 		const eventName = file.split(".")[0];
 		client.on(eventName, event.bind(null, client))
 	}
+client.on('ready', () => {
+	console.log("Krive is online")
 
-
+	// update soon
+	 client.channels.cache.get("855759221597405193").setName(`Serwery: ${client.guilds.cache.size}`)
+	 client.channels.cache.get("855759613675831297").setName(`Użytkownicy: ${client.users.cache.size}`)
+	 client.channels.cache.get("855759814936625162").setName(`RAM: ${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)}/${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`)
+});
 r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
 	if (err) console.log(err)
 	client.con = con;

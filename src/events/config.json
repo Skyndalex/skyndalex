@@ -1,5 +1,5 @@
 {
-  "token": "your-token",
-  "prefix": "your-prefix",
-  "clientSecret": "your-secret"
+  "token": "token",
+  "prefix": "/",
+  "clientSecret": "secret"
 }

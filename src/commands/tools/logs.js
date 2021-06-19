@@ -333,7 +333,9 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelUnblockLogs"}, {name: "Nowa wartość", value: `<#${channelUnblockLog.id}>`}])
             break;
         default:
-            const logsDefault = await r.table("settings").get(message.guild.id).run(client.con)
+            const logsDefault = await r.table("settings").get(message.guild.id).default("Brak").run(client.con)
+            /*
+            const logsDefault = await r.table("settings").get(message.guild.id).default("Brak").run(client.con)
             client.sender(message, "Ustawienia logów serwerowych", "Potrzebujesz logów? Trafiłeś w idealne miejsce! [Dokumentacja](https://docs.krivebot.xyz/logs)", "Ustawienia logów: logs channelCreate #kanał", "GREEN", [
                 {
                     name: "> \`channelCreate\`",
@@ -460,6 +462,21 @@ exports.run = async (client, message, args) => {
                     value: `Logi - odciszanie użytkownika`
                 }
             ])
+             */
+            client.sender(message, "Menu ustawień logów", "Szukałeś ustawień logów? Dobrze trafiłeś!", "", "GREEN", [
+                {
+                    name: "Logi - default",
+                    value: "> \`logs default\`"
+                },
+                {
+                    name: "Logi - bot_commands",
+                    value: "> \`logs bot\`"
+                }
+            ])
+            break;
+        case 'default':
+
+            break;
     }
 }
 exports.help = {
