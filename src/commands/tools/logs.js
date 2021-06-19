@@ -215,131 +215,249 @@ exports.run = async (client, message, args) => {
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "roleDelete"}, {name: "Nowa wartość", value: `<#${roleDeleteLog.id}>`}])
             break;
+        case 'broadcastLogs':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            const broadcastLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!broadcastLog) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+            if (broadcastLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (broadcastLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            await r.table("settings").update({broadcastLog: broadcastLog.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "broadcastLogs"}, {name: "Nowa wartość", value: `<#${broadcastLog.id}>`}])
+            break;
+        case 'votingLogs':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            const votingLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!votingLog) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+            if (votingLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (votingLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            await r.table("settings").update({votingLog: votingLog.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "votingLogs"}, {name: "Nowa wartość", value: `<#${votingLog.id}>`}])
+            break;
+        case 'cooldownLogs':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            const cooldownLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!cooldownLog) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+            if (cooldownLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (cooldownLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            await r.table("settings").update({cooldownLog: cooldownLog.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "cooldownLogs"}, {name: "Nowa wartość", value: `<#${cooldownLog.id}>`}])
+            break;
+        case 'suggestionLogs':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            const suggestionLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!suggestionLog) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+            if (suggestionLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (suggestionLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            await r.table("settings").update({suggestionLog: suggestionLog.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "suggestionLogs"}, {name: "Nowa wartość", value: `<#${suggestionLog.id}>`}])
+            break;
+        case 'emojiSuggestionsLogs':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            const emojiSuggestionsLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!emojiSuggestionsLog) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+            if (emojiSuggestionsLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (emojiSuggestionsLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            await r.table("settings").update({emojiSuggestionsLog: emojiSuggestionsLog.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiSuggestionsLogs"}, {name: "Nowa wartość", value: `<#${emojiSuggestionsLog.id}>`}])
+            break;
+        case 'complaintLogs':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            const complaintLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!complaintLog) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+            if (complaintLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (complaintLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            await r.table("settings").update({complaintLog: complaintLog.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "complaintLogs"}, {name: "Nowa wartość", value: `<#${complaintLog.id}>`}])
+            break;
+        case 'clearLogs':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            const clearLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!clearLog) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+            if (clearLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (clearLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            await r.table("settings").update({clearLog: clearLog.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "clearLogs"}, {name: "Nowa wartość", value: `<#${clearLog.id}>`}])
+            break;
+        case 'channelBlockLogs':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            const channelBlockLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!channelBlockLog) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+            if (channelBlockLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (channelBlockLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            await r.table("settings").update({channelBlockLog: channelBlockLog.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelBlockLogs"}, {name: "Nowa wartość", value: `<#${channelBlockLog.id}>`}])
+            break;
+        case 'channelUnblockLogs':
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+
+            const channelUnblockLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            if (!channelUnblockLog) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+
+            if (channelUnblockLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+            if (channelUnblockLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+
+            await r.table("settings").update({channelUnblockLog: channelUnblockLog.id}).run(client.con)
+
+            client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelUnblockLogs"}, {name: "Nowa wartość", value: `<#${channelUnblockLog.id}>`}])
+            break;
         default:
+            const logsDefault = await r.table("settings").get(message.guild.id).run(client.con)
             client.sender(message, "Ustawienia logów serwerowych", "Potrzebujesz logów? Trafiłeś w idealne miejsce! [Dokumentacja](https://docs.krivebot.xyz/logs)", "Ustawienia logów: logs channelCreate #kanał", "GREEN", [
                 {
                     name: "> \`channelCreate\`",
-                    value: "Logi - tworzenie kanałów",
+                    value: `Logi - tworzenie kanałów [<#${logsDefault.channelCreateLog}>]`,
                 },
                 {
                     name: "> \`channelDelete\`",
-                    value: "Logi - usuwanie kanałów"
+                    value: `Logi - usuwanie kanałów [<#${logsDefault.channelDeleteLog}>]`
                 },
                 {
                     name: "> \`channelUpdate\`",
-                    value: "Logi - aktualizowanie kanału"
+                    value: `Logi - aktualizowanie kanału [<#${logsDefault.channelUpdateLog}>]`
                 },
                 {
                     name: "> \`emojiCreate\`",
-                    value: "Logi - tworzenie emotki"
+                    value: `Logi - tworzenie emotki [<#${logsDefault.emojiCreateLog}>]`
                 },
                 {
                     name: "> \`emojiDelete\`",
-                    value: "Logi - usuwanie emotki"
+                    value: `Logi - usuwanie emotki [<#${logsDefault.emojiDeleteLog}>]`
                 },
                 {
                     name: "> \`guildBanAdd\`",
-                    value: "Logi - nadawanie bana"
+                    value: `Logi - nadawanie bana [<#${logsDefault.guildBanAddLog}>]`
                 },
                 {
                     name: "> \`guildBanRemove\`",
-                    value: "Logi - usuwanie bana"
+                    value: `Logi - usuwanie bana [<#${logsDefault.guildBanRemoveLog}>]`
                 },
                 {
                     name: "> \`guildMemberUpdate\`",
-                    value: "Logi - aktualizacja użytkownika"
+                    value: `Logi - aktualizacja użytkownika [<#${logsDefault.guildMemberUpdateLog}>]`
                 },
                 {
                     name: "> \`guildUpdate\`",
-                    value: "Logi - aktualizowanie serwera"
+                    value: "Logi - aktualizowanie serwera [Soon]"
                 },
                 {
                     name: "> \`inviteCreate\`",
-                    value: "Logi - tworzenie zaproszenia"
+                    value: `Logi - tworzenie zaproszenia [<#${logsDefault.inviteCreateLog}>]`
                 },
                 {
                     name: "> \`inviteDelete\`",
-                    value: "Logi - usuwanie zaproszenia"
+                    value: "Logi - usuwanie zaproszenia [Soon]"
                 },
                 {
                     name: "> \`messageDelete\`",
-                    value: "Logi - usuwanie wiadomości"
+                    value: `Logi - usuwanie wiadomości [<#${logsDefault.messageDeleteLog}>]`
                 },
                 {
                     name: "> \`messageDeleteBulk\`",
-                    value: "Logi - usuwanie wiadomości komendą"
+                    value: "Logi - usuwanie wiadomości komendą [Soon]"
                 },
                 {
                     name: "> \`roleCreate\`",
-                    value: "Logi - tworzenie roli"
+                    value: `Logi - tworzenie roli [<#${logsDefault.roleCreateLog}>]`
                 },
                 {
                     name: "> \`roleDelete\`",
-                    value: "Logi - usuwanie roli"
+                    value: `Logi - usuwanie roli [<#${logsDefault.roleDeleteLog}>]`
                 },
                 {
                     name: "> \`roleUpdate\`",
-                    value: "Logi - aktualizowanie roli"
+                    value: `Logi - aktualizowanie roli [<#${logsDefault.roleUpdateLog}>]`
                 },
                 {
                     name: "> \`broadcastLogs\`",
-                    value: "Logi - wysyłanie ogłoszenia"
+                    value: `Logi - wysyłanie ogłoszenia [<#${logsDefault.broadcastLog}>]`
                 },
                 {
                     name: "> \`votingLogs\`",
-                    value: "Logi - wysyłanie głosowania"
+                    value: `Logi - wysyłanie głosowania [<#${logsDefault.votingLog}>]`
                 },
                 {
                     name: "> \`cooldownLogs\`",
-                    value: "Logi - włączanie cooldownu"
+                    value: `Logi - włączanie cooldownu [<#${logsDefault.cooldownLog}>]`
                 },
                 {
                     name: "> \`suggestionLogs\`",
-                    value: "Logi - dodawanie sugestii"
+                    value: `Logi - dodawanie sugestii [<#${logsDefault.suggestionLog}>]`
                 },
                 {
                     name: "> \`emojiSuggestionsLogs\`",
-                    value: "Logi - dodawanie sugestii emoji"
+                    value: `Logi - dodawanie sugestii emoji [<#${logsDefault.emojiSuggestionsLog}>]`
                 },
                 {
                     name: "> \`complaintLogs\`",
-                    value: "Logi - dodawanie skarg"
+                    value: `Logi - dodawanie skarg [<#${logsDefault.complaintLog}>]`
                 },
                 {
                     name: "> \`clearLogs\`",
-                    value: "Logi - czyszczenie czatu"
+                    value: `Logi - czyszczenie czatu [<#${logsDefault.clearLog}>]`
                 },
                 {
                     name: "> \`channelBlockLogs\`",
-                    value: "Logi - blokowanie kanału"
+                    value: `Logi - blokowanie kanału [<#${logsDefault.channelBlockLog}>]`
                 },
                 {
                     name: "> \`channelUnblockLogs\`",
-                    value: "Logi - odblokowywanie czatu"
+                    value: `Logi - odblokowywanie czatu [<#${logsDefault.channelUnblockLog}>]`
                 },
                 {
                     name: "> \`setLogs\`",
-                    value: "Logi - ustawianie opcji"
+                    value: `Logi - ustawianie opcji`
                 },
                 {
                     name: "> \`giveawayLogs\`",
-                    value: "Logi - tworzenie giveawayi"
+                    value: `Logi - tworzenie giveawayi`
                 },
                 {
                     name: "> \`speedGiveawayLogs\`",
-                    value: "Logi - tworzenie szybkich giveawayi"
+                    value: `Logi - tworzenie szybkich giveawayi`
                 },
                 {
                     name: "> \`verificationLogs",
-                    value: "Logi - weryfikacja"
+                    value: `Logi - weryfikacja`
                 },
                 {
                     name: "> \`muteLogs\`",
-                    value: "Logi - wyciszanie użytkownika",
+                    value: `Logi - wyciszanie użytkownika`,
                 },
                 {
                     name: "> \`unmuteLogs\`",
-                    value: "Logi - odciszanie użytkownika"
+                    value: `Logi - odciszanie użytkownika`
                 }
             ])
     }
