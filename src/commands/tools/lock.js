@@ -13,10 +13,7 @@ exports.run = async (client, message, args) => {
             }
         ]
     )
-    const embed = new Discord.MessageEmbed()
-        .setDescription("Zamknięto kanał")
-        .setColor("GREEN")
-    message.channel.send(embed)
+    client.sender(message, "", "Zamknięto kanał.", "", "GREEN", "", "", "")
 }
 exports.help = {
     name: "lock",
