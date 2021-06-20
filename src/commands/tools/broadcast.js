@@ -28,7 +28,9 @@ exports.run = async (client, message, args) => {
     message.channel.send(sent)
 
     const logChannel = await r.table("logs").get(message.guild.id)("broadcastLog").run(client.con)
-    if (!logChannel) return message.channel.send("Nie ustawiono logów ogłoszeń, więc nie jestem w stanie przekierować je na kanał z logami!")
+    if (!logChannel) return message.channel.send("Nie ustawiono logów ogłoszeń, więc nie jestem w stanie przekierować je na kanał z logami!").then(m => {
+        m.delete({timeout: 1000})
+    })
 
     const embedBroadcastLog = new Discord.MessageEmbed()
        .setTitle("Logi: Wysłano ogłoszenie")
