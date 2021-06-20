@@ -61,6 +61,19 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Wygrano giveaway!", `🎉 **${winner.toString()}** wygrał **${item}**! Gratulacje!`, "", "0x3333ff", "", "")
         }
     }, ms(timeFromDB));
+
+    
+    const logChannel = await r.table("settings").get(message.guild.id)("giveawayLogs").run(client.con)
+    if (logChannel) return message.channel.send("Nie ustawiono logów giveawayi, więc nie jestem w stanie przekierować je na kanał z logami!").then(m => {
+        m.delete({timeout: 1000})
+    })
+
+    const embedLog = new Discord.MessageEmbed()
+    .setTitle("Logi: Utworzono giveaway!")
+    .addField("Autor", message.author.tag)
+    .addField("Co jest do wygrania", item)
+    client.channels.cache.get(logChannel).send(embedLog)
+    
 }
 exports.help = {
     name: "giv",
