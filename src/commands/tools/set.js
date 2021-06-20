@@ -1,6 +1,5 @@
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
-    //TODO: allow attachements
     if(!message.member.hasPermission("ADMINISTRATOR")) return client.sender(message, "401: Unauthorized", "Nie masz permisji! \`ADMINISTRATOR\`", client.footer, "RED", "", "")
     switch (args[0]) {
         case 'broadcastChannel':

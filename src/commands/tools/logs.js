@@ -1,6 +1,6 @@
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
-    const logsDefault = await r.table("settings").get(message.guild.id).run(client.con)
+    const logsDefault = await r.table("logs").get(message.guild.id).run(client.con)
 
     if(!message.member.hasPermission("ADMINISTRATOR")) return client.sender(message, "401: Unauthorized", "Nie masz permisji! \`ADMINISTRATOR\`", client.footer, "RED", "", "")
     switch (args[0]) {
@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
             if (channelCreateLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (channelCreateLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-           await r.table("settings").update({channelCreateLog: channelCreateLog.id}).run(client.con)
+           await r.table("logs").update({channelCreateLog: channelCreateLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelCreate"}, {name: "Nowa wartość", value: `<#${channelCreateLog.id}>`}])
 
@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
             if (channelDeleteLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (channelDeleteLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({channelDeleteLog: channelDeleteLog.id}).run(client.con)
+            await r.table("logs").update({channelDeleteLog: channelDeleteLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelDelete"}, {name: "Nowa wartość", value: `<#${channelDeleteLog.id}>`}])
             break;
@@ -40,7 +40,7 @@ exports.run = async (client, message, args) => {
             if (channelUpdateLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (channelUpdateLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({channelUpdateLog: channelUpdateLog.id}).run(client.con)
+            await r.table("logs").update({channelUpdateLog: channelUpdateLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelUpdate"}, {name: "Nowa wartość", value: `<#${channelUpdateLog.id}>`}])
             break;
@@ -53,7 +53,7 @@ exports.run = async (client, message, args) => {
             if (emojiCreateLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (emojiCreateLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({emojiCreateLog: emojiCreateLog.id}).run(client.con)
+            await r.table("logs").update({emojiCreateLog: emojiCreateLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiCreate"}, {name: "Nowa wartość", value: `<#${emojiCreateLog.id}>`}])
             break;
@@ -66,7 +66,7 @@ exports.run = async (client, message, args) => {
             if (emojiDeleteLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (emojiDeleteLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({emojiDeleteLog: emojiDeleteLog.id}).run(client.con)
+            await r.table("logs").update({emojiDeleteLog: emojiDeleteLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiDelete"}, {name: "Nowa wartość", value: `<#${emojiDeleteLog.id}>`}])
             break;
@@ -79,7 +79,7 @@ exports.run = async (client, message, args) => {
             if (emojiUpdateLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (emojiUpdateLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({emojiUpdateLog: emojiUpdateLog.id}).run(client.con)
+            await r.table("logs").update({emojiUpdateLog: emojiUpdateLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiUpdate"}, {name: "Nowa wartość", value: `<#${emojiUpdateLog.id}>`}])
             break;
@@ -92,7 +92,7 @@ exports.run = async (client, message, args) => {
             if (guildBanAddLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (guildBanAddLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({guildBanAddLog: guildBanAddLog.id}).run(client.con)
+            await r.table("logs").update({guildBanAddLog: guildBanAddLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "guildBanAdd"}, {name: "Nowa wartość", value: `<#${guildBanAddLog.id}>`}])
             break;
@@ -105,7 +105,7 @@ exports.run = async (client, message, args) => {
             if (guildBanRemoveLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (guildBanRemoveLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({guildBanRemoveLog: guildBanRemoveLog.id}).run(client.con)
+            await r.table("logs").update({guildBanRemoveLog: guildBanRemoveLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "guildBanRemove"}, {name: "Nowa wartość", value: `<#${guildBanRemoveLog.id}>`}])
             break;
@@ -118,7 +118,7 @@ exports.run = async (client, message, args) => {
             if (guildMemberUpdateLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (guildMemberUpdateLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({guildMemberUpdateLog: guildMemberUpdateLog.id}).run(client.con)
+            await r.table("logs").update({guildMemberUpdateLog: guildMemberUpdateLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "guildMemberUpdate"}, {name: "Nowa wartość", value: `<#${guildMemberUpdateLog.id}>`}])
             break;
@@ -132,7 +132,7 @@ exports.run = async (client, message, args) => {
             if (guildUpdateLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (guildUpdateLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({guildUpdateLog: guildUpdateLog.id}).run(client.con)
+            await r.table("logs").update({guildUpdateLog: guildUpdateLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "guildUpdate"}, {name: "Nowa wartość", value: `<#${guildUpdateLog.id}>`}])
 
@@ -148,7 +148,7 @@ exports.run = async (client, message, args) => {
             if (inviteCreateLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (inviteCreateLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({inviteCreateLog: inviteCreateLog.id}).run(client.con)
+            await r.table("logs").update({inviteCreateLog: inviteCreateLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "inviteCreate"}, {name: "Nowa wartość", value: `<#${inviteCreateLog.id}>`}])
             break;
@@ -161,7 +161,7 @@ exports.run = async (client, message, args) => {
             if (messageDeleteBulkLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (messageDeleteBulkLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({messageDeleteBulkLog: messageDeleteBulkLog.id}).run(client.con)
+            await r.table("logs").update({messageDeleteBulkLog: messageDeleteBulkLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "messageDeleteBulk"}, {name: "Nowa wartość", value: `<#${messageDeleteBulkLog.id}>`}])
             break;
@@ -174,7 +174,7 @@ exports.run = async (client, message, args) => {
             if (messageDeleteLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (messageDeleteLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({messageDeleteLog: messageDeleteLog.id}).run(client.con)
+            await r.table("logs").update({messageDeleteLog: messageDeleteLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "messageDelete"}, {name: "Nowa wartość", value: `<#${messageDeleteLog.id}>`}])
             break;
@@ -187,7 +187,7 @@ exports.run = async (client, message, args) => {
             if (roleCreateLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (roleCreateLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({roleCreateLog: roleCreateLog.id}).run(client.con)
+            await r.table("logs").update({roleCreateLog: roleCreateLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "roleCreate"}, {name: "Nowa wartość", value: `<#${roleCreateLog.id}>`}])
             break;
@@ -200,7 +200,7 @@ exports.run = async (client, message, args) => {
             if (roleUpdateLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (roleUpdateLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({roleUpdateLog: roleUpdateLog.id}).run(client.con)
+            await r.table("logs").update({roleUpdateLog: roleUpdateLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "roleUpdate"}, {name: "Nowa wartość", value: `<#${roleUpdateLog.id}>`}])
             break;
@@ -213,7 +213,7 @@ exports.run = async (client, message, args) => {
             if (roleDeleteLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (roleDeleteLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({roleDeleteLog: roleDeleteLog.id}).run(client.con)
+            await r.table("logs").update({roleDeleteLog: roleDeleteLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "roleDelete"}, {name: "Nowa wartość", value: `<#${roleDeleteLog.id}>`}])
             break;
@@ -226,7 +226,7 @@ exports.run = async (client, message, args) => {
             if (broadcastLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (broadcastLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({broadcastLog: broadcastLog.id}).run(client.con)
+            await r.table("logs").update({broadcastLog: broadcastLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "broadcastLogs"}, {name: "Nowa wartość", value: `<#${broadcastLog.id}>`}])
             break;
@@ -239,7 +239,7 @@ exports.run = async (client, message, args) => {
             if (votingLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (votingLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({votingLog: votingLog.id}).run(client.con)
+            await r.table("logs").update({votingLog: votingLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "votingLogs"}, {name: "Nowa wartość", value: `<#${votingLog.id}>`}])
             break;
@@ -252,7 +252,7 @@ exports.run = async (client, message, args) => {
             if (cooldownLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (cooldownLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({cooldownLog: cooldownLog.id}).run(client.con)
+            await r.table("logs").update({cooldownLog: cooldownLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "cooldownLogs"}, {name: "Nowa wartość", value: `<#${cooldownLog.id}>`}])
             break;
@@ -265,7 +265,7 @@ exports.run = async (client, message, args) => {
             if (suggestionLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (suggestionLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({suggestionLog: suggestionLog.id}).run(client.con)
+            await r.table("logs").update({suggestionLog: suggestionLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "suggestionLogs"}, {name: "Nowa wartość", value: `<#${suggestionLog.id}>`}])
             break;
@@ -278,7 +278,7 @@ exports.run = async (client, message, args) => {
             if (emojiSuggestionsLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (emojiSuggestionsLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({emojiSuggestionsLog: emojiSuggestionsLog.id}).run(client.con)
+            await r.table("logs").update({emojiSuggestionsLog: emojiSuggestionsLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "emojiSuggestionsLogs"}, {name: "Nowa wartość", value: `<#${emojiSuggestionsLog.id}>`}])
             break;
@@ -291,7 +291,7 @@ exports.run = async (client, message, args) => {
             if (complaintLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (complaintLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({complaintLog: complaintLog.id}).run(client.con)
+            await r.table("logs").update({complaintLog: complaintLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "complaintLogs"}, {name: "Nowa wartość", value: `<#${complaintLog.id}>`}])
             break;
@@ -304,7 +304,7 @@ exports.run = async (client, message, args) => {
             if (clearLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (clearLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({clearLog: clearLog.id}).run(client.con)
+            await r.table("logs").update({clearLog: clearLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "clearLogs"}, {name: "Nowa wartość", value: `<#${clearLog.id}>`}])
             break;
@@ -317,7 +317,7 @@ exports.run = async (client, message, args) => {
             if (channelBlockLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (channelBlockLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({channelBlockLog: channelBlockLog.id}).run(client.con)
+            await r.table("logs").update({channelBlockLog: channelBlockLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelBlockLogs"}, {name: "Nowa wartość", value: `<#${channelBlockLog.id}>`}])
             break;
@@ -330,7 +330,7 @@ exports.run = async (client, message, args) => {
             if (channelUnblockLog.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
             if (channelUnblockLog.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
 
-            await r.table("settings").update({channelUnblockLog: channelUnblockLog.id}).run(client.con)
+            await r.table("logs").update({channelUnblockLog: channelUnblockLog.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelUnblockLogs"}, {name: "Nowa wartość", value: `<#${channelUnblockLog.id}>`}])
             break;

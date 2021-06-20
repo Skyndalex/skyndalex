@@ -8,7 +8,9 @@ exports.run = async (client, message, args) => {
     if (!channel) return message.channel.send("Nie ustawiono kanału!")
 
     const notifyRole = await r.table("settings").get(message.guild.id)("broadcastPing").run(client.con)
-    if (!notifyRole) return null;
+    if (!notifyRole) return message.channel.send("Brak roli pingu!").then(pingE => {
+        pingE.delete({timeout: 1000})
+    })
 
     const embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
@@ -25,10 +27,19 @@ exports.run = async (client, message, args) => {
         .setColor("GREEN")
     message.channel.send(sent)
 
-    const logChannel = await r.table("logs")
+    const logChannel = await r.table("logs").get(message.guild.id)("broadcastLog").run(client.con)
+    if (!logChannel) return message.channel.send("Nie ustawiono logów ogłoszeń, więc nie jestem w stanie przekierować je na kanał z logami!")
+
+    const embedBroadcastLog = new Discord.MessageEmbed()
+       .setTitle("Logi: Wysłano ogłoszenie")
+       .addField("Treść", args.join(" "))
+       .addField("Autor ogłoszenia", message.author)
+       .addField("Kanał ogłoszeń (ID)", channel)
+       .setColor("GREEN")
+    client.channels.cache.get(logChannel).send(embedBroadcastLog)
 }
 exports.help = {
     name: "broadcast",
-    description: "Wyswietla ogłoszenie",
+    description: "Wysyła ogłoszenie ogłoszenie",
     category: "tools",
 }
