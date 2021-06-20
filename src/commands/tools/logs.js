@@ -152,6 +152,7 @@ exports.run = async (client, message, args) => {
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "inviteCreate"}, {name: "Nowa wartość", value: `<#${inviteCreateLog.id}>`}])
             break;
+            /*
         case 'messageDeleteBulk':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
 
@@ -165,6 +166,7 @@ exports.run = async (client, message, args) => {
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "messageDeleteBulk"}, {name: "Nowa wartość", value: `<#${messageDeleteBulkLog.id}>`}])
             break;
+            */
         case 'messageDelete':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
 
