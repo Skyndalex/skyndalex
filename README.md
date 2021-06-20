@@ -1,20 +1,12 @@
-# Klonowanie
+# Kilka ważnych informacji
 
-```
-git clone https://github.com/Korrumz2PL/krivebot/
-```
+1. Repozytorium jest w stanie WIP (Work In Progress).
+2. Bot przechodzi poważne zmiany, przez ostrą niestabilność kodu możecie mieć 10020103139491 logów w konsoli.
+3. Optymalizuje kod cały czas. Cały czas zachodzą zmiany. Proszę nie krytykować niedokończonej pracy.
+4. Wersje kodu od ostatniego czasu są i będą publikowano jako pre-release.
 
-# Włączanie
-1. Zainstaluj paczki NPM (npm install)
-2. Wpisz node server.js
+# Linki
 
-# Pomoc
-> Serwer support
-https://discord.gg/38g4qCsu
----
-> Dokumentacja
-https://docs.krivebot.xyz
----
-> Status
-> https://status.krivebot.xyz Nie działa.
- 
+1. Serwer discord - [Kliknij](https://krivebot.xyz/discord)
+2. Strona statusu - [Kliknij](https://status.krivebot.xyz)
+3. Dokumentacja - [Kliknij](https://docs.krivebot.xyz)
