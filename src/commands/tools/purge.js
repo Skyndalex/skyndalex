@@ -1,4 +1,5 @@
-const Discord = require("discord.js")
+const Discord = require("discord.js");
+const r = require("rethinkdb")
 
 exports.run = async (client, message, args) => {
     if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send("Nie masz permisji")
@@ -8,10 +9,18 @@ exports.run = async (client, message, args) => {
 
     const purgedTo = await message.channel.bulkDelete(args[0]);
 
-    const embed = new Discord.MessageEmbed()
-        .setDescription("Usunięto wiadomości")
-        .setColor("GREEN")
-    message.channel.send(embed)
+    client.sender(message, "", "Usunięto wiadomości.", "", "GREEN", "", "", "")
+
+    const logChannel = await r.table("logs").get(message.guild.id)("clearLog").run(client.con)
+    if (!logChannel) return message.channel.send("Nie ustawiono logów usuwania wiadomości, więc nie jestem w stanie przekierować je na kanał z logami!").then(m => {
+        m.delete({timeout: 1000})
+    })
+
+    const embedLog = new Discord.MessageEmbed()
+    .setTitle("Logi: wyczyszczono wiadomości")
+    .addField("Usunięto przez", message.author.tag)
+    .setColor("GREEN")
+    client.channels.cache.get(logChannel).send(embedLog)
 }
 exports.help = {
     name: "purge",
