@@ -6,7 +6,7 @@ module.exports.run = async (client, message, args) => {
 
     let imp = ["jest impostorem", "nie jest impostorem"]
 
-    client.sender(message, "", `<@${user.id} ${imp.random()}`, "", "GREEN", "", "")
+    client.sender(message, "", `<@${user.id}> ${imp.random()}`, "", "GREEN", "", "")
 }
 exports.help = {
     name: "impostor",

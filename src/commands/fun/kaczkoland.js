@@ -1,7 +1,7 @@
 const fetch = require("node-fetch")
 
 exports.run = async (client, message, args) => {
-    if (!args[0]) return client.error(message, `Nie podano gracza!`)
+    if (!args[0]) return client.sender("Błąd: 404. Not found.", "Nie znaleziono gracza na serwerze kaczkoland.pl", "", "RED", "", "")
 
     fetch("https://api.kaczkoland.pl/all")
         .then(res => res.json())

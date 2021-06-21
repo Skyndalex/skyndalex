@@ -29,11 +29,11 @@ exports.run = async (client, message, args) => {
         default:
             client.sender(message, "Dostępne serwisy", "", "", "GREEN", [
                 {
-                    name: "\`jeja\`",
+                    name: "→ \`jeja\`",
                     value: "Wylosuj mema z strony **jeja.pl**"
                 },
                 {
-                    name: "\`memy\`",
+                    name: "→ \`memy\`",
                     value: "Wylosuj mema z strony **memy.pl**"
                 }
             ])

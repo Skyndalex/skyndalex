@@ -338,35 +338,35 @@ exports.run = async (client, message, args) => {
                 client.sender(message, "Logi - default", "Lista logów które obsługją eventy - czyli klasyczne, discordowe.", "", "GREEN", [
                     {
                         name: "\`channel_create (channelCreate)\`",
-                        value: `Logi tworzenia kanału [<#${logsDefault.channelCreateLog||"Nie znaleziono kanału"}>]`
+                        value: `→ Logi tworzenia kanału [<#${logsDefault.channelCreateLog||"Nie znaleziono kanału"}>]`
                     },
                     {
                         name: "\`channel_delete (channelDelete)\`",
-                        value: `Logi usuwania kanału [<#${logsDefault.channelDeleteLog||"Nie znaleziono knaału"}>]`
+                        value: `→ Logi usuwania kanału [<#${logsDefault.channelDeleteLog||"Nie znaleziono knaału"}>]`
                     },
                     {
                         name: "\`channel_update (channelUpdate)\`",
-                        value: `Logi aktualizowania kanału [<#${logsDefault.channelUpdateLog||"Nie znaleziono kanału"}>]`
+                        value: `→ Logi aktualizowania kanału [<#${logsDefault.channelUpdateLog||"Nie znaleziono kanału"}>]`
                     },
                     {
-                        name: "\`emoji_create (emojiCreate)\`",
+                        name: "→ \`emoji_create (emojiCreate)\`",
                         value: `Logi utworzenia emotki [<#${logsDefault.emojiCreateLog||"Nie znaleziono kanału"}]`
                     },
                     {
                         name: "\`emoji_delete (emojiDelete)\`",
-                        value: `Logi usuwania emotki [<#${logsDefault.emojiDeleteLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi usuwania emotki [<#${logsDefault.emojiDeleteLog||"Nie znaleziono kanału"}]`
                     },
                     {
                         name: "\`guild_ban_add (guildBanAdd)\`",
-                        value: `Logi zbanowania użytkownika [<#${logsDefault.guildBanAddLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi zbanowania użytkownika [<#${logsDefault.guildBanAddLog||"Nie znaleziono kanału"}]`
                     },
                     {
                         name: "\`guild_ban_remove (guildBanRemove)\`",
-                        value: `Logi odbanowania użytkownika [<#${logsDefault.guildBanRemoveLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi odbanowania użytkownika [<#${logsDefault.guildBanRemoveLog||"Nie znaleziono kanału"}]`
                     },
                     {
                         name: "\`guild_member_udpate (guildMemberUpdate)\`",
-                        value: `Logi aktualizowania użytkownika [<#${logsDefault.guildMemberUpdateLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi aktualizowania użytkownika [<#${logsDefault.guildMemberUpdateLog||"Nie znaleziono kanału"}]`
                     },
                     {
                         name: "\`guild_update (guildUpdate)\`",
@@ -382,7 +382,7 @@ exports.run = async (client, message, args) => {
                     },
                     {
                         name: "\`message_delete (messageDelete)\`",
-                        value: `Logi usuwania wiadomości [<#${logsDefault.messageDeleteLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi usuwania wiadomości [<#${logsDefault.messageDeleteLog||"Nie znaleziono kanału"}]`
                     },
                     {
                         name: "\`message_delete_bulk (messageDeleteBulk)\`",
@@ -390,15 +390,15 @@ exports.run = async (client, message, args) => {
                     },
                     {
                         name: "\`role_create (roleCreate)\`",
-                        value: `Logi tworzenia roli [<#${logsDefault.roleCreateLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi tworzenia roli [<#${logsDefault.roleCreateLog||"Nie znaleziono kanału"}]`
                     },
                     {
                         name: "\`role_delete (roleDelete)\`",
-                        value: `Logi usuwania roli [<#${logsDefault.roleDeleteLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi usuwania roli [<#${logsDefault.roleDeleteLog||"Nie znaleziono kanału"}]`
                     },
                     {
                         name: "\`role_update (roleUpdate)\`",
-                        value: `Logi aktualizowania roli [<#${logsDefault.roleUpdateLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi aktualizowania roli [<#${logsDefault.roleUpdateLog||"Nie znaleziono kanału"}]`
                     }
                 ])
                 break;
@@ -406,63 +406,63 @@ exports.run = async (client, message, args) => {
                 client.sender(message, "Logi - commands", "Lista logów które obsługują komendy bota", "", "GREEN", [
                     {
                         name: "\`broadcast_logs (broadcastLogs)\`",
-                        value: `Logi ogłoszeń [<#${logsDefault.broadcastLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi ogłoszeń [<#${logsDefault.broadcastLog||"Nie znaleziono kanału"}>]`
                     },
                     {
                         name: "\`voting_logs (votingLogs)\`",
-                        value: `Logi głosowań [<#${logsDefault.votingLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi głosowań [<#${logsDefault.votingLog||"Nie znaleziono kanału"}>]`
                     },
                     {
                         name: "\`cooldown_logs (cooldownLogs)\`",
-                        value: `Logi cooldownów [<#${logsDefault.cooldownLog||"Nie znaleziono kanału"}]`,
+                        value: `→ Logi cooldownów [<#${logsDefault.cooldownLog||"Nie znaleziono kanału"}>]`,
                     },
                     {
                         name: "\`suggestion_logs (suggestionLogs)\`",
-                        value: `Logi sugestii [<#${logsDefault.suggestionLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi sugestii [<#${logsDefault.suggestionLog||"Nie znaleziono kanału"}>]`
                     },
                     {
                         name: "\`emoji_suggestions_logs (\`emojiSuggestionsLogs)\`",
-                        value: `Logi sugestii emoji [<#${logsDefault.emojiSuggestionsLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi sugestii emoji [<#${logsDefault.emojiSuggestionsLog||"Nie znaleziono kanału"}>]`
                     },
                     {
                         name: "\`complaint_logs (complaintLogs)\`",
-                        value: `Logi dodawania skarg [<#${logsDefault.complaintLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi dodawania skarg [<#${logsDefault.complaintLog||"Nie znaleziono kanału"}>]`
                     },
                     {
                         name: "\`clear_logs (clearLogs)\`",
-                        value: `Logi czyszczenia czatu [<#${logsDefault.clearLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi czyszczenia czatu [<#${logsDefault.clearLog||"Nie znaleziono kanału"}>]`
                     },
                     {
                         name: "\`channel_block_logs (channelBlockLogs)\`",
-                        value: `Logi blokowania kanału [<#${logsDefault.channelBlockLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi blokowania kanału [<#${logsDefault.channelBlockLog||"Nie znaleziono kanału"}>]`
                     },
                     {
                         name: "\`channel_unblock_logs (channelUnblockLogs)\`",
-                        value: `Logi odblokowywania kanału [<#${logsDefault.channelUnblockLog||"Nie znaleziono kanału"}]`
+                        value: `→ Logi odblokowywania kanału [<#${logsDefault.channelUnblockLog||"Nie znaleziono kanału"}>]`
                     },
                     {
                         name: "\`set_logs (setLogs)\`",
-                        value: `Logi ustawień [<#${logsDefault.setLogs||"Nie znaleziono kanału"}]`
+                        value: `→ Logi ustawień [<#${logsDefault.setLogs||"Nie znaleziono kanału"}>]`
                     },
                     {
                         name: "\`giveaway_logs (giveawayLogs)\`",
-                        value: `Logi giveawayi [<#${logsDefault.giveawayLogs||"Nie znaleziono kanału"}]`
+                        value: `→ Logi giveawayi [<#${logsDefault.giveawayLogs||"Nie znaleziono kanału"}>]`
                     },
                     {
                         name: "\`speed_giveaway_logs (speedGiveawayLogs)\`",
-                        value: `Logi szybkich giveawayi [<#${logsDefault.speedGiveawayLogs||"Nie znaleziono kanału"}]`
+                        value: `→ Logi szybkich giveawayi [<#${logsDefault.speedGiveawayLogs||"Nie znaleziono kanału"}]`
                     },
                     {
                         name: "\`verification_logs (verificationLogs)\`",
-                        value: `Logi weryfikacji [<#${logsDefault.verificationLogs||"Nie znaleziono kanału"}]`
+                        value: `→ Logi weryfikacji [<#${logsDefault.verificationLogs||"Nie znaleziono kanału"}]`
                     },
                     {
                         name: "\`mute_logs (muteLogs)\`",
-                        value: `Logi wyciszenia użytkownika [<#${logsDefault.muteLogs||"Nie znaleziono kanału"}]`
+                        value: `→ Logi wyciszenia użytkownika [<#${logsDefault.muteLogs||"Nie znaleziono kanału"}]`
                     },
                     {
                         name: "\`unmute_logs (unmuteLogs)\`",
-                        value: `Logi odciszenia użytkownika [<#${logsDefault.unmuteLogs||"Nie znaleziono kanału"}]`
+                        value: `→ Logi odciszenia użytkownika [<#${logsDefault.unmuteLogs||"Nie znaleziono kanału"}]`
                     }
                 ])
                 break;

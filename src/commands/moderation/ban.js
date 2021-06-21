@@ -30,6 +30,20 @@ exports.run = async (client, message, args) => {
             value: member.user.tag
         }
     ])
+    client.authorSender(message, "Zostałeś zbanowany z serwera!", "Przykro nam!", "RED", [
+        {
+            name: "Serwer",
+            value: message.guild.name
+        },
+        {
+            name: "Użytkownik, który cię zbanował",
+            value: message.author.tag
+        },
+        {
+            name: "Czas",
+            value: "♾️"
+        }
+    ])
 }
 exports.help = {
     name: "ban",
