@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 module.exports = async (client, oldEmoji, newEmoji) => {
     try {
-        const logChannel = await r.table('settings').get(oldEmoji.guild.id)("emojiUpdateLog").run(client.con)
+        const logChannel = await r.table('settings').get(oldEmoji.guild.id)("emojiUpdateLog").default(null).run(client.con)
 
         let animated = {
             true: "Tak",

@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 module.exports = async (client, oldChannel, newChannel) => {
     try {
-        const logChannel = await r.table('settings').get(oldChannel.guild.id)("channelUpdateLog").run(client.con)
+        const logChannel = await r.table('settings').get(oldChannel.guild.id)("channelUpdateLog").default(null).run(client.con)
 
         if (oldChannel.rawPosition != newChannel.rawPosition) return
         if (oldChannel.lastPinTimestamp != newChannel.lastPinTimestamp) return

@@ -3,7 +3,7 @@ const r = require("rethinkdb")
 
 module.exports = async (client, role) => {
     try {
-        const logChannel = await r.table("settings").get(role.guild.id)("roleCreateLog").run(client.con)
+        const logChannel = await r.table("settings").get(role.guild.id)("roleCreateLog").default(null).run(client.con)
 
         const embed = new Discord.MessageEmbed()
             .setTitle("Utworzono rolę!")

@@ -3,7 +3,7 @@ const r = require("rethinkdb")
 
 module.exports = async (client, emoji) => {
     try {
-        const logChannel = await r.table("settings").get(emoji.guild.id)("emojiDeleteLog").run(client.con)
+        const logChannel = await r.table("settings").get(emoji.guild.id)("emojiDeleteLog").default(null).run(client.con)
 
         let animated = {
             true: "Tak",

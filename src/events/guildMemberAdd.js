@@ -2,10 +2,10 @@
 const Discord = require("discord.js")
 module.exports = async (client, member) => {
         try {
-            const role = await r.table('settings').get(member.guild.id)("autoRole").run(client.con)
+            const role = await r.table('settings').get(member.guild.id)("autoRole").default(null).run(client.con)
             member.roles.add(role)
 
-            const channel = await r.table('settings').get(member.guild.id)("welcomeChannel").run(client.con)
+            const channel = await r.table('settings').get(member.guild.id)("welcomeChannel").default(null).run(client.con)
             /*
                 const wTitle = await r.table("settings").get(member.guild.id)("welcomeTextTitle").run(client.con)
                 const wDesc = await r.table("settings").get(member.guild.id)("welcomeTextDesc").run(client.con)

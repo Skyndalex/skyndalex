@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 module.exports = async (client, oldMember, newMember) => {
     try {
-        const logChannel = await r.table("settings").get(newMember.guild.id)("guildMemberUpdateLog").run(client.con)
+        const logChannel = await r.table("settings").get(newMember.guild.id)("guildMemberUpdateLog").default(null).run(client.con)
         if (oldMember.roles.cache.map(r => r.id).toString() != newMember.roles.cache.map(r => r.id).toString()) {
             const logRolesUpdateEmbed = new Discord.MessageEmbed()
                 .setTitle("Aktualizacja ról użytkownika")

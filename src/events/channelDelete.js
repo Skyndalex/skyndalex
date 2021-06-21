@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 module.exports = async (client, channel) => {
     try {
-        const logChannel = await r.table("settings").get(channel.guild.id)("channelDeleteLog").run(client.con)
+        const logChannel = await r.table("settings").get(channel.guild.id)("channelDeleteLog").default(null).run(client.con)
 
         if (channel.type === "category") {
             const logEmbed1 = new Discord.MessageEmbed()

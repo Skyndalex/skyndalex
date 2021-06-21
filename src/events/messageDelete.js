@@ -3,7 +3,7 @@ const Discord = require("discord.js")
 
 module.exports = async (client, message) => {
     try {
-        const logChannel = await r.table("settings").get(message.channel.guild.id)("messageDeleteLog").run(client.con)
+        const logChannel = await r.table("settings").get(message.channel.guild.id)("messageDeleteLog").default(null).run(client.con)
 
         let tof = {
             false: "Nie",

@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 module.exports = async (client, invite) => {
     try {
-        const logChannel = await r.table("settings").get(invite.channel.guild.id)("inviteCreateLog").run(client.con)
+        const logChannel = await r.table("settings").get(invite.channel.guild.id)("inviteCreateLog").default(null).run(client.con)
 
         const logEmbed = new Discord.MessageEmbed()
             .setTitle("Utworzono zaproszenie!")

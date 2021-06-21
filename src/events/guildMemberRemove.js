@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 module.exports = async(client, member) => {
     try {
-        const channel = await r.table('settings').get(member.guild.id)("goodbyeChannel").run(client.con)
+        const channel = await r.table('settings').get(member.guild.id)("goodbyeChannel").default(null).run(client.con)
 
         const embed = new Discord.MessageEmbed()
             .setTitle("Ktoś wyszedł")

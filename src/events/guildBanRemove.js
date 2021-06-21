@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 module.exports = async (client, guild, user) => {
     try {
-        const logChannel = await r.table("settings").get(guild.id)("guildBanRemoveLog").run(client.con)
+        const logChannel = await r.table("settings").get(guild.id)("guildBanRemoveLog").default(null).run(client.con)
 
         const logEmbed = new Discord.MessageEmbed()
             .setTitle("Odbanowano użytkownika!")

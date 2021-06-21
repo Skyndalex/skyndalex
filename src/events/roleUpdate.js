@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 
 module.exports = async (client, oldRole, newRole) => {
-    const logChannel = await r.table("settings").get(newRole.guild.id)("roleUpdateLog").run(client.con)
+    const logChannel = await r.table("settings").get(newRole.guild.id)("roleUpdateLog").default(null).run(client.con)
 
     try {
         if(newRole.members.size!=oldRole.members.size) return
