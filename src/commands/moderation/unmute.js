@@ -11,11 +11,13 @@ exports.run = async (client, message, args) => {
 
     if (!member) return message.channel.send("Nie znaleziono użytkownika!")
 
+    /*
     if (member.id === message.author.id) return  client.sender(message, "405: Method Not Allowed", "Niedozwolona metoda! Nie możesz odciszyć samego siebie!", client.footer, "RED", "", "")
     if (member.id === message.guild.ownerID) return  client.sender(message, "405: Method Not Allowed", "Niedozwolona metoda! Nie możesz odciszyć właściciela serwera!!", client.footer, "RED", "", "")
     if (member.roles.highest.rawPosition >= message.member.roles.highest.rawPosition) return  client.sender(message, "405: Method Not Allowed", "Nie możesz odciszyć użytkownika z taką samą lub wyższą rolą!!", client.footer, "RED", "", "")
+*/
 
-   await member.roles.remove(role.mutedRole)
+   await member.roles.remove(role)
 
     client.sender(message, "Wyłączono wyciszenie użytkownika!", "", client.moderationFooter, "GREEN", [
         {
@@ -30,6 +32,17 @@ exports.run = async (client, message, args) => {
             name: "Serwer",
             value: message.guild.name
         }
+    ])
+
+    client.authorSender(message, "Wyłączono wyciszenie!", "", "", "GREEN", [
+        {
+            name: "Serwer",
+            value: message.guild.name
+        },
+        {
+            name: "Moderator",
+            value: message.author.tag
+        },
     ])
 }
 exports.help = {
