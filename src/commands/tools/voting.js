@@ -8,9 +8,10 @@ exports.run = async (client, message, args, level) => {
     const channel = await r.table("settings").get(message.guild.id)("voteChannel").default(message.channel.send("Brak ustawionego kanału.")).run(client.con)
     if (!channel) return message.channel.send("Nie ustawiono kanału!")
 
+    /*
     const notifyRole = await r.table("settings").get(message.guild.id)("notifyVotingRole").default(null).run(client.con)
     if (!notifyRole) return null;
-
+*/
     const logChannel = await r.table("logs").get(message.guild.id)("votingLog").default(null).run(client.con)
 
     const embed = new Discord.MessageEmbed()
@@ -19,9 +20,6 @@ exports.run = async (client, message, args, level) => {
         .setDescription(args.join(" "))
         .setColor("GREEN")
     if (message.attachments.map(a=>a.url)[0]) embed.setImage(message.attachments.map(a=>a.url)[0])
-    client.channels.cache.get(channel).send(`<@&${notifyRole}>`).then(ping => {
-        ping.delete({timeout: 1000})
-    })
     client.channels.cache.get(channel).send(embed).then(m => {
         m.react("👍")
         m.react("👎")

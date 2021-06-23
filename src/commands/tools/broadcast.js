@@ -7,11 +7,12 @@ exports.run = async (client, message, args) => {
     const channel = await r.table("settings").get(message.guild.id)("broadcastChannel").run(client.con)
     if (!channel) return message.channel.send("Nie ustawiono kanału!")
 
+    /*
     const notifyRole = await r.table("settings").get(message.guild.id)("broadcastPing").run(client.con)
     if (!notifyRole) return message.channel.send("Brak roli pingu!").then(pingE => {
         pingE.delete({timeout: 1000})
     })
-
+    */
     const logChannel = await r.table("logs").get(message.guild.id)("broadcastLog").run(client.con)
     if (!logChannel) return message.channel.send("Nie ustawiono logów ogłoszeń, więc nie jestem w stanie przekierować je na kanał z logami!").then(m => {
         m.delete({timeout: 1000})

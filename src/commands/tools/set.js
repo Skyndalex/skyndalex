@@ -373,15 +373,15 @@ exports.run = async (client, message, args) => {
                     value: "Ustawienia roli która nie może dodawać reakcji"
                 },
                 {
-                    name: "> \`whiteListRole\`",
+                    name: "> \`whiteListRole\ [NIEDOSTĘPNE]`",
                     value: "Omija niektóre rzeczy"
                 },
                 {
-                    name: "> \`broadcast-ping\`",
+                    name: "> \`broadcast-ping\` [NIEDOSTĘPNE]",
                     value: "Rola do powiadamiania o ogłoszeniach"
                 },
                 {
-                    name: "> \`voting-ping\`",
+                    name: "> \`voting-ping\` [NIEDOSTĘPNE]",
                     value: "Rola do powiadamiania o głosowaniach"
                 }
             ])
