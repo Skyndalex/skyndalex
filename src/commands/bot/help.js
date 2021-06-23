@@ -22,7 +22,7 @@ exports.run = (client, message, args) => {
     } else {
         switch (args[0]) {
             default:
-                client.sender(message, `Komendy`, `Ilość dostępnych komend: ${client.commands.size}\nDokumentacja: [link](https://docs.krivebot.xyz)\nStrona internetowa: [link](https://krivebot.xyz)`, `Potrzebujesz dodatkowej pomocy? Uzyj komendy ;ticket lub ;request!`, "GREEN", [
+                client.sender(message, `Komendy`, `Ilość dostępnych komend: ${client.commands.size}\nDokumentacja: [\`Kliknij\`](https://docs.krivebot.xyz)\nStrona internetowa: [\`Kliknij\`](https://krivebot.xyz)`, `Potrzebujesz dodatkowej pomocy? Uzyj komendy ;ticket lub ;request!`, "GREEN", [
                     {
                         name: "Bot",
                         value: "> \`help bot\`"
@@ -36,7 +36,7 @@ exports.run = (client, message, args) => {
                         value: "> \`help moderation\`"
                     },
                     {
-                        name: "tools (Narzędzia)",
+                        name: "Tools (Narzędzia)",
                         value: "> \`help tools\`"
                     },
                     {
@@ -44,7 +44,7 @@ exports.run = (client, message, args) => {
                         value: "> \`help devs\`"
                     },
                     {
-                        name: "economy (Ekonomia)",
+                        name: "Economy (Ekonomia)",
                         value: "> \`help economy\`"
                     },
                     {

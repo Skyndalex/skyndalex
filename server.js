@@ -44,7 +44,7 @@ fs.readdirSync("./src/commands").forEach(dir => {
 		client.on(eventName, event.bind(null, client))
 	}
 client.on('ready', () => {
-	console.log("Krive is online")
+	console.log(`${client.user.tag} is ready!`)
 
 	// update soon
 	 client.channels.cache.get("855759221597405193").setName(`Serwery: ${client.guilds.cache.size}`)

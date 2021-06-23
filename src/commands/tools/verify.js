@@ -1,9 +1,9 @@
 const r = require("rethinkdb")
+const Discord = require("discord.js")
 exports.run = async (client, message, args) => {
     //TYMCZASOWO: przepisane z starej wersji 3.0 Skyndalexa (2020)
 
-    const role = await r.table("settings").get(message.guild.id)("userRole").run(client.con)
-    if (!role) return client.sender(message, "404: Not found", "Nie ustawiono roli!", client.footer, "RED", "", "")
+    const role = await r.table("settings").get(message.guild.id)("userRole").default(null).run(client.con)
 
     if (message.member.roles.cache.map(r=>r.id).includes(role)) return client.sender(message, "405: Method not allowed", "Jesteś już zweryfikowany! Nie możesz zweryfikować się po raz drugi.", client.footer, "RED", "", "")
 
@@ -25,28 +25,15 @@ exports.run = async (client, message, args) => {
         h.delete({timeout: 60000})
     })
 
-    client.authorSender(message, "Nowa aktywność!", "Dane akcji poniżej:", "Krive verification v1.0", "GREEN", [
-        {
-            name: "Serwer",
-            value: message.guild.name
-        },
-        {
-            name: "Użytkownik",
-            value: message.author.tag
-        },
-        {
-            name: "Nadano rolę?",
-            value: "TAK.",
-        },
-        {
-            name: "ID właściciela serwera",
-            value: message.guild.ownerID
-        },
-        {
-            name: "Nazwa akcji",
-            value: "verify (Server Verification)"
-        }
-    ])
+    const logChannel = await r.table("logs").get(message.guild.id)("verificationLog").default(null).run(client.con)
+
+    const embedVerificationLog = new Discord.MessageEmbed()
+    .setTitle("Logi: Zweryfikowano użytkownika")
+    .addField("Użytkownik", message.author.tag)
+    .addField("ID serwera", message.guild.id)
+    .setTimestamp()
+    .setColor("GREEN")
+ client.channels.cache.get(logChannel).send(embedVerificationLog)
 }
 exports.help = {
     name: "verify",

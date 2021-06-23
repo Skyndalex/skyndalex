@@ -11,7 +11,7 @@ exports.run = async (client, message, args) => {
 
     client.sender(message, "", "Usunięto wiadomości.", "", "GREEN", "", "", "")
 
-    const logChannel = await r.table("logs").get(message.guild.id)("clearLog").run(client.con)
+    const logChannel = await r.table("logs").get(message.guild.id)("clearLog").default(null).run(client.con)
     if (!logChannel) return message.channel.send("Nie ustawiono logów usuwania wiadomości, więc nie jestem w stanie przekierować je na kanał z logami!").then(m => {
         m.delete({timeout: 1000})
     })

@@ -14,6 +14,7 @@ exports.run = async (client, message, args, level) => {
         .addField("ID emotki", emoji.id)
         .addField("Nazwa emotki", emoji.name)
         .addField("Link do pobrania", `[Klik](${emoji.url})`)
+        .setThumbnail(emoji.url)
         .setColor("GREEN")
     message.channel.send(embed)
 }

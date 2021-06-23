@@ -321,6 +321,19 @@ exports.run = async (client, message, args) => {
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "channelUnblockLogs"}, {name: "Nowa wartość", value: `<#${channelUnblockLog.id}>`}])
             break;
+            case 'verificationLogs':
+                if (!args[0]) return client.sender(message, "Niepoprawna składnia!", "Nie podano kanału!", client.footer, "RED", "", "")
+    
+                const verificationLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+                if (!verificationLog) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+    
+                if (verificationLog.type === "voice") return client.sender(message, "Niepoprawna składnia!", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+                if (verificationLog.type === "category") return client.sender(message, "Niepoprawna składnia!", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+    
+                await r.table("logs").update({verificationLog: verificationLog.id}).run(client.con)
+    
+                client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "verificationLogs"}, {name: "Nowa wartość", value: `<#${verificationLog.id}>`}])
+                break;
         default:
             client.sender(message, "Menu ustawień logów", "Szukałeś ustawień logów? Dobrze trafiłeś!", "Ze względu na osiągnięcie limitu Fieldów, logi zostały podzielone na kategorie.", "GREEN", [
                 {
@@ -417,11 +430,11 @@ exports.run = async (client, message, args) => {
                         value: `→ Logi cooldownów [<#${logsDefault.cooldownLog||"Nie znaleziono kanału"}>]`,
                     },
                     {
-                        name: "\`suggestion_logs (suggestionLogs)\`",
+                        name: "\`suggestion_logs (suggestionLogs)\` [SOON]",
                         value: `→ Logi sugestii [<#${logsDefault.suggestionLog||"Nie znaleziono kanału"}>]`
                     },
                     {
-                        name: "\`emoji_suggestions_logs (\`emojiSuggestionsLogs)\`",
+                        name: "\`emoji_suggestions_logs (\`emojiSuggestionsLogs)\` [SOON]",
                         value: `→ Logi sugestii emoji [<#${logsDefault.emojiSuggestionsLog||"Nie znaleziono kanału"}>]`
                     },
                     {
@@ -433,15 +446,15 @@ exports.run = async (client, message, args) => {
                         value: `→ Logi czyszczenia czatu [<#${logsDefault.clearLog||"Nie znaleziono kanału"}>]`
                     },
                     {
-                        name: "\`channel_block_logs (channelBlockLogs)\`",
+                        name: "\`channel_block_logs (channelBlockLogs)\` [SOON]",
                         value: `→ Logi blokowania kanału [<#${logsDefault.channelBlockLog||"Nie znaleziono kanału"}>]`
                     },
                     {
-                        name: "\`channel_unblock_logs (channelUnblockLogs)\`",
+                        name: "\`channel_unblock_logs (channelUnblockLogs)\` [SOON]",
                         value: `→ Logi odblokowywania kanału [<#${logsDefault.channelUnblockLog||"Nie znaleziono kanału"}>]`
                     },
                     {
-                        name: "\`set_logs (setLogs)\`",
+                        name: "\`set_logs (setLogs)\` [SOON]",
                         value: `→ Logi ustawień [<#${logsDefault.setLogs||"Nie znaleziono kanału"}>]`
                     },
                     {
@@ -449,19 +462,15 @@ exports.run = async (client, message, args) => {
                         value: `→ Logi giveawayi [<#${logsDefault.giveawayLogs||"Nie znaleziono kanału"}>]`
                     },
                     {
-                        name: "\`speed_giveaway_logs (speedGiveawayLogs)\`",
-                        value: `→ Logi szybkich giveawayi [<#${logsDefault.speedGiveawayLogs||"Nie znaleziono kanału"}]`
-                    },
-                    {
                         name: "\`verification_logs (verificationLogs)\`",
                         value: `→ Logi weryfikacji [<#${logsDefault.verificationLogs||"Nie znaleziono kanału"}]`
                     },
                     {
-                        name: "\`mute_logs (muteLogs)\`",
+                        name: "\`mute_logs (muteLogs)\` [SOON]",
                         value: `→ Logi wyciszenia użytkownika [<#${logsDefault.muteLogs||"Nie znaleziono kanału"}]`
                     },
                     {
-                        name: "\`unmute_logs (unmuteLogs)\`",
+                        name: "\`unmute_logs (unmuteLogs)\` [SOON]",
                         value: `→ Logi odciszenia użytkownika [<#${logsDefault.unmuteLogs||"Nie znaleziono kanału"}]`
                     }
                 ])

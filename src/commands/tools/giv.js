@@ -6,6 +6,9 @@ exports.run = async (client, message, args) => {
     https://stackoverflow.com/questions/62086666/discord-js-bot-giveaway-command-embedsent-reactions-get-is-not-a-function
      */
 
+    const channel = await r.table("settings").get(message.guild.id)("giveawayChannel").run(client.con)
+    if (!channel) return message.channel.send("Nie ustawiono kanału!")
+
     const messageArray = message.content.split(" ");
     if (!message.member.hasPermission(["ADMINISTRATOR"])) return message.channel.send("Nie masz permisji do rozpoczęcia konkursu!")
     let item = "";
@@ -34,7 +37,7 @@ exports.run = async (client, message, args) => {
     embed.addField("Organizator", message.author.tag)
     embed.addField("Czas zapisany w bazie", timeFromDB)
     embed.setFooter("Zareaguj reakcję aby dołączyć");
-    const embedSent = await message.channel.send(embed);
+    const embedSent = await client.channels.cache.get(channel).send(embed)
     embedSent.react("🎉");
 
     setTimeout(async () => {
@@ -64,16 +67,12 @@ exports.run = async (client, message, args) => {
 
     
     const logChannel = await r.table("settings").get(message.guild.id)("giveawayLogs").run(client.con)
-    if (logChannel) return message.channel.send("Nie ustawiono logów giveawayi, więc nie jestem w stanie przekierować je na kanał z logami!").then(m => {
-        m.delete({timeout: 1000})
-    })
 
     const embedLog = new Discord.MessageEmbed()
     .setTitle("Logi: Utworzono giveaway!")
     .addField("Autor", message.author.tag)
     .addField("Co jest do wygrania", item)
     client.channels.cache.get(logChannel).send(embedLog)
-    
 }
 exports.help = {
     name: "giv",

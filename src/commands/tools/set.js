@@ -154,8 +154,21 @@ exports.run = async (client, message, args) => {
             r.table("settings").update({advancedSuggestChannel: advSuggestChannel.id}).run(client.con)
 
             client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "advSuggestChannel"}, {name: "Nowa wartość", value: `<#${advSuggestChannel.id}>`}])
-            client.sender(message, "UWAGA!", "Zaawansowane propozycje są w wersji [\`Early Development Build\`](https://docs.krivebot.xyz/pl/early-development-build). Przez to czasami resetuje się kanał i trzeba ustawiać od nowa. Korzystaj z tego ostrożnie!", "", "RED", "", "", "")
             break;
+            case 'giveawayChannel':
+                if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano kanału!", client.footer, "RED", "", "")
+    
+                let giveawayChannel =  message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+                if (!giveawayChannel) return client.sender(message, "404: Not found", "Nie znaleziono kanału!", client.footer, "RED", "", "")
+    
+    
+                if (giveawayChannel.type === "voice") return client.sender(message, "405: Method not allowed", "Podałeś kanał głosowy! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+                if (giveawayChannel.type === "category") return client.sender(message, "405: Method not allowed", "Podałeś kategorię! Prosze wpisać kanał tekstowy!", client.footer, "RED", "", "")
+    
+                r.table("settings").update({giveawayChannel: giveawayChannel.id}).run(client.con)
+    
+                client.sender(message, "Ustawiono", "", "", "GREEN", [{name: "Zmienna", value: "giveawayChannel"}, {name: "Nowa wartość", value: `<#${giveawayChannel.id}>`}])
+                break;
         case 'welcomeTextDesc':
             if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano tekstu!", client.footer, "RED", "", "")
 
@@ -319,7 +332,7 @@ exports.run = async (client, message, args) => {
 
             break;
         case 'prefix':
-            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano roli!", client.footer, "RED", "", "")
+            if (!args[0]) return client.sender(message, "405: Method not allowed", "Nie podano prefixu!", client.footer, "RED", "", "")
 
             let prefixConf = args[1]
 
@@ -377,40 +390,44 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawienia kanałów - zmienne", "", client.footer, "GREEN", [
                 {
                      name: "> \`broadcastChannel\`",
-                     value: "Kanał ogłoszeniowy"
+                     value: "→ Kanał ogłoszeniowy"
                 },
                 {
                     name: "> \`voteChannel\`",
-                    value: "Kanał głosowań"
+                    value: "→ Kanał głosowań"
                 },
                 {
                     name: "> \`passChannel\`",
-                    value: "Kanał podań"
+                    value: "→ Kanał podań"
                 },
                 {
                     name: "> \`suggestChannel\`",
-                    value: "Kanał propozycji"
+                    value: "→ Kanał propozycji"
                 },
                 {
                     name: "> \`globalBroadcastChannel\`",
-                    value: "Kanał globalnych ogłoszeń"
+                    value: "→ Kanał globalnych ogłoszeń"
                 },
                 {
                     name: "> \`private-mod-channel\`",
-                    value: "Prywatny kanał moderacji. Absolutnie nie wiem po co."
+                    value: "→ Prywatny kanał moderacji. Absolutnie nie wiem po co."
                 },
                 {
                     name: "> \`complaintChannel\`",
-                    value: "Kanał skarg"
+                    value: "→ Kanał skarg"
                 },
                 {
                     name: "\`emojiSuggestChannel\`",
-                    value: "Kanał propozycji emoji"
+                    value: "→ Kanał propozycji emoji"
                 },
                 {
                     name: "> \`advSuggestChannel\`",
-                    value: "Kanał zaawansowanych propozycji. [\`ACTION: Docs\`](https://docs.krivebot.xyz/pl/adv-suggestions)"
+                    value: "→ Kanał zaawansowanych propozycji. [\`ACTION: Docs\`](https://docs.krivebot.xyz/pl/adv-suggestions)"
                 },
+                {
+                    name: "> \`giveawayChannel\`",
+                    value: "→ Kanał konkursowy"
+                }
             ])
             break;
         case 'welcome':
@@ -419,18 +436,6 @@ exports.run = async (client, message, args) => {
                     name: "> \`welcomeChannel\`",
                     value: "Kanał powitań"
                 },
-                {
-                    name: "> \`welcomeTextDesc\`",
-                    value: "Tekst opisu powitań"
-                },
-                {
-                    name: "> \`welcomeTextTitle\`",
-                    value: " Tekst tytułu powitań"
-                },
-                {
-                    name: "> \`welcomeTextFooter\`",
-                    value: "Tekst footeru powitań"
-                }
             ])
             break;
         case 'goodbyes':
@@ -439,18 +444,6 @@ exports.run = async (client, message, args) => {
                     name: "> \`goodbyesChannel\`",
                     value: "Kanał pożegnań",
                 },
-                {
-                    name: "> \`goodbyesTextDesc\`",
-                    value: "Tekst opisu pożegnań"
-                },
-                {
-                    name: "> \`goodbyesTextTitle\`",
-                    value: "Tekst tytułu pożegnań"
-                },
-                {
-                    name: "> \`goodbyesTextFooter\`",
-                    value: "Tekst footeru pożegnań"
-                }
             ])
             break;
         case 'default':
@@ -458,23 +451,23 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawienia serwerowe", "Niedawno zmienilismy wygląd serwerowych ustawień. [Dowiedz się tutaj, jak tym operować.](https://docs.krivebot.xyz)", "", "GREEN", [
                 {
                     name: "> \`set roles\`",
-                    value: "Ustawienia ról"
+                    value: "→ Ustawienia ról"
                 },
                 {
                     name: "> \`set channels\`",
-                    value: "Ustawienia kanałów"
+                    value: "→ Ustawienia kanałów"
                 },
                 {
                     name: "> \`set welcome\`",
-                    value: "Ustawienia powitań"
+                    value: "→ Ustawienia powitań"
                 },
                 {
                     name: "> \`set goodbyes\`",
-                    value: "Ustawienia pożegnań"
+                    value: "→ Ustawienia pożegnań"
                 },
                 {
                     name: "> \`Inne ustawienia:\`",
-                    value: "prefix"
+                    value: "→ prefix"
                 }
             ])
             break;

@@ -12,7 +12,7 @@ exports.run = async (client, message, args) => {
 
     const embed = new Discord.MessageEmbed()
         .setTitle("Wysłano skargę.")
-        .addField("Zgłoszony użytkownik", user)
+        .addField("Zgłoszony użytkownik", user.tag)
         .addField("Powód", reason)
         .addField("Zgłosił", message.author.tag)
         .setColor("RED")
