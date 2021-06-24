@@ -4,16 +4,15 @@ exports.run = async (client, message, args) => {
     if(!message.member.hasPermission('MANAGE_CHANNELS')) return client.sender(message, "401: Unauthorized", "Nie masz permisji! \`ADMINISTRATOR\`", client.footer, "RED", "", "")
     if (!args[0]) return client.sender(message, "204: No content", "Nie podałeś argumentów.", client.footer, "RED")
 
-    const channel = await r.table("settings").get(message.guild.id)("broadcastChannel").run(client.con)
-    if (!channel) return message.channel.send("Nie ustawiono kanału!")
+    const channel = await r.table("settings").get(message.guild.id)("broadcastChannel").default(message.channel.send("Nie ustawiono kanału!")).run(client.con)
 
-    /*
-    const notifyRole = await r.table("settings").get(message.guild.id)("broadcastPing").run(client.con)
+   
+    const notifyRole = await r.table("settings").get(message.guild.id)("broadcastPing").default(null).run(client.con)
     if (!notifyRole) return message.channel.send("Brak roli pingu!").then(pingE => {
         pingE.delete({timeout: 1000})
     })
-    */
-    const logChannel = await r.table("logs").get(message.guild.id)("broadcastLog").run(client.con)
+    
+    const logChannel = await r.table("logs").get(message.guild.id)("broadcastLog").default(null).run(client.con)
     if (!logChannel) return message.channel.send("Nie ustawiono logów ogłoszeń, więc nie jestem w stanie przekierować je na kanał z logami!").then(m => {
         m.delete({timeout: 1000})
     })
