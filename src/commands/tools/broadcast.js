@@ -8,14 +8,9 @@ exports.run = async (client, message, args) => {
 
    
     const notifyRole = await r.table("settings").get(message.guild.id)("broadcastPing").default(null).run(client.con)
-    if (!notifyRole) return message.channel.send("Brak roli pingu!").then(pingE => {
-        pingE.delete({timeout: 1000})
-    })
     
     const logChannel = await r.table("logs").get(message.guild.id)("broadcastLog").default(null).run(client.con)
-    if (!logChannel) return message.channel.send("Nie ustawiono logów ogłoszeń, więc nie jestem w stanie przekierować je na kanał z logami!").then(m => {
-        m.delete({timeout: 1000})
-    })
+    
     const embed = new Discord.MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
         .setTitle("Opublikowano nowe ogłoszenie")
