@@ -4,7 +4,7 @@ exports.run = async (client, message, args) => {
     if(!message.member.hasPermission('MANAGE_CHANNELS')) return client.sender(message, "401: Unauthorized", "Nie masz permisji! \`ADMINISTRATOR\`", client.footer, "RED", "", "")
     if (!args[0]) return client.sender(message, "204: No content", "Nie podałeś argumentów.", client.footer, "RED")
 
-    const channel = await r.table("settings").get(message.guild.id)("broadcastChannel").default(message.channel.send("Nie ustawiono kanału!")).run(client.con)
+    const channel = await r.table("settings").get(message.guild.id)("broadcastChannel").default(null).run(client.con)
 
    
     const notifyRole = await r.table("settings").get(message.guild.id)("broadcastPing").default(null).run(client.con)
