@@ -1,0 +1,87 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;900&family=Noto+Sans+TC:wght@700&display=swap');
+@media only screen and (max-width: 600px) {
+
+}
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: #1d1e21;
+}
+.navbar-brand {
+    font-size: 30px;
+    color: #ede4e4;
+    position: relative;
+    left: 20px;
+    font-family: Noto Sans TC;
+}
+.nav-link {
+    font-family: Noto Sans JP;
+    font-size: 15px;
+    color: #ede4e4;
+    position: relative;
+    left: 30px;
+}
+.btn-login {
+    background-color: #7289da;
+    border: none;
+    padding: 10px 28px;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+}
+.btn-invite {
+    background-color: #7289da;
+    border: none;
+    padding: 10px 28px;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+}
+
+.hero-text {
+    font-size: 80px;
+    font-family: Noto Sans TC;
+    color: white;
+}
+.hero-text2 {
+    font-size: 30px;
+    font-family: Noto Sans JP;
+    color: rgb(218, 218, 218);
+    font-weight: bold;
+}
+.servers {
+    font-size: 15px;
+    font-family: Noto Sans JP;
+    color: #7289da;
+}
+.btn-login-hero {
+    background-color: #34e718;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    margin:0 0.3em 0.3em 0;
+    border-radius: 10px;
+    box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 7px 5px -4px rgba(0,0,0,0.75);
+    transition: background .3s;
+}
+.btn-discord-hero {
+    background-color: #34e718;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    border-radius: 10px;
+    box-shadow: 7px 7px 5px -4px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 7px 7px 5px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 7px 7px 5px -4px rgba(0, 0, 0, 0.75);
+
+}
+ 

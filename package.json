@@ -1,0 +1,28 @@
+{
+  "name": "krivebot",
+  "version": "4.0.0",
+  "main": "bot.js",
+  "scripts": {
+    "test": "node bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Korrumz2PL/krivebot.git"
+  },
+  "author": "Korrumz2",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Korrumz2PL/krivebot/issues"
+  },
+  "homepage": "https://github.com/Korrumz2PL/krivebot#readme",
+  "description": "",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "moment": "^2.29.1",
+    "os": "^0.1.1",
+    "rethinkdb": "^2.4.2"
+  }
+}
