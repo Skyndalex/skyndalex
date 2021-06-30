@@ -46,7 +46,7 @@ body {
 }
 
 .hero-text {
-    font-size: 80px;
+    font-size: 75px;
     font-family: Noto Sans TC;
     color: white;
 }
@@ -54,12 +54,6 @@ body {
     font-size: 30px;
     font-family: Noto Sans JP;
     color: rgb(218, 218, 218);
-    font-weight: bold;
-}
-.servers {
-    font-size: 15px;
-    font-family: Noto Sans JP;
-    color: #7289da;
 }
 .btn-login-hero {
     background-color: #34e718;
@@ -84,4 +78,30 @@ body {
     -moz-box-shadow: 7px 7px 5px -4px rgba(0, 0, 0, 0.75);
 
 }
- 
+.krive {
+    color: white;
+    font-family: Noto Sans JP;
+    font-size: 45px;
+    align-items: center;
+    color: #7289da;
+    font-weight: bolder;
+}
+.original-whyour {
+    font-weight: bold;
+    color: #1ef6c1 
+}
+.easy-in-use-whyour {
+    font-weight: bold;
+    color:#1ef6c1
+} 
+.whyour-3 {
+    font-weight: bold;
+    color:#1ef6c1 
+}
+.row {
+    color: white;
+}
+.cpr {
+    color: white;
+    text-align: center;
+}
