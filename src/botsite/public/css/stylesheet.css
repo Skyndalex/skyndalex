@@ -49,6 +49,7 @@ body {
     font-size: 75px;
     font-family: Noto Sans TC;
     color: white;
+    text-shadow: 10px 10px #252626
 }
 .hero-text2 {
     font-size: 30px;
@@ -85,18 +86,23 @@ body {
     align-items: center;
     color: #7289da;
     font-weight: bolder;
+    text-shadow: 3px 3px #000000
+
 }
 .original-whyour {
     font-weight: bold;
-    color: #1ef6c1 
+    color: #1ef6c1;
+    text-shadow: 2px 2px #000000
 }
 .easy-in-use-whyour {
     font-weight: bold;
-    color:#1ef6c1
+    color:#1ef6c1;
+    text-shadow: 2px 2px #000000
 } 
 .whyour-3 {
     font-weight: bold;
-    color:#1ef6c1 
+    color:#1ef6c1; 
+    text-shadow: 3px 3px #000000
 }
 .row {
     color: white;
