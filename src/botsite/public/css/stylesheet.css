@@ -108,6 +108,11 @@ a {
     color: #05ab08;
     text-shadow: 2px 2px #000000;
 }
+.services {
+    font-weight: bold;
+    color: #7403ff;
+    text-shadow: 2px 2px #000000
+}
 .easy-in-use-whyour {
     font-weight: bold;
     color:#1ef6c1;
