@@ -1,6 +1,16 @@
 /* fonts */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;900&family=Noto+Sans+TC:wght@700&display=swap');
+@import url(//db.onlinewebfonts.com/c/89d11a443c316da80dcb8f5e1f63c86e?family=Bauhaus+93);
+@font-face {font-family: "Bauhaus 93 V2";
+    src: url("89d11a443c316da80dcb8f5e1f63c86e.eot"); /* IE9*/
+    src: url("89d11a443c316da80dcb8f5e1f63c86e.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("89d11a443c316da80dcb8f5e1f63c86e.woff2") format("woff2"), /* chrome、firefox */
+    url("89d11a443c316da80dcb8f5e1f63c86e.woff") format("woff"), /* chrome、firefox */
+    url("89d11a443c316da80dcb8f5e1f63c86e.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url("89d11a443c316da80dcb8f5e1f63c86e.svg#Bauhaus 93 V2") format("svg"); /* iOS 4.1- */
+  }
 @media only screen and (max-width: 600px) {
 
 }
@@ -51,14 +61,20 @@ a {
 
 .hero-text {
     font-size: 75px;
-    font-family: Noto Sans TC;
     color: white;
-    text-shadow: 10px 10px #252626
+    text-shadow: 10px 10px #252626;
+    font-family:"Bauhaus 93 V2" !important;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+    font-style: normal;
+    font-weight: bolder;
 }
 .hero-text2 {
     font-size: 30px;
     font-family: Noto Sans JP;
     color: rgb(218, 218, 218);
+    font-family: Poppins;
 }
 .btn-login-hero {
     background-color: #34e718;
@@ -129,4 +145,7 @@ a {
 .cpr {
     color: white;
     text-align: center;
+}
+.text {
+    font-family: Poppins;
 }
