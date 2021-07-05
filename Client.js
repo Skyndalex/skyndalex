@@ -7,6 +7,7 @@ class KriveManager extends Client {
         super(clientOptions);
 
         this.version = "v4.0 BETA p2"
+        this.url = "https://krivebot.xyz/"
     }
 
     sender (message, title, text, footer, color, fields = [], image) {
