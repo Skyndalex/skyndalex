@@ -2,10 +2,12 @@ const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
     switch (args[0]) {
         default:
-            client.sender(message, "Auto-Role", "Witaj w menu autoroli! Możesz tutaj dodać role które użytkownik będzie dostawał automatycznie.", "UWAGA! - Nie da się usuwać autoroli.", "GREEN", [
+            const roleList = await r.table("autorole").get(message.guild.id)("role").run(client.con)
+
+            client.sender(message, "Auto-Role", "Witaj w menu autoroli! Możesz tutaj dodać role które użytkownik będzie dostawał automatycznie.", "UWAGA! - Nie da się dodać kolejnej roli.", "GREEN", [
                 {
                     name: "> Lista",
-                    value: "BRAK! - Nie dodano żadnych AutoRoli."
+                    value: `<@&${roleList}>`
                 },
                 {
                     name: "> Dodawanie roli",
@@ -16,7 +18,7 @@ exports.run = async (client, message, args) => {
             case 'add':
                 const role = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
 
-                const updated = await r.table("autorole").update({role: role.id})
+                const updated = await r.table("autorole").update({role: role.id}).run(client.con)
 
                 message.channel.send("Zaktualizowano role!")
                 break;
