@@ -24,9 +24,8 @@ module.exports = async(client, message) => {
 
     if (message.channel.type === "dm") {
         if (message.content === "support") {
-            client.sender(message, "DMSupport", "Witaj! Chcesz się skontaktować z administracją bota? Napisz cokolwiek, aby wysłać request. ", "", "GREEN")
-        }
-
+            client.sender(message, "DMSupport", "Witaj! Chcesz się skontaktować z administracją bota? Napisz cokolwiek, aby wysłać swój tekst do administracji. ", "", "GREEN")
+        } else {
         if (message.content) {
             client.channels.cache.get(`861351339446632508`).send(`\`DMSupport\` (${message.author.tag}) (${message.author.id}): ${message.content}`)
     
@@ -36,6 +35,7 @@ module.exports = async(client, message) => {
                     value: message.content
                 }
              ])
+        }
     }
 }
 
