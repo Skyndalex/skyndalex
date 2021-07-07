@@ -25,16 +25,13 @@ exports.run = async (client, message, args) => {
                 const role = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
                 if (!role) return message.channel.send("Nie podano roli.")
 
-                const updated = await r.table("autorole").update({role: role.id}).run(client.con)
+                const updated = await r.table("autorole").get(message.guild.id).update({role: role.id}).run(client.con)
                 if (!updated) return message.channel.send("Nie aktywowano autoroli!")
 
                 message.channel.send("Zaktualizowano role!")
                 break;
                 case 'activate':
-                    if (!guild) await r.table("autorole").insert({
-                        id: message.guild.id,
-                        activate: true
-                    }).run(client.con)
+                    if (!guild) await r.table("autorole").insert({id: message.guild.id,activate: true}).run(client.con)
                     
                     r.table("autorole").update({activate: true}).run(client.con)
                     
