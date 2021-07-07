@@ -7,6 +7,8 @@ module.exports = async(client, message) => {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
+    const gTable = await r.table("settings").get(message.guild.id).run(client.con).catch("")
+
     const embedMention = new Discord.MessageEmbed()
     .setTitle("Cześć, miło mi cię poznać!")
     .addField("Uptime:", require("moment").duration(client.uptime).humanize())
@@ -41,6 +43,20 @@ module.exports = async(client, message) => {
 
     if (message.author.bot) return;
 
+    if (message.channel.id === gTable.memeChannel) {
+        if (!gTable.memeChannelActivate) return
+
+        if (message.attachments.map(a=>a.url)[0]) {
+           await message.react("👍")
+           await message.react("👎")
+        }
+    }
+    
+    if (message.channel.id === gTable.mediaOnlyChannel) {
+        if (!gTable.mediaOnlyActivate) return
+        if (message.attachments.size == 0) return message.delete()
+    }
+    
     if (!message.content.startsWith(prefix)) return
 
     let whitelist = [];

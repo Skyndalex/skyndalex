@@ -8,15 +8,35 @@ exports.run = async (client, message, args) => {
                 {
                     name: "\`broadcastCh\`",
                     value: "Kanał ogłoszeń"
+                },
+                {
+                    name: "\`mediaOnlyChannel\`",
+                    value: "Kanał, na którym można wysyłać TYLKO pliki (obrazki, filmiki etc.)"
+                },
+                {
+                    name: "memeChannel",
+                    value: "Kanał do memów"
                 }
             ])
         break;
         case 'broadcastCh':
             if (!guild) await r.table("settings").insert({id: message.guild.id,broadcastActivate: true}).run(client.con)
-            r.table("settings").update({broadcastActivate: true}).run(client.con)
+           await r.table("settings").get(message.guild.id).update({broadcastActivate: true}).run(client.con)
             
             client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał ogłoszeń.", "", "GREEN", "")
             break;
+            case 'mediaOnlyChannel':
+                if (!guild) await r.table("settings").insert({id: message.guild.id,mediaOnlyActivate: true}).run(client.con)
+               await r.table("settings").get(message.guild.id).update({mediaOnlyActivate: true}).run(client.con)
+
+                client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał tylko na plikI!", "", "GREEN", "")
+                break;
+                case 'memeChannel':
+                    if (!guild) await r.table("settings").insert({id: message.guild.id,memeChannelActivate: true}).run(client.con)
+                   await r.table("settings").get(message.guild.id).update({memeChannelActivate: true}).run(client.con)
+    
+                    client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał na memy!", "", "GREEN", "")
+                    break;
     }
 };
 
