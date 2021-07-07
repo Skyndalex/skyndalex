@@ -8,6 +8,9 @@ class KriveManager extends Client {
 
         this.version = "v4.0 BETA p2"
         this.url = "https://krivebot.xyz/"
+        this.statusLink = "https://status.krivebot.xyz"
+        this.docsLink = "https://docs.krivebot.xyz"
+        this.set = "KriveBot -> Ustawienia"
     }
 
     sender (message, title, text, footer, color, fields = [], image) {
