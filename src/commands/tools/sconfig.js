@@ -1,4 +1,7 @@
-exports.run = (client, message, args) => {
+const r = require("rethinkdb")
+exports.run = async (client, message, args) => {
+    if (!message.member.hasPermission("MANAGE_SERVER")) return client.sender(message, "Nie możesz tego użyć!", "Brak odpowiednich permisji:\n\`server.admin.suggestionsetting\`.\nJeśli uważasz, że to błąd skontaktuj się z administratorem serwera/bota", "", "RED", "", "")
+
      switch (args[0]) {
          default:
              client.sender(message, "Menu konfiguracji sugestii", "Cześć, wybierz tryby oraz ustaw kanały te, które chcesz!", "", "GREEN", [
@@ -20,12 +23,32 @@ exports.run = (client, message, args) => {
                  },
                  {
                      name: "UWAGA!",
-                     value: "Sugestie, jak i inne ustawienia trzeba również włączyć. Użyj komendy \`sgconfig enable\`."
+                     value: "Sugestie, jak i inne ustawienia trzeba również włączyć. Użyj komendy \`activate [classic/advancedmini/advanced/media\`."
                  }
              ])
              break;
-             case 'enable':
-                 break;
+             case 'channel':
+                const classicSuggestEnable = await r.table("settings").get(message.guild.id).run(client.con)
+                if (!classicSuggestEnable?.classicSuggestActivate) return message.channel.send("Kanały klasycznych propozycji są wyłączone! Proszę je włączyć komendą \`activate\`.")
+
+                let sChannel = message.guild.channels.cache.find( c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+                if (!sChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")    
+                 
+                const update1 = await r.table("settings").get(message.guild.id).update({suggestClassicChannel: sChannel.id}).run(client.con)
+
+                client.sender(message, `Ustawiono!`, `Pomyślnie ustawiłem kanał\nTyp: Klasyczne\nKanał: <#${sChannel.id}>\nPrzez: ${message.author.tag}`, ``, `GREEN`, ``, ``)
+                break;
+                case 'advancedmini':
+                    const advancedMiniActivate = await r.table("settings").get(message.guild.id).run(client.con)
+                    if (!advancedMiniActivate?.advancedminiSuggestActivate) return message.channel.send("Kanały mniej zaawansowanych propozycji są wyłączone! Proszę je włączyć komendą \`activate\`.")
+    
+                    let sChannel2 = message.guild.channels.cache.find( c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+                    if (!sChannel2) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")    
+                     
+                    const update2 = await r.table("settings").get(message.guild.id).update({advancedminiSuggestChannel: sChannel2.id}).run(client.con)
+    
+                    client.sender(message, `Ustawiono!`, `Pomyślnie ustawiłem kanał\nTyp: Mniej zaawansowane\nKanał: <#${sChannel2.id}>\nPrzez: ${message.author.tag}`, ``, `GREEN`, ``, ``)
+                    break;
      }
 };
 

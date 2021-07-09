@@ -51,12 +51,18 @@ module.exports = async(client, message) => {
            await message.react("👎")
         }
     }
-    
     if (message.channel.id === gTable.mediaOnlyChannel) {
         if (!gTable.mediaOnlyActivate) return
         if (message.attachments.size == 0) return message.delete()
     }
-    
+    if (message.channel.id === gTable.advancedminiSuggestChannel) {
+        if (!gTable.advancedminiSuggestActivate) return
+        
+        if (message.content) {
+            message.react("👍")
+            message.react("👎")
+        }
+    }
     if (!message.content.startsWith(prefix)) return
 
     let whitelist = [];
@@ -66,6 +72,7 @@ module.exports = async(client, message) => {
     
     if (cooldown.has(message.author.id) && !whitelist.includes(message.author.id)) {
         client.sender(message, "Zwolnij!", "Zbyt szybko korzystasz z komend! Poczekaj około 2 sekundy [Zobacz dokumentację](https://docs.krivebot.xyz/pl/cooldowns).", "", "GREEN", "", "", "")
+        
     } else {
 
     cmd.run(client, message, args)

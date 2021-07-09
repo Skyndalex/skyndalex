@@ -1,5 +1,7 @@
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
+    if (!message.member.hasPermission("MANAGE_SERVER")) return client.sender(message, "Nie możesz tego użyć!", "Brak odpowiednich permisji:\n\`server.admin.activate\`.\nJeśli uważasz, że to błąd skontaktuj się z administratorem serwera/bota", "", "RED", "", "")
+
     const guild = await r.table("settings").get(message.guild.id).run(client.con)
 
     switch (args[0]) {
@@ -37,6 +39,18 @@ exports.run = async (client, message, args) => {
     
                     client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał na memy!", "", "GREEN", "")
                     break;
+                    case 'classic':
+                        if (!guild) await r.table("settings").insert({id: message.guild.id,classicSuggestActivate: true}).run(client.con)
+                        await r.table("settings").get(message.guild.id).update({classicSuggestActivate: true}).run(client.con)
+         
+                         client.sender(message, "Włączono!", "Pomyślnie włączyłem sugestie: klasyczne!", "", "GREEN", "")
+                        break;
+                        case 'advancedmini':
+                            if (!guild) await r.table("settings").insert({id: message.guild.id,advancedminiSuggestActivate: true}).run(client.con)
+                            await r.table("settings").get(message.guild.id).update({advancedminiSuggestActivate: true}).run(client.con)
+             
+                             client.sender(message, "Włączono!", "Pomyślnie włączyłem sugestie: mniej zaawansowane!", "", "GREEN", "")
+                            break;
     }
 };
 
