@@ -75,14 +75,14 @@ exports.run = async (client, message, args) => {
                     client.sender(message, "Zaktualizowano!", "Pomyślnie ustawiono: \`memeChannel\` (Kanał do memów).", client.set, "GREEN", "", "")
                     break;
                     case 'voteChannel':
-                        if (!g?.voteChannelActivate) return message.channel.send("Kanał memów jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+                        if (!g?.voteChannelActivate) return message.channel.send("Kanał głosowań jest wyłączony! Proszę je włączyć komendą \`activate\`!")
             
-                        let mChannel = message.guild.channels.cache.find( c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
-                        if (!mChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
+                        let vChannel = message.guild.channels.cache.find( c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+                        if (!vChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
             
-                        const update3 = await r.table("settings").get(message.guild.id).update({memeChannel: mChannel.id}).run(client.con)
+                        const update4 = await r.table("settings").get(message.guild.id).update({voteChannel: mChannel.id}).run(client.con)
             
-                        client.sender(message, "Zaktualizowano!", "Pomyślnie ustawiono: \`memeChannel\` (Kanał do memów).", client.set, "GREEN", "", "")
+                        client.sender(message, "Zaktualizowano!", "Pomyślnie ustawiono: \`voteChannel\` (Kanał do głosowań).", client.set, "GREEN", "", "")
                         break;
     }
 };
