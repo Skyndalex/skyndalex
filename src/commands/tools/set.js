@@ -1,6 +1,7 @@
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
     if (!message.member.hasPermission("MANAGE_SERVER")) return client.sender(message, "Nie możesz tego użyć!", "Brak odpowiednich permisji:\n\`server.admin.settings\`.\nJeśli uważasz, że to błąd skontaktuj się z administratorem serwera/bota", "", "RED", "", "")
+    const g = await r.table("settings").get(message.guild.id).run(client.con)
 
     switch (args[0]) {
         default: 
@@ -24,8 +25,6 @@ exports.run = async (client, message, args) => {
         ])
         break;
         case 'ch':
-            const g = await r.table("settings").get(message.guild.id).run(client.con)
-
             client.sender(message, "Ustawienia - kanały", "Lista ustawień kanałów [PORADNIK](https://docs.krivebot.xyz)", "", "GREEN", [
                 {
                     name: "Kanał ogłoszeń",
@@ -38,12 +37,15 @@ exports.run = async (client, message, args) => {
                 {
                     name: "Kanał memów",
                     value: `<#${g.memeChannel||"Brak"}>`
+                },
+                {
+                    name: "Kanał do głosowań",
+                    value: `<#${g.voteChannel||"Brak."}`
                 }
             ])
             break;
         case 'broadcastChannel':
-            const broadcastChannelEnable = await r.table("settings").get(message.guild.id).run(client.con)
-            if (!broadcastChannelEnable?.broadcastActivate) return message.channel.send("Kanały ogłoszeń są wyłączone! Proszę je włączyć komendą \`activate\`!")
+            if (!g?.broadcastActivate) return message.channel.send("Kanały ogłoszeń są wyłączone! Proszę je włączyć komendą \`activate\`!")
 
             let bChannel = message.guild.channels.cache.find( c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
             if (!bChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
@@ -53,8 +55,7 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Zaktualizowano!", "Pomyślnie ustawiono: \`broadcastChannel\` (Kanał ogłoszeń).", client.set, "GREEN", "", "")
             break;
             case 'mediaOnlyChannel':
-                const mediaOnlyChannelEnable = await r.table("settings").get(message.guild.id).run(client.con)
-                if (!mediaOnlyChannelEnable?.mediaOnlyActivate) return message.channel.send("Kanały obrazkowe są wyłączone! Proszę je włączyć komendą \`activate\`!")
+                if (!g?.mediaOnlyActivate) return message.channel.send("Kanały obrazkowe są wyłączone! Proszę je włączyć komendą \`activate\`!")
     
                 let moChannel = message.guild.channels.cache.find( c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
                 if (!moChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
@@ -64,8 +65,7 @@ exports.run = async (client, message, args) => {
                 client.sender(message, "Zaktualizowano!", "Pomyślnie ustawiono: \`mediaOnlyChannel\` (Kanał obrazkowy).", client.set, "GREEN", "", "")
                 break;
                 case 'memeChannel':
-                    const memeChannelEnable = await r.table("settings").get(message.guild.id).run(client.con)
-                    if (!memeChannelEnable?.memeChannelActivate) return message.channel.send("Kanał memów jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+                    if (!g?.memeChannelActivate) return message.channel.send("Kanał memów jest wyłączony! Proszę je włączyć komendą \`activate\`!")
         
                     let mChannel = message.guild.channels.cache.find( c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
                     if (!mChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
@@ -74,6 +74,16 @@ exports.run = async (client, message, args) => {
         
                     client.sender(message, "Zaktualizowano!", "Pomyślnie ustawiono: \`memeChannel\` (Kanał do memów).", client.set, "GREEN", "", "")
                     break;
+                    case 'voteChannel':
+                        if (!g?.voteChannelActivate) return message.channel.send("Kanał memów jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+            
+                        let mChannel = message.guild.channels.cache.find( c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+                        if (!mChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
+            
+                        const update3 = await r.table("settings").get(message.guild.id).update({memeChannel: mChannel.id}).run(client.con)
+            
+                        client.sender(message, "Zaktualizowano!", "Pomyślnie ustawiono: \`memeChannel\` (Kanał do memów).", client.set, "GREEN", "", "")
+                        break;
     }
 };
 

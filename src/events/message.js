@@ -2,7 +2,7 @@ const Discord = require("discord.js")
 const r = require("rethinkdb")
 const { prefix } = require("./config.json")
 const cooldown = new Set;
-
+// g = guild
 module.exports = async(client, message) => {    
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
@@ -58,6 +58,14 @@ module.exports = async(client, message) => {
     if (message.channel.id === gTable.advancedminiSuggestChannel) {
         if (!gTable.advancedminiSuggestActivate) return
         
+        if (message.content) {
+            message.react("👍")
+            message.react("👎")
+        }
+    }
+    if (message.channel.id === gTable.mediaSuggestChannel) {
+        if (!gTable.mediaSuggestActivate) return 
+
         if (message.content) {
             message.react("👍")
             message.react("👎")

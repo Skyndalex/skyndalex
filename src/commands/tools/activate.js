@@ -51,6 +51,18 @@ exports.run = async (client, message, args) => {
              
                              client.sender(message, "Włączono!", "Pomyślnie włączyłem sugestie: mniej zaawansowane!", "", "GREEN", "")
                             break;
+                            case 'advanced':
+                                if (!guild) await r.table("settings").insert({id: message.guild.id,advancedSuggestActivate: true}).run(client.con)
+                                await r.table("settings").get(message.guild.id).update({advancedSuggestActivate: true}).run(client.con)
+                 
+                                 client.sender(message, "Włączono!", "Pomyślnie włączyłem sugestie: zaawansowane!", "", "GREEN", "")
+                                break;
+                                case 'media':
+                                    if (!guild) await r.table("settings").insert({id: message.guild.id,mediaSuggestActivate: true}).run(client.con)
+                                    await r.table("settings").get(message.guild.id).update({mediaSuggestActivate: true}).run(client.con)
+                     
+                                     client.sender(message, "Włączono!", "Pomyślnie włączyłem sugestie: obrazkowe!", "", "GREEN", "")
+                                    break;
     }
 };
 
