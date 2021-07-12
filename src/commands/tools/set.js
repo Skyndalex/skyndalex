@@ -80,7 +80,7 @@ exports.run = async (client, message, args) => {
                         let vChannel = message.guild.channels.cache.find( c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
                         if (!vChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
             
-                        const update4 = await r.table("settings").get(message.guild.id).update({voteChannel: mChannel.id}).run(client.con)
+                        const update4 = await r.table("settings").get(message.guild.id).update({voteChannel: vChannel.id}).run(client.con)
             
                         client.sender(message, "Zaktualizowano!", "Pomyślnie ustawiono: \`voteChannel\` (Kanał do głosowań).", client.set, "GREEN", "", "")
                         break;

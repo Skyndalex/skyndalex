@@ -10,19 +10,19 @@ exports.run = (client, message, args) => {
         client.sender(message, "Informacje o komendzie", "", "", "GREEN", [
             {
                 name: "Nazwa",
-                value: command.help.name
+                value: command.help.name ||"Brak"
             },
             {
                 name: "Opis",
-                value: command.help.description
+                value: command.help.description ||"Brak"
             },
             {
                 name: "Aliasy",
-                value: command.help.aliases
+                value: command.help.aliases ||"Brak"
             },
             {
                 name: "Kategoria",
-                value: command.help.category
+                value: command.help.category ||"Brak"
             }
         ])
     } else {
@@ -34,6 +34,10 @@ exports.run = (client, message, args) => {
             {
                 name: "Narzędzia",
                 value: `> \`${client.commands.filter(c => c.help.category === "tools").map(c => c.help.name).join(' | ') || "Brak"}\``
+            },
+            {
+                name: "Zabawa",
+                value: `> \`${client.commands.filter(c => c.help.category === "fun").map(c => c.help.name).join(' | ') || "Brak"}\``
             }
         ])
     }

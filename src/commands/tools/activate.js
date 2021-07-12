@@ -63,6 +63,12 @@ exports.run = async (client, message, args) => {
                      
                                      client.sender(message, "Włączono!", "Pomyślnie włączyłem sugestie: obrazkowe!", "", "GREEN", "")
                                     break;
+                                    case 'voteChannel':
+                                        if (!guild) await r.table("settings").insert({id: message.guild.id,voteChannelActivate: true}).run(client.con)
+                                        await r.table("settings").get(message.guild.id).update({voteChannelActivate: true}).run(client.con)
+                         
+                                         client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał do głosowań!", "", "GREEN", "")
+                                        break;
     }
 };
 

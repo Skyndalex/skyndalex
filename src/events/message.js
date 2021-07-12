@@ -7,7 +7,7 @@ module.exports = async(client, message) => {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
-    const gTable = await r.table("settings").get(message.guild.id).run(client.con).catch("")
+    const gTable = await r.table("settings").get(message.guild.id).run(client.con)
 
     const embedMention = new Discord.MessageEmbed()
     .setTitle("Cześć, miło mi cię poznać!")
@@ -43,6 +43,7 @@ module.exports = async(client, message) => {
 
     if (message.author.bot) return;
 
+    try {
     if (message.channel.id === gTable.memeChannel) {
         if (!gTable.memeChannelActivate) return
 
@@ -71,6 +72,9 @@ module.exports = async(client, message) => {
             message.react("👎")
         }
     }
+} catch {
+
+}
     if (!message.content.startsWith(prefix)) return
 
     let whitelist = [];
