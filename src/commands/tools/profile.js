@@ -1,7 +1,6 @@
 const Discord = require("discord.js")
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
-    //TODO: usuwanie zmiennych z profili
     const myProfile = await r.table('profiles').get(message.author.id).run(client.con)
     switch(args[0]) {
         case 'deactivate':
@@ -31,8 +30,6 @@ exports.run = async (client, message, args) => {
             if(profile.twitter) profileEmbed.addField('Twitter', profile.twitter)
             if(profile.twitch) profileEmbed.addField('Twitch', profile.twitch)
             if(profile.reddit) profileEmbed.addField('Reddit', profile.reddit)
-            if (profile.badge) profileEmbed.addField('Odznaki', profile.badge)
-            profileEmbed.setFooter(client.footer)
             message.channel.send(profileEmbed)
             break;
         case 'variables':
@@ -41,123 +38,105 @@ exports.run = async (client, message, args) => {
                 .addField("\`description\`", "Opis profilu")
                 .addField("\`name\`", "Twoje imię")
                 .addField("\`email\`", "Adres email")
-                .addField("\`birtday\`", "Data urodzenia")
+                .addField("\`birthday\`", "Data urodzenia")
                 .addField("\`discord\`", "Twój serwer discord")
                 .addField("\`facebook\`", "Twój profil facebook")
                 .addField("\`youtube\`", "Twój kanał na youtubie")
                 .addField("\`twitter\`", "Twój profil twitter")
-                .addField("\`twich\`", "Twój kanał twitch")
+                .addField("\`twitch\`", "Twój kanał twitch")
                 .addField("\`reddit\`", "Twój profil reddit")
                 .setColor("GREEN")
             message.channel.send(variables)
             break;
         case 'set':
-            if(!myProfile?.activate) return client.error(message, 'Profil podanego użytkownika jest wyłączony')
-            if(!args[2]) return client.error(message, 'Nie podałeś co mam ustawić lub na co mam to ustawić.')
+            if(!myProfile?.activate) return client.sender(message, "Błąd!", "Profil podanego użytkownika jest wyłączony!", "", "RED", "", "")
+            if(!args[2]) return client.sender(message, "Błąd!", "Brak argumentów!", "", "RED", "", "")
             switch(args[1]) {
                 case 'name':
                     await r.table('profiles').get(message.author.id).update({name: args[2]}).run(client.con)
 
-                    const embedProfileConfigName = new Discord.MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "Name")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-                    message.channel.send(embedProfileConfigName)
+                    client.sender(message, "Ustawiono zmienną", "", "", "GREEN", [{name: "Zmienna", value: "Nazwa profilu"},{name: "Nowa wartość", value: args[2]}])
+
                     break;
+                    case 'description':
+                        message.channel.send("Nie działa.")
+                        break;
                 case 'email':
                     await r.table('profiles').get(message.author.id).update({email: args[2]}).run(client.con)
 
-                    const embedProfileConfigEmail = new Discord.MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "email")
-                        .addField("Nowa wartość", args[2])
-                    message.channel.send(embedProfileConfigEmail)
+                    client.sender(message, "Ustawiono zmienną", "", "", "GREEN", [{name: "Zmienna", value: "Adres e-mail"},{name: "Nowa wartość", value: args[2]}])
+
                     break;
                 case 'birthday':
                     await r.table('profiles').get(message.author.id).update({birthday: args[2]}).run(client.con)
 
-                    const embedProfileConfigBirthday = new Discord.MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "Birthday")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-                    message.channel.send(embedProfileConfigBirthday)
+                    client.sender(message, "Ustawiono zmienną", "", "", "GREEN", [{name: "Zmienna", value: "Urodziny"},{name: "Nowa wartość", value: args[2]}])
+
                     break;
                 case 'discord':
                     await r.table('profiles').get(message.author.id).update({discord: args[2]}).run(client.con)
 
-                    const embedProfileConfigDiscord = new Discord.MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField('Zmienna', "Discord")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-                    message.channel.send(embedProfileConfigDiscord)
+                    client.sender(message, "Ustawiono zmienną", "", "", "GREEN", [{name: "Zmienna", value: "Discord"},{name: "Nowa wartość", value: args[2]}])
+
                     break;
                 case 'facebook':
                     await r.table('profiles').get(message.author.id).update({facebook: args[2]}).run(client.con)
 
-                    const embedProfileConfigFacebook = new Discord.MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "Facebook")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-                    message.channel.send(embedProfileConfigFacebook)
+                    client.sender(message, "Ustawiono zmienną", "", "", "GREEN", [{name: "Zmienna", value: "Facebook"},{name: "Nowa wartość", value: args[2]}])
+
                     break;
                 case 'youtube':
                     await r.table('profiles').get(message.author.id).update({youtube: args[2]}).run(client.con)
 
-                    const embedProfileConfigYoutube = new Discord.MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "YouTube")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-                    message.channel.send(embedProfileConfigYoutube)
+                    client.sender(message, "Ustawiono zmienną", "", "", "GREEN", [{name: "Zmienna", value: "YouTube"},{name: "Nowa wartość", value: args[2]}])
+
                     break;
                 case 'twitter':
                     await r.table('profiles').get(message.author.id).update({twitter: args[2]}).run(client.con)
 
-                    const embedProfileConfigTwitter = new Discord.MessageEmbed()
-                        .setTitle("Ustawiono zmienna")
-                        .addField("Zmienna", "Twitter")
-                        .addField("Nowa wartość", args[2])
-                    message.channel.send(embedProfileConfigTwitter)
+                    client.sender(message, "Ustawiono zmienną", "", "", "GREEN", [{name: "Zmienna", value: "Twitter"},{name: "Nowa wartość", value: args[2]}])
+
                     break;
                 case 'twitch':
                     await r.table('profiles').get(message.author.id).update({twitch: args[2]}).run(client.con)
 
-                    const embedProfieConfigTwitch = new Discord.MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "twitch")
-                        .addField("Nowa wartość", args[2])
-                    message.channel.send(embedProfieConfigTwitch)
+                    client.sender(message, "Ustawiono zmienną", "", "", "GREEN", [{name: "Zmienna", value: "twitch"},{name: "Nowa wartość", value: args[2]}])
+
                     break;
                 case 'reddit':
                     await r.table('profiles').get(message.author.id).update({reddit: args[2]}).run(client.con)
 
-                    const embedProfileConfigReddit = new Discord.MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "reddit")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-                    message.channel.send(embedProfileConfigReddit)
+                    client.sender(message, "Ustawiono zmienną", "", "", "GREEN", [{name: "Zmienna", value: "Reddit"},{name: "Nowa wartość", value: args[2]}])
                     break;
                 default:
-                    client.error(message, "Nie znaleziono wartości.")
+                    client.sender(message, "Błąd!", "Nie znaleziono wartości!", "", "RED", "", "")
                     break;
             }
             break;
         default:
-            const embed = new Discord.MessageEmbed()
-                .setColor('GREEN')
-                .setTitle('Profile - pomoc')
-                .addField("\`profile view [użytkownik]\`", "Zobacz kogoś profil")
-                .addField("\`profile deactivate\`", "Wyłącz profil")
-                .addField("\`profile activate\`", "Włącz profil")
-                .addField("\`profile set [klucz] [wartość]\`", "Skonfiguruj swój profil")
-                .addField("\`profile variables\`", "Zmienne które można użyć w profilu")
-                .setFooter(client.footer)
-            message.channel.send(embed)
+
+            client.sender(message, "Profile - pomoc", "", "", "GREEN", [
+                {
+                    name: "\`profile view [użytkownik]\`",
+                    value: "Zobacz kogoś profil"
+                },
+                {
+                    name: "\`profile deactivate\`",
+                    value: "Wyłącz profil"
+                },
+                {
+                    name: "\`profile activate\`",
+                    value: "Włącz swój profil"
+                },
+                {
+                    name: "\`profile set [klucz] [wartość]\`",
+                    value: "Skonfiguruj swój profil"
+                },
+                {
+                    name: "\`profile variables\`",
+                    value: "Zmienne profili"
+                }
+            ])
             break;
     }
 }
