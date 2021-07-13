@@ -3,7 +3,7 @@ exports.run = async (client, message, args) => {
 
     if (!args[0]) return client.sender(message, "Błąd!", "Nie podano argumentów!", "", "RED", "", "")
     
-    client.sender(message, "Wynik", `Argument ${args.join(" ")} posiada ${v}% promili!`, "", "GREEN", "", "")
+    client.sender(message, "Wynik", `Osoba ${args.join(" ")} posiada ${v}% promili!`, "", "GREEN", "", "")
 }
 exports.help = {
     name: "alkomat",
