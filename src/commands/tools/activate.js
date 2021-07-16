@@ -69,6 +69,30 @@ exports.run = async (client, message, args) => {
                          
                                          client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał do głosowań!", "", "GREEN", "")
                                         break;
+                                        case 'giveawayChannel':
+                                            if (!guild) await r.table("settings").insert({id: message.guild.id,giveawayChannelActivate: true}).run(client.con)
+                                            await r.table("settings").get(message.guild.id).update({giveawayChannelActivate: true}).run(client.con)
+                             
+                                             client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał do konkursów!", "", "GREEN", "")
+                                            break;
+                                            case 'welcomeChannel':
+                                                if (!guild) await r.table("settings").insert({id: message.guild.id,welcomeChannelActivate: true}).run(client.con)
+                                                await r.table("settings").get(message.guild.id).update({welcomeChannelActivate: true}).run(client.con)
+                                 
+                                                 client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał do powitań!", "", "GREEN", "")
+                                                break;
+                                                case 'goodbyeChannel':
+                                                    if (!guild) await r.table("settings").insert({id: message.guild.id,goodbyeChannelActivate: true}).run(client.con)
+                                                    await r.table("settings").get(message.guild.id).update({goodbyeChannelActivate: true}).run(client.con)
+                                     
+                                                     client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał do powitań!", "", "GREEN", "")
+                                                    break;
+                                                    case 'channelCreateLog':
+                                                        if (!guild) await r.table("settings").insert({id: message.guild.id,channelCreateLogActivate: true}).run(client.con)
+                                                        await r.table("logs").get(message.guild.id).update({channelCreateLogActivate: true}).run(client.con)
+                                         
+                                                         client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał do powitań!", "", "GREEN", "")
+                                                        break;
     }
 };
 
