@@ -25,4 +25,7 @@ exports.run = (client) => {
         res.render('./views/src/404.ejs')
     });
 }
-app.listen(3214, () => console.log("Site running at http://localhost:1267"))
+
+const port = 3214
+app.listen(port, () => console.log(`Site running at http://localhost:` + port))
+

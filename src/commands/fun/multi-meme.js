@@ -26,6 +26,13 @@ exports.run = async (client, message, args) => {
 
                 })
             break;
+            case 'abroad':
+                fetch('https://some-random-api.ml/meme')
+                .then(res => res.json())
+                .then(res => {
+                    client.sender(message, "", "", "", "GREEN", "", res.image)
+                })
+                break;
         default:
             client.sender(message, "Dostępne serwisy", "", "", "GREEN", [
                 {
@@ -35,12 +42,16 @@ exports.run = async (client, message, args) => {
                 {
                     name: "→ \`memy\`",
                     value: "Wylosuj mema z strony **memy.pl**"
+                },
+                {
+                    name: "→ \`abroad\`",
+                    value: "Wygeneruj jakiegoś mema z zagranicy"
                 }
             ])
     }
 }
 exports.help = {
     name: "multi-meme",
-    description: "Losuje mema z wybranej strony internetowej.",
+    description: "Losuje mema z wybranej strony internetowej. Nawet z zagranicy",
     category: "fun",
 }

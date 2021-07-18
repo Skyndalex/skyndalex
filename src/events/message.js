@@ -13,7 +13,7 @@ module.exports = async(client, message) => {
     .setTitle("Cześć, miło mi cię poznać!")
     .addField("Uptime:", require("moment").duration(client.uptime).humanize())
     .addField("Prefix:", `${prefix}`)
-    .addField("Autor:", client.users.cache.get("817883855310684180").tag)
+    .addField("Autor:", "entity#2137")
     .setColor("GREEN")
     const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
     if (message.content.match(prefixMention)) {
@@ -76,6 +76,9 @@ module.exports = async(client, message) => {
 
 }
     if (!message.content.startsWith(prefix)) return
+
+    const gban = await r.table("gbans").get(message.author.id).run(client.con)
+    if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "RED", "", "", "")
 
     let whitelist = [];
 

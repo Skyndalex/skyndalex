@@ -38,7 +38,12 @@ const eventFiles = fs.readdirSync("./src/events/").filter(file => file.endsWith(
 		const eventName = file.split(".")[0];
 		client.on(eventName, event.bind(null, client))
 }
-
+client.on('interactionCreate', async interaction => {
+	if (!interaction.isCommand()) return;
+	if (interaction.commandName === 'ping') {
+		await interaction.reply(`Ping: ${client.ws.ping}ms`);
+	}
+});
 client.on('ready', () => {
 	console.log(`KriveBot is ready`)
 });

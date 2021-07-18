@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 exports.run = (client, message, args) => {
     let command = args[0];
     if (client.commands.get(command) || client.commands.get(client.aliases.get(command)) ) {
-      command =
+      command = 
         client.commands.get(command) ||
         client.commands.get(client.aliases.get(command));
 
