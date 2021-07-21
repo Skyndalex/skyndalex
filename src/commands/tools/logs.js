@@ -48,6 +48,8 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{ name: "Zmienna", value: "channelDelete", inline: true}, { name: "Nowa wartość", value: `<#${channelDeleteLog.id}>`, inline: true }])
             break;
         case 'channelUpdate':
+            if (!g?.channelUpdateLogActivate) return message.channel.send("Kanał do logów aktualizowania kanału jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+
             if (!args[0]) return client.sender(message, "Niepoprawna składnia!", "Nie podano kanału!", client.footer, "RED", "", "")
 
             const channelUpdateLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
@@ -61,6 +63,8 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{ name: "Zmienna", value: "channelUpdate" }, { name: "Nowa wartość", value: `<#${channelUpdateLog.id}>` }])
             break;
         case 'emojiCreate':
+            if (!g?.emojiCreateLogActivate) return message.channel.send("Kanał do logów tworzenia emoji jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+
             if (!args[0]) return client.sender(message, "Niepoprawna składnia!", "Nie podano kanału!", client.footer, "RED", "", "")
 
             const emojiCreateLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
@@ -74,6 +78,8 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{ name: "Zmienna", value: "emojiCreate" }, { name: "Nowa wartość", value: `<#${emojiCreateLog.id}>` }])
             break;
         case 'emojiDelete':
+            if (!g?.emojiDeleteLogActivate) return message.channel.send("Kanał do logów usuwania emotki jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+
             if (!args[0]) return client.sender(message, "Niepoprawna składnia!", "Nie podano kanału!", client.footer, "RED", "", "")
 
             const emojiDeleteLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
@@ -87,6 +93,8 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{ name: "Zmienna", value: "emojiDelete" }, { name: "Nowa wartość", value: `<#${emojiDeleteLog.id}>` }])
             break;
         case 'emojiUpdate':
+            if (!g?.emojiUpdateLogActivate) return message.channel.send("Kanał do logów aktualizowania emoji jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+
             if (!args[0]) return client.sender(message, "Niepoprawna składnia!", "Nie podano kanału!", client.footer, "RED", "", "")
 
             const emojiUpdateLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
@@ -100,6 +108,8 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{ name: "Zmienna", value: "emojiUpdate" }, { name: "Nowa wartość", value: `<#${emojiUpdateLog.id}>` }])
             break;
         case 'guildBanAdd':
+            if (!g?.guildBanAddLogActivate) return message.channel.send("Kanał do logów dodawania banów jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+
             if (!args[0]) return client.sender(message, "Niepoprawna składnia!", "Nie podano kanału!", client.footer, "RED", "", "")
 
             const guildBanAddLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
@@ -113,6 +123,8 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{ name: "Zmienna", value: "guildBanAdd" }, { name: "Nowa wartość", value: `<#${guildBanAddLog.id}>` }])
             break;
         case 'guildBanRemove':
+            if (!g?.guildBanRemoveLogActivate) return message.channel.send("Kanał do logów usuwania banów jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+
             if (!args[0]) return client.sender(message, "Niepoprawna składnia!", "Nie podano kanału!", client.footer, "RED", "", "")
 
             const guildBanRemoveLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
@@ -126,6 +138,8 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{ name: "Zmienna", value: "guildBanRemove" }, { name: "Nowa wartość", value: `<#${guildBanRemoveLog.id}>` }])
             break;
         case 'guildMemberUpdate':
+            if (!g?.guildMemberUpdateLogActivate) return message.channel.send("Kanał do logów aktualizowania użytkownika jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+
             if (!args[0]) return client.sender(message, "Niepoprawna składnia!", "Nie podano kanału!", client.footer, "RED", "", "")
 
             const guildMemberUpdateLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
@@ -151,6 +165,8 @@ exports.run = async (client, message, args) => {
             message.channel.send("soon")
             break;
         case 'inviteCreate':
+            if (!g?.inviteCreateLogActivate) return message.channel.send("Kanał do logów tworzenia zaproszenia jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+
             if (!args[0]) return client.sender(message, "Niepoprawna składnia!", "Nie podano kanału!", client.footer, "RED", "", "")
 
             const inviteCreateLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
@@ -164,6 +180,8 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{ name: "Zmienna", value: "inviteCreate" }, { name: "Nowa wartość", value: `<#${inviteCreateLog.id}>` }])
             break;
         case 'messageDelete':
+            if (!g?.messageDeleteLogActivate) return message.channel.send("Kanał do logów usuwania wiadomości jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+
             if (!args[0]) return client.sender(message, "Niepoprawna składnia!", "Nie podano kanału!", client.footer, "RED", "", "")
 
             const messageDeleteLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
@@ -177,6 +195,8 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{ name: "Zmienna", value: "messageDelete" }, { name: "Nowa wartość", value: `<#${messageDeleteLog.id}>` }])
             break;
         case 'roleCreate':
+            if (!g?.roleCreateLogActivate) return message.channel.send("Kanał do logów tworzenia emotki jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+
             if (!args[0]) return client.sender(message, "Niepoprawna składnia!", "Nie podano kanału!", client.footer, "RED", "", "")
 
             const roleCreateLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
@@ -190,6 +210,8 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{ name: "Zmienna", value: "roleCreate" }, { name: "Nowa wartość", value: `<#${roleCreateLog.id}>` }])
             break;
         case 'roleUpdate':
+            if (!g?.roleUpdateLogActivate) return message.channel.send("Kanał do logów aktualizowania roli jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+
             if (!args[0]) return client.sender(message, "Niepoprawna składnia!", "Nie podano kanału!", client.footer, "RED", "", "")
 
             const roleUpdateLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
@@ -203,6 +225,8 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Ustawiono", "", "", "GREEN", [{ name: "Zmienna", value: "roleUpdate" }, { name: "Nowa wartość", value: `<#${roleUpdateLog.id}>` }])
             break;
         case 'roleDelete':
+            if (!g?.roleDeleteLogActivate) return message.channel.send("Kanał do logów usuwania roli jest wyłączony! Proszę je włączyć komendą \`activate\`!")
+
             if (!args[0]) return client.sender(message, "Niepoprawna składnia!", "Nie podano kanału!", client.footer, "RED", "", "")
 
             const roleDeleteLog = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()

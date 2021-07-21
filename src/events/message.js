@@ -4,10 +4,10 @@ const { prefix } = require("./config.json")
 const cooldown = new Set;
 // g = guild
 module.exports = async(client, message) => {    
+    const gTable = await r.table("settings").get(message.guild.id).run(client.con)
+
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
-
-    const gTable = await r.table("settings").get(message.guild.id).run(client.con)
 
     const embedMention = new Discord.MessageEmbed()
     .setTitle("Cześć, miło mi cię poznać!")
@@ -31,12 +31,7 @@ module.exports = async(client, message) => {
         if (message.content) {
             client.channels.cache.get(`861351339446632508`).send(`\`DMSupport\` (${message.author.tag}) (${message.author.id}): ${message.content}`)
     
-            client.sender(message, "Wysłano wiadomość do supportu!", "", "", "GREEN", [
-                {
-                    name: "Wiadomość",
-                    value: message.content
-                }
-             ])
+            message.channel.send(`Pomyślnie wysłano wiadomość do supportu bota.\nTreść: ${message.content}`)
         }
     }
 }

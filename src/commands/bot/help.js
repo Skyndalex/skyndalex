@@ -38,6 +38,10 @@ exports.run = (client, message, args) => {
             {
                 name: "Zabawa",
                 value: `> \`${client.commands.filter(c => c.help.category === "fun").map(c => c.help.name).join(' | ') || "Brak"}\``
+            },
+            {
+                name: "Ekonomia",
+                value: `> \`${client.commands.filter(c => c.help.category === "economy").map(c => c.help.name).join(' | ') || "Brak"}\``
             }
         ])
     }

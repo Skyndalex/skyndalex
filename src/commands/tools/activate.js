@@ -134,7 +134,7 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi tworzenia kanału!", "", "GREEN", "")
             break;
         case 'channelDeleteLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, channelCreateLogActivate: true }).run(client.con)
+            if (!guild) await r.table("settings").insert({ id: message.guild.id, channelDeleteLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ channelDeleteLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi usuwania kanału!", "", "GREEN", "")
