@@ -128,85 +128,85 @@ exports.run = async (client, message, args) => {
             client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał do pożegnań!", "", "GREEN", "")
             break;
         case 'channelCreateLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, channelCreateLogActivate: true }).run(client.con)
+            if (!guild) await r.table("logs").insert({ id: message.guild.id, channelCreateLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ channelCreateLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi tworzenia kanału!", "", "GREEN", "")
             break;
         case 'channelDeleteLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, channelDeleteLogActivate: true }).run(client.con)
+            if (!guild) await r.table("logs").insert({ id: message.guild.id, channelDeleteLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ channelDeleteLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi usuwania kanału!", "", "GREEN", "")
             break;
         case 'channelUpdateLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, channelUpdateLogActivate: true }).run(client.con)
+            if (!guild) await r.table("logs").insert({ id: message.guild.id, channelUpdateLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ channelUpdateLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi aktualizowania kanału!", "", "GREEN", "")
             break;
         case 'emojiCreateLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, emojiCreateLogActivate: true }).run(client.con)
+            if (!guild) await r.table("logs").insert({ id: message.guild.id, emojiCreateLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ emojiCreateLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi tworzenia emotki!", "", "GREEN", "")
             break;
         case 'emojiDeleteLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, emojiDeleteLogActivate: true }).run(client.con)
+            if (!guild) await r.table("logs").insert({ id: message.guild.id, emojiDeleteLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ emojiDeleteLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi usuwania emotki!", "", "GREEN", "")
             break;
         case 'emojiUpdateLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, emojiUpdateLogActivate: true }).run(client.con)
+            if (!guild) await r.table("logs").insert({ id: message.guild.id, emojiUpdateLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ emojiUpdateLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi aktualizowania emotki!", "", "GREEN", "")
             break;
         case 'guildBanAddLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, guildBanAddLogActivate: true }).run(client.con)
+            if (!guild) await r.table("logs").insert({ id: message.guild.id, guildBanAddLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ guildBanAddLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi zbanowania użytkownika!", "", "GREEN", "")
             break;
         case 'guildBanRemoveLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, guildBanRemoveLogActivate: true }).run(client.con)
+            if (!guild) await r.table("logs").insert({ id: message.guild.id, guildBanRemoveLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ guildBanRemoveLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi odbanowania użytkownika!", "", "GREEN", "")
             break;
         case 'guildMemberUpdateLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, guildMemberUpdateLogActivate: true }).run(client.con)
+            if (!guild) await r.table("logs").insert({ id: message.guild.id, guildMemberUpdateLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ guildMemberUpdateLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi aktualizowania użytkownika!", "", "GREEN", "")
             break;
         case 'inviteCreateLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, inviteCreateLogActivate: true }).run(client.con)
+            if (!guild) await r.table("logs").insert({ id: message.guild.id, inviteCreateLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ inviteCreateLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi tworzenia zaproszenia!", "", "GREEN", "")
             break;
         case 'messageDeleteLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, messageDeleteLogActivate: true }).run(client.con)
+            if (!guild) await r.table("logs").insert({ id: message.guild.id, messageDeleteLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ messageDeleteLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi usuwania wiadomości!", "", "GREEN", "")
             break;
         case 'roleCreateLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, roleCreateLogActivate: true }).run(client.con)
+            if (!guild) await r.table("logs").insert({ id: message.guild.id, roleCreateLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ roleCreateLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi tworzenia roli!", "", "GREEN", "")
             break;
         case 'roleUpdateLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, roleUpdateLogActivate: true }).run(client.con)
+            if (!guild) await r.table("logs").insert({ id: message.guild.id, roleUpdateLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ roleUpdateLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi aktualizowania roli!", "", "GREEN", "")
             break;
         case 'roleDeleteLog':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, roleUpdateLogActivate: true }).run(client.con)
+            if (!guild) await r.table("logs").insert({ id: message.guild.id, roleUpdateLogActivate: true }).run(client.con)
             await r.table("logs").get(message.guild.id).update({ roleDeleteLogActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem logi usuwania roli!", "", "GREEN", "")
