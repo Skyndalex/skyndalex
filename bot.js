@@ -13,7 +13,7 @@ client.aliases = new Discord.Collection();
 
 require("./functions.js")(client)
 require("./src/botsite/static").run(client)
-// Zmiana handlerów: Zawieszono. [Serwer support]
+require("./src/dash/start").run(client)
 
 r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
 	if (err) console.log(err)

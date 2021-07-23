@@ -1,6 +1,6 @@
 const { Client } = require("discord.js")
 const Discord = require("discord.js")
-
+const r = require("rethinkdb")
 class KriveManager extends Client {
 
     constructor(clientOptions) {
@@ -11,6 +11,20 @@ class KriveManager extends Client {
         this.statusLink = "https://status.krivebot.xyz"
         this.docsLink = "https://docs.krivebot.xyz"
         this.set = "KriveBot → Ustawienia"
+       
+        this.tof = {
+            true: "Tak",
+            false: "Nie"
+        }
+        
+        this.types = {
+        text: "Kanał tekstowy",
+    	voice: "Kanał głosowy",
+	    news: "Kanał ogłoszeniowy",
+	    store: "Sklep",
+	    unknown: "Nieznany typ",
+	    stage: "Kanał eventowy"
+        }
     }
 
     sender (message, title, text, footer, color, fields = [], image) {
