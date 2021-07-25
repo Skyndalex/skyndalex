@@ -1,6 +1,6 @@
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
-    if (!message.member.hasPermission("MANAGE_SERVER")) return client.sender(message, "Nie możesz tego użyć!", "Brak odpowiednich permisji:\n\`server.admin.settings\`.\nJeśli uważasz, że to błąd skontaktuj się z administratorem serwera/bota", "", "RED", "", "")
+    if (!message.member.hasPermission("ADMINISTRATOR")) return client.sender(message, "Nie możesz tego użyć!", "Brak odpowiednich permisji:\n\`server.admin.settings\`.\nJeśli uważasz, że to błąd skontaktuj się z administratorem serwera/bota", "", "RED", "", "")
     const g = await r.table("settings").get(message.guild.id).run(client.con)
 
     switch (args[0]) {
@@ -16,7 +16,7 @@ exports.run = async (client, message, args) => {
                 },
                 {
                     name: "Ustawienia bota",
-                    value: "\`set bot\`"
+                    value: "\`set b\`"
                 },
                 {
                     name: "Ustawienia logów",
@@ -41,14 +41,28 @@ exports.run = async (client, message, args) => {
                 {
                     name: "Kanał do głosowań",
                     value: `<#${g.voteChannel || "Brak."}`
+                },
+                {
+                    name: "Kanał do powitań",
+                    value: `<#${g.welcomeChannel || "Brak."}`
+                },
+                {
+                    name: "Kanał do pożegnań",
+                    value: `<#${g.goodbyeChannel || "Brak"}`
                 }
             ])
             break;
+            case 'bot':
+                client.sender(message, "Ustawienia bota", "", "", "GREEN", [{name: "Prefix", value: "Prefix bota"}])
+                break;
         case 'broadcastChannel':
             if (!g?.broadcastActivate) return message.channel.send("Kanały ogłoszeń są wyłączone! Proszę je włączyć komendą \`activate\`!")
 
             let bChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+           
             if (!bChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
+            if (channel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
+            if (channel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
 
             const update1 = await r.table("settings").get(message.guild.id).update({ broadcastChannel: bChannel.id }).run(client.con)
 
@@ -58,7 +72,10 @@ exports.run = async (client, message, args) => {
             if (!g?.mediaOnlyActivate) return message.channel.send("Kanały obrazkowe są wyłączone! Proszę je włączyć komendą \`activate\`!")
 
             let moChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            
             if (!moChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
+            if (channel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
+            if (channel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
 
             const update2 = await r.table("settings").get(message.guild.id).update({ mediaOnlyChannel: moChannel.id }).run(client.con)
 
@@ -68,7 +85,10 @@ exports.run = async (client, message, args) => {
             if (!g?.memeChannelActivate) return message.channel.send("Kanał memów jest wyłączony! Proszę je włączyć komendą \`activate\`!")
 
             let mChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+        
             if (!mChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
+            if (channel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
+            if (channel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
 
             const update3 = await r.table("settings").get(message.guild.id).update({ memeChannel: mChannel.id }).run(client.con)
 
@@ -78,7 +98,10 @@ exports.run = async (client, message, args) => {
             if (!g?.voteChannelActivate) return message.channel.send("Kanał głosowań jest wyłączony! Proszę je włączyć komendą \`activate\`!")
 
             let vChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            
             if (!vChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
+            if (channel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
+            if (channel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
 
             const update4 = await r.table("settings").get(message.guild.id).update({ voteChannel: vChannel.id }).run(client.con)
 
@@ -88,7 +111,10 @@ exports.run = async (client, message, args) => {
             if (!g?.giveawayChannelActivate) return message.channel.send("Kanał konkursów jest wyłączony! Proszę je włączyć komendą \`activate\`!")
 
             let gChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            
             if (!gChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
+            if (channel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
+            if (channel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
 
             const update5 = await r.table("settings").get(message.guild.id).update({ giveawayChannel: gChannel.id }).run(client.con)
 
@@ -98,7 +124,10 @@ exports.run = async (client, message, args) => {
             if (!g?.welcomeChannelActivate) return message.channel.send("Kanał powitań jest wyłączony! Proszę je włączyć komendą \`activate\`!")
 
             let wChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            
             if (!wChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
+            if (channel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
+            if (channel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
 
             const update6 = await r.table("settings").get(message.guild.id).update({ welcomeChannel: wChannel.id }).run(client.con)
 
@@ -108,8 +137,11 @@ exports.run = async (client, message, args) => {
             if (!g?.goodbyeChannelActivate) return message.channel.send("Kanał pożegnań jest wyłączony! Proszę je włączyć komendą \`activate\`!")
 
             let goChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+            
             if (!goChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
-
+            if (channel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
+            if (channel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
+            
             const update7 = await r.table("settings").get(message.guild.id).update({ goodbyeChannel: goChannel.id }).run(client.con)
 
             client.sender(message, "Zaktualizowano!", "Pomyślnie ustawiono: \`goodbyeChannel\` (Kanał do pożegnań).", client.set, "GREEN", "", "")
