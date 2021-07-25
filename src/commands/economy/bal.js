@@ -1,4 +1,4 @@
-const Discord = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 const r = require("rethinkdb")
 
 exports.run = async (client, message, args) => {
@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
     
     if (!user) return message.channel.send("Brak użytkownika")
 
-    const embed = new Discord.MessageEmbed()
+    const embed = new MessageEmbed()
         .setTitle("Stan konta")
         .addField("Użytkownik", user.tag)
         .addField("Ilość pieniędzy", money||"0")

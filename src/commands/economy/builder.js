@@ -1,4 +1,3 @@
-const Discord = require("discord.js");
 const r = require("rethinkdb")
 const cooldowns = new Map();
 const humanizeDuration = require('humanize-duration');
@@ -11,7 +10,7 @@ exports.run = async (client, message, args) => {
         return message.channel.send(`Musisz jeszcze poczekać ${remaining} aby użyć ponownie tej komendy!`)
     } else {
 
-        let luck = (Math.floor(Math.random() * (85 - 0) + 0))
+        let luck = (Math.floor(Math.random() * (85 - 0)))
 
         client.sender(message, "", `Pracujesz jako budowniczy i otrzymujesz ${luck} KriveCoins'ów!`, "", "GREEN", "", "")
 

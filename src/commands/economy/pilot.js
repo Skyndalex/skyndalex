@@ -11,7 +11,7 @@ exports.run = async (client, message, args) => {
         return message.channel.send(`Musisz jeszcze poczekać ${remaining} aby użyć ponownie tej komendy!`)
     } else {
 
-        let luck = (Math.floor(Math.random() * (200 - 0) + 0))
+        let luck = (Math.floor(Math.random() * (200 - 0)))
 
         client.sender(message, "", `Pracujesz jako pilot i otrzymujesz ${luck} KriveCoins'ów!`, "", "GREEN", "", "")
 

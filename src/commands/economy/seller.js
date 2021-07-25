@@ -1,4 +1,3 @@
-const Discord = require("discord.js");
 const r = require("rethinkdb")
 const cooldowns = new Map();
 const humanizeDuration = require('humanize-duration');
