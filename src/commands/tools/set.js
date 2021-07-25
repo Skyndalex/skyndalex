@@ -23,6 +23,8 @@ exports.run = async (client, message, args) => {
                     value: "\`logs\`"
                 }
             ])
+            client.sender(message, "UWAGA!", "Ponieważ całkiem niedawno wystartowała nowa wersja bota, ustawienia ról jak i niektórych kanałów są NIEDOSTĘPNE!", "", "RED", "", "")
+
             break;
         case 'ch':
             client.sender(message, "Ustawienia - kanały", "Lista ustawień kanałów [PORADNIK](https://docs.krivebot.xyz)", "", "GREEN", [
