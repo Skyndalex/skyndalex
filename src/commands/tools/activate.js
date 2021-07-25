@@ -1,8 +1,9 @@
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
-    if (!message.member.hasPermission("MANAGE_SERVER")) return client.sender(message, "Nie możesz tego użyć!", "Brak odpowiednich permisji:\n\`server.admin.activate\`.\nJeśli uważasz, że to błąd skontaktuj się z administratorem serwera/bota", "", "RED", "", "")
+    if (!message.member.hasPermission("ADMINISTRATOR")) return client.sender(message, "Nie możesz tego użyć!", "Brak odpowiednich permisji:\n\`server.admin.activate\`.\nJeśli uważasz, że to błąd skontaktuj się z administratorem serwera/bota", "", "RED", "", "")
 
-    const guild = await r.table("settings").get(message.guild.id).run(client.con)
+
+    const guild = await r.table("logs").get(message.guild.id).run(client.con)
 
     switch (args[0]) {
         default:

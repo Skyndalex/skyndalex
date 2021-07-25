@@ -1,3 +1,6 @@
 /rethinkdb-2.3.6
 /node_modules
 /src/events/config.json
+/src/commands/tools/ffmpeg.exe 
+/src/commands/tools/ffplay.exe
+/src/commands/tools/ffprobe.exe 

@@ -1,5 +1,5 @@
 const { Client } = require("discord.js")
-const Discord = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 const r = require("rethinkdb")
 class KriveManager extends Client {
 
@@ -16,7 +16,6 @@ class KriveManager extends Client {
             true: "Tak",
             false: "Nie"
         }
-        
         this.types = {
         text: "Kanał tekstowy",
     	voice: "Kanał głosowy",
@@ -25,10 +24,16 @@ class KriveManager extends Client {
 	    unknown: "Nieznany typ",
 	    stage: "Kanał eventowy"
         }
+        this.presences = {
+            online: "Dostępny",
+            offline: "Niedostępny",
+            idle: "Zaraz wracam",
+            dnd: "Nie przeszkadzać"
+        }
     }
 
     sender (message, title, text, footer, color, fields = [], image) {
-        const senderEmbed = new Discord.MessageEmbed()
+        const senderEmbed = new MessageEmbed()
             .setTitle(title)
             .setDescription(text)
             .setColor(color)

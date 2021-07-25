@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 exports.run = async (client, message, args) => {
-	let dev = ["817883855310684180"];
+	let dev = ["817883855310684180", "304979757852917762"];
 	if (!dev.includes(message.author.id)) return message.channel.send("Niedostępne dla uzytkowników!")
 	let cToken = new RegExp(client.token, "g");
   

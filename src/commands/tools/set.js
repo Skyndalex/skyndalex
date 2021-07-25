@@ -61,8 +61,8 @@ exports.run = async (client, message, args) => {
             let bChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
            
             if (!bChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
-            if (channel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
-            if (channel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
+            if (bChannel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
+            if (bChannel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
 
             const update1 = await r.table("settings").get(message.guild.id).update({ broadcastChannel: bChannel.id }).run(client.con)
 
@@ -74,8 +74,8 @@ exports.run = async (client, message, args) => {
             let moChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
             
             if (!moChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
-            if (channel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
-            if (channel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
+            if (moChannel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
+            if (moChannel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
 
             const update2 = await r.table("settings").get(message.guild.id).update({ mediaOnlyChannel: moChannel.id }).run(client.con)
 
@@ -87,8 +87,8 @@ exports.run = async (client, message, args) => {
             let mChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
         
             if (!mChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
-            if (channel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
-            if (channel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
+            if (mChannel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
+            if (mChannel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
 
             const update3 = await r.table("settings").get(message.guild.id).update({ memeChannel: mChannel.id }).run(client.con)
 
@@ -100,8 +100,8 @@ exports.run = async (client, message, args) => {
             let vChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
             
             if (!vChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
-            if (channel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
-            if (channel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
+            if (vChannel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
+            if (vChannel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
 
             const update4 = await r.table("settings").get(message.guild.id).update({ voteChannel: vChannel.id }).run(client.con)
 
@@ -113,8 +113,8 @@ exports.run = async (client, message, args) => {
             let gChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
             
             if (!gChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
-            if (channel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
-            if (channel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
+            if (gChannel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
+            if (gChannel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
 
             const update5 = await r.table("settings").get(message.guild.id).update({ giveawayChannel: gChannel.id }).run(client.con)
 
@@ -126,8 +126,8 @@ exports.run = async (client, message, args) => {
             let wChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
             
             if (!wChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
-            if (channel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
-            if (channel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
+            if (wChannel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
+            if (wChannel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
 
             const update6 = await r.table("settings").get(message.guild.id).update({ welcomeChannel: wChannel.id }).run(client.con)
 
@@ -139,8 +139,8 @@ exports.run = async (client, message, args) => {
             let goChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1].toLowerCase())) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
             
             if (!goChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału!", "", "RED", "", "")
-            if (channel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
-            if (channel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
+            if (goChannel.type === "voice") return message.channel.send('Podany kanał to kanał głosowy. Musisz podać kanał tekstowy')
+            if (goChannel.type === "category") return message.channel.send('Podano kategorię! Musisz podać kanał tekstowy')
             
             const update7 = await r.table("settings").get(message.guild.id).update({ goodbyeChannel: goChannel.id }).run(client.con)
 

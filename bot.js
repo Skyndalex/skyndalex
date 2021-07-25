@@ -12,9 +12,7 @@ client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 
 require("./functions.js")(client)
-require("./src/botsite/static").run(client)
 require("./src/dash/start").run(client)
-
 r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
 	if (err) console.log(err)
 	client.con = con;
@@ -39,7 +37,6 @@ const eventFiles = fs.readdirSync("./src/events/").filter(file => file.endsWith(
 		client.on(eventName, event.bind(null, client))
 }
 client.on('interactionCreate', async interaction => {
-	if (!interaction.isCommand()) return;
 	if (interaction.commandName === 'ping') {
 		await interaction.reply(`Ping: ${client.ws.ping}ms`);
 	}

@@ -4,10 +4,12 @@ module.exports = async(client, member) => {
     const g = await r.table("settings").get(member.guild.id).run(client.con)
 
     const welcomeChannel = await r.table("settings").get(member.guild.id)("welcomeChannel").run(client.con)
-        if (!g.welcomeChannelActivate) return
+    if (!g.welcomeChannelActivate) return
+    if (!welcomeChannel) return 
 
-        const autorole = await r.table("autorole").get(member.guild.id).run(client.con)
-        if (!autorole?.activate) return
+    const autorole = await r.table("autorole").get(member.guild.id).run(client.con)
+    if (!autorole?.activate) return
+    if (!autorole) return 
 
         member.roles.add(autorole.role)   
 
@@ -16,5 +18,5 @@ module.exports = async(client, member) => {
         .setDescription(`Witamy, ${member.user}! Mamy nadzieję, że jak najlepiej tu się rozgościsz.`)
         .setColor("GREEN")
         member.guild.channels.cache.get(welcomeChannel).send(embed)    
- 
+
 }

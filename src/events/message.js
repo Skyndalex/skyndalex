@@ -8,6 +8,8 @@ module.exports = async(client, message) => {
 
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
+    
+    const prefixdefault = await r.table("settings").get(message.guild.id)("prefix").default(";").run(client.con)
 
     const embedMention = new Discord.MessageEmbed()
     .setTitle("Cześć, miło mi cię poznać!")
@@ -21,7 +23,6 @@ module.exports = async(client, message) => {
         m.delete({timeout: 60000 })
     })
 }
-
 // DM support system
 
     if (message.channel.type === "dm") {
@@ -70,7 +71,7 @@ module.exports = async(client, message) => {
 } catch {
 
 }
-    if (!message.content.startsWith(prefix)) return
+    if (!message.content.startsWith(prefixdefault)) return
 
     const gban = await r.table("gbans").get(message.author.id).run(client.con)
     if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "RED", "", "", "")
