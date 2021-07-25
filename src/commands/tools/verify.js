@@ -16,8 +16,7 @@ exports.run = async (client, message, args) => {
 
     if (response.content!=out) return client.sender(message, "Błąd!", "Niepoprawny kod!", "", "RED", [
         {
-            name: "Zapamiętaj!",
-            value: "Kod nie może się niczym różnić. Uwzględniane są spacje, wielkie litery itp. Zalecamy go skopiować."
+            name: "Zapamiętaj!", value: "Kod nie może się niczym różnić. Uwzględniane są spacje, wielkie litery itp. Zalecamy go skopiować."
         }
     ])
 

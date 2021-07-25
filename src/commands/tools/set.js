@@ -7,20 +7,16 @@ exports.run = async (client, message, args) => {
         default:
             client.sender(message, "Ustawienia serwerowe - menu", "Witaj w ustawieniach serwerowych!\n[Dokumentacja](https://docs.krivebot.xyz)", "", "GREEN", [
                 {
-                    name: "Ustawienia kanałów",
-                    value: "\`set ch\`"
+                    name: "Ustawienia kanałów", value: "\`set ch\`"
                 },
                 {
-                    name: "Ustawienia ról",
-                    value: "\`set roles\`"
+                    name: "Ustawienia ról", value: "\`set roles\`"
                 },
                 {
-                    name: "Ustawienia bota",
-                    value: "\`set b\`"
+                    name: "Ustawienia bota", value: "\`set b\`"
                 },
                 {
-                    name: "Ustawienia logów",
-                    value: "\`logs\`"
+                    name: "Ustawienia logów", value: "\`logs\`"
                 }
             ])
             client.sender(message, "UWAGA!", "Ponieważ całkiem niedawno wystartowała nowa wersja bota, ustawienia ról jak i niektórych kanałów są NIEDOSTĘPNE!", "", "RED", "", "")

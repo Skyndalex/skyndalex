@@ -14,7 +14,9 @@ module.exports = async(client, message) => {
     const embedMention = new Discord.MessageEmbed()
     .setTitle("Cześć, miło mi cię poznać!")
     .addField("Uptime:", require("moment").duration(client.uptime).humanize())
-    .addField("Prefix:", `${prefix}`)
+    .addField("Prefix globalny:", `${prefix}`)
+    .addField("Prefix serwerowy", prefixdefault ||"Brak")
+    .addField("Wersja:", client.version)
     .addField("Autor:", "entity#2137")
     .setColor("GREEN")
     const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);

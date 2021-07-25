@@ -1,5 +1,5 @@
 const r = require("rethinkdb")
-const Discord = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 exports.run = async (client, message, args) => {
     const classicSuggestEnable = await r.table("settings").get(message.guild.id).run(client.con)
     if (!classicSuggestEnable?.classicSuggestActivate) return message.channel.send("Kanały klasycznych propozycji są wyłączone! Proszę je włączyć komendą \`activate\`.")
@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
     const channel = await r.table("settings").get(message.guild.id)("suggestClassicChannel").run(client.con)
     const suggestion = args.join(" ")
 
-    const embed = new Discord.MessageEmbed()
+    const embed = new MessageEmbed()
     .setTitle("Nowa propozycja! 💡")
     .addField("Autor", message.author.tag)
     .addField("Treść", suggestion)

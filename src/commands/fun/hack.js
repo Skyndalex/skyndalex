@@ -1,4 +1,4 @@
-const Discord = require('discord.js')
+const { MessageEmbed } = require(" js")
 exports.run = async (client, message, args) => {
     if (!args[0]) return client.sender(message, "Błąd!", "Nie podano argumentów!", "", "RED", "", "")
 
@@ -12,12 +12,12 @@ exports.run = async (client, message, args) => {
     const logins = ["pasztetowo123", "minecrafterrr10003", "Korrumz2", "ŚwinkaMorska320", "TwójDarmowyHacker10391", "JestemZaPIS"]
     const emails = ["nI@gmail.com", "secret@krivebot.xyz", "support@krivebot.xyz", "verifikejszyn@gmail.com", "email102020@gmail.com"]
 
-    const embed1 = new Discord.MessageEmbed()
+    const embed1 = new MessageEmbed()
         .setTitle("W toku...")
         .setDescription("Pobieram dane...")
         .setColor("GREEN")
 
-    const data = new Discord.MessageEmbed()
+    const data = new  MessageEmbed()
         .setTitle("Hackowanie!")
         .setDescription("Pobrano dane!")
         .addField("Adres IP", `${ip1}.${ip2}.${ip3}.${ip4}`)

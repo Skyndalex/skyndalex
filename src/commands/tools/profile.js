@@ -21,15 +21,15 @@ exports.run = async (client, message, args) => {
                 .setColor('GREEN')
                 .setTitle(`Profil użytkownika ${user.tag}`)
                 .setDescription(`${profile.description || "Brak opisu"}`)
-            if(profile.name) profileEmbed.addField('Imię', profile.name)
-            if(profile.email) profileEmbed.addField('Email', profile.email)
-            if(profile.birthday) profileEmbed.addField('Data urodzenia', profile.birthday)
-            if(profile.discord) profileEmbed.addField('Serwer discord', profile.discord)
-            if(profile.facebook) profileEmbed.addField('Facebook', profile.facebook)
-            if(profile.youtube) profileEmbed.addField('Youtube', profile.youtube)
-            if(profile.twitter) profileEmbed.addField('Twitter', profile.twitter)
-            if(profile.twitch) profileEmbed.addField('Twitch', profile.twitch)
-            if(profile.reddit) profileEmbed.addField('Reddit', profile.reddit)
+            if (profile.name) profileEmbed.addField('Imię', profile.name)
+            if (profile.email) profileEmbed.addField('Email', profile.email)
+            if (profile.birthday) profileEmbed.addField('Data urodzenia', profile.birthday)
+            if (profile.discord) profileEmbed.addField('Serwer discord', profile.discord)
+            if (profile.facebook) profileEmbed.addField('Facebook', profile.facebook)
+            if (profile.youtube) profileEmbed.addField('Youtube', profile.youtube)
+            if (profile.twitter) profileEmbed.addField('Twitter', profile.twitter)
+            if (profile.twitch) profileEmbed.addField('Twitch', profile.twitch)
+            if (profile.reddit) profileEmbed.addField('Reddit', profile.reddit)
             message.channel.send(profileEmbed)
             break;
         case 'variables':
@@ -117,24 +117,19 @@ exports.run = async (client, message, args) => {
 
             client.sender(message, "Profile - pomoc", "", "", "GREEN", [
                 {
-                    name: "\`profile view [użytkownik]\`",
-                    value: "Zobacz kogoś profil"
+                    name: "\`profile view [użytkownik]\`", value: "Zobacz kogoś profil"
                 },
                 {
-                    name: "\`profile deactivate\`",
-                    value: "Wyłącz profil"
+                    name: "\`profile deactivate\`", value: "Wyłącz profil"
                 },
                 {
-                    name: "\`profile activate\`",
-                    value: "Włącz swój profil"
+                    name: "\`profile activate\`", value: "Włącz swój profil"
                 },
                 {
-                    name: "\`profile set [klucz] [wartość]\`",
-                    value: "Skonfiguruj swój profil"
+                    name: "\`profile set [klucz] [wartość]\`", value: "Skonfiguruj swój profil"
                 },
                 {
-                    name: "\`profile variables\`",
-                    value: "Zmienne profili"
+                    name: "\`profile variables\`", value: "Zmienne profili"
                 }
             ])
             break;

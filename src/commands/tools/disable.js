@@ -8,56 +8,43 @@ exports.run = async (client, message, args) => {
         default:
             client.sender(message, "Lista rzeczy do wyłączenia", "Lista rzeczy, które można włączyć!", "", "RED", [
                 {
-                    name: "\`broadcastCh\`",
-                    value: "Kanał ogłoszeń"
+                    name: "\`broadcastCh\`", value: "Kanał ogłoszeń"
                 },
                 {
-                    name: "\`mediaOnlyChannel\`",
-                    value: "Kanał obrazków"
+                    name: "\`mediaOnlyChannel\`", value: "Kanał obrazków"
                 },
                 {
-                    name: "\`memeChannel\`",
-                    value: "Kanał memowy"
+                    name: "\`memeChannel\`", value: "Kanał memowy"
                 },
                 {
-                    name: "\`classic\`",
-                    value: "Kanał sugesti klasycznych"
+                    name: "\`classic\`", value: "Kanał sugesti klasycznych"
                 },
                 {
-                    name: "\`advancedmini\`",
-                    value: "Kanał mniej zaawansowanych sugesti"
+                    name: "\`advancedmini\`", value: "Kanał mniej zaawansowanych sugesti"
                 },
                 {
-                    name: "\`advanced\`",
-                    value: "Kanał zaawansowanych sugesti"
+                    name: "\`advanced\`", value: "Kanał zaawansowanych sugesti"
                 },
                 {
-                    name: "\`media\`",
-                    value: "Kanał obrazków"
+                    name: "\`media\`", value: "Kanał obrazków"
                 },
                 {
-                    name: "\`voteChannel\`",
-                    value: "Kanał głosowań"
+                    name: "\`voteChannel\`", value: "Kanał głosowań"
                 },
                 {
-                    name: "\`giveawayChannel\`",
-                    value: "Kanał konkursów"
+                    name: "\`giveawayChannel\`", value: "Kanał konkursów"
                 },
                 {
-                    name: "\`welcomeChannel\`",
-                    value: "Kanał powitań"
+                    name: "\`welcomeChannel\`", value: "Kanał powitań"
                 },
                 {
-                    name: "\`goodbyeChannel\`",
-                    value: "Kanał pożegnań"
+                    name: "\`goodbyeChannel\`", value: "Kanał pożegnań"
                 },,
                 {
-                    name: "\`channelCreateLog\`",
-                    value: "Kanał logów tworzenia kanału"
+                    name: "\`channelCreateLog\`", value: "Kanał logów tworzenia kanału"
                 },
                 {
-                    name: "\`channelDeleteLog\`",
-                    value: "Kanał logów usuwania kanału"
+                    name: "\`channelDeleteLog\`", value: "Kanał logów usuwania kanału"
                 }
             ])
             break;

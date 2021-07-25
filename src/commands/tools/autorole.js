@@ -6,16 +6,13 @@ exports.run = async (client, message, args) => {
         default:
             client.sender(message, "Auto-Role", "Witaj w menu autoroli! Możesz tutaj dodać role które użytkownik będzie dostawał automatycznie.", "UWAGA! - Nie da się dodać kolejnej roli.", "GREEN", [
                 {
-                    name: "> Lista",
-                    value: `<@&${guild.role}>`
+                    name: "> Lista", value: `<@&${guild.role}>`
                 },
                 {
-                    name: "> Dodawanie roli",
-                    value: "autorole \`add [oznaczenie]\`"
+                    name: "> Dodawanie roli", value: "autorole \`add [oznaczenie]\`"
                 },
                 {
-                    name: "Włączanie/Wyłączanie",
-                    value: "autorole \`activate/deactivate\`"
+                    name: "Włączanie/Wyłączanie", value: "autorole \`activate/deactivate\`"
                 }
             ])
             break;

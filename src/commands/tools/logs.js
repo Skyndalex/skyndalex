@@ -7,12 +7,10 @@ exports.run = async (client, message, args) => {
         default:
             client.sender(message, "Pomoc - Logi", "KLUCZE: [Przejdź](https://docs.krivebot.xyz/pl/logs)", "Zauważyłeś błąd lub nie wiesz, jak coś zrobić? Dołącz na nasz support (;support)", "GREEN", [
                 {
-                    name: "Logi - Pomoc",
-                    value: "Pomoc dotycząca logów: https://docs.krivebot.xyz/logs"
+                    name: "Logi - Pomoc", value: "Pomoc dotycząca logów: https://docs.krivebot.xyz/logs"
                 },
                 {
-                    name: "Logi - konfiguracja",
-                    value: "\`logs [klucz] [wartość]\`"
+                    name: "Logi - konfiguracja", value: "\`logs [klucz] [wartość]\`"
                 }
             ])
             break;

@@ -23,20 +23,16 @@ exports.run = async (client, message, args) => {
 
     client.sender(message, "Uciszono użytkownika!", "", client.moderationFooter, "RED", [
         {
-            name: "Serwer",
-            value: message.guild.name
+            name: "Serwer", value: message.guild.name
         },
         {
-            name: "Moderator",
-            value: message.author.tag
+            name: "Moderator", value: message.author.tag
         },
         {
-            name: "Użytkownik",
-            value: member.user.tag
+            name: "Użytkownik", value: member.user.tag
         },
         {
-            name: "Wyciszono na",
-            value: `${time} sekund`
+            name: "Wyciszono na", value: `${time} sekund`
         }
     ]) 
 
