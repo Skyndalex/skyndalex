@@ -15,6 +15,7 @@ class KriveManager extends Client {
             true: "Tak",
             false: "Nie"
         }
+
         this.types = {
         text: "Kanał tekstowy",
     	voice: "Kanał głosowy",
@@ -23,6 +24,7 @@ class KriveManager extends Client {
 	    unknown: "Nieznany typ",
 	    stage: "Kanał eventowy"
         }
+        
         this.presences = {
             online: "Dostępny",
             offline: "Niedostępny",
