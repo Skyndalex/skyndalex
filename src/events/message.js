@@ -3,13 +3,12 @@ const r = require("rethinkdb")
 const { prefix } = require("./config.json")
 const cooldown = new Set;
 // g = guild
-module.exports = async(client, message) => {    
+module.exports = async(client, message) => { 
+    const prefixdefault = await r.table("settings").get(message.guild.id)("prefix").default(prefix).run(client.con)   
     const gTable = await r.table("settings").get(message.guild.id).run(client.con)
 
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
-    
-    const prefixdefault = await r.table("settings").get(message.guild.id)("prefix").default(";").run(client.con)
 
     const embedMention = new Discord.MessageEmbed()
     .setTitle("Cześć, miło mi cię poznać!")

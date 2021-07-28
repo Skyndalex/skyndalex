@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js")
+import { MessageEmbed } from "discord.js";
 const r = require("rethinkdb")
 module.exports = async (client, oldMember, newMember) => {
         const logChannel = await r.table("logs").get(newMember.guild.id).run(client.con)
@@ -10,20 +10,17 @@ module.exports = async (client, oldMember, newMember) => {
                 .addField("Zaktualizowany użytkownik", newMember.user.tag ||"Brak")
                 .addField("Brak zmian?", "Jeżeli zobaczysz brak zmian może oznaczać to, że bot wykrył coś innego niż jest podane.")
                 .setColor("GREEN")
-            newMember.guild.channels.cache.get(logChannel).send(logRolesUpdateEmbed)
+            newMember.guild.channels.cache.get(logChannel.guildMemberUpdateLog).send(logRolesUpdateEmbed)
         } else {
             const logEmbed = new MessageEmbed()
                 .setTitle("Aktualizacja użytkownika")
-                .addField("Nazwa przed", oldMember.user.username ||"Brak")
-                .addField("Nazwa po", newMember.user.username ||"Brak")
-                .addField("Pseudonim przed", oldMember.nickname ||"Brak")
-                .addField("Pseudonim po", newMember.nickname ||"Brak")
-                .addField("Tag przed", oldMember.discriminator||"Brak")
-                .addField("Tag po", newMember.discriminator||"Brak")
-                .addField("Status przed", client.presences[oldMember.presence.status])
-                .addField("Status po", client.presences[newMember.presence.status])
-                .addField("Brak zmian?", "Jeżeli zobaczysz brak zmian może oznaczać to, że bot wykrył coś innego niż jest podane.")
-                .setColor("GREEN")
+                if (oldMember.user.username) logEmbed.addField("Nazwa przed", oldMember.user.username)
+                if (newMember.user.username) logEmbed.addField("Nazwa po", newMember.user.username)
+                if (oldMember.nickname) logEmbed.addField("Pseudonim przed", oldMember.nickname)
+                if (newMember.nickname) logEmbed.addField("Pseudonim po", newMember.nickname)
+                if (oldMember.discriminator) logEmbed.addField("Tag przed", oldMember.discriminator)
+                if (newMember.discriminator) logEmbed.addField("Tag po", newMember.discriminator)
+                logEmbed.setColor("GREEN")
             newMember.guild.channels.cache.get(logChannel.guildMemberUpdateLog).send(logEmbed)
 
         }

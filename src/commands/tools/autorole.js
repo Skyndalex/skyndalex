@@ -1,5 +1,7 @@
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
+    if (!message.member.hasPermission("ADMINISTRATOR")) return client.sender(message, "Nie możesz tego użyć!", "Brak odpowiednich permisji:\n\`server.admin.autorole\`.\nJeśli uważasz, że to błąd skontaktuj się z administratorem serwera/bota", "", "RED", "", "")
+
     const guild = await r.table("autorole").get(message.guild.id).run(client.con)
 
     switch (args[0]) {

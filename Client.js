@@ -1,6 +1,5 @@
-const { Client } = require("discord.js")
-const { MessageEmbed } = require("discord.js")
-const r = require("rethinkdb")
+import { Client } from "discord.js";
+import { MessageEmbed } from "discord.js";
 class KriveManager extends Client {
 
     constructor(clientOptions) {
@@ -31,7 +30,17 @@ class KriveManager extends Client {
             dnd: "Nie przeszkadzać"
         }
     }
-
+    channelSender (message, title, text, footer, color, fields = [], image, id) {
+        const channelSenderEmbed = new MessageEmbed()
+        .setTitle(title)
+        .setDescription(text)
+        .setColor(color)
+        .setFooter(footer)
+        .setImage(image)
+        if (fields.length) channelSenderEmbed.addFields(fields)
+        return client.channels.cache.get(id).send(channelSenderEmbed) 
+    }
+    
     sender (message, title, text, footer, color, fields = [], image) {
         const senderEmbed = new MessageEmbed()
             .setTitle(title)

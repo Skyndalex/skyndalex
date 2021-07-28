@@ -1,12 +1,15 @@
 const Discord = require("discord.js");
 
 exports.run = async (client, message, args) => {
+	if (args[0] === "client.token") return message.channel.send("Aby uruchomić tą komendę musisz posiadać procesor Intel 4004 oraz kartę graficzną GeForce 256")
+	if (args[0] === "bot.token") return message.channel.send("CO TO ZA HAKOWANIE")
+	
 	let dev = ["817883855310684180", "304979757852917762"];
 	if (!dev.includes(message.author.id)) return message.channel.send("Niedostępne dla uzytkowników!")
 	let cToken = new RegExp(client.token, "g");
   
 	if (!args[0]) return client.error(message, `Nie podano kodu wejściowego!`)
-
+	
 	const clean = text => {
 	  	if (typeof text === "string") {
 			return text

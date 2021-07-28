@@ -1,4 +1,4 @@
-const { MessageEmbed } = require(" js")
+import { MessageEmbed } from "discord.js";
 exports.run = async (client, message, args) => {
     if (!args[0]) return client.sender(message, "Błąd!", "Nie podano argumentów!", "", "RED", "", "")
 

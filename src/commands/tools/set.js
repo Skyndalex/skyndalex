@@ -5,54 +5,8 @@ exports.run = async (client, message, args) => {
 
     switch (args[0]) {
         default:
-            client.sender(message, "Ustawienia serwerowe - menu", "Witaj w ustawieniach serwerowych!\n[Dokumentacja](https://docs.krivebot.xyz)", "", "GREEN", [
-                {
-                    name: "Ustawienia kanałów", value: "\`set ch\`"
-                },
-                {
-                    name: "Ustawienia ról", value: "\`set roles\`"
-                },
-                {
-                    name: "Ustawienia bota", value: "\`set b\`"
-                },
-                {
-                    name: "Ustawienia logów", value: "\`logs\`"
-                }
-            ])
-            client.sender(message, "UWAGA!", "Ponieważ całkiem niedawno wystartowała nowa wersja bota, ustawienia ról jak i niektórych kanałów są NIEDOSTĘPNE!", "", "RED", "", "")
-
+            client.sender(message, "Dokumentacja", "Od teraz zmienne można poznać w naszej dokumentacji\n\n[\`Przekieruj mnie do dokumentacji\`](https://docs.krivebot.xyz/settings)", "", "BLUE", "", "")
             break;
-        case 'ch':
-            client.sender(message, "Ustawienia - kanały", "Lista ustawień kanałów [PORADNIK](https://docs.krivebot.xyz)", "", "GREEN", [
-                {
-                    name: "Kanał ogłoszeń",
-                    value: `<#${g.broadcastChannel || "Brak"}>`
-                },
-                {
-                    name: "Kanał obrazkowy",
-                    value: `<#${g.mediaOnlyChannel || "Brak"}>`
-                },
-                {
-                    name: "Kanał memów",
-                    value: `<#${g.memeChannel || "Brak"}>`
-                },
-                {
-                    name: "Kanał do głosowań",
-                    value: `<#${g.voteChannel || "Brak."}`
-                },
-                {
-                    name: "Kanał do powitań",
-                    value: `<#${g.welcomeChannel || "Brak."}`
-                },
-                {
-                    name: "Kanał do pożegnań",
-                    value: `<#${g.goodbyeChannel || "Brak"}`
-                }
-            ])
-            break;
-            case 'bot':
-                client.sender(message, "Ustawienia bota", "", "", "GREEN", [{name: "Prefix", value: "Prefix bota"}])
-                break;
         case 'broadcastChannel':
             if (!g?.broadcastActivate) return message.channel.send("Kanały ogłoszeń są wyłączone! Proszę je włączyć komendą \`activate\`!")
 

@@ -5,28 +5,22 @@ exports.run = async (client, message, args) => {
     
     client.sender(message, "Informacje o użytkowniku", "", "", "GREEN", [
         {
-            name: "Nazwa użytkownika",
-            value: user.username
+            name: "Nazwa użytkownika", value: user.username
         },
         {
-            name: "ID użytkownika",
-            value: user.id
+            name: "ID użytkownika", value: user.id
         },
         {
-            name: "Pełna nazwa użytkownika",
-            value: user.tag
+            name: "Pełna nazwa użytkownika", value: user.tag
         },
         {
-            name: "Status",
-            value: client.presences[user.presence.status]
+            name: "Status", value: client.presences[user.presence.status]
         },
         {
-            name: "Czy jest botem?",
-            value: client.tof[user.bot]
+            name: "Czy jest botem?", value: client.tof[user.bot]
         },
         {
-            name: "Role",
-            value: `\`${member.roles.cache.map(r => r.name).join(" | ")}\``
+            name: "Role", value: `\`${member.roles.cache.map(r => r.name).join(" | ")}\``
         }
     ])
 }

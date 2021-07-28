@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js")
+import { MessageEmbed } from "discord.js";
 const r = require("rethinkdb")
 
 module.exports = async (client, channel, newChannel, oldChannel) => {
@@ -9,27 +9,27 @@ module.exports = async (client, channel, newChannel, oldChannel) => {
     if (channel.type === "category") {
         const categoryEmbed = new MessageEmbed()
         .setTitle("Logi: Zaktualizowano kategorię!")
-        .addField("Nazwa kategorii", channel.name)
-        .addField("Przed", oldChannel.name)
-        .addField("Po", newChannel.name)
         .addField("ID", channel.id)
-        .addField("Pozycja", channel.rawPosition)
         .setColor("YELLOW")
         .setTimestamp()
+        if (oldChannel.name) categoryEmbed.addField("Nazwa kategorii przed", oldChannel.name)
+        if (newChannel.name) categoryEmbed.addField("Nazwa kategorii po", newChannel.name)
+        if (oldChannel.rawPosition) categoryEmbed.addField("Pozycja przed", oldChannel.rawPosition)
+        if (newChannel.rawPosition) categoryEmbed.addField("Pozycja po", newChannel.rawPosition)
         channel.guild.channels.cache.get(g.channelDeleteLog).send(categoryEmbed)
     } else {
         const logEmbed = new MessageEmbed()
         .setTitle("Logi: Zaktualizowano kanał!")
         .addField("Nazwa kanału", channel.name)
-        .addField("Nazwa przed", oldChannel.name)
-        .addField("Nazwa po", newChannel.name)
         .addField("ID", channel.id)
-        .addField("Pozycja", channel.rawPosition)
-        .addField("Typ", client.types[channel.type])
         .setTimestamp()
         .setColor("YELLOW")
-        if(channel.topic&&channel.type!="voice") embed.addField('Temat', logEmbed.topic)
-
+        if (oldChannel.name) logEmbed.addField("Nazwa kanału przed", oldChannel.name)
+        if (newChannel.name) logEmbed.addField("Nazwa kanału po", newChannel.name)
+        if (oldChannel.rawPosition) logEmbed.addField("Pozycja przed", oldChannel.rawPosition)
+        if (newChannel.rawPosition) logEmbed.addField("Pozycja po", newChannel.name)
+        if (oldChannel.topic) logEmbed.addField("Temat przed", oldChannel.topic)
+        if (newChannel.topic) logEmbed.addField("Temat po", newChannel.topic)
         channel.guild.channels.cache.get(g.channelDeleteLog).send(logEmbed)
     }
 }

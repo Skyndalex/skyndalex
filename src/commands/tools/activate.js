@@ -7,53 +7,25 @@ exports.run = async (client, message, args) => {
 
     switch (args[0]) {
         default:
-            client.sender(message, "Lista rzeczy do włączania", "Lista rzeczy, które można włączyć!", "", "GREEN", [
-                {
-                    name: "\`broadcastCh\`", value: "Kanał ogłoszeń"
-                },
-                {
-                    name: "\`mediaOnlyChannel\`", value: "Kanał obrazków"
-                },
-                {
-                    name: "\`memeChannel\`", value: "Kanał memowy"
-                },
-                {
-                    name: "\`classic\`", value: "Kanał sugesti klasycznych"
-                },
-                {
-                    name: "\`advancedmini\`", value: "Kanał mniej zaawansowanych sugesti"
-                },
-                {
-                    name: "\`advanced\`", value: "Kanał zaawansowanych sugesti"
-                },
-                {
-                    name: "\`media\`", value: "Kanał obrazków"
-                },
-                {
-                    name: "\`voteChannel\`", value: "Kanał głosowań"
-                },
-                {
-                    name: "\`giveawayChannel\`", value: "Kanał konkursów"
-                },
-                {
-                    name: "\`welcomeChannel\`", value: "Kanał powitań"
-                },
-                {
-                    name: "\`goodbyeChannel\`", value: "Kanał pożegnań"
-                }, ,
-                {
-                    name: "\`channelCreateLog\`", value: "Kanał logów tworzenia kanału"
-                },
-                {
-                    name: "\`channelDeleteLog\`", value: "Kanał logów usuwania kanału"
-                }
-            ])
+            client.sender(message, "Aktywacja", "Aktywację zmiennych znajdziesz [Tutaj](https://docs.krivebot.xyz/activate)", "", "#07dee6", "", "")
             break;
         case 'broadcastCh':
             if (!guild) await r.table("settings").insert({ id: message.guild.id, broadcastActivate: true }).run(client.con)
             await r.table("settings").get(message.guild.id).update({ broadcastActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał ogłoszeń.", "", "GREEN", "")
+            break;
+        case 'voteCh':
+            if (!guild) await r.table("settings").insert({ id: message.guild.id, voteActivate: true }).run(client.con)
+            await r.table("settings").get(message.guild.id).update({ voteActivate: true }).run(client.con)
+
+            client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał głosowań.", "", "GREEN", "")
+            break;
+        case 'complaintCh':
+            if (!guild) await r.table("settings").insert({ id: message.guild.id, complaintActivate: true }).run(client.con)
+            await r.table("settings").get(message.guild.id).update({ complaintActivate: true }).run(client.con)
+
+            client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał skarg.", "", "GREEN", "")
             break;
         case 'mediaOnlyChannel':
             if (!guild) await r.table("settings").insert({ id: message.guild.id, mediaOnlyActivate: true }).run(client.con)
@@ -90,12 +62,6 @@ exports.run = async (client, message, args) => {
             await r.table("settings").get(message.guild.id).update({ mediaSuggestActivate: true }).run(client.con)
 
             client.sender(message, "Włączono!", "Pomyślnie włączyłem sugestie: obrazkowe!", "", "GREEN", "")
-            break;
-        case 'voteChannel':
-            if (!guild) await r.table("settings").insert({ id: message.guild.id, voteChannelActivate: true }).run(client.con)
-            await r.table("settings").get(message.guild.id).update({ voteChannelActivate: true }).run(client.con)
-
-            client.sender(message, "Włączono!", "Pomyślnie włączyłem kanał do głosowań!", "", "GREEN", "")
             break;
         case 'giveawayChannel':
             if (!guild) await r.table("settings").insert({ id: message.guild.id, giveawayChannelActivate: true }).run(client.con)
