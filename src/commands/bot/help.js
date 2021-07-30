@@ -42,6 +42,10 @@ exports.run = (client, message, args) => {
             {
                 name: "Ekonomia",
                 value: `> \`${client.commands.filter(c => c.help.category === "economy").map(c => c.help.name).join(' | ') || "Brak"}\``
+            },
+            {
+                name: "Moderacja",
+                value: `> \`${client.commands.filter(c => c.help.category === "moderation").map(c => c.help.name).join(' | ') || "Brak"}\``
             }
         ])
     }
