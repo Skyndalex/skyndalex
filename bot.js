@@ -8,10 +8,12 @@ const { token } = require("./src/events/config.json")
 const KriveManager = require("./Client.js")
 const client = new KriveManager()
 
+
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 
 require("./functions.js")(client)
+require("discord-buttons")(client);
 require("./src/dash/start").run(client)
 r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
 	if (err) console.log(err)

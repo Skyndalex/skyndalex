@@ -1,9 +1,8 @@
-import { MessageEmbed } from "discord.js";
+const { MessageEmbed } = require("discord.js")
 const r = require("rethinkdb")
 
 module.exports = async (client, channel) => {
     const g = await r.table("logs").get(channel.guild.id).run(client.con)
-
     if (!g.channelCreateLogActivate) return 
 
     if (channel.type === "category") {

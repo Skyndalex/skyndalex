@@ -1,7 +1,9 @@
-import { MessageEmbed } from "discord.js";
+const { MessageEmbed } = require("discord.js")
 const r = require("rethinkdb")
 module.exports = async (client, oldMember, newMember) => {
         const logChannel = await r.table("logs").get(newMember.guild.id).run(client.con)
+        if (logChannel?.guildMemberUpdateLog) return 
+
         if (oldMember.roles.cache.map(r => r.id).toString() != newMember.roles.cache.map(r => r.id).toString()) {
             const logRolesUpdateEmbed = new MessageEmbed()
                 .setTitle("Aktualizacja ról użytkownika")
@@ -12,6 +14,7 @@ module.exports = async (client, oldMember, newMember) => {
                 .setColor("GREEN")
             newMember.guild.channels.cache.get(logChannel.guildMemberUpdateLog).send(logRolesUpdateEmbed)
         } else {
+            if (logChannel?.guildMemberUpdateLog) return 
             const logEmbed = new MessageEmbed()
                 .setTitle("Aktualizacja użytkownika")
                 if (oldMember.user.username) logEmbed.addField("Nazwa przed", oldMember.user.username)

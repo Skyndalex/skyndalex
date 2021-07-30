@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+const { MessageEmbed } = require("discord.js")
 const r = require("rethinkdb")
 module.exports = async (client, emoji) => {
         const g = await r.table("settings").get(emoji.guild.id).run(client.con)

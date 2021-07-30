@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+const { MessageEmbed } = require("discord.js")
 const r = require("rethinkdb")
 module.exports = async(client, member) => {
         const channel = await r.table('settings').get(member.guild.id)("goodbyeChannel").default(null).run(client.con)

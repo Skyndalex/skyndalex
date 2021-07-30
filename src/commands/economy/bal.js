@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+const { MessageEmbed } = require("discord.js")
 const r = require("rethinkdb")
 
 exports.run = async (client, message, args) => {

@@ -1,7 +1,5 @@
 const os = require("os")
-const moment = require("moment")
 const Discord = require("discord.js")
-moment.locale("pl")
 exports.run = async (client, message) => {
     client.sender(message, "Statystyki", "", "", "GREEN", [
         {
@@ -14,7 +12,7 @@ exports.run = async (client, message) => {
         },
         {
             name: "> \`Uptime:\`",
-            value: `Bot: ${require("moment").duration(client.uptime).humanize()}`,
+            value: `Bot: ${require("moment").locale("pl").duration(client.uptime).humanize()}`,
         }
     ])
 }
