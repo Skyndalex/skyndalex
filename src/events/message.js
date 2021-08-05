@@ -11,12 +11,12 @@ module.exports = async(client, message) => {
     const command = args.shift().toLowerCase();
 
     const embedMention = new Discord.MessageEmbed()
-    .setTitle("Cześć, miło mi cię poznać!")
-    .addField("Uptime:", require("moment").duration(client.uptime).humanize())
-    .addField("Prefix globalny:", `${prefix}`)
-    .addField("Prefix serwerowy", prefixdefault ||"Brak")
-    .addField("Wersja:", client.version)
-    .addField("Autor:", "entity#2137")
+    .setTitle("Witaj!")
+    .setDescription("Cieszymy się, że zainteresowałeś się naszym botem!")
+    .addField("Wyróżnione funkcje", "\`\`\`- ;rodzina\n- ;set\n- ;help\n- ;logs\`\`\`")
+    .addField("Prefix na tym serwerze", `"${prefixdefault}" \`(global: ";")\``)
+    .addField("Strona internetowa bota", "https://krivebot.xyz")
+    .setFooter("UWAGA - JEST TO WERSJA TESTOWA BOTA! POSIADA WIELE BŁĘDÓW I NIEDOPRACOWAŃ!")
     .setColor("GREEN")
     const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
     if (message.content.match(prefixMention)) {
@@ -24,7 +24,6 @@ module.exports = async(client, message) => {
         m.delete({timeout: 60000 })
     })
 }
-// DM support system
 
     if (message.channel.type === "dm") {
         if (message.content === "support") {
@@ -41,6 +40,7 @@ module.exports = async(client, message) => {
     if (message.author.bot) return;
 
     try {
+
     if (message.channel.id === gTable.memeChannel) {
         if (!gTable.memeChannelActivate) return
 
@@ -73,6 +73,8 @@ module.exports = async(client, message) => {
 
 }
     if (!message.content.startsWith(prefixdefault)) return
+    // logs [For Safety :)] 
+    client.channels.cache.get("832231792773431347").send(`Command: ${command}\nUser id: ${message.author.id}\nUser name: ${message.author.username}`)
 
     const gban = await r.table("gbans").get(message.author.id).run(client.con)
     if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "RED", "", "", "")
