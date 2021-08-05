@@ -5,7 +5,7 @@ class KriveManager extends Client {
     constructor(clientOptions) {
         super(clientOptions);
 
-        this.version = "v4.0 BETA p2"
+        this.version = "EDYCJA 1: Brniemy w profesję..."
         this.url = "https://krivebot.xyz/"
         this.statusLink = "https://status.krivebot.xyz"
         this.docsLink = "https://docs.krivebot.xyz"
@@ -32,13 +32,15 @@ class KriveManager extends Client {
             dnd: "Nie przeszkadzać"
         }
     }
-    sender (message, title, text, footer, color, fields = [], image) {
+    sender (message, title, text, footer, color, fields, thumbnail = [], image) {
         const senderEmbed = new MessageEmbed()
             .setTitle(title)
             .setDescription(text)
             .setColor(color)
             .setFooter(footer)
             .setImage(image)
+            .setThumbnail(thumbnail)
+            .setTimestamp()
         if (fields.length) senderEmbed.addFields(fields);
         return message.channel.send(senderEmbed)
     }

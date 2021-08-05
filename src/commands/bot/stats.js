@@ -12,7 +12,7 @@ exports.run = async (client, message) => {
         },
         {
             name: "> \`Uptime:\`",
-            value: `Bot: ${require("moment").locale("pl").duration(client.uptime).humanize()}`,
+            value: `Bot: ${require("moment").duration(client.uptime).humanize()}`,
         }
     ])
 }

@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 const r = require("rethinkdb")
 module.exports = async (client, oldMember, newMember) => {
         const logChannel = await r.table("logs").get(newMember.guild.id).run(client.con)
-        if (logChannel?.guildMemberUpdateLog) return 
+        if (logChannel?.guildMemberUpdateLog) { 
 
         if (oldMember.roles.cache.map(r => r.id).toString() != newMember.roles.cache.map(r => r.id).toString()) {
             const logRolesUpdateEmbed = new MessageEmbed()
@@ -27,4 +27,5 @@ module.exports = async (client, oldMember, newMember) => {
             newMember.guild.channels.cache.get(logChannel.guildMemberUpdateLog).send(logEmbed)
 
         }
+    }
 }
