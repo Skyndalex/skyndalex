@@ -60,7 +60,7 @@ exports.run = async (client, message, args) => {
             })
             client.sender(message, "Wygrano giveaway!", `🎉 **${winner.toString()}** wygrał **${item}**! Gratulacje!`, "", "0x3333ff", "", "")
         }
-    }, ms(timeFromDB));
+    }, ms(args[0]));
 }
 exports.help = {
     name: "giv",
