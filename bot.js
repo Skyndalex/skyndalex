@@ -1,20 +1,20 @@
-const Discord = require("discord.js")
+const { Client, Collection, Intents } = require('discord.js');
 const fs = require("fs")
 const r = require("rethinkdb")
-const os = require("os")
 
 const { token } = require("./src/events/config.json")
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
-const KriveManager = require("./Client.js")
-const client = new KriveManager()
+client.once('ready', () => {
+	console.log(`KriveBot is ready`)
+});
 
-
-client.commands = new Discord.Collection();
-client.aliases = new Discord.Collection();
+client.commands = new Collection();
+client.aliases = new Collection();
 
 require("./functions.js")(client)
-require("discord-buttons")(client);
 require("./src/dash/start").run(client)
+
 r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
 	if (err) console.log(err)
 	client.con = con;
@@ -38,14 +38,5 @@ const eventFiles = fs.readdirSync("./src/events/").filter(file => file.endsWith(
 		const eventName = file.split(".")[0];
 		client.on(eventName, event.bind(null, client))
 }
-client.on('interactionCreate', async interaction => {
-	if (interaction.commandName === 'ping') {
-		await interaction.reply(`Ping: ${client.ws.ping}ms`);
-	}
-});
-client.on('ready', () => {
-	console.log(`KriveBot is ready`)
-});
 
 client.login(token)
-
