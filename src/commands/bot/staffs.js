@@ -3,7 +3,6 @@ exports.run = (client, message) => {
     let guild = client.guilds.cache.get("804477558061137972")
 
     const owners = guild.roles.cache.find(role => role.id === '841068015045967892').members.map(m=>m.user.tag).join(" || ");
-    const headadmins = guild.roles.cache.find(role => role.id === '841068015045967892').members.map(m=>m.user.tag).join(" || ");
     const moderators = guild.roles.cache.find(role => role.id === '841068357385977876').members.map(m=>m.user.tag).join(" || ");
     const friends = guild.roles.cache.find(role => role.id === '844642293910863973').members.map(m=>m.user.tag).join(" || ");
     const testers = guild.roles.cache.find(role => role.id === '851931521875312671').members.map(m=>m.user.tag).join(" || ");

@@ -19,9 +19,8 @@
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
     "canvas": "^2.8.0",
-    "discord-buttons": "^4.0.0",
     "discord-tts": "^1.2.0",
-    "discord.js": "^12.5.3",
+    "discord.js": "^13.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-vue": "^5.16.0",

@@ -1,8 +1,7 @@
-exports.run = (client, message) => {
-    message.channel.send(`Ping: ${client.ws.ping}`)
-};
-
 exports.help = {
+    async execute(interaction) {
+		await interaction.reply(`Ping: ${client.ws.ping}`);
+	},
     name: "ping",
     description: "Ping bota",
     category: "bot",

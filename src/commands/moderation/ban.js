@@ -11,7 +11,7 @@ exports.run = async (client, message, args) => {
     if (member.id === message.guild.ownerID) return client.sender(message, "Błąd!", "Niedozwolona metoda! Nie możesz zbanować właściciela serwera!", client.footer, "RED", "", "")
     if (member.roles.highest.rawPosition >= message.member.roles.highest.rawPosition) return client.sender(message, "Błąd!", "Niedozwolona metoda! Nie możesz zbanować użytkownika z taką samą lub wyższą rolą!", client.footer, "RED", "", "")
 
-   await member.ban({reason: `Used command ban with bot Krive`})
+   await member.ban({reason: "Banned with Krive"})
 
     client.sender(message, "Usunięto użytkownika z serwera pomyślnie!", "", "", "GREEN", [
         {

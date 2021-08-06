@@ -8,7 +8,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 client.once('ready', () => {
 	console.log(`KriveBot is ready`)
 });
-
+ 
 client.commands = new Collection();
 client.aliases = new Collection();
 
