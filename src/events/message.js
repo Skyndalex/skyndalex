@@ -6,14 +6,15 @@ const cooldown = new Set;
 module.exports = async (client, message) => {
     const prefixdefault = await r.table("settings").get(message.guild.id)("prefix").default(";").run(client.con)
 
-    client.guildSettings = new Collection();
-    client.guildSettings.set(message.guild.id, { prefix: prefixdefault });
-
-    const { prefix } = message.client.guildSettings.get(message.guild.id);
     
     const args = message.content.slice(prefixdefault.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
+    
+    client.guildSettings = new Collection();
+    client.guildSettings.set(message.guild.id, { prefix: prefixdefault });
+
+   // const { prefix } = message.client.guildSettings.get(message.guild.id);
     const embedMention = new MessageEmbed()
         .setTitle("Witaj!")
         .setDescription("Cieszymy się, że zainteresowałeś się naszym botem!")
@@ -24,11 +25,10 @@ module.exports = async (client, message) => {
         .setColor("GREEN")
     const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
     if (message.content.match(prefixMention)) {
-        return message.channel.send({ embeds: embedMention }).then(d => {
+        return message.channel.send({ embeds: [embedMention] }).then(d => {
             setTimeout(() => d.delete(), 300000);
         })
     }
-
     /*
     if (message.channel.type === "dm") {
         if (message.content === "support") {

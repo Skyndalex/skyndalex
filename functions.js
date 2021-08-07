@@ -4,9 +4,11 @@ module.exports = (client) => {
         let embed = new MessageEmbed()
             .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
             .setTitle(`Błąd!`)
-            .setDescription(text.replace(client.token, '[dupa]'))
+            .setDescription(text.replace(client.token, '[token]'))
             .setColor('RED')
-        return message.channel.send({embeds: embed})
+        return message.channel.send({embeds: [embed]}).catch(err => {
+            message.channel.send({content: `Wystąpił problem! ${err}`})
+        })
     }
 
     client.awaitReply = async (msg, question, limit = 60000) => {
