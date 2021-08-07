@@ -17,7 +17,8 @@ client.aliases = new Collection();
 require("./functions.js")(client)
 require("./src/dash/start").run(client)
 
-r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(con) {
+r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
+	if (!err) console.log(err)
 	client.con = con;
 })
 
