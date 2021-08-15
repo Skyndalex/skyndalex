@@ -1,19 +1,8 @@
 const { MessageEmbed } = require("discord.js")
 module.exports = (client) => {
-    client.sender = async (message, text) => {
-        let embed = new MessageEmbed()
-            .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
-            .setTitle(`Błąd!`)
-            .setDescription(text.replace(client.token, '[token]'))
-            .setColor('RED')
-        return message.channel.send({embeds: [embed]}).catch(err => {
-            message.channel.send({content: `Wystąpił problem! ${err}`})
-        })
-    }
-
     client.awaitReply = async (msg, question, limit = 60000) => {
-        const filter = m => m.author.id === msg.author.id;
-        await msg.channel.send(question);
+        const filter = m => m.author.id=== msg.author.id;
+        await msg.channel.send(question); 
         try {
             const collected = await msg.channel.awaitMessages(filter, { max: 1, time: limit, errors: ["time"] });
             return collected.first();
