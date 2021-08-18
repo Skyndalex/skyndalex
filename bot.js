@@ -9,6 +9,7 @@ const { token } = require("./config.json")
 
 client.commands = new Collection();
 
+require("./src/sit/Start.js").run(client)
 require("./functions")(client)
 
 fs.readdirSync("./src/commands").forEach(dir => {
