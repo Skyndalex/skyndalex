@@ -16,7 +16,8 @@ exports.run = async (client, message, args) => {
         case 'view':
             let user = await client.users.fetch(args[1]).catch(err=>{}) || message.mentions.users.first() || message.author
             let profile = await r.table('profiles').get(user.id).run(client.con)
-            if(!profile?.activate) return client.error(message, 'Profil podanego użytkownika jest wyłączony')
+
+            if(!profile?.activate) return message.channel.send("Profil podanego użytkownika jest wyłączony bądź nie istnieje")
             let profileEmbed = new Discord.MessageEmbed()
                 .setColor('GREEN')
                 .setTitle(`Profil użytkownika ${user.tag}`)
