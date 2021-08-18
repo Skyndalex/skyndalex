@@ -1,8 +1,11 @@
-const { Client, Intents, Collection } = require('discord.js');
+const { Intents, Collection } = require('discord.js');
+const KriveManager = require("./Client.js")
+const client = new KriveManager({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] })
+
 const fs = require("fs")
+const r = require("rethinkdb")
 
 const { token } = require("./config.json")
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 client.commands = new Collection();
 
@@ -20,6 +23,13 @@ fs.readdirSync("./src/commands").forEach(dir => {
 		}
 	}
 });
+
+r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
+	if (err) console.log(err)
+	client.con = con;
+
+	console.log("RethinkDb Connected")
+})
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 

@@ -1,8 +1,9 @@
+const r = require("rethinkdb")
 module.exports = {
     name: "messageCreate",
     once: false,
 
-    execute(client, message) {
+   async execute(client, message) {
         const { prefix } = require("../config.json")
 
         const args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -12,6 +13,8 @@ module.exports = {
 
         if (!message.content.startsWith(prefix)) return
 
+        const gban = await r.table("gbans").get(message.author.id).run(client.con)
+        if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "RED", "", "", "")
 
         const cmd = client.commands.get(command) || client.commands.find(c => c.help.aliases && c.help.aliases == command);
        

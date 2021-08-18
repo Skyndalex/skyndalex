@@ -5,5 +5,4 @@ module.exports = (client) => {
             return this[Math.floor(Math.random() * this.length)];
         }
     });
-   
 }

@@ -3,13 +3,7 @@ module.exports = {
     once: false,
 
     execute(client) {
-        client.user.setPresence({
-            status: 'online',
-            activity: {
-                name: `Zapraszamy na serwer support`,
-                type: 'PLAYING',
-            }
-        })
+        client.user.setPresence({ activities: [{ name: 'Domena strony: krivebot.xyz!' }] });
         console.log('Client ready')
     }
 }
