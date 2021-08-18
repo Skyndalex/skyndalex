@@ -1,21 +1,12 @@
-const Discord = require("discord.js")
+const { Client, Intents, Collection } = require('discord.js');
 const fs = require("fs")
-const r = require("rethinkdb")
 
-const { token } = require("./src/events/config.json")
+const { token } = require("./config.json")
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
-const KriveManager = require("./Client.js")
-const client = new KriveManager()
+client.commands = new Collection();
 
-client.commands = new Discord.Collection();
-client.aliases = new Discord.Collection();
-
-require("./functions.js")(client)
-
-r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
-	if (err) console.log(err)
-	client.con = con;
-})
+require("./functions")(client)
 
 fs.readdirSync("./src/commands").forEach(dir => {
 	const commands = fs.readdirSync(`./src/commands/${dir}/`).filter(file => file.endsWith(".js"));
@@ -23,21 +14,21 @@ fs.readdirSync("./src/commands").forEach(dir => {
 		let pull = require(`./src/commands/${dir}/${file}`);
 		if (pull.help && pull.help.name) {
 			client.commands.set(pull.help.name, pull);
+			// console.log(commands) debug 
 		} else {
 			continue;
 		}
 	}
 });
 
-const eventFiles = fs.readdirSync("./src/events/").filter(file => file.endsWith(".js"));
-	for (const file of eventFiles) {
-		const event = require(`./src/events/${file}`);
-		const eventName = file.split(".")[0];
-		client.on(eventName, event.bind(null, client))
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+
+for (const file of eventFiles) {
+	const event = require(`./events/${file}`);
+	if (event.once) {
+		client.on(event.name, (...args) => event.execute(client, ...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(client, ...args));
+	}
 }
-
-client.on('ready', () => {
-	console.log(`KriveBot is ready`)
-});
-
-client.login(token)
+client.login(token);

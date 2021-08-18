@@ -1,9 +1,8 @@
 exports.run = (client, message) => {
-    message.channel.send(`Ping: \`${client.ws.ping}ms\``)
+    message.channel.send({content: `Ping: \`${client.ws.ping}ms\``})
 }
-exports.help = {
+module.exports.help = {
     name: "ping",
-    description: "Ping",
     category: "bot",
-    aliases: ["pstrong"]
+    description: "Pokazuje ping bota",
 }
