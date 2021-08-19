@@ -6,7 +6,9 @@ class KriveManager extends Client {
         super(clientOptions);
 
         this.version = "v4.1"
-
+        this.site = "krivebot.xyz"
+        this.invite = "krivebot.xyz/invite"
+        this.discord = "krivebot.xyz/discord"
     }
     sender (message, title, text, footer, color, fields = [], image) { // nice spaghetti good to eat :O
         const senderEmbed = new MessageEmbed()

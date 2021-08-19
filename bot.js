@@ -18,7 +18,6 @@ fs.readdirSync("./src/commands").forEach(dir => {
 		let pull = require(`./src/commands/${dir}/${file}`);
 		if (pull.help && pull.help.name) {
 			client.commands.set(pull.help.name, pull);
-			// console.log(commands) debug 
 		} else {
 			continue;
 		}

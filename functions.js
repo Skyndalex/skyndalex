@@ -1,4 +1,3 @@
-const { MessageEmbed } = require("discord.js")
 module.exports = (client) => {
     Object.defineProperty(Array.prototype, "random", {
         value: function () {
