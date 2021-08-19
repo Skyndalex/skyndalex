@@ -3,6 +3,8 @@ exports.run = (client, message) => {
 }
 exports.help = {
     name: "ping",
+    usage: "ping",
+    perms: "global.send_messages.ping",
     category: "bot",
     description: "Pokazuje ping bota",
 }
