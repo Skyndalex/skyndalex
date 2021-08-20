@@ -23,7 +23,7 @@ exports.run = (client, message, args) => {
                 }
             ])
     } else {
-    client.sender(message, "Pomoc", "Lista komend", "", "#f763ff", [
+    client.sender(message, "Pomoc", "Sprawdzanie permisji: \`help [komenda]\`\nDokumentacja: \`https://docs.krivebot.xyz\`", "", "#f763ff", [
         {
             name: "Bot", value: `> \`${client.commands.filter(c => c.help.category === "bot").map(c => c.help.name).join(' | ') || "Brak"}\``
         },

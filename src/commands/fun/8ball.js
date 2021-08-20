@@ -1,10 +1,27 @@
 exports.run = async (client, message, args) => {
-    if (!args[0]) client.sender(message, "Błąd!", "Nie zadałeś mi pytania!", "", "RED", "", "", "")
-}
+    if (!args[0]) return client.sender(message, "Błąd!", "Nie podałeś argumentów.", "", "RED")
+
+    let reponses = [
+        "Tak",
+        "Nie",
+        "Chyba tak",
+        "Chyba nie"
+    ]
+        client.sender(message, "", "", "", "GREEN", [
+            {
+                name: "Twoje pytanie",
+                value: args.slice(" ").join(" "),
+            },
+            {
+                name: "Odpowiedź",
+                value: reponses.random(),
+            }
+        ])
+};
+
 exports.help = {
     name: "8ball",
-    usage: "8ball [pytanie]",
+    description: "Magiczna kula!",
     perms: "server.send_messages.8ball",
-    category: "fun",
-    description: "Zadaj mi pytanie!",
+    category: "fun"
 }
