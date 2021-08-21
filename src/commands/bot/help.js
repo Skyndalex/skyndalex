@@ -1,4 +1,13 @@
 exports.run = (client, message, args) => {
+
+    let categories = {
+        bot: "Bot",
+        dev: "Programiści",
+        fun: "Zabawa",
+        mod: "Moderacja",
+        tools: "Narzędzia"
+    }
+
     let command = args[0]
     if (client.commands.get(command)) {
         command =
@@ -19,7 +28,7 @@ exports.run = (client, message, args) => {
                     name: "Wymagane permisje", value: `\`${command.help.perms}\`` || "Brak"
                 },
                 {
-                    name: "Kategoria", value: command.help.category || "Brak"
+                    name: "Kategoria", value: categories[command.help.category] || "Brak"
                 }
             ])
     } else {

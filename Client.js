@@ -12,6 +12,7 @@ class KriveManager extends Client {
     }
     sender (message, title, text, footer, color, fields = [], image) { // nice spaghetti good to eat :O
         const senderEmbed = new MessageEmbed()
+            .setTimestamp()
             if (title) senderEmbed.setTitle(title)
             if (text) senderEmbed.setDescription(text)
             if (color) senderEmbed.setColor(color)
@@ -19,6 +20,16 @@ class KriveManager extends Client {
             if (image) senderEmbed.setImage(image)
             if (fields.length) senderEmbed.addFields(fields);
         return message.reply({embeds: [senderEmbed], allowedMentions: {parse: []}})
+    }
+    mentionSender (message, title, text, footer, color, fields = [], image) { // nice spaghetti good to eat :O
+        const senderEmbed = new MessageEmbed()
+            if (title) senderEmbed.setTitle(title)
+            if (text) senderEmbed.setDescription(text)
+            if (color) senderEmbed.setColor(color)
+            if (footer) senderEmbed.setFooter(footer)
+            if (image) senderEmbed.setImage(image)
+            if (fields.length) senderEmbed.addFields(fields);
+        return message.reply({embeds: [senderEmbed]})
     }
 }
 module.exports = KriveManager;

@@ -28,5 +28,5 @@ exports.run = (client, message, args) => {
 exports.help = {
     name: "eval",
     category: "dev",
-    description: "Pokazuje ping bota"
+    description: "Eval"
 }
