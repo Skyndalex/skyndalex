@@ -20,6 +20,6 @@ exports.help = {
     name: "unmute",
     description: "Odcisz użytkownika",
     usage: "unmute [użytkownik]",
-    perms: "server.manage_roles.mute",
+    perms: "server.manage_roles.unmute",
     category: "mod"
 }
