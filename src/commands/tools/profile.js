@@ -62,103 +62,53 @@ exports.run = async (client, message, args) => {
                 case 'name':
                     await r.table('profiles').get(message.author.id).update({ name: args[2] }).run(client.con)
 
-                    const embedProfileConfigName = new MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "name")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-                    message.channel.send({ embeds: [embedProfileConfigName] })
+                    client.sender(message, ``, `Ustawiono zmienną\n\nZmienna: \`name\`\nNowa wartość: ${args[2]}`, `Krivebot Profile`, `ORANGE`, ``, ``, ``)
                     break;
                 case 'email':
                     await r.table('profiles').get(message.author.id).update({ email: args[2] }).run(client.con)
 
-                    const embedProfileConfigEmail = new MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "email")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-                    message.channel.send({ embeds: [embedProfileConfigEmail] })
+                    client.sender(message, ``, `Ustawiono zmienną\n\nZmienna: \`email\`\nNowa wartość: ${args[2]}`, `Krivebot Profile`, `ORANGE`, ``, ``, ``)
                     break;
                 case 'birthday':
                     await r.table('profiles').get(message.author.id).update({ birthday: args[2] }).run(client.con)
 
-                    const embedProfileConfigBirthday = new MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "Birthday")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-                    message.channel.send({ embeds: [embedProfileConfigBirthday] })
+                    client.sender(message, ``, `Ustawiono zmienną\n\nZmienna: \`birthday\`\nNowa wartość: ${args[2]}`, `Krivebot Profile`, `ORANGE`, ``, ``, ``)
                     break;
                 case 'discord':
                     await r.table('profiles').get(message.author.id).update({ discord: args[2] }).run(client.con)
 
-                    const embedProfileConfigDiscord = new MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField('Zmienna', "Discord")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-                    message.channel.send({ embeds: [embedProfileConfigDiscord] })
+                    client.sender(message, ``, `Ustawiono zmienną\n\nZmienna: \`discord\`\nNowa wartość: ${args[2]}`, `Krivebot Profile`, `ORANGE`, ``, ``, ``)
                     break;
                 case 'facebook':
                     await r.table('profiles').get(message.author.id).update({ facebook: args[2] }).run(client.con)
 
-                    const embedProfileConfigFacebook = new MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "Facebook")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-                    message.channel.send({ embeds: [embedProfileConfigFacebook] })
+                    client.sender(message, ``, `Ustawiono zmienną\n\nZmienna: \`facebook\`\nNowa wartość: ${args[2]}`, `Krivebot Profile`, `ORANGE`, ``, ``, ``)
                     break;
                 case 'youtube':
                     await r.table('profiles').get(message.author.id).update({ youtube: args[2] }).run(client.con)
 
-                    const embedProfileConfigYoutube = new MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "YouTube")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-                    message.channel.send({ embeds: [embedProfileConfigYoutube] })
+                    client.sender(message, ``, `Ustawiono zmienną\n\nZmienna: \`youtube\`\nNowa wartość: ${args[2]}`, `Krivebot Profile`, `ORANGE`, ``, ``, ``)
                     break;
                 case 'twitter':
                     await r.table('profiles').get(message.author.id).update({ twitter: args[2] }).run(client.con)
 
-                    const embedProfileConfigTwitter = new MessageEmbed()
-                        .setTitle("Ustawiono zmienna")
-                        .addField("Zmienna", "Twitter")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-
-                    message.channel.send({ embeds: [embedProfileConfigTwitter] })
+                    client.sender(message, ``, `Ustawiono zmienną\n\nZmienna: \`twitter\`\nNowa wartość: ${args[2]}`, `Krivebot Profile`, `ORANGE`, ``, ``, ``)
                     break;
                 case 'twitch':
                     await r.table('profiles').get(message.author.id).update({ twitch: args[2] }).run(client.con)
 
-                    const embedProfieConfigTwitch = new MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "twitch")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-                    message.channel.send({ embeds: [embedProfieConfigTwitch] })
+                    client.sender(message, ``, `Ustawiono zmienną\n\nZmienna: \`twitch\`\nNowa wartość: ${args[2]}`, `Krivebot Profile`, `ORANGE`, ``, ``, ``)
                     break;
                 case 'reddit':
                     await r.table('profiles').get(message.author.id).update({ reddit: args[2] }).run(client.con)
 
-                    const embedProfileConfigReddit = new MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "reddit")
-                        .addField("Nowa wartość", args[2])
-                        .setColor("GREEN")
-                    message.channel.send({ embeds: [embedProfileConfigReddit] })
+                    client.sender(message, ``, `Ustawiono zmienną\n\nZmienna: \`reddit\`\nNowa wartość: ${args[2]}`, `Krivebot Profile`, `ORANGE`, ``, ``, ``)
+
                     break;
                 case 'description':
                     await r.table('profiles').get(message.author.id).update({ description: args.slice(2).join(" ") }).run(client.con)
 
-                    const embedProfileConfigDescription = new MessageEmbed()
-                        .setTitle("Ustawiono zmienną")
-                        .addField("Zmienna", "description")
-                        .addField("Nowa wartość", args.join(" ").slice(args[2]))
-                        .setColor("GREEN")
-                    message.channel.send({ embeds: [embedProfileConfigDescription] })
+                    client.sender(message, ``, `Ustawiono zmienną\n\nZmienna: \`description\`\nNowa wartość: ${args[2]}`, `Krivebot Profile`, `ORANGE`, ``, ``, ``)
                     break;
                 default:
                     client.sender(message, "Błąd!", "Nie znaleziono wartości", "", "RED", "", "", "")
