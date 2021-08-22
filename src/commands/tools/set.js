@@ -3,38 +3,7 @@ exports.run = async (client, message, args) => {
     if (!message.member.permissions.has('ADMINISTRATOR')) return client.sender(message, "Błąd!", "Nie masz permisji! \`server.administrator.set\`", "", "RED", "", "")
     switch (args[0]) {
         default:
-            client.sender(message, "Ustawienia bota - Menu", "Szukasz może poradnika?\nDokumentacja -> https://docs.krivebot.xyz/config", "Nowa odświeżona wersja ustawień. Problemy prosimy zgłaszać do supportu", "#3683ff", [
-                {
-                    name: "> \`broadcastChannel\`", value: "Kanał ogłoszeniowy"
-                },
-                {
-                    name: "> \`complaintChannel\`", value: "Kanał skarg"
-                },
-                {
-                    name: "> \`voteChannel\`", value: "Kanał do głosowań"
-                },
-                {
-                    name: "> \`imageChannel\`", value: "Kanał obrazkowy"
-                },
-                {
-                    name: "> \`welcomeChannel\`", value: "Kanał powitań"
-                },
-                {
-                    name: "> \`goodbyeChannel\`", value: "Kanał pożegnań"
-                },
-                {
-                    name: "> \`mutedRole\`", value: "Rola wyciszonego"
-                },
-                {
-                    name: "> \`verifyRole\`", value: "Rola zweryfikowanego"
-                },
-                {
-                    name: "> \`lockRole\`", value: "Rola, który traci dostęp do kanałów podczas lockdownu"
-                },
-                {
-                    name: "> \`autoRole\`", value: "Rola automatyczna - użytkownik po wejściu na serwer automatycznie ją otrzyma"
-                }
-            ])
+            client.sender(message, ``, `Ustawienia bota\n\n\`broadcastChannel\`\nKanał ogłoszeniowy\n\n\`complaintChannel\`\nKanał skarg\n\n\`voteChannel\`\nKanał głosowań\n\n\`imageChannel\`\nKanał obrazkowy\n\n\`welcomeChannel\`\nKanał powitań\n\n\`goodbyeChannel\`\nKanał pożegnań\n\n\`mutedRole\`\nRola wyciszonego\n\n\`verifyRole\`\nRola zweryfikowanego\n\n\`lockRole\`\nRola osób która traci permisje do kanałów podczas lockdownu\n\n\`autoRole\`\nAutomatyczna rola, jak użytkownik wejdzie na serwer automatycznie ją dostanie!`, `Ustawienia serwerowe`, `ORANGE`, ``, ``, ``)
             break;
         case "broadcastChannel":
             let broadcastChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1])) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
