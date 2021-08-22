@@ -29,6 +29,9 @@ exports.run = (client, message, args) => {
                 },
                 {
                     name: "Kategoria", value: categories[command.help.category] || "Brak"
+                },
+                {
+                    name: "Permisje globalne", value: "[Lista i omówienie](https://docs.krivebot.xyz/perms)"
                 }
             ])
     } else {

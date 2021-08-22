@@ -1,5 +1,7 @@
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
+    if (message.guild.me.permissions.has("MANAGE_ROLES")) return message.channel.send("Nie mam permisji do nadawania roli!")
+    
     const role = await r.table("settings").get(message.guild.id)("verifyRole").run(client.con)
     if (!role) return message.channel.send("Nie znaleziono roli")
 

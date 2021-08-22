@@ -15,6 +15,24 @@ exports.run = async (client, message, args) => {
                 },
                 {
                     name: "> \`imageChannel\`", value: "Kanał obrazkowy"
+                },
+                {
+                    name: "> \`welcomeChannel\`", value: "Kanał powitań"
+                },
+                {
+                    name: "> \`goodbyeChannel\`", value: "Kanał pożegnań"
+                },
+                {
+                    name: "> \`mutedRole\`", value: "Rola wyciszonego"
+                },
+                {
+                    name: "> \`verifyRole\`", value: "Rola zweryfikowanego"
+                },
+                {
+                    name: "> \`lockRole\`", value: "Rola, który traci dostęp do kanałów podczas lockdownu"
+                },
+                {
+                    name: "> \`autoRole\`", value: "Rola automatyczna - użytkownik po wejściu na serwer automatycznie ją otrzyma"
                 }
             ])
             break;
@@ -74,15 +92,73 @@ exports.run = async (client, message, args) => {
 
             client.mentionSender(message, "Ustawiono!", `Zmienna: \`imageChannel\`\nWartość: <#${imageChannel.id}>`, "", "#2003fc", "")
             break;
+        case "welcomeChannel":
+            let welcomeChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1])) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+
+            if (!welcomeChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału bądź w ogóle go nie podałeś!", "", "RED", "", "")
+
+            if (welcomeChannel.type === "GUILD_VOICE") return client.mentionSender(message, "Błąd!", "Podałeś kanał głosowy! Musisz podać kanał tekstowy.", "", "RED", "")
+            if (welcomeChannel.type === "GUILD_CATEGORY") return client.mentionSender(message, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+
+            await r.table("settings").insert({ id: message.guild.id, welcomeChannel: welcomeChannel.id, }).run(client.con)
+
+            await r.table("settings").get(message.guild.id).update({ welcomeChannel: welcomeChannel.id }).run(client.con)
+
+            client.mentionSender(message, "Ustawiono!", `Zmienna: \`welcomeChannel\`\nWartość: <#${welcomeChannel.id}>`, "", "#2003fc", "")
+            break;
+        case "goodbyeChannel":
+            let goodbyeChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1])) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+
+            if (!goodbyeChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału bądź w ogóle go nie podałeś!", "", "RED", "", "")
+
+            if (goodbyeChannel.type === "GUILD_VOICE") return client.mentionSender(message, "Błąd!", "Podałeś kanał głosowy! Musisz podać kanał tekstowy.", "", "RED", "")
+            if (goodbyeChannel.type === "GUILD_CATEGORY") return client.mentionSender(message, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+
+            await r.table("settings").insert({ id: message.guild.id, goodbyeChannel: goodbyeChannel.id, }).run(client.con)
+
+            await r.table("settings").get(message.guild.id).update({ goodbyeChannel: goodbyeChannel.id }).run(client.con)
+
+            client.mentionSender(message, "Ustawiono!", `Zmienna: \`goodbyeChannel\`\nWartość: <#${goodbyeChannel.id}>`, "", "#2003fc", "")
+            break;
         case "verifyRole":
             let verifyRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
-            if (!verifyRole) return client.sender(message, "Błąd!", "Nie znaleziono kanału bądź w ogóle go nie podałeś!", "", "RED", "", "")
+            if (!verifyRole) return client.sender(message, "Błąd!", "Nie znaleziono roli bądź w ogóle jej nie podałeś!", "", "RED", "", "")
 
             await r.table("settings").insert({ id: message.guild.id, verifyRole: verifyRole.id, }).run(client.con)
 
             await r.table("settings").get(message.guild.id).update({ verifyRole: verifyRole.id }).run(client.con)
 
             client.mentionSender(message, "Ustawiono!", `Zmienna: \`verifyRole\`\nWartość: <@&${verifyRole.id}>`, "", "#2003fc", "")
+            break;
+        case "autoRole":
+            let autoRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
+            if (!autoRole) return client.sender(message, "Błąd!", "Nie znaleziono roli bądź w ogóle jej nie podałeś!", "", "RED", "", "")
+
+            await r.table("settings").insert({ id: message.guild.id, autoRole: autoRole.id, }).run(client.con)
+
+            await r.table("settings").get(message.guild.id).update({ autoRole: autoRole.id }).run(client.con)
+
+            client.mentionSender(message, "Ustawiono!", `Zmienna: \`autoRole\`\nWartość: <@&${autoRole.id}>`, "", "#2003fc", "")
+            break;
+        case "mutedRole":
+            let mutedRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
+            if (!mutedRole) return client.sender(message, "Błąd!", "Nie znaleziono roli bądź w ogóle jej nie podałeś!", "", "RED", "", "")
+
+            await r.table("settings").insert({ id: message.guild.id, mutedRole: mutedRole.id, }).run(client.con)
+
+            await r.table("settings").get(message.guild.id).update({ mutedRole: mutedRole.id }).run(client.con)
+
+            client.mentionSender(message, "Ustawiono!", `Zmienna: \`mutedRole\`\nWartość: <@&${mutedRole.id}>`, "", "#2003fc", "")
+            break;
+        case "lockRole":
+            let lockRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
+            if (!lockRole) return client.sender(message, "Błąd!", "Nie znaleziono roli bądź w ogóle jej nie podałeś!", "", "RED", "", "")
+
+            await r.table("settings").insert({ id: message.guild.id, lockRole: lockRole.id, }).run(client.con)
+
+            await r.table("settings").get(message.guild.id).update({ lockRole: lockRole.id }).run(client.con)
+
+            client.mentionSender(message, "Ustawiono!", `Zmienna: \`lockRole\`\nWartość: <@&${lockRole.id}>`, "", "#2003fc", "")
             break;
     }
 }
