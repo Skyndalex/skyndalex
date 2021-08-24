@@ -4,21 +4,21 @@ module.exports = {
     name: "channelCreate",
     once: false,
 
-    async execute(client, channel) { 
-        const channelLog = await r.table("settings").get(channel.guild.id)("channelCreate").run(client.con).catch(err => {})
+    async execute(client, channel) {
+        const channelLog = await r.table("logs").get(channel.guild.id)("channelCreate").run(client.con).catch(err => { })
 
         if (channel.type === "GUILD_CATEGORY") {
-            const embed = new MessageEmbed()
-            .setDescription(`**Utworzono kategorię!**\n\nNazwa: ${channel.name}\nID: ${channel.id}\nPozycja: ${channel.rawPosition}`)
-            .setTimestamp()
-            .setColor("YELLOW")
-            channel.guild.channels.cache.get(channelLog).send({embeds: [embed]})
+            const logEmbed = new MessageEmbed()
+                .setDescription(`**Utworzono kategorię!**\n\nNazwa: ${channel.name}\nID: ${channel.id}\nPozycja: ${channel.rawPosition}`)
+                .setTimestamp()
+                .setColor("YELLOW")
+            channel.guild.channels.cache.get(channelLog).send({ embeds: [logEmbed] }).catch(err => {})
         } else {
-            const embed2 = new MessageEmbed()
-            .setDescription(`**Utworzono kanał!**\nNazwa: ${channel.name}\nID: ${channel.id}\nPozycja: ${channel.rawPosition}`)
-            .setTimestamp()
-            .setColor("YELLOW")
-            channel.guild.channels.cache.get(channelLog).send({embeds: [embed2]})
+            const logEmbed2 = new MessageEmbed()
+                .setDescription(`**Utworzono kanał!**\nNazwa: ${channel.name}\nID: ${channel.id}\nPozycja: ${channel.rawPosition}\nBitrate: ${channel.bitrate || "Brak"}`)
+                .setTimestamp()
+                .setColor("YELLOW")
+            channel.guild.channels.cache.get(channelLog).send({ embeds: [logEmbed2] }).catch(err => {})
         }
     }
 }
