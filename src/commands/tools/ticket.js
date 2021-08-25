@@ -58,34 +58,8 @@ exports.run = async (client, message, args) => {
             })
 
             message.delete()
-
-            const filter2 = i => i.customId === 'createticket' && i.user.id === message.author.id;
-
-            const collector2 = message.channel.createMessageComponentCollector({ filter2, time: 15000 });
-
-            collector2.on('collect', async i => {
-                if (i.customId === 'createticket') {
-                    if (!message.guild) return;
-
-                    const channel = await message.guild.channels.create(`Ticket-${message.author.tag}`, {
-                        type: "GUILD_TEXT",
-                        permissionsOverwrites: [
-                            {
-                                id: message.author.id,
-                                allow: ["VIEW_CHANNEL", "SEND_MESSAGES"]
-                            },
-                            {
-                                id: message.guild.id,
-                                deny: ["VIEW_CHANNEL"]
-                            }
-                        ]
-                    })
-
-                    await i.reply("Utworzono kanał")
-                }
-            });
             break;
-        }
+    }
 }
 exports.help = {
     name: "ticket",
