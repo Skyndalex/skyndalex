@@ -1,6 +1,6 @@
 const r = require("rethinkdb")
 const { MessageActionRow, MessageButton, MessageEmbed, Message } = require('discord.js');
-exports.run = (client, message, args) => {
+exports.run = async (client, message, args) => {
     if (!message.member.permissions.has('MANAGE_CHANNELS')) return client.sender(message, "Błąd!", "Nie masz permisji! \`server.manage_channels.ticket\`", "", "RED", "", "")
 
     switch (args[0]) {
@@ -66,7 +66,7 @@ exports.run = (client, message, args) => {
             collector2.on('collect', async i => {
                 if (i.customId === 'createticket') {
                     if (!message.guild) return;
-                    
+
                     const channel = await message.guild.channels.create(`Ticket-${message.author.tag}`, {
                         type: "GUILD_TEXT",
                         permissionsOverwrites: [
@@ -75,7 +75,7 @@ exports.run = (client, message, args) => {
                                 allow: ["VIEW_CHANNEL", "SEND_MESSAGES"]
                             },
                             {
-                                id: message.guild.id,    
+                                id: message.guild.id,
                                 deny: ["VIEW_CHANNEL"]
                             }
                         ]
@@ -85,12 +85,12 @@ exports.run = (client, message, args) => {
                 }
             });
             break;
-    }
+        }
 }
 exports.help = {
     name: "ticket",
     usage: "ticket",
     perms: "global.manage_channels.ticket",
-    category: "bot",
+    category: "tools",
     description: "Główna komenda pomocy bota",
 }

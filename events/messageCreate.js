@@ -25,61 +25,65 @@ module.exports = {
                 setTimeout(() => m.delete(), 10000);
             })
         }
-        const imgChannel = await r.table("settings").get(message.guild.id)("imageChannel").run(client.con).catch(err => {})
 
-        if (message.channel.id === imgChannel) {
-           if (message.attachments.size === 0) {
-               message.delete()
-           }
-        }
-        if (message.author.bot) return;
+        try {
+            const imgChannel = await r.table("settings").get(message.guild.id)("imageChannel").run(client.con)
 
-        if (message.channel.type === "DM") {
-            if (message.content === "support") {
-                message.reply({ content: "Wpisz wiadomość, aby skontaktować się z supportem" })
-            } else {
-                const embedSupport = new MessageEmbed()
-                    .setTitle("Na pewno?")
-                    .setDescription(`Wysyłasz wiadomość o treści: ${message.content}\nAkceptując zgadzasz się na udostępnienie administracji bota twojego ID oraz nazwy użytkownika`)
-                    .setColor("YELLOW")
+            if (message.channel.id === imgChannel) {
+                if (message.attachments.size === 0) {
+                    message.delete()
+                }
+            }
+        } catch {false}
+            if (message.author.bot) return;
 
-                const row = new MessageActionRow()
-                    .addComponents(
-                        new MessageButton()
-                            .setCustomId('primary')
-                            .setLabel('Potwierdzam')
-                            .setStyle('SUCCESS'),
-                    );
+            if (message.channel.type === "DM") {
+                if (message.content === "support") {
+                    message.reply({ content: "Wpisz wiadomość, aby skontaktować się z supportem" })
+                } else {
+                    const embedSupport = new MessageEmbed()
+                        .setTitle("Na pewno?")
+                        .setDescription(`Wysyłasz wiadomość o treści: ${message.content}\nAkceptując zgadzasz się na udostępnienie administracji bota twojego ID oraz nazwy użytkownika`)
+                        .setColor("YELLOW")
 
-                const row2 = new MessageActionRow()
-                    .addComponents(
-                        new MessageButton()
-                            .setLabel('Więcej informacji')
-                            .setURL("https://docs.krivebot.xyz")
-                            .setStyle("LINK")
-                    );
-                message.reply({ embeds: [embedSupport], components: [row, row2] })
+                    const row = new MessageActionRow()
+                        .addComponents(
+                            new MessageButton()
+                                .setCustomId('primary')
+                                .setLabel('Potwierdzam')
+                                .setStyle('SUCCESS'),
+                        );
 
-                const filter = i => i.customId === 'primary' && i.user.id === message.author.id;
+                    const row2 = new MessageActionRow()
+                        .addComponents(
+                            new MessageButton()
+                                .setLabel('Więcej informacji')
+                                .setURL("https://docs.krivebot.xyz")
+                                .setStyle("LINK")
+                        );
+                    message.reply({ embeds: [embedSupport], components: [row, row2] })
 
-                const collector = message.channel.createMessageComponentCollector({ filter, time: 15000 });
+                    const filter = i => i.customId === 'primary' && i.user.id === message.author.id;
 
-                collector.on('collect', async i => {
-                    if (i.customId === 'primary') {
-                        if (!message.guild) client.channels.cache.get("861351339446632508").send({ content: `\`DMSUPPORT\`: ${message.author.tag} (${message.author.id}): ${message.content}` })
+                    const collector = message.channel.createMessageComponentCollector({ filter, time: 15000 });
 
-                        i.reply("Wysłano wiadomość do supportu")
-                    }
-                });
-            } 
-        } 
-        if (!message.content.startsWith(prefix)) return
+                    collector.on('collect', async i => {
+                        if (i.customId === 'primary') {
+                            if (!message.guild) client.channels.cache.get("861351339446632508").send({ content: `\`DMSUPPORT\`: ${message.author.tag} (${message.author.id}): ${message.content}` })
 
-        const gban = await r.table("gbans").get(message.author.id).run(client.con)
-        if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "RED", "", "", "")
+                            i.reply("Wysłano wiadomość do supportu")
+                        }
+                    });
+                }
+            }
+            if (!message.content.startsWith(prefix)) return
 
-        const cmd = client.commands.get(command) || client.commands.find(c => c.help.aliases && c.help.aliases == command);
+            const gban = await r.table("gbans").get(message.author.id).run(client.con)
+            if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "RED", "", "", "")
 
-        if (cmd) cmd.run(client, message, args)
+            const cmd = client.commands.get(command) || client.commands.find(c => c.help.aliases && c.help.aliases == command);
+
+            if (cmd) cmd.run(client, message, args)
+
     }
 }
