@@ -4,7 +4,7 @@ exports.run = async (client, message, args) => {
 
     switch (args[0]) {
         default:
-            client.sender(message, ``, `Ustawienia logów:\n\n\`channelCreate\`\nLogi tworzenia kanałów\n\n\`channelDelete\`\nLogi usuwania kanału`, ``, `ORANGE`, ``, ``, ``)
+            client.sender(message, ``, `Ustawienia logów:\n\n\`channelCreate\`\nLogi tworzenia kanałów\n\n\`channelDelete\`\nLogi usuwania kanału\n\n\`emojiCreate\`\nLogi tworzenia emotki\n\n\`emojiUpdate\`\nLogi aktualizowania emotki\n\n\`emojiDelete\`\nLogi usuwania emotki`, ``, `ORANGE`, ``, ``, ``)
             break;
         case "channelCreate":
             let channelCreate = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1])) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
@@ -33,6 +33,62 @@ exports.run = async (client, message, args) => {
             await r.table("logs").get(message.guild.id).update({ channelDelete: channelDelete.id }).run(client.con)
 
             client.mentionSender(message, "Ustawiono!", `Zmienna: \`channelDelete\`\nWartość: <#${channelDelete.id}>`, "", "#2003fc", "")
+            break;
+        case "emojiCreate":
+            let emojiCreate = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1])) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+
+            if (!emojiCreate) return client.sender(message, "Błąd!", "Nie znaleziono kanału bądź w ogóle go nie podałeś!", "", "RED", "", "")
+
+            if (emojiCreate.type === "GUILD_VOICE") return client.mentionSender(message, "Błąd!", "Podałeś kanał głosowy! Musisz podać kanał tekstowy.", "", "RED", "")
+            if (emojiCreate.type === "GUILD_CATEGORY") return client.mentionSender(message, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+
+            await r.table("logs").insert({ id: message.guild.id, emojiCreate: emojiCreate.id, }).run(client.con)
+
+            await r.table("logs").get(message.guild.id).update({ emojiCreate: emojiCreate.id }).run(client.con)
+
+            client.mentionSender(message, "Ustawiono!", `Zmienna: \`emojiCreate\`\nWartość: <#${emojiCreate.id}>`, "", "#2003fc", "")
+            break;
+        case "emojiUpdate":
+            let emojiUpdate = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1])) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+
+            if (!emojiUpdate) return client.sender(message, "Błąd!", "Nie znaleziono kanału bądź w ogóle go nie podałeś!", "", "RED", "", "")
+
+            if (emojiUpdate.type === "GUILD_VOICE") return client.mentionSender(message, "Błąd!", "Podałeś kanał głosowy! Musisz podać kanał tekstowy.", "", "RED", "")
+            if (emojiUpdate.type === "GUILD_CATEGORY") return client.mentionSender(message, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+
+            await r.table("logs").insert({ id: message.guild.id, emojiUpdate: emojiUpdate.id, }).run(client.con)
+
+            await r.table("logs").get(message.guild.id).update({ emojiUpdate: emojiUpdate.id }).run(client.con)
+
+            client.mentionSender(message, "Ustawiono!", `Zmienna: \`emojiUpdate\`\nWartość: <#${emojiUpdate.id}>`, "", "#2003fc", "")
+            break;
+        case "emojiDelete":
+            let emojiDelete = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1])) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+
+            if (!emojiDelete) return client.sender(message, "Błąd!", "Nie znaleziono kanału bądź w ogóle go nie podałeś!", "", "RED", "", "")
+
+            if (emojiDelete.type === "GUILD_VOICE") return client.mentionSender(message, "Błąd!", "Podałeś kanał głosowy! Musisz podać kanał tekstowy.", "", "RED", "")
+            if (emojiDelete.type === "GUILD_CATEGORY") return client.mentionSender(message, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+
+            await r.table("logs").insert({ id: message.guild.id, emojiDelete: emojiDelete.id, }).run(client.con)
+
+            await r.table("logs").get(message.guild.id).update({ emojiDelete: emojiDelete.id }).run(client.con)
+
+            client.mentionSender(message, "Ustawiono!", `Zmienna: \`emojiDelete\`\nWartość: <#${emojiDelete.id}>`, "", "#2003fc", "")
+            break;
+        case "channelUpdate":
+            let channelUpdate = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1])) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+
+            if (!channelUpdate) return client.sender(message, "Błąd!", "Nie znaleziono kanału bądź w ogóle go nie podałeś!", "", "RED", "", "")
+
+            if (channelUpdate.type === "GUILD_VOICE") return client.mentionSender(message, "Błąd!", "Podałeś kanał głosowy! Musisz podać kanał tekstowy.", "", "RED", "")
+            if (channelUpdate.type === "GUILD_CATEGORY") return client.mentionSender(message, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+
+            await r.table("logs").insert({ id: message.guild.id, channelUpdate: channelUpdate.id, }).run(client.con)
+
+            await r.table("logs").get(message.guild.id).update({ channelUpdate: channelUpdate.id }).run(client.con)
+
+            client.mentionSender(message, "Ustawiono!", `Zmienna: \`channelUpdate\`\nWartość: <#${channelUpdate.id}>`, "", "#2003fc", "")
             break;
     }
 }
