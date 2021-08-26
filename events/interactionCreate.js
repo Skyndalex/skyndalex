@@ -10,6 +10,7 @@ module.exports = {
         } else {
             const table = await r.table("settings").get(interaction.guild.id).run(client.con)
             if (!table?.moderatorRole) return interaction.reply({content: "Administrator serwera nie ustawił roli moderatora!", ephemeral: true})
+            
             if (interaction.customId === "createticket") {
                 const channel = await interaction.guild.channels.create(`ticket-${interaction.user.tag}`, {
                     type: "GUILD_TEXT",
