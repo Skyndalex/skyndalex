@@ -5,9 +5,7 @@ module.exports = {
 
     async execute(client, interaction) {
         if (cooldown.has(interaction.user.id)) {
-            interaction.reply({ content: "Poczekaj minutę przed otwarciem następnego ticketa. " }).then(d => {
-                setTimeout(() => d.delete(), 10000);
-            })
+            interaction.reply({ content: "Poczekaj minutę przed otwarciem następnego ticketa. ", ephemeral: true})
         } else {
             if (interaction.customId === "createticket") {
                 const channel = await interaction.guild.channels.create(`Ticket-${interaction.user.tag}`, {
@@ -24,9 +22,7 @@ module.exports = {
                     ]
                 })
             }
-            await interaction.reply({ content: "Utworzono kanał" }).then(d => {
-                setTimeout(() => d.delete(), 10000);
-            })
+            await interaction.reply({ content: "Utworzono kanał", ephemeral: true}) 
         }
         cooldown.add(interaction.user.id);
         setTimeout(() => {
