@@ -143,6 +143,16 @@ exports.run = async (client, message, args) => {
 
             client.mentionSender(message, "Ustawiono!", `Zmienna: \`lockRole\`\nWartość: <@&${lockRole.id}>`, "", "#2003fc", "")
             break;
+        case "moderatorRole":
+            let moderatorRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
+            if (!moderatorRole) return client.sender(message, "Błąd!", "Nie znaleziono roli bądź w ogóle jej nie podałeś!", "", "RED", "", "")
+
+            await r.table("settings").insert({ id: message.guild.id, moderatorRole: moderatorRole.id, }).run(client.con)
+
+            await r.table("settings").get(message.guild.id).update({ moderatorRole: moderatorRole.id }).run(client.con)
+
+            client.mentionSender(message, "Ustawiono!", `Zmienna: \`moderatorRole\`\nWartość: <@&${moderatorRole.id}>`, "", "#2003fc", "")
+            break;
     }
 }
 exports.help = {

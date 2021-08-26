@@ -40,6 +40,8 @@ exports.run = async (client, message, args) => {
             });
             break;
         case 'setup':
+            const table = await r.table("settings").get(message.guild.id).run(client.con)
+            if (!table?.moderatorRole) return client.sender(message, "", "**Błąd!**\n\nNie ustawiono roli moderatora!\nKomenda: \`;set moderatorRole @Oznaczenie\`", "", "RED", "", "", "")
             const ticketEmbed = new MessageEmbed()
                 .setDescription("**Kliknij przycisk aby otworzyć ticket**\n\nKliknięcie przycisku poniżej utworzy nowy kanał do którego będziesz mieć dostęp ty i reszta moderacja serwera!\n\n**Uwaga**\nModeracja potrzebuje permisji do zarządzania kanałów aby widzieć kanały.")
                 .setColor("GREEN")
