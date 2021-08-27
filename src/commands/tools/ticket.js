@@ -7,38 +7,6 @@ exports.run = async (client, message, args) => {
         default:
             client.sender(message, "", "**Tickety**\n\n\`ticket enable\` --> Włącz tickety\n\`ticket disable\` ---> Wyłącz tickety\n\`ticket setup\` --> Wyślij gotową wiadomość z tworzeniem ticketa\n\`ticket create [Treść]\` --> Ręczne tworzenie ticketa", "", "ORANGE", "", "", "")
             break;
-        case 'enable':
-            const row = new MessageActionRow()
-                .addComponents(
-                    new MessageButton()
-                        .setCustomId('primary')
-                        .setLabel('Potwierdzam')
-                        .setStyle('SUCCESS'),
-                );
-
-            const msgEmbed = new MessageEmbed()
-                .setDescription("**Na pewno?**\n\nCzy na pewno chcesz włączyć tickety?")
-                .setColor("DARK_ORANGE")
-
-            message.channel.send({
-                embeds: [msgEmbed],
-                components: [row]
-            })
-
-            const filter = i => i.customId === 'primary' && i.user.id === message.author.id;
-
-            const collector = message.channel.createMessageComponentCollector({ filter, time: 15000 });
-
-            collector.on('collect', async i => {
-                if (i.customId === 'primary') {
-                    if (!message.guild.id) return;
-
-                    await r.table("tickets").insert({ id: message.guild.id, activate: true }).run(client.con)
-
-                    client.sender(message, "", "**Pomyślnie włączono tickety**\n\nTickety są już dostępne na serwerze! Użyj komendy \`ticket setup\` aby w pełni je skonfigurować!", "Tickety - Potwierdzenie", "YELLOW", "", "", "")
-                }
-            });
-            break;
         case 'setup':
             const table = await r.table("settings").get(message.guild.id).run(client.con)
             if (!table?.moderatorRole) return client.sender(message, "", "**Błąd!**\n\nNie ustawiono roli moderatora!\nKomenda: \`;set moderatorRole @Oznaczenie\`", "", "RED", "", "", "")

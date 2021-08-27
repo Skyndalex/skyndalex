@@ -35,47 +35,37 @@ module.exports = {
                 }
             }
         } catch {false}
+
             if (message.author.bot) return;
 
-            if (message.channel.type === "DM") {
-                if (message.content === "support") {
-                    message.reply({ content: "Wpisz wiadomość, aby skontaktować się z supportem" })
-                } else {
-                    const embedSupport = new MessageEmbed()
-                        .setTitle("Na pewno?")
-                        .setDescription(`Wysyłasz wiadomość o treści: ${message.content}\nAkceptując zgadzasz się na udostępnienie administracji bota twojego ID oraz nazwy użytkownika`)
-                        .setColor("YELLOW")
+            
+        if (message.channel.type === "DM") {
+            if (message.content === "support") {
+                message.reply({ content: "Wpisz wiadomość, aby skontaktować się z supportem" })
+            } else {
+                const embedSupport = new MessageEmbed()
+                    .setTitle("Na pewno?")
+                    .setDescription(`Wysyłasz wiadomość o treści: ${message.content}\nAkceptując zgadzasz się na udostępnienie administracji bota twojego ID oraz nazwy użytkownika`)
+                    .setColor("YELLOW")
 
-                    const row = new MessageActionRow()
-                        .addComponents(
-                            new MessageButton()
-                                .setCustomId('primary')
-                                .setLabel('Potwierdzam')
-                                .setStyle('SUCCESS'),
-                        );
+                const row = new MessageActionRow()
+                    .addComponents(
+                        new MessageButton()
+                            .setCustomId('dmSupportAccept')
+                            .setLabel('Potwierdzam')
+                            .setStyle('SUCCESS'),
+                    );
 
-                    const row2 = new MessageActionRow()
-                        .addComponents(
-                            new MessageButton()
-                                .setLabel('Więcej informacji')
-                                .setURL("https://docs.krivebot.xyz")
-                                .setStyle("LINK")
-                        );
-                    message.reply({ embeds: [embedSupport], components: [row, row2] })
-
-                    const filter = i => i.customId === 'primary' && i.user.id === message.author.id;
-
-                    const collector = message.channel.createMessageComponentCollector({ filter, time: 15000 });
-
-                    collector.on('collect', async i => {
-                        if (i.customId === 'primary') {
-                            if (!message.guild) client.channels.cache.get("861351339446632508").send({ content: `\`DMSUPPORT\`: ${message.author.tag} (${message.author.id}): ${message.content}` })
-
-                            i.reply("Wysłano wiadomość do supportu")
-                        }
-                    });
-                }
+                const row2 = new MessageActionRow()
+                    .addComponents(
+                        new MessageButton()
+                            .setLabel('Więcej informacji')
+                            .setURL("https://docs.krivebot.xyz")
+                            .setStyle("LINK")
+                    );
+                message.reply({ embeds: [embedSupport], components: [row, row2] })
             }
+        }
             if (!message.content.startsWith(prefix)) return
 
             const gban = await r.table("gbans").get(message.author.id).run(client.con)

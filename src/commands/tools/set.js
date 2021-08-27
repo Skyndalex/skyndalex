@@ -93,7 +93,6 @@ exports.run = async (client, message, args) => {
             let suggestChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1])) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
 
             if (!suggestChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału bądź w ogóle go nie podałeś!", "", "RED", "", "")
-
             if (suggestChannel.type === "GUILD_VOICE") return client.mentionSender(message, "Błąd!", "Podałeś kanał głosowy! Musisz podać kanał tekstowy.", "", "RED", "")
             if (suggestChannel.type === "GUILD_CATEGORY") return client.mentionSender(message, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
 
@@ -102,6 +101,20 @@ exports.run = async (client, message, args) => {
             await r.table("settings").get(message.guild.id).update({ suggestChannel: suggestChannel.id }).run(client.con)
 
             client.mentionSender(message, "Ustawiono!", `Zmienna: \`suggestChannel\`\nWartość: <#${suggestChannel.id}>`, "", "#2003fc", "")
+            break;
+        case "applicationChannel":
+            let applicationChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1])) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+
+            if (!applicationChannel) return client.sender(message, "Błąd!", "Nie znaleziono kanału bądź w ogóle go nie podałeś!", "", "RED", "", "")
+            
+            if (applicationChannel.type === "GUILD_VOICE") return client.mentionSender(message, "Błąd!", "Podałeś kanał głosowy! Musisz podać kanał tekstowy.", "", "RED", "")
+            if (applicationChannel.type === "GUILD_CATEGORY") return client.mentionSender(message, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+
+            await r.table("settings").insert({ id: message.guild.id, applicationChannel: applicationChannel.id, }).run(client.con)
+
+            await r.table("settings").get(message.guild.id).update({ applicationChannel: applicationChannel.id }).run(client.con)
+
+            client.mentionSender(message, "Ustawiono!", `Zmienna: \`applicationChannel\`\nWartość: <#${applicationChannel.id}>`, "", "#2003fc", "")
             break;
         case "verifyRole":
             let verifyRole = message.guild.roles.cache.get(args[0]) || message.mentions.roles.first()
@@ -153,6 +166,7 @@ exports.run = async (client, message, args) => {
 
             client.mentionSender(message, "Ustawiono!", `Zmienna: \`moderatorRole\`\nWartość: <@&${moderatorRole.id}>`, "", "#2003fc", "")
             break;
+
     }
 }
 exports.help = {
