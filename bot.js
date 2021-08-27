@@ -22,13 +22,13 @@ const { token } = require("./config.json")
 
 client.commands = new Collection();
 
-require("./src/sit/Start.js").run(client)
+require("./site/site").run(client)
 require("./functions")(client)
 
-fs.readdirSync("./src/commands").forEach(dir => {
-	const commands = fs.readdirSync(`./src/commands/${dir}/`).filter(file => file.endsWith(".js"));
+fs.readdirSync("./commands").forEach(dir => {
+	const commands = fs.readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js"));
 	for (const file of commands) {
-		let pull = require(`./src/commands/${dir}/${file}`);
+		let pull = require(`./commands/${dir}/${file}`);
 		if (pull.help && pull.help.name) {
 			client.commands.set(pull.help.name, pull);
 		} else {

@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color:#23272a; 
+}
+.krive {
+    text-align: center;
+    color: #7289da;
+    font-style: Ubuntu;
+    font-weight: bolder;
+    font-size: 60px;
+}
+@media screen and ( max-width: 800px ) {
+
+}
