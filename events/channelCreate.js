@@ -15,7 +15,7 @@ module.exports = {
             channel.guild.channels.cache.get(channelLog).send({ embeds: [logEmbed] }).catch(err => {})
         } else {
             const logEmbed2 = new MessageEmbed()
-                .setDescription(`**Utworzono kanał!**\nNazwa: ${channel.name}\nID: ${channel.id}\nPozycja: ${channel.rawPosition}\nBitrate: ${channel.bitrate || "Brak"}`)
+                .setDescription(`**Utworzono kanał!**\n\nNazwa: ${channel.name}\nID: ${channel.id}\nPozycja: ${channel.rawPosition}\nBitrate: ${channel.bitrate || "Brak"}`)
                 .setTimestamp()
                 .setColor("YELLOW")
             channel.guild.channels.cache.get(channelLog).send({ embeds: [logEmbed2] }).catch(err => {})

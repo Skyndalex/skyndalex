@@ -4,7 +4,7 @@ exports.run = async (client, message, args) => {
 
     switch (args[0]) {
         default:
-            client.sender(message, ``, `Ustawienia logów:\n\n\`channelCreate\`\nLogi tworzenia kanałów\n\n\`channelDelete\`\nLogi usuwania kanału\n\n\`emojiCreate\`\nLogi tworzenia emotki\n\n\`emojiUpdate\`\nLogi aktualizowania emotki\n\n\`emojiDelete\`\nLogi usuwania emotki`, ``, `ORANGE`, ``, ``, ``)
+            client.sender(message, ``, `**Ustawienia logów**\n\nUstawienia logów znajdziesz na: https://docs.krivebot.xyz/logs`, ``, `ORANGE`, ``, ``, ``)
             break;
         case "channelCreate":
             let channelCreate = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1])) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()

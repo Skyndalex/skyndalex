@@ -3,7 +3,7 @@ exports.run = async (client, message, args) => {
     if (!message.member.permissions.has('ADMINISTRATOR')) return client.sender(message, "Błąd!", "Nie masz permisji! \`server.administrator.set\`", "", "RED", "", "")
     switch (args[0]) {
         default:
-            client.sender(message, ``, `Ustawienia bota\n\n\`broadcastChannel\`\nKanał ogłoszeniowy\n\n\`complaintChannel\`\nKanał skarg\n\n\`voteChannel\`\nKanał głosowań\n\n\`imageChannel\`\nKanał obrazkowy\n\n\`welcomeChannel\`\nKanał powitań\n\n\`goodbyeChannel\`\nKanał pożegnań\n\n\`mutedRole\`\nRola wyciszonego\n\n\`verifyRole\`\nRola zweryfikowanego\n\n\`lockRole\`\nRola osób która traci permisje do kanałów podczas lockdownu\n\n\`autoRole\`\nAutomatyczna rola, jak użytkownik wejdzie na serwer automatycznie ją dostanie!`, `Ustawienia serwerowe`, `ORANGE`, ``, ``, ``)
+            client.sender(message, ``, `**Ustawienia bota**\n\nLink do dokumentacji: https://docs.krivebot.xyz/config`, `Ustawienia serwerowe`, `ORANGE`, ``, ``, ``)
             break;
         case "broadcastChannel":
             let broadcastChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1])) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
