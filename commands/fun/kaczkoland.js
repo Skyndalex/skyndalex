@@ -1,60 +1,18 @@
 const fetch = require("node-fetch")
-
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js")
 exports.run = async (client, message, args) => {
-    /*
     if (!args[0]) return client.sender("Błąd: 404. Not found.", "Nie znaleziono gracza na serwerze kaczkoland.pl", "", "RED", "", "")
 
     fetch("https://api.kaczkoland.pl/all")
         .then(res => res.json())
         .then(req => {
             const r = req.find(q => q.username === args[0]);
-            if (!r) return client.sender(message, "Błąd", "Nie znaleziono gracza Minecrafta.", "", "GREEN", "", "")
-
-            client.sender(message, "Statystyki gracza na serwerze kaczkoland.pl", `Nazwa gracza: ${r.username} (UUID: ${r.uuid}`, "", "GREEN", [
-                {
-                    name: "Ranga",
-                    value: r.primary_rank
-                },
-                {
-                    name: "Wysłanych wiadomości",
-                    value: r.sent_messages
-                },
-                {
-                    name: "Zwalczonych cm",
-                    value: r.walked_cm
-                },
-                {
-                    name: "Stan konta",
-                    value: r.money
-                },
-                {
-                    name: "Scraftowanych itemów",
-                    value: r.crafted_items
-                },
-                {
-                    name: "Położonych bloków",
-                    value: r.placed_blocks
-                },
-                {
-                    name: "Śmierci",
-                    value: r.deaths
-                },
-                {
-                    name: "Wykopanych diamentów",
-                    value: r.mined_diamonds
-                },
-                {
-                    name: "Wykopanych bloków",
-                    value: r.mined_blocks
-                },
-                {
-                    name: "Zabitych mobów",
-                    value: r.mob_kills
-                }
-            ])
+            if (!r) return client.sender(message, "Błąd", "Nie znaleziono gracza na tej edycji kaczkolandu.", "", "GREEN", "", "")
+            const embed = new MessageEmbed()
+                .setDescription(`Kaczkoland.pl > Statystyki gracza ${r.username}\nKaczkoland.pl > Serwer minecraft survival + działki 1.17.1 [Strona](https://kaczkoland.pl)\n\n**Nazwa gracza** - ${r.username}\n\n**Zabitych graczy** - ${r.player_kills}\n\n**Śmierci** - ${r.deaths}\n\n**Zabitych mobów** - ${r.mob_kills}\n\n**Wykopanych bloków** - ${r.mined_blocks}\n\n**Wykopanych diamentów** - ${r.mined_diamonds}\n\n**Scraftowanych itemów** - ${r.crafted_items}`)
+                .setColor("#17ffec")
+            message.channel.send({ embeds: [embed]})
         })
-        */
-    client.sender(message, "Uwaga", "Tymczasowo wyłączone!", "", "RED", "", "", "")
 }
 exports.help = {
     name: "kaczkoland",

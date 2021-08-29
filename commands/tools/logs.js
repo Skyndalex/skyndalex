@@ -90,7 +90,22 @@ exports.run = async (client, message, args) => {
 
             client.mentionSender(message, "Ustawiono!", `Zmienna: \`channelUpdate\`\nWartość: <#${channelUpdate.id}>`, "", "#2003fc", "")
             break;
+        case "messageDelete":
+            let messageDelete = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1])) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
+
+            if (!messageDelete) return client.sender(message, "Błąd!", "Nie znaleziono kanału bądź w ogóle go nie podałeś!", "", "RED", "", "")
+
+            if (messageDelete.type === "GUILD_VOICE") return client.mentionSender(message, "Błąd!", "Podałeś kanał głosowy! Musisz podać kanał tekstowy.", "", "RED", "")
+            if (messageDelete.type === "GUILD_CATEGORY") return client.mentionSender(message, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+
+            await r.table("logs").insert({ id: message.guild.id, messageDelete: messageDelete.id, }).run(client.con)
+
+            await r.table("logs").get(message.guild.id).update({ messageDelete: messageDelete.id }).run(client.con)
+
+            client.mentionSender(message, "Ustawiono!", `Zmienna: \`messageDelete\`\nWartość: <#${messageDelete.id}>`, "", "#2003fc", "")
+            break;
     }
+
 }
 exports.help = {
     name: "logs",
