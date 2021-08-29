@@ -1,6 +1,6 @@
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
-    if (!message.member.permissions.has('ADMINISTRATOR')) return client.sender(message, "Błąd!", "Nie masz permisji! \`server.administrator.logs\`", "", "RED", "", "")
+    if (!message.member.permissions.has('MANAGE_CHANNELS')) return client.sender(message, "Błąd!", "Nie masz permisji! \`server.manage_channels.logs\`", "", "RED", "", "")
 
     switch (args[0]) {
         default:

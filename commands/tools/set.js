@@ -1,6 +1,6 @@
 const r = require("rethinkdb")
 exports.run = async (client, message, args) => {
-    if (!message.member.permissions.has('ADMINISTRATOR')) return client.sender(message, "Błąd!", "Nie masz permisji! \`server.administrator.set\`", "", "RED", "", "")
+    if (!message.member.permissions.has('MANAGE_CHANNELS')) return client.sender(message, "Błąd!", "Nie masz permisji! \`server.manage_channels.set\`", "", "RED", "", "")
     switch (args[0]) {
         default:
             client.sender(message, ``, `**Ustawienia bota**\n\nLink do dokumentacji: https://docs.krivebot.xyz/config`, `Ustawienia serwerowe`, `ORANGE`, ``, ``, ``)
