@@ -64,11 +64,6 @@ module.exports = {
             }
         } catch { false }
 
-        if (interaction.customId === "dmSupportAccept") {
-            client.channels.cache.get("861351339446632508").send({ content: `\`DMSUPPORT\` ${interaction.user.tag} (${interaction.user.id}): ${interaction.content})` })
-
-            interaction.reply({ content: "Wysłano wiadomość do supportu." })
-        }
         if (interaction.customId === "ticket_close") {
             interaction.channel.delete({ reason: `Zamknięte przez ${interaction.user.tag}`})
         }

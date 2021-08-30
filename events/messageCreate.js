@@ -34,11 +34,11 @@ module.exports = {
                     message.delete()
                 }
             }
-        } catch {false}
+        } catch { false }
 
-            if (message.author.bot) return;
+        if (message.author.bot) return;
 
-            
+
         if (message.channel.type === "DM") {
             if (message.content === "support") {
                 message.reply({ content: "Wpisz wiadomość, aby skontaktować się z supportem" })
@@ -64,16 +64,30 @@ module.exports = {
                             .setStyle("LINK")
                     );
                 message.reply({ embeds: [embedSupport], components: [row, row2] })
+
+                const filter = i => i.customId === 'dmSupportAccept' && i.user.id === message.author.id;
+
+                const collector = message.channel.createMessageComponentCollector({ filter, time: 15000 });
+
+                collector.on('collect', async i => {
+                    if (i.customId === 'dmSupportAccept') {
+                        if (!message.guild) return;
+
+                        client.channels.cache.get("861351339446632508").send({content: `\`DMSUPPORT\` ${message.author.tag} (${message.author.id}): ${message.content}`})
+                        message.author.send({content: "Wysłano."})
+                    }
+                });
+
             }
         }
-            if (!message.content.startsWith(prefix)) return
+        if (!message.content.startsWith(prefix)) return
 
-            const gban = await r.table("gbans").get(message.author.id).run(client.con)
-            if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "RED", "", "", "")
+        const gban = await r.table("gbans").get(message.author.id).run(client.con)
+        if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "RED")
 
-            const cmd = client.commands.get(command) || client.commands.find(c => c.help.aliases && c.help.aliases == command);
+        const cmd = client.commands.get(command) || client.commands.find(c => c.help.aliases && c.help.aliases == command);
 
-            if (cmd) cmd.run(client, message, args)
+        if (cmd) cmd.run(client, message, args)
 
     }
 }
