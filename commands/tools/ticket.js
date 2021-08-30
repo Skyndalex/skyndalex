@@ -5,7 +5,7 @@ exports.run = async (client, message, args) => {
 
     switch (args[0]) {
         default:
-            client.sender(message, "", "**Tickety**\n\n\`ticket enable\` --> Włącz tickety\n\`ticket disable\` ---> Wyłącz tickety\n\`ticket setup\` --> Wyślij gotową wiadomość z tworzeniem ticketa\n\`ticket create [Treść]\` --> Ręczne tworzenie ticketa", "", "ORANGE", "", "", "")
+            client.sender(message, "", "Komenda do setupowania ticketów na serwerze: \`;ticket setup\`", "", "ORANGE", "", "", "")
             break;
         case 'setup':
             const table = await r.table("settings").get(message.guild.id).run(client.con)

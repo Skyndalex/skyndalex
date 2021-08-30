@@ -49,8 +49,9 @@ module.exports = {
                         }).then(p => {
                             p.pin()
                         })
+
                     const embed = new MessageEmbed()
-                        .setDescription(`**Otworzono kanał** (<#${channel.id})>\n\nZamknij ticket używając przycisku wysłanym na kanale.`)
+                        .setDescription(`**Otworzono kanał** (<#${channel.id}>)\n\nZamknij ticket używając przycisku wysłanym na kanale.`)
                         .setColor("GREEN")
 
                     await interaction.reply({ embeds: [embed], ephemeral: true })
