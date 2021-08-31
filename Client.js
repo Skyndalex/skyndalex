@@ -5,7 +5,7 @@ class KriveManager extends Client {
     constructor(clientOptions) {
         super(clientOptions);
 
-        this.version = "v4.1"
+        this.version = "v4.2"
         this.site = "krivebot.xyz"
         this.invite = "krivebot.xyz/invite"
         this.discord = "krivebot.xyz/discord"
