@@ -1,7 +1,12 @@
 exports.run = async (client, message, args) => {
-    if (args[0] === "kubus") return message.reply("no kubus na 100% simpuje do tomka, tego nawet sprawdzac nie musze")
-    if (args[0] === "tomek") return message.reply("no tomek to do ciaha akurat")
-    if (args[0] === "unx") return message.reply("kto to jest?")
+    switch (args[0]) {
+        case "kubus": message.reply("no kubus na 100% simpuje do tomka, tego nawet sprawdzac nie musze")
+        break;
+        case "tomek": message.reply("no tomek to do ciaha akurat")
+        break;
+        case "unx": message.reply("kto to jest?")
+        break;
+    }
 
     let percent = Math.floor(Math.random() * (100 - 0) + 0)
 
