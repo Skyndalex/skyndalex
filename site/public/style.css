@@ -1,17 +1,85 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
-* {
-    box-sizing: border-box;
-}
-body {
-    background-color:#23272a; 
-}
-.krive {
-    text-align: center;
-    color: #7289da;
-    font-style: Ubuntu;
-    font-weight: bolder;
-    font-size: 60px;
-}
-@media screen and ( max-width: 800px ) {
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap');
+@charset "UTF-8";
+body {margin:0;}
 
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #04AA6D;
+}
+.primary {
+    background-color: #505354;
+}
+.krivebot {
+    text-align: center;
+    text-decoration: none;
+    font-family: Noto Sans JP;
+    font-size: 60px;
+    color: white;
+    font-weight: bolder;
+}
+.for-u {
+    text-align: center;
+    text-decoration: none;
+    font-family: Noto Sans JP;
+    font-size: 25px;
+}
+.about {
+    text-align: center;
+    text-decoration: none;
+    font-family: Noto Sans JP;
+    font-size: 40px;
+}
+.row {
+    display: flex;
+}
+.column {
+    flex: 50%;
+    padding: 10px;
+    height: 300px;
+}
+.fun {
+    font-size: x-large;
+    font-family: Noto Sans JP;
+    color: #0431d1
+}
+.fun-description {
+    font-size: large;
+    font-family: Noto Sans JP;
+    color: #2d2f36
+}
+.adm-contact {
+    font-size: x-large;
+    font-family: Noto Sans JP;
+    color: #0431d1
+}
+.adm-contact-description {
+    font-size: large;
+    font-family: Noto Sans JP;
+    color: #2d2f36
 }

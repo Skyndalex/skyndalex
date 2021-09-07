@@ -1,20 +1,66 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-    <title> KriveBot</title>
-
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-        crossorigin="anonymous"></script>
-
+    <meta charset="UTF-8">
+ <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <h1 class="krive"> KriveBot </h1>
-</body>
 
+<ul>
+    <li> <a class="active" href="#home"> Strona główna </a> </li>
+    <li> <a href="#about"> O nas </a> </li>
+    <li> <a href="#features"> Co oferujemy? </a> </li>
+    <li> <a class="primary" href="https://docs.krivebot.xyz"> Dokumentacja </a> </li>
+    <li> <a class="primary" href="https://status.krivebot.xyz"> Status serwisów </a> </li>
+    <li> <a class="primary" href="https://krivebot.xyz/discord"> Discord </a></li>
+</ul>
+
+<div style="padding:20px;margin-top:30px;background-color:#1abc9c;height:1500px;">
+    <section id="#home">
+        <div data-aos="fade-in"></div>
+
+    <h1 class="krivebot"> KriveBot </h1>
+        <h2 class="for-u"> Specjalnie stworzony dla ciebie! </h2>
+    </section>
+
+    <section id="#about">
+        <h1 class="about"> O nas </h1>
+
+        <div class="row">
+            <div class="column">
+                <h4 class="fun"> Projekt 4Fun</h4>
+                <h5 class="fun-description"> Projekt Krive jest tworzony 4Fun... Od zawsze! Jednak zawsze chcieliśmy zapewnić użytkownikom jak najlepszą wydajność</h5>
+            </div>
+            <div class="column">
+                <h4 class="adm-contact"> Łatwy kontakt z administracja </h4>
+                <h5 class="adm-contact-description"> Prawie zawsze jesteśmy w zasięgu. Na serwerze support jest 5 moderatorów i aż 3 headadminów! </h5>
+            </div>
+        </div>
+    </section>
+    </div>
+</div>
+<script>
+    AOS.init();
+
+
+    AOS.init({
+        disable: false,
+        startEvent: 'DOMContentLoaded',
+        initClassName: 'aos-init',
+        animatedClassName: 'aos-animate',
+        useClassNames: false,
+        disableMutationObserver: false,
+        debounceDelay: 50,
+        throttleDelay: 99,
+        offset: 120,
+        delay: 0,
+        duration: 400,
+        easing: 'ease',
+        once: false,
+        mirror: false,
+        anchorPlacement: 'top-bottom',
+
+    });
+</script>
+</body>
 </html>

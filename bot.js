@@ -24,7 +24,7 @@ client.commands = new Collection();
 
 require("./site/site").run(client)
 require("./functions")(client)
-try {
+
 fs.readdirSync("./commands").forEach(dir => {
 	const commands = fs.readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js"));
 	for (const file of commands) {
@@ -54,5 +54,4 @@ for (const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(client, ...args));
 	}
 }
-} catch {false}
 client.login(token);

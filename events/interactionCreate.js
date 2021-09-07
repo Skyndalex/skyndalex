@@ -64,6 +64,11 @@ module.exports = {
             }
         } catch { false }
 
+        if (interaction.customid === "ticket_delete_all") {
+
+        }
+
+
         if (interaction.customId === "ticket_close") {
             interaction.channel.delete({ reason: `Zamknięte przez ${interaction.user.tag}`})
         }

@@ -21,7 +21,7 @@ module.exports = {
             .setTimestamp()
         const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
         if (message.content.match(prefixMention)) {
-            return message.channel.send({ embeds: [mention] }).then(m => {
+            return message.channel.send({embeds: [mention]}).then(m => {
                 setTimeout(() => m.delete(), 10000);
             })
         }
@@ -80,6 +80,9 @@ module.exports = {
 
             }
         }
+
+        const countChannel = await r.table("settings").get(message.guild.id)("countChannel").run(client.con)
+
         if (!message.content.startsWith(prefix)) return
 
         const gban = await r.table("gbans").get(message.author.id).run(client.con)

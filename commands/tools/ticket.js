@@ -20,14 +20,20 @@ exports.run = async (client, message, args) => {
                         .setCustomId('createticket')
                         .setLabel('Utwórz ticket')
                         .setEmoji("✉")
-                        .setStyle('DANGER'),
+                        .setStyle('SUCCESS'),
                 );
-
+            const row3 = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setCustomId('ticket_delete_all')
+                        .setLabel('Usuń wszystkie tickety')
+                        .setEmoji("⛔")
+                        .setStyle("DANGER")
+                )
             message.channel.send({
                 embeds: [ticketEmbed],
-                components: [row2]
+                components: [row2, row3]
             })
-
             message.delete()
             break;
     }

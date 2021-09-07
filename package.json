@@ -4,6 +4,7 @@
   "description": "",
   "main": "bot.js",
   "dependencies": {
+    "@discordjs/rest": "^0.1.0-canary.0",
     "asynckit": "^0.4.0",
     "callsites": "^3.1.0",
     "combined-stream": "^1.0.8",
@@ -27,6 +28,7 @@
     "tslib": "^2.3.0",
     "type-fest": "^1.4.0",
     "vali-date": "^1.0.0",
+    "vue": "^2.6.14",
     "ws": "^7.5.3"
   },
   "scripts": {

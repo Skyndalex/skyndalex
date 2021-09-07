@@ -3,7 +3,12 @@ exports.run = async (client, message, args) => {
     if (!message.member.permissions.has('MANAGE_CHANNELS')) return client.sender(message, "Błąd!", "Nie masz permisji! \`server.manage_channels.set\`", "", "RED", "", "")
     switch (args[0]) {
         default:
-            client.sender(message, ``, `**Ustawienia bota**\n\nLink do dokumentacji: https://docs.krivebot.xyz/config`, `Ustawienia serwerowe`, `ORANGE`, ``, ``, ``)
+            client.sender(message, ``, `**Ustawienia bota**\n\nLink do dokumentacji: https://docs.krivebot.xyz/config\n\nSub-Ustawienia: ;subsettings`, `Ustawienia serwerowe`, `ORANGE`, ``, ``, ``)
+            break;
+        case "view":
+            const manage = await r.table("settings").get(message.guild.id).run(client.con)
+
+            client.sender(message, ``, `**Ustawienia serwerowe - podgląd**\n\n\`broadcastChannel\` -> <#${manage.broadcastChannel || "Brak"}>\n\`complaintChannel\` -> <#${manage.complaintChannel || "Brak"}>\n\`voteChannel\` -> <#${manage.voteChannel}>\n\`imageChannel\` -> <#${manage.imageChannel}>\n\`welcomeChannel\` -> <#${manage.welcomeChannel}>\n\`goodbyeChannel\` -> <#${manage.goodbyeChannel}>\n\`suggestChannel\` -> <#${manage.suggestChannel}>\n\`applicationChannel\` -> <#${manage.applicationChannel}>`, `Ustawienia`, `GREEN`)
             break;
         case "broadcastChannel":
             let broadcastChannel = message.guild.channels.cache.find(c => c.name.toLowerCase().includes(args[1])) || message.guild.channels.cache.get(args[1]) || message.mentions.channels.first()
