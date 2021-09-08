@@ -9,7 +9,7 @@ module.exports = {
 
         if (oldChannel.type === "GUILD_CATEGORY") {
             const logEmbed = new MessageEmbed()
-            .setDescription(`**Zaktualizowano kategorię!**\n\nNazwa przed: ${oldChannel.name}\nID: ${oldChannel.id}\nPozycja przed: ${oldChannel.rawPosition}\nPozycja po: ${newChannel.rawPosition}`)
+            .setDescription(`**Zaktualizowano kategorię!**\n\nNazwa przed: ${oldChannel.name || "Brak" }\nID: ${oldChannel.id}\nPozycja przed: ${oldChannel.rawPosition || "Brak" }\nPozycja po: ${newChannel.rawPosition || "Brak" }`)
             .setTimestamp()
             .setColor("YELLOW")
             oldChannel.guild.channels.cache.get(channelLog).send({embeds: [logEmbed]}).catch(err => {})
