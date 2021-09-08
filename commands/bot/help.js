@@ -5,7 +5,8 @@ exports.run = (client, message, args) => {
         dev: "Programiści",
         fun: "Zabawa",
         mod: "Moderacja",
-        tools: "Narzędzia"
+        tools: "Narzędzia",
+        economy: "Ekonomia"
     }
 
     let command = args[0]
@@ -35,7 +36,7 @@ exports.run = (client, message, args) => {
                 }
             ])
     } else {
-    client.sender(message, "Pomoc", "Sprawdzanie permisji: \`help [komenda]\`\nDokumentacja: \`https://docs.krivebot.xyz\`", "", "#f763ff", [
+    client.sender(message, "Pomoc", "Sprawdzanie permisji: \`help [komenda]\`\nDokumentacja: \`https://docs.krivebot.xyz\`", "", "GREEN", [
         {
             name: "Bot", value: `> \`${client.commands.filter(c => c.help.category === "bot").map(c => c.help.name).join(' | ') || "Brak"}\``
         },
@@ -50,6 +51,9 @@ exports.run = (client, message, args) => {
         },
         {
             name: "Narzędzia", value: `> \`${client.commands.filter(c => c.help.category === "tools").map(c => c.help.name).join(' | ') || "Brak"}\``
+        },
+        {
+            name: "Ekonomia", value: `> \`${client.commands.filter(c => c.help.category === "economy").map(c => c.help.name).join(' | ') || "Brak"}\``
         }
     ])
     }

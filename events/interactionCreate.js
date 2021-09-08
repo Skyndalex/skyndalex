@@ -64,11 +64,45 @@ module.exports = {
             }
         } catch { false }
 
-        if (interaction.customid === "ticket_delete_all") {
+        if (interaction.customId === "jobs_developer_join") {
+           await r.table("economy").insert({
+               userid: interaction.user.id,
+               job: "developer"
+           }).run(client.con)
 
+            interaction.reply({
+                content: "Dołączono do pracy: **Developer**",
+            })
         }
+        if (interaction.customId === "jobs_developer_no") {
+            const embedRemove = new MessageEmbed()
+                .setDescription("Odrzucono.")
+                .setColor("RED")
+            interaction.update({
+                embeds: [embedRemove],
+                components: []
+            })
+        }
+        if (interaction.customId === "jobs_miner_join") {
+            await r.table("economy").insert({
+                userid: interaction.user.id,
+                job: "miner"
+            }).run(client.con)
+            await r.table('economy').update({ job: "miner" })
 
-
+            interaction.reply({
+                content: "Dołączono do pracy: **Górnik**",
+            })
+        }
+        if (interaction.customId === "jobs_miner_no") {
+            const embedRemove2 = new MessageEmbed()
+                .setDescription("Odrzucono.")
+                .setColor("RED")
+            interaction.update({
+                embeds: [embedRemove2],
+                components: []
+            })
+        }
         if (interaction.customId === "ticket_close") {
             interaction.channel.delete({ reason: `Zamknięte przez ${interaction.user.tag}`})
         }
