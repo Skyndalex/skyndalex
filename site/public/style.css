@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap');
-@charset "UTF-8";
+
 body {margin:0;}
 
-ul {
+/* ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -27,7 +27,7 @@ li a {
 
 li a:hover:not(.active) {
     background-color: #111;
-}
+} */
 
 .active {
     background-color: #04AA6D;
@@ -48,12 +48,16 @@ li a:hover:not(.active) {
     text-decoration: none;
     font-family: Noto Sans JP;
     font-size: 25px;
+    margin-top: -40px;
+    margin-bottom: 100px;
+    color: rgb(189, 189, 189)
 }
 .about {
     text-align: center;
     text-decoration: none;
     font-family: Noto Sans JP;
     font-size: 40px;
+    color: #fff;
 }
 .row {
     display: flex;
@@ -65,21 +69,68 @@ li a:hover:not(.active) {
 }
 .fun {
     font-size: x-large;
+    text-align: center;
     font-family: Noto Sans JP;
-    color: #0431d1
+    color: #fff;
 }
 .fun-description {
     font-size: large;
+    text-align: center;
     font-family: Noto Sans JP;
-    color: #2d2f36
+    color: rgb(189, 189, 189);
 }
 .adm-contact {
     font-size: x-large;
+    text-align: center;
     font-family: Noto Sans JP;
-    color: #0431d1
+    color: #fff;
 }
 .adm-contact-description {
     font-size: large;
     font-family: Noto Sans JP;
-    color: #2d2f36
+    color: rgb(189, 189, 189);
+}
+
+/* Kod poniżej by Remixiak */
+
+.shadow-down {
+    -webkit-box-shadow: 0px 3px 16px 5px rgba(0,0,0,0.34); 
+    box-shadow: 0px 3px 16px 5px rgba(0,0,0,0.34);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10%;
+    background-color: #141414;
+    font-family: 'Noto Sans JP', 'sans-serif';
+}
+
+.nav_links li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.nav_links li a {
+    transition: all 0.3s ease 0s;
+}
+
+.nav_links li a:hover {
+    transition: all 0.3s ease 0s;
+    color: #2bedac;
+}
+
+.disabled {
+    color: #c5c5c5!important;
+    cursor: not-allowed;
+}
+
+.bot-name {
+    font-size: 24px;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
 }
