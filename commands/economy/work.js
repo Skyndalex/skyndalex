@@ -11,7 +11,11 @@ exports.run = async (client, message) => {
         await r.table("economy").update({ money: table.money + developerMoney }).run(client.con)
     }
     if (table?.job === "miner") {
-        return message.channel.send({content: "Pracujesz jako górnik"})
+        let minerMoney = (Math.floor(Math.random() * (100 - 0) + 0))
+
+        client.sender(message, ``, `Twoja praca: **Górnik**\n\nOtrzymano łącznie ${minerMoney} monet!`, `Ekonomia`, `GREEN`, ``, ``, ``)
+
+        await r.table("economy").update({ money: table.money + minerMoney }).run(client.con)
     }
 }
 exports.help = {
