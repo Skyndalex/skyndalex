@@ -90,7 +90,7 @@ module.exports = {
                 money: 0,
                 job: "miner"
             }).run(client.con)
-            await r.table('economy').update({ job: "miner" })
+            await r.table('economy').get(interaction.user.id).update({ job: "miner" })
 
             interaction.reply({
                 content: "Dołączono do pracy: **Górnik**",
