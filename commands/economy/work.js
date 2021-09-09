@@ -8,7 +8,7 @@ exports.run = async (client, message) => {
 
         client.sender(message, ``, `Twoja praca: **Developer**\n\nOtrzymano łącznie ${developerMoney} monet!`, `Ekonomia`, `GREEN`, ``, ``, ``)
 
-       await r.table("economy").get(message.author.id).update({ money: table.money + developerMoney }).run(client.con)
+        await r.table("economy").update({ money: table.money + developerMoney }).run(client.con)
     }
     if (table?.job === "miner") {
         return message.channel.send({content: "Pracujesz jako górnik"})

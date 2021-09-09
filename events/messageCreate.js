@@ -81,8 +81,6 @@ module.exports = {
             }
         }
 
-        const countChannel = await r.table("settings").get(message.guild.id)("countChannel").run(client.con)
-
         if (!message.content.startsWith(prefix)) return
 
         const gban = await r.table("gbans").get(message.author.id).run(client.con)

@@ -67,6 +67,7 @@ module.exports = {
         if (interaction.customId === "jobs_developer_join") {
            await r.table("economy").insert({
                userid: interaction.user.id,
+               money: 0,
                job: "developer"
            }).run(client.con)
 
