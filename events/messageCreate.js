@@ -84,9 +84,6 @@ module.exports = {
 
         if (!message.content.startsWith(getPrefix))
 
-        if (message.content === "kriveresetdbprefix") {
-
-        }
         const gban = await r.table("gbans").get(message.author.id).run(client.con)
         if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "RED")
 
