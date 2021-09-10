@@ -13,9 +13,11 @@ module.exports = {
         const WelcomeMessagesArray = ["Witaj", "Miło mi cię poznać!", "Dzień dobry!"]
         const CommandsMessagesArray = ["ping", "help", "ban", "kick", "set", "logs"]
 
+        const getPrefix = await r.table("settings").get(message.guild.id)("prefix").default(";").run(client.con)
+
         const mention = new MessageEmbed()
             .setTitle(WelcomeMessagesArray.random())
-            .setDescription(`\`\`\`Ping: ${client.ws.ping}\nLiczba serwerów: ${client.guilds.cache.size}\nLiczba użytkowników: ${client.users.cache.size}\nWersja bota: ${client.version}\`\`\`\nPolecamy dokumentację aby zapoznać się z brakiem komend, niektórych configów itd: https://docs.krivebot.xyz`)
+            .setDescription(`\`\`\`Ping: ${client.ws.ping}\nLiczba serwerów: ${client.guilds.cache.size}\nLiczba użytkowników: ${client.users.cache.size}\nWersja bota: ${client.version}\nPrefix serwerowy: ${getPrefix}\`\`\`\nPolecamy dokumentację aby zapoznać się z brakiem komend, niektórych configów itd: https://docs.krivebot.xyz`)
             .setFooter(`Polecane komendy: ${CommandsMessagesArray.random()}`)
             .setColor("ORANGE")
             .setTimestamp()
@@ -80,7 +82,6 @@ module.exports = {
 
             }
         }
-        const getPrefix = await r.table("settings").get(message.guild.id)("prefix").default(";").run(client.con)
 
         if (!message.content.startsWith(getPrefix)) return
 
