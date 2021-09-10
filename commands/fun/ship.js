@@ -9,6 +9,6 @@ exports.run = async (client, message, args) => {
 }
 exports.help = {
     name: "ship",
-    description: "Sprawdza, jak ktoś bardzo się kocha. Najprzydatniejsza komenda w bocie!",
+    description: "Uwun't",
     category: "fun",
 }
