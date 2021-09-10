@@ -5,8 +5,9 @@ exports.run = async (client, message, args) => {
     switch (args[0]) {
         default:
             client.sender(message, "", "**Dołącz do pracy**\n\nLista prac:\n\n\`jobs developer\` === Dołącz do pracy: Programista\n\`jobs miner\` === Dołącz do pracy: Górnik\n\`jobs pilot\` === Dołącz do pracy: Pilot samolotu\n\`jobs stewardess\` === Dołącz do pracy: Stewardess", "Ekonomia", "GREEN", "")
+            break;
         case 'developer':
-            if (table?.job) return message.reply({content: "Jesteś już w pracy."})
+            if (table?.job) return message.reply({content: "Jesteś już w pracy"})
 
             const row = new MessageActionRow()
                 .addComponents(
@@ -24,7 +25,7 @@ exports.run = async (client, message, args) => {
                 )
             const embed = new MessageEmbed()
                 .setTitle("Na pewno?")
-                .setDescription("Czy na pewno chcesz dołączyć do pracy: **Programista**?")
+                .setDescription("Czy na pewno chcesz dołączyć do pracy: **Programista**?\n\n**UWAGA!**\nTen proces jest nieodwracalny.")
                 .setColor("YELLOW")
             message.reply({
                 embeds: [embed],
@@ -52,7 +53,7 @@ exports.run = async (client, message, args) => {
                 )
             const embed2 = new MessageEmbed()
                 .setTitle("Na pewno?")
-                .setDescription("Czy na pewno chcesz dołączyć do pracy: **Górnik**?")
+                .setDescription("Czy na pewno chcesz dołączyć do pracy: **Górnik**?\n**UWAGA!**\n\nTen proces jest nieodwracalny.")
                 .setColor("YELLOW")
             message.reply({
                 embeds: [embed2],

@@ -65,16 +65,14 @@ module.exports = {
         } catch { false }
 
         if (interaction.customId === "jobs_developer_join") {
-           await r.table("economy").insert({
+            await r.table("economy").insert({
                userid: interaction.user.id,
                money: 0,
                job: "developer"
            }).run(client.con)
 
-            interaction.reply({
-                content: "Dołączono do pracy: **Developer**",
-            })
-        }
+            interaction.reply({ content: "Dołączono do pracy: **Developer**", ephemeral: true })
+        } else {
         if (interaction.customId === "jobs_developer_no") {
             const embedRemove = new MessageEmbed()
                 .setDescription("Odrzucono.")
@@ -83,7 +81,7 @@ module.exports = {
                 embeds: [embedRemove],
                 components: []
             })
-        }
+        } else {
         if (interaction.customId === "jobs_miner_join") {
             await r.table("economy").insert({
                 userid: interaction.user.id,
@@ -95,7 +93,7 @@ module.exports = {
             interaction.reply({
                 content: "Dołączono do pracy: **Górnik**",
             })
-        }
+        } else {
         if (interaction.customId === "jobs_miner_no") {
             const embedRemove2 = new MessageEmbed()
                 .setDescription("Odrzucono.")
@@ -104,9 +102,13 @@ module.exports = {
                 embeds: [embedRemove2],
                 components: []
             })
-        }
+        } else {
         if (interaction.customId === "ticket_close") {
-            interaction.channel.delete({ reason: `Zamknięte przez ${interaction.user.tag}`})
+            interaction.channel.delete({reason: `Zamknięte przez ${interaction.user.tag}`})
+                        }
+                    }
+                }
+            }
         }
     }
 }
