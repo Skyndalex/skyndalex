@@ -15,7 +15,7 @@ exports.run = async (client, message) => {
 
         client.sender(message, ``, `Twoja praca: **Górnik**\n\nOtrzymano łącznie ${minerMoney} monet!`, `Ekonomia`, `GREEN`, ``, ``, ``)
 
-        await r.table("economy").update({ money: table.money + minerMoney }).run(client.con)
+        await r.table("economy").update({money: table.money + minerMoney}).run(client.con)
     }
 }
 exports.help = {

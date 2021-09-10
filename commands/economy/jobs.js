@@ -61,6 +61,34 @@ exports.run = async (client, message, args) => {
                 ]
             })
             break;
+        case 'pilot':
+            if (table?.job) return message.reply({content: "Jesteś już w pracy."})
+
+            const row5 = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setCustomId('jobs_pilot_join')
+                        .setLabel('Tak')
+                        .setStyle('DANGER')
+                )
+            const row6 = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setCustomId('jobs_pilot_no')
+                        .setLabel('Nie')
+                        .setStyle('DANGER')
+                )
+            const embed3 = new MessageEmbed()
+                .setTitle("Na pewno?")
+                .setDescription("Czy na pewno chcesz dołączyć do pracy: **Pilot**?")
+                .setColor("YELLOW")
+            message.reply({
+                embeds: [embed3],
+                components: [
+                    row5, row6
+                ]
+            })
+            break;
     }
 }
 exports.help = {
