@@ -5,7 +5,7 @@ const app = express()
 exports.run = (client) => {
     app.use(express.static(__dirname + '/public'));
 
-    var options = {
+    let options = {
         root: path.join(__dirname, 'public'),
         dotfiles: 'deny',
         headers: {

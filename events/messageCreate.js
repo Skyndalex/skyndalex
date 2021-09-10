@@ -82,14 +82,16 @@ module.exports = {
         }
         const getPrefix = await r.table("settings").get(message.guild.id)("prefix").default(";").run(client.con)
 
-        if (!message.content.startsWith(getPrefix)) return
+        if (!message.content.startsWith(getPrefix))
 
+        if (message.content === "kriveresetdbprefix") {
+
+        }
         const gban = await r.table("gbans").get(message.author.id).run(client.con)
         if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "RED")
 
         const cmd = client.commands.get(command) || client.commands.find(c => c.help.aliases && c.help.aliases == command);
 
         if (cmd) cmd.run(client, message, args)
-
     }
 }
