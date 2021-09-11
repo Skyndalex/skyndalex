@@ -5,4 +5,3 @@
 ## Przyszłość 
 
 - dodanie folderów: `bot, economy, tools` itd
-- dodanie folderów: `events, interactionCreate`
