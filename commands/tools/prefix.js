@@ -5,13 +5,15 @@ exports.run = async (client, message, args) => {
     const prefix = args[0]
     if (!prefix) return message.channel.send("Nic nie podałeś!")
 
+    if (args[0] === "client.token") return message.reply("sus")
+
     await r.table("settings").insert({
         id: message.guild.id,
         prefix: prefix
     }).run(client.con)
     await r.table("settings").update({ prefix: args[0] }).run(client.con)
 
-    message.channel.send("Zaktualizowano prefix serwerowy.")
+    client.sender(message, ``, `**Zaktualizowano prefiks**\n\nZmieniony prefix: ${prefix}`, `Prefiksy`, `GREEN`, ``)
 }
 exports.help = {
     name: "prefix",
