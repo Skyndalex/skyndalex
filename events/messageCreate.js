@@ -14,6 +14,7 @@ module.exports = {
         const CommandsMessagesArray = ["ping", "help", "ban", "kick", "set", "logs"]
 
         const getPrefix = await r.table("settings").get(message.guild.id)("prefix").default(";").run(client.con)
+        const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
 
         const mention = new MessageEmbed()
             .setTitle(WelcomeMessagesArray.random())
@@ -21,7 +22,6 @@ module.exports = {
             .setFooter(`Polecane komendy: ${CommandsMessagesArray.random()}`)
             .setColor("ORANGE")
             .setTimestamp()
-        const prefixMention = new RegExp(`^<@!?${client.user.id}>( |)$`);
         if (message.content.match(prefixMention)) {
             return message.channel.send({embeds: [mention]}).then(m => {
                 setTimeout(() => m.delete(), 10000);
@@ -83,7 +83,10 @@ module.exports = {
             }
         }
 
-        if (!message.content.startsWith(getPrefix)) return
+        const prefix2 = message.content.match(prefixMention) ? message.content.match(prefixMention)[0] : getPrefix;
+
+        if (message.content.indexOf(prefix2) !== 0) return;
+
 
         const gban = await r.table("gbans").get(message.author.id).run(client.con)
         if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "RED")
