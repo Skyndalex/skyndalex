@@ -10,7 +10,7 @@ module.exports = {
         const clientId = '886359782213165107';
         const guildId = '804477558061137972';
 
-        const commands = [];
+        const commands = []
         client.commands = new Collection();
 
         console.log('Ready!');
