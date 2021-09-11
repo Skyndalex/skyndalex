@@ -5,7 +5,7 @@ module.exports = {
     once: false,
 
     async execute(client, message) {
-        const { prefix } = require("../config.json")
+        const prefix = await r.table("settings").get(message.guild.id)("prefix").default(";").run(client.con)
 
         const args = message.content.slice(prefix.length).trim().split(/ +/);
         const command = args.shift().toLowerCase();
@@ -83,10 +83,7 @@ module.exports = {
             }
         }
 
-        const prefix2 = message.content.match(prefixMention) ? message.content.match(prefixMention)[0] : getPrefix;
-
-        if (message.content.indexOf(prefix2) !== 0) return;
-
+        if (!message.content.startsWith(prefix)) return
 
         const gban = await r.table("gbans").get(message.author.id).run(client.con)
         if (gban) return client.sender(message, "Otrzymałeś blokadę!", "Nie możesz korzystać z komend!", "", "RED")
