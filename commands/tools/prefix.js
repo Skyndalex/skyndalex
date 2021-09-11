@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
     }).run(client.con)
     await r.table("settings").update({ prefix: args[0] }).run(client.con)
 
-    client.sender(message, ``, `**Zaktualizowano prefiks**\n\nZmieniony prefix: ${prefix}`, `Prefiksy`, `GREEN`, ``)
+    client.sender(message, ``, `**Zaktualizowano prefiks**\n\nZmieniony prefiks: ${prefix}`, `Prefiksy`, `GREEN`, ``)
 }
 exports.help = {
     name: "prefix",
