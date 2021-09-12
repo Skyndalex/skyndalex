@@ -11,8 +11,6 @@ module.exports = {
         const clientId = '829812129074774086';
         const guildId = '804477558061137972';
 
-        console.log('Ready!')
-
         const ping = new SlashCommandBuilder()
             .setName('ping')
             .setDescription('Oblicza ping bota.')
@@ -21,8 +19,7 @@ module.exports = {
             .setName('userinfo')
             .setDescription('Sprawdza dane o koncie jakiegoś użytkownika.')
             .addUserOption(option =>
-                option
-                    .setName('user')
+                option.setName('user')
                     .setDescription('Wybierz użytkownika')
                     .setRequired(true)
             )
@@ -30,11 +27,40 @@ module.exports = {
             .setName('stats')
             .setDescription('Statystyki bota')
 
-        const commands = [
-            ping,
-            userinfo,
-            stats
-        ]
+        const ascii = new SlashCommandBuilder()
+            .setName('ascii')
+            .setDescription('Generuje duży tekst.')
+            .addStringOption(option => (
+                option.setName("text").setDescription("Podaj tekst, który mam przerobić.").setRequired(true)
+            ))
+
+        const serverinfo = new SlashCommandBuilder()
+            .setName('serverinfo')
+            .setDescription('Informacje o serwerze.')
+
+        const set = new SlashCommandBuilder()
+            .setName('set')
+            .setDescription('Ustawienia serwerowe.')
+            .addChannelOption(option => (
+                option.setName("broadcast").setDescription("Kanał ogłoszeniowy")
+            )).addChannelOption(option => (
+                option.setName('vote').setDescription("Kanał głosowań")
+            )).addChannelOption(option => (
+                option.setName("complaint").setDescription("Kanał skarg")
+            )).addChannelOption(option => (
+                option.setName("images").setDescription("Kanał obrazkowy")
+            )).addChannelOption(option => (
+                option.setName("welcome").setDescription("Kanał powitań")
+            )).addChannelOption(option => (
+                option.setName("goodbye").setDescription("Kanał pożegnań")
+            )).addChannelOption(option => (
+                option.setName("suggest").setDescription("Kanał sugestii")
+            )).addChannelOption(option => (
+                option.setName("application").setDescription("Kanał podań")
+            ))
+
+        const commands = [ ping, userinfo, stats, ascii, serverinfo, set ]
+
         const rest = new REST({ version: '9' }).setToken(token);
 
         (async () => {
@@ -51,5 +77,6 @@ module.exports = {
                 console.error(error);
             }
         })();
+        console.log('Ready!')
     }
 }

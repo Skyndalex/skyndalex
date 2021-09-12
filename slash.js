@@ -1,6 +1,7 @@
 const { token } = require('./config.json');
 const fs = require('fs');
 const { Client, Intents, Collection } = require("discord.js")
+const r = require("rethinkdb")
 const client = new Client({ intents: [
         Intents.FLAGS.GUILDS,
         Intents.FLAGS.GUILD_MEMBERS,
@@ -14,6 +15,10 @@ const client = new Client({ intents: [
         Intents.FLAGS.DIRECT_MESSAGE_TYPING
     ], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 
+client.tof = {
+    true: "Tak",
+    false: "Nie"
+}
 client.commands = new Collection()
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
@@ -33,6 +38,13 @@ for (const folder of commandFolders) {
 
     }
 }
+
+r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
+    if (err) console.log(err)
+    client.con = con;
+
+    console.log("RethinkDb Connected")
+})
 
 for (const file of eventFiles) {
     const event = require(`./events/${file}`);
