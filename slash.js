@@ -1,20 +1,37 @@
 const { token } = require('./config.json');
 const fs = require('fs');
 const { Client, Intents, Collection } = require("discord.js")
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MEMBERS,
+        Intents.FLAGS.GUILD_BANS,
+        Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
+        Intents.FLAGS.GUILD_MESSAGES,
+        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+        Intents.FLAGS.GUILD_MESSAGE_TYPING,
+        Intents.FLAGS.DIRECT_MESSAGES,
+        Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+        Intents.FLAGS.DIRECT_MESSAGE_TYPING
+    ], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
+
+client.commands = new Collection()
+
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
 const commands = [];
 
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+const commandFolders = fs.readdirSync('./commands');
 
-client.commands = new Collection();
+for (const folder of commandFolders) {
+    const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith(".js"));
 
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    commands.push(command.data.toJSON());
+    for (const file of commandFiles) {
+        const command = require(`./commands/${folder}/${file}`)
+        commands.push(command.data.toJSON());
 
-    client.commands.set(command.data.name, command);
+        client.commands.set(command.data.name, command)
+
+    }
 }
 
 for (const file of eventFiles) {

@@ -1,7 +1,4 @@
-# Kod v4.4 - Slash
+# Nowa wersja, v4.4
 
-Źródło kodu (handlery itp) [Tutaj](https://dev.to/kb24x7/how-to-make-a-slash-commands-bot-with-discord-js-v13-3l6k)
-
-## Przyszłość 
-
-- dodanie folderów: `bot, economy, tools` itd
+## Przyszłość:
+- Help na choice
