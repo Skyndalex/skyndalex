@@ -13,5 +13,5 @@ await rest.put(
 
 ### Wartości
 
-1. clientId = ID bota
-2. guildId = ID serwera
+1. `clientId` = ID bota
+2. `guildId` = ID serwera
