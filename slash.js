@@ -1,8 +1,9 @@
 const { token } = require('./config.json');
 const fs = require('fs');
-const { Client, Intents, Collection } = require("discord.js")
+const Base = require("./Base.js");
+const { Intents, Collection } = require("discord.js")
 const r = require("rethinkdb")
-const client = new Client({ intents: [
+const client = new Base({ intents: [
         Intents.FLAGS.GUILDS,
         Intents.FLAGS.GUILD_MEMBERS,
         Intents.FLAGS.GUILD_BANS,
@@ -15,10 +16,6 @@ const client = new Client({ intents: [
         Intents.FLAGS.DIRECT_MESSAGE_TYPING
     ], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 
-client.tof = {
-    true: "Tak",
-    false: "Nie"
-}
 client.commands = new Collection()
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));

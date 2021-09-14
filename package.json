@@ -8,5 +8,23 @@
     "path": "^0.12.7",
     "rethinkdb": "^2.4.2",
     "util": "^0.12.4"
-  }
+  },
+  "name": "krivebot",
+  "description": "- Przez globalne komendy komendy mogą się ładować wolniej. Jeżeli testujesz bota tylko na jednym serwerze, usuń tą część kodu z pliku ready.js (w kategorii: events)",
+  "version": "4.4.4",
+  "main": "slash.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "node slash.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Korrumz2PL/krivebot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Korrumz2PL/krivebot/issues"
+  },
+  "homepage": "https://github.com/Korrumz2PL/krivebot#readme"
 }

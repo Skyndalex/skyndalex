@@ -13,7 +13,7 @@ module.exports = {
 
         const ping = new SlashCommandBuilder()
             .setName('ping')
-            .setDescription('Oblicza ping bota.')
+            .setDescription('Oblicza ping bota.');
 
         const userinfo = new SlashCommandBuilder()
             .setName('userinfo')
@@ -21,29 +21,27 @@ module.exports = {
             .addUserOption(option =>
                 option.setName('user')
                     .setDescription('Wybierz użytkownika')
-                    .setRequired(true)
-            )
+                    .setRequired(true));
+
         const stats = new SlashCommandBuilder()
             .setName('stats')
-            .setDescription('Statystyki bota')
+            .setDescription('Statystyki bota');
 
         const ascii = new SlashCommandBuilder()
             .setName('ascii')
             .setDescription('Generuje duży tekst.')
             .addStringOption(option => (
-                option.setName("text").setDescription("Podaj tekst, który mam przerobić.").setRequired(true)
-            ))
+                option.setName("text").setDescription("Podaj tekst, który mam przerobić.").setRequired(true)));
 
         const serverinfo = new SlashCommandBuilder()
             .setName('serverinfo')
-            .setDescription('Informacje o serwerze.')
+            .setDescription('Informacje o serwerze.');
 
         const broadcast = new SlashCommandBuilder()
             .setName('ogłoszenie')
             .setDescription("Wyślij ogłoszenie.")
             .addStringOption(option => (
-                option.setName("args").setDescription("Treść ogłoszenia.").setRequired(true)
-            ))
+                option.setName("args").setDescription("Treść ogłoszenia.").setRequired(true)));
 
         const complaint = new SlashCommandBuilder()
             .setName("skarga")
@@ -51,12 +49,24 @@ module.exports = {
             .addUserOption(option => (
                 option.setName("user").setDescription("Użytkownik, na którego chcesz złożyć skargę.").setRequired(true)
             )).addStringOption(option => (
-                option.setName('reason').setDescription("Powód skargi.")
-            ))
+                option.setName('reason').setDescription("Powód skargi.")));
 
         const vote = new SlashCommandBuilder()
             .setName("vote")
-            .setDescription("Wyślij głosowanie.")
+            .setDescription("Wyślij głosowanie.");
+
+        const eval = new SlashCommandBuilder()
+            .setName("eval")
+            .setDescription("Wywołuje kod")
+            .addStringOption(option => (
+                option.setName("kod").setDescription("kod do wywołania").setRequired(true)
+            ));
+        const channelinfo = new SlashCommandBuilder()
+            .setName('channelinfo')
+            .setDescription('Informacje o kanale')
+            .addChannelOption(option => (
+                option.setName("kanał").setDescription("Wybierz kanał o którym mam wyświetlić informacje").setRequired(true)
+            ));
 
         const set = new SlashCommandBuilder()
             .setName('set')
@@ -77,9 +87,9 @@ module.exports = {
                 option.setName("sugestie").setDescription("Kanał sugestii")
             )).addChannelOption(option => (
                 option.setName("podania").setDescription("Kanał podań")
-            ))
+            ));
 
-        const commands = [ ping, userinfo, stats, ascii, serverinfo, set, broadcast, complaint, vote ]
+        const commands = [ ping, userinfo, stats, ascii, serverinfo, set, broadcast, complaint, vote, eval, channelinfo ]
 
         const rest = new REST({ version: '9' }).setToken(token);
 
@@ -88,14 +98,13 @@ module.exports = {
                 console.log('[/] Loading.');
 
                 await rest.put(
-                    Routes.applicationCommands(clientId),
-                    { body: commands },
-                ); // Komendy globalne
-
-                await rest.put(
                     Routes.applicationGuildCommands(clientId, guildId),
                     { body: commands },
                 ); // Komendy serwerowe
+                await rest.put(
+                    Routes.applicationCommands(clientId),
+                    { body: commands },
+            ); // Komendy globalne
 
                 console.log('[/] Loaded');
             } catch (error) {
