@@ -3,6 +3,7 @@
     "@discordjs/builders": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
     "discord.js": "^13.1.0",
+    "express": "^4.17.1",
     "figlet": "^1.5.2",
     "fs": "^0.0.1-security",
     "path": "^0.12.7",
@@ -13,7 +14,6 @@
   "description": "- Przez globalne komendy komendy mogą się ładować wolniej. Jeżeli testujesz bota tylko na jednym serwerze, usuń tą część kodu z pliku ready.js (w kategorii: events)",
   "version": "4.4.4",
   "main": "slash.js",
-  "devDependencies": {},
   "scripts": {
     "test": "node slash.js"
   },

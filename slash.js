@@ -18,6 +18,7 @@ const client = new Base({ intents: [
 
 client.commands = new Collection()
 
+require("./site/site").run(client)
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
 const commands = [];
