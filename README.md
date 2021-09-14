@@ -15,3 +15,5 @@ await rest.put(
 
 1. `clientId` = ID bota
 2. `guildId` = ID serwera
+## Puste pliki
+- Puste pliki będą oznaczone tekstem "TODO:" albo "todo:". Ułatwi to właścicielowi pisanie bota.
