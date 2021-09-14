@@ -38,28 +38,48 @@ module.exports = {
             .setName('serverinfo')
             .setDescription('Informacje o serwerze.')
 
+        const broadcast = new SlashCommandBuilder()
+            .setName('ogłoszenie')
+            .setDescription("Wyślij ogłoszenie.")
+            .addStringOption(option => (
+                option.setName("args").setDescription("Treść ogłoszenia.").setRequired(true)
+            ))
+
+        const complaint = new SlashCommandBuilder()
+            .setName("skarga")
+            .setDescription("Wyślij skargę.")
+            .addUserOption(option => (
+                option.setName("user").setDescription("Użytkownik, na którego chcesz złożyć skargę.").setRequired(true)
+            )).addStringOption(option => (
+                option.setName('reason').setDescription("Powód skargi.")
+            ))
+
+        const vote = new SlashCommandBuilder()
+            .setName("vote")
+            .setDescription("Wyślij głosowanie.")
+
         const set = new SlashCommandBuilder()
             .setName('set')
             .setDescription('Ustawienia serwerowe.')
             .addChannelOption(option => (
-                option.setName("broadcast").setDescription("Kanał ogłoszeniowy")
+                option.setName("ogłoszenia").setDescription("Kanał ogłoszeniowy")
             )).addChannelOption(option => (
-                option.setName('vote').setDescription("Kanał głosowań")
+                option.setName('głosowania').setDescription("Kanał głosowań")
             )).addChannelOption(option => (
-                option.setName("complaint").setDescription("Kanał skarg")
+                option.setName("skargi").setDescription("Kanał skarg")
             )).addChannelOption(option => (
-                option.setName("images").setDescription("Kanał obrazkowy")
+                option.setName("obrazki").setDescription("Kanał obrazkowy")
             )).addChannelOption(option => (
-                option.setName("welcome").setDescription("Kanał powitań")
+                option.setName("powitania").setDescription("Kanał powitań")
             )).addChannelOption(option => (
-                option.setName("goodbye").setDescription("Kanał pożegnań")
+                option.setName("pożegnania").setDescription("Kanał pożegnań")
             )).addChannelOption(option => (
-                option.setName("suggest").setDescription("Kanał sugestii")
+                option.setName("sugestie").setDescription("Kanał sugestii")
             )).addChannelOption(option => (
-                option.setName("application").setDescription("Kanał podań")
+                option.setName("podania").setDescription("Kanał podań")
             ))
 
-        const commands = [ ping, userinfo, stats, ascii, serverinfo, set ]
+        const commands = [ ping, userinfo, stats, ascii, serverinfo, set, broadcast, complaint, vote ]
 
         const rest = new REST({ version: '9' }).setToken(token);
 
@@ -68,9 +88,14 @@ module.exports = {
                 console.log('[/] Loading.');
 
                 await rest.put(
+                    Routes.applicationCommands(clientId),
+                    { body: commands },
+                ); // Komendy globalne
+
+                await rest.put(
                     Routes.applicationGuildCommands(clientId, guildId),
                     { body: commands },
-                );
+                ); // Komendy serwerowe
 
                 console.log('[/] Loaded');
             } catch (error) {

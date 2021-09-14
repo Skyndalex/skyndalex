@@ -1,41 +1,43 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const r = require("rethinkdb")
+const {MessageEmbed} = require("discord.js");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('set')
         .setDescription('Ustawienia serwerowe.')
         .addChannelOption(option => (
-            option.setName("broadcast").setDescription("Kanał ogłoszeniowy")
+            option.setName("ogłoszenia").setDescription("Kanał ogłoszeniowy")
         )).addChannelOption(option => (
-            option.setName('vote').setDescription("Kanał głosowań")
+            option.setName('głosowania').setDescription("Kanał głosowań")
         )).addChannelOption(option => (
-            option.setName("complaint").setDescription("Kanał skarg")
+            option.setName("skargi").setDescription("Kanał skarg")
         )).addChannelOption(option => (
-            option.setName("images").setDescription("Kanał obrazkowy")
+            option.setName("obrazki").setDescription("Kanał obrazkowy")
         )).addChannelOption(option => (
-            option.setName("welcome").setDescription("Kanał powitań")
+            option.setName("powitania").setDescription("Kanał powitań")
         )).addChannelOption(option => (
-            option.setName("goodbye").setDescription("Kanał pożegnań")
+            option.setName("pożegnania").setDescription("Kanał pożegnań")
         )).addChannelOption(option => (
-            option.setName("suggest").setDescription("Kanał sugestii")
+            option.setName("sugestie").setDescription("Kanał sugestii")
         )).addChannelOption(option => (
-            option.setName("application").setDescription("Kanał podań")
+            option.setName("podania").setDescription("Kanał podań")
         )),
 
-    async execute(client, interaction) {
-        if (interaction.options.getChannel("broadcast")) {
-            const channel = await interaction.options.getChannel("broadcast");
 
-           await r.table("settings").insert({ id: interaction.guild.id, broadcastChannel: channel.id}).run(client.con)
+    async execute(client, interaction) {
+        if (interaction.options.getChannel("ogłoszenia")) {
+            const channel = await interaction.options.getChannel("ogłoszenia");
+
+            await r.table("settings").insert({ id: interaction.guild.id, broadcastChannel: channel.id}).run(client.con)
+            await r.table("settings").update({ id: interaction.guild.id, broadcastChannel: channel.id }).run(client.con)
 
             interaction.reply({content: `Pomyślnie ustawiono kanał ogłoszeń! (<#${channel.id}> ${channel.name})`, ephemeral: true})
         } else {
-            if (interaction.options.getChannel("vote")) {
+            if (interaction.options.getChannel("głosowania")) {
                 const votechannel = await interaction.options.getChannel("vote");
 
                 await r.table("settings").insert({ id: interaction.guild.id,  voteChannel: votechannel.id }).run(client.con)
-
-                await r.table("settings").update({voteChannel: votechannel.id}).run(client.con)
+                await r.table("settings").update({id: interaction.guild.id, voteChannel: votechannel.id}).run(client.con)
 
                 interaction.reply({content: `Pomyślnie ustawiono kanał głosowań! (<#${votechannel.id}> ${votechannel.name})`, ephemeral: true})
             }
