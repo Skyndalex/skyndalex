@@ -103,7 +103,7 @@ li a:hover:not(.active) {
     justify-content: space-between;
     align-items: center;
     padding: 10px 5%;
-    background-color: #141414;
+    background-color: #1f1f1f;
     font-family: 'Poppins', 'sans-serif';
 }
 
