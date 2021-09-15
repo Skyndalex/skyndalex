@@ -73,6 +73,12 @@ module.exports = {
             .addRoleOption(option => (
                 option.setName("rola").setDescription("Wybierz rolę, o której mam wyświetlić informacje").setRequired(true)
             ))
+        const pytanie = new SlashCommandBuilder()
+            .setName('pytanie')
+            .setDescription('Zadaj pytanie botowi.')
+            .addStringOption(option => (
+                option.setName("question").setDescription("Podaj tekst, na który mam odpowiedzieć.").setRequired(true)
+            ))
 
         const set = new SlashCommandBuilder()
             .setName('set')
@@ -95,7 +101,7 @@ module.exports = {
                 option.setName("podania").setDescription("Kanał podań")
             ));
 
-        const commands = [ ping, userinfo, stats, ascii, serverinfo, set, broadcast, complaint, vote, eval, channelinfo, roleinfo ]
+        const commands = [ ping, userinfo, stats, ascii, serverinfo, set, broadcast, complaint, vote, eval, channelinfo, roleinfo, pytanie ]
 
         const rest = new REST({ version: '9' }).setToken(token);
 
