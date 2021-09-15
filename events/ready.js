@@ -67,6 +67,12 @@ module.exports = {
             .addChannelOption(option => (
                 option.setName("kanał").setDescription("Wybierz kanał o którym mam wyświetlić informacje").setRequired(true)
             ));
+        const roleinfo = new SlashCommandBuilder()
+            .setName('roleinfo')
+            .setDescription('Informacje o roli')
+            .addRoleOption(option => (
+                option.setName("rola").setDescription("Wybierz rolę, o której mam wyświetlić informacje").setRequired(true)
+            ))
 
         const set = new SlashCommandBuilder()
             .setName('set')
@@ -89,7 +95,7 @@ module.exports = {
                 option.setName("podania").setDescription("Kanał podań")
             ));
 
-        const commands = [ ping, userinfo, stats, ascii, serverinfo, set, broadcast, complaint, vote, eval, channelinfo ]
+        const commands = [ ping, userinfo, stats, ascii, serverinfo, set, broadcast, complaint, vote, eval, channelinfo, roleinfo ]
 
         const rest = new REST({ version: '9' }).setToken(token);
 
