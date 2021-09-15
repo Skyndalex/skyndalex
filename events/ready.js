@@ -113,10 +113,10 @@ module.exports = {
             ); // Komendy globalne
 
                 console.log('[/] Loaded');
+                console.log('Bot ready.')
             } catch (error) {
                 console.error(error);
             }
         })();
-        console.log('Ready!')
     }
 }
