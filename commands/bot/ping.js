@@ -9,11 +9,11 @@ module.exports = {
 
     async execute(client, interaction) {
         const embed = new MessageEmbed()
-            .setDescription(`Mój ping: \`${client.ws.ping}\`\n\n[Uptime](https://status.krivebot.xyz)`)
+            .setDescription(`Mój ping: \`${client.ws.ping}\`\n\n[\`Uptime i status serwisów\`](https://status.krivebot.xyz)`)
             .setColor("GREEN")
 
         await interaction.deferReply()
         await wait(10)
-        await interaction.editReply({ embeds: [embed]})
+        await interaction.editReply({embeds: [embed]})
     }
 };

@@ -80,6 +80,20 @@ module.exports = {
                 option.setName("question").setDescription("Podaj tekst, na który mam odpowiedzieć.").setRequired(true)
             ))
 
+            const ship = new SlashCommandBuilder()
+                .setName('ship')
+                .setDescription('Poziom miłości.')
+                .addStringOption(option => (
+                    option.setName("user1").setDescription("Pierwszy użytkownik").setRequired(true)
+                )).addStringOption(option => (
+                    option.setName("user2").setDescription("Drugi użytkownik").setRequired(true)
+                ))
+            const przytul = new SlashCommandBuilder()
+                .setName('przytul')
+                .setDescription('Przytul użytkownika')
+                .addUserOption(option => (
+                    option.setName("kogo").setDescription("Kogo chcesz przytulić?").setRequired(true)
+                ))
         const set = new SlashCommandBuilder()
             .setName('set')
             .setDescription('Ustawienia serwerowe.')
@@ -101,7 +115,7 @@ module.exports = {
                 option.setName("podania").setDescription("Kanał podań")
             ));
 
-        const commands = [ ping, userinfo, stats, ascii, serverinfo, set, broadcast, complaint, vote, eval, channelinfo, roleinfo, pytanie ]
+        const commands = [ ping, userinfo, stats, ascii, serverinfo, set, broadcast, complaint, vote, eval, channelinfo, roleinfo, pytanie, ship, przytul ]
 
         const rest = new REST({ version: '9' }).setToken(token);
 
