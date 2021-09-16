@@ -10,6 +10,6 @@ module.exports = {
             .setTitle("Informacje o serwerze")
             .setDescription(`Nazwa serwera: ${interaction.guild.name}\nID serwera: ${interaction.guild.id}\nLiczba członków: ${interaction.guild.memberCount}`)
             .setColor("GREEN")
-        interaction.reply({ embeds: [info] })
+        interaction.reply({ embeds: [info] });
     }
 };

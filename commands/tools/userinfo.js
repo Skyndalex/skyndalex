@@ -13,7 +13,7 @@ module.exports = {
                 .setRequired(true)
         ),
     async execute(client, interaction) {
-        const member = interaction.options.getUser('user')
+        const member = interaction.options.getUser('user');
 
         let embed = new MessageEmbed()
             .setDescription("Informacje o użytkowniku")
@@ -22,6 +22,6 @@ module.exports = {
             .setColor('GREEN')
             .setFooter("Użytkownik")
             .setTimestamp()
-        return interaction.reply({ embeds: [embed] })
+        return interaction.reply({ embeds: [embed] });
     }
 };

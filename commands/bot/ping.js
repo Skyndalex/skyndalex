@@ -14,6 +14,6 @@ module.exports = {
 
         await interaction.deferReply()
         await wait(10)
-        await interaction.editReply({embeds: [embed]})
+        await interaction.editReply({embeds: [embed]});
     }
 };

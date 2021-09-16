@@ -17,9 +17,9 @@ module.exports = {
             figlet(text, function (err, data) {
                 if (err) return interaction.reply({content: err, ephemeral: true})
 
-                if (data.length > 2000) return interaction.reply({ content: 'Tekst jest za długi', ephemeral: true })
-                interaction.reply({content: `\`\`\`${data}\`\`\``})
-            })
+                if (data.length > 2000) return interaction.reply({ content: 'Tekst jest za długi', ephemeral: true });
+                interaction.reply({content: `\`\`\`${data}\`\`\``});
+            });
         }
     }
 };

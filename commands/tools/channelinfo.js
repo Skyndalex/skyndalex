@@ -21,6 +21,6 @@ module.exports = {
             GUILD_PRIVATE_THREAD: "Wątek",
             GUILD_STAGE_VOICE: "Eventowy"
         };
-        client.builder(interaction, "Informacje o kanale.", `Nazwa: ${channel.name}\nID: ${channel.id}\nTemat: ${channel.topic || "Brak"}\nTyp: ${type[channel.type]}`, `Informacje o kanale`, `GREEN`, ``)
+        client.builder(interaction, "Informacje o kanale.", `Nazwa: ${channel.name}\nID: ${channel.id}\nTemat: ${channel.topic || "Brak"}\nTyp: ${type[channel.type]}`, `Informacje o kanale`, `GREEN`, ``);
     }
 };

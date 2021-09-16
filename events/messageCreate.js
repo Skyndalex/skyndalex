@@ -12,7 +12,7 @@ module.exports = {
             .setColor("ORANGE")
             .setTimestamp()
         if (message.content.match(prefixMention)) {
-            return message.channel.send({embeds: [mention], ephemeral: true})
+            return message.channel.send({embeds: [mention], ephemeral: true});
         }
     }
 }

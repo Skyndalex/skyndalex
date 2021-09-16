@@ -28,18 +28,18 @@ module.exports = {
         if (interaction.options.getChannel("ogłoszenia")) {
             const channel = await interaction.options.getChannel("ogłoszenia");
 
-            await r.table("settings").insert({ id: interaction.guild.id, broadcastChannel: channel.id}).run(client.con)
-            await r.table("settings").update({ id: interaction.guild.id, broadcastChannel: channel.id }).run(client.con)
+            await r.table("settings").insert({ id: interaction.guild.id, broadcastChannel: channel.id}).run(client.con);
+            await r.table("settings").update({ id: interaction.guild.id, broadcastChannel: channel.id }).run(client.con);
 
-            interaction.reply({content: `Pomyślnie ustawiono kanał ogłoszeń! (<#${channel.id}> ${channel.name})`, ephemeral: true})
+            interaction.reply({content: `Pomyślnie ustawiono kanał ogłoszeń! (<#${channel.id}> ${channel.name})`, ephemeral: true});
         } else {
             if (interaction.options.getChannel("głosowania")) {
                 const votechannel = await interaction.options.getChannel("vote");
 
-                await r.table("settings").insert({ id: interaction.guild.id,  voteChannel: votechannel.id }).run(client.con)
-                await r.table("settings").update({id: interaction.guild.id, voteChannel: votechannel.id}).run(client.con)
+                await r.table("settings").insert({ id: interaction.guild.id,  voteChannel: votechannel.id }).run(client.con);
+                await r.table("settings").update({id: interaction.guild.id, voteChannel: votechannel.id}).run(client.con);
 
-                interaction.reply({content: `Pomyślnie ustawiono kanał głosowań! (<#${votechannel.id}> ${votechannel.name})`, ephemeral: true})
+                interaction.reply({content: `Pomyślnie ustawiono kanał głosowań! (<#${votechannel.id}> ${votechannel.name})`, ephemeral: true});
             }
         }
     }

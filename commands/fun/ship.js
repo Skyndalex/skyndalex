@@ -17,7 +17,7 @@ module.exports = {
                 const ship2 = interaction.options.getString("user2");
                 let percent = Math.floor(Math.random() * (100 - 0)) //+0 matematik.pl!!!!
 
-                client.builder(interaction, ``, `${ship1} oraz ${ship2} kochaja sie na ${percent}%!`, `Ship`, `GREEN`, ``, ``)
+                client.builder(interaction, ``, `${ship1} oraz ${ship2} kochaja sie na ${percent}%!`, `Ship`, `GREEN`, ``, ``);
             }
         }
     }

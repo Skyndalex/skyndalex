@@ -17,14 +17,14 @@ module.exports = {
         const reason = interaction.options.getString("reason");
         const channel = await r.table("settings").get(interaction.guild.id).run(client.con)
 
-        if (!channel?.complaintChannel) return interaction.reply({ content: "Właściciel nie ustawił kanału do skarg!", ephemeral: true })
+        if (!channel?.complaintChannel) return interaction.reply({ content: "Właściciel nie ustawił kanału do skarg!", ephemeral: true });
 
         if (interaction.options.getUser("user")) {
             if (interaction.options.getString("reason")) {
                 const embed = new MessageEmbed()
                     .setDescription(`**Nowa skarga**\n\nZgłoszony użytkownik: ${user}\nPowód: ${reason || "Nie podano" }`)
                     .setColor("GREEN")
-                client.channels.cache.get(channel.complaintChannel).run(client.con)
+                client.channels.cache.get(channel.complaintChannel).run(client.con);
             }
         }
     }

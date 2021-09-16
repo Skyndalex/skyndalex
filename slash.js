@@ -16,7 +16,7 @@ const client = new Base({ intents: [
         Intents.FLAGS.DIRECT_MESSAGE_TYPING
     ], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 
-client.commands = new Collection()
+client.commands = new Collection();
 
 require("./site/site").run(client);
 require("./functions")(client);
@@ -31,10 +31,10 @@ for (const folder of commandFolders) {
     const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith(".js"));
 
     for (const file of commandFiles) {
-        const command = require(`./commands/${folder}/${file}`)
+        const command = require(`./commands/${folder}/${file}`);
         commands.push(command.data.toJSON());
 
-        client.commands.set(command.data.name, command)
+        client.commands.set(command.data.name, command);
 
     }
 }
@@ -43,7 +43,7 @@ r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, func
     if (err) console.log(err)
     client.con = con;
 
-    console.log("RethinkDb Connected")
+    console.log("RethinkDb Connected");
 })
 
 for (const file of eventFiles) {
@@ -55,4 +55,4 @@ for (const file of eventFiles) {
     }
 }
 
-client.login(token)
+client.login(token);

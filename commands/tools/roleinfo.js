@@ -16,6 +16,6 @@ module.exports = {
             false: "Nie"
         };
 
-        client.builder(interaction, "Informacje o roli.", `Nazwa: ${role.name}\nID: ${role.id}\nPozycja: ${role.rawPosition}\nMożna oznaczać? ${tof[role.mentionable]}`, `Informacje o kanale`, role.hexColor, ``)
+        client.builder(interaction, "Informacje o roli.", `Nazwa: ${role.name}\nID: ${role.id}\nPozycja: ${role.rawPosition}\nMożna oznaczać? ${tof[role.mentionable]}`, `Informacje o kanale`, role.hexColor, ``);
     }
 };
