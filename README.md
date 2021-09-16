@@ -17,3 +17,8 @@ await rest.put(
 2. `guildId` = ID serwera
 ## Puste pliki
 - Puste pliki będą oznaczone tekstem "TODO:" albo "todo:". Ułatwi to właścicielowi pisanie bota.
+# Włączanie bazy danych
+
+- Windows:
+1. Przejdź do katalogu: `cd rethinkdb-2.3.6`
+- Włącz: `./rethinkdb`
