@@ -19,7 +19,16 @@ const client = new Base({ intents: [
 client.commands = new Collection;
 require("./site/site").run(client);
 require("./functions")(client);
-require("./deploy")(client)
+
+const commandFolders = fs.readdirSync('./commands');
+
+for (const folder of commandFolders) {
+    const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith(".js"));
+    for (const file of commandFiles) {
+        const command = require(`./commands/${folder}/${file}`);
+        client.commands.set(command.data.name, command);
+    }
+}
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
 r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
