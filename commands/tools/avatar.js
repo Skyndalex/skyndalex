@@ -8,10 +8,8 @@ module.exports = {
         )),
 
     async execute(client, interaction) {
-        if (interaction.options.getUser("user")) {
             const target = interaction.options.getUser("user");
 
             client.builder(interaction, ``, `**Profilowe użytkownika ${target.tag}**\n\n[Pobierz](${target.avatarURL()})`, ``, `GREEN`, ``, target.avatarURL())
-        }
     }
 };

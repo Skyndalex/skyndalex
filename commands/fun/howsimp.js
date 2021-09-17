@@ -8,11 +8,9 @@ module.exports = {
         )),
 
     async execute(client, interaction) {
-        if (interaction.options.getUser("kogo")) {
             const target = interaction.options.getUser("kogo");
             let percent = Math.floor(Math.random() * (100 - 0))
 
             client.builder(interaction, ``, `${target.tag} jest simpem na ${percent}%!`, ``, `GREEN`, ``)
-        }
     }
 };

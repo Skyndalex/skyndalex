@@ -11,7 +11,6 @@ module.exports = {
     )),
 
     async execute(client, interaction) {
-        if (interaction.options.getString("text")) {
             const text = interaction.options.getString("text");
 
             figlet(text, function (err, data) {
@@ -20,6 +19,5 @@ module.exports = {
                 if (data.length > 2000) return interaction.reply({ content: 'Tekst jest za długi', ephemeral: true });
                 interaction.reply({content: `\`\`\`${data}\`\`\``});
             });
-        }
     }
 };
