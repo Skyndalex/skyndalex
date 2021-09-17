@@ -22,3 +22,8 @@ await rest.put(
 - Windows:
 1. Przejdź do katalogu: `cd rethinkdb-2.3.6`
 - Włącz: `./rethinkdb`
+# Włączanie bota
+## deploy.js
+- Na początku należy włączyć plik `deploy.js`. On zaktualizuje slash komendy na twoim serwerze bądź globalnie, następnie:
+## slash.js
+- Włącz ten plik, aby uruchomić bota, bazę danych oraz stronę.
