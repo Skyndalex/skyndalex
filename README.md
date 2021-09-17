@@ -24,6 +24,6 @@ await rest.put(
 - Włącz: `./rethinkdb`
 # Włączanie bota
 ## deploy.js
-- Na początku należy włączyć plik `deploy.js`. On zaktualizuje slash komendy na twoim serwerze bądź globalnie, następnie:
+- Na początku należy włączyć plik `deploy.js`. On zaktualizuje slash komendy na twoim serwerze bądź globalnie. Przy każdej zmianie komend należy włączyć ten plik aby na spokojnie mogło się zaktualizować.
 ## slash.js
 - Włącz ten plik, aby uruchomić bota, bazę danych oraz stronę.
