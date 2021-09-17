@@ -94,6 +94,31 @@ module.exports = {
                 .addUserOption(option => (
                     option.setName("kogo").setDescription("Kogo chcesz przytulić?").setRequired(true)
                 ));
+            const howgay = new SlashCommandBuilder()
+                .setName('howgay')
+                .setDescription('sprawdź czy ktoś jest gejem')
+                .addUserOption(option => (
+                    option.setName("kogo").setDescription("Kogo chcesz sprawdzić?").setRequired(true)
+                ));
+        const howsimp = new SlashCommandBuilder()
+            .setName('howsimp')
+            .setDescription('sprawdź czy ktoś jest simpem')
+            .addUserOption(option => (
+                option.setName("kogo").setDescription("Kogo chcesz sprawdzić?").setRequired(true)
+            ));
+        const avatar = new SlashCommandBuilder()
+            .setName('avatar')
+            .setDescription('Sprawdź awatar jakiegoś użytkownika.')
+            .addUserOption(option => (
+                option.setName("user").setDescription("Użytkownik").setRequired(true)
+            ));
+        const purge = new SlashCommandBuilder()
+            .setName('purge')
+            .setDescription('Wyczyść wiadomości.')
+            .addStringOption(option => (
+                option.setName("amount").setDescription("Liczba wiadomości do skasowania").setRequired(true)
+            ))
+
         const set = new SlashCommandBuilder()
             .setName('set')
             .setDescription('Ustawienia serwerowe.')
@@ -115,7 +140,7 @@ module.exports = {
                 option.setName("podania").setDescription("Kanał podań")
             ));
 
-        const commands = [ ping, userinfo, stats, ascii, serverinfo, set, broadcast, complaint, vote, eval, channelinfo, roleinfo, pytanie, ship, przytul ];
+        const commands = [ ping, userinfo, stats, ascii, serverinfo, set, broadcast, complaint, vote, eval, channelinfo, roleinfo, pytanie, ship, przytul, howgay, howsimp, avatar, purge ];
 
         const rest = new REST({ version: '9' }).setToken(token);
 
