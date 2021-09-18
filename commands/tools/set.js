@@ -48,7 +48,7 @@ module.exports = {
             await r.table("settings").insert({ id: interaction.guild.id, imageChannel: imagechannel.id}).run(client.con);
             await r.table("settings").update({ id: interaction.guild.id, imageChannel: imagechannel.id }).run(client.con);
 
-            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${imageChannel.id}> (imageChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${imagechannel.id}> (imageChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getChannel("powitania")) {
             const welcomechannel = await interaction.options.getChannel("powitania");
 
@@ -77,6 +77,13 @@ module.exports = {
             await r.table("settings").update({ id: interaction.guild.id, applicationChannel: applicationchannel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${applicationchannel.id}> (applicationChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getChannel("głosowania")) {
+            const votechannel = await interaction.options.getChannel("głosowania");
+
+            await r.table("settings").insert({ id: interaction.guild.id, voteChannel: votechannel.id}).run(client.con);
+            await r.table("settings").update({ id: interaction.guild.id, voteChannel: votechannel.id }).run(client.con);
+
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${votechannel.id}> (voteChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         }
     }
 };
