@@ -1,3 +1,5 @@
+// @formatter: off
+// todo: objects
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const r = require("rethinkdb")
 module.exports = {
@@ -24,6 +26,8 @@ module.exports = {
 
 
     async execute(client, interaction) {
+        // (opcje opcjonalne)
+
         if (interaction.options.getChannel("ogłoszenia")) {
             const channel = await interaction.options.getChannel("ogłoszenia");
 
@@ -31,24 +35,48 @@ module.exports = {
             await r.table("settings").update({ id: interaction.guild.id, broadcastChannel: channel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${channel.id}> (broadcastChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
-        } else {
-            if (interaction.options.getChannel("głosowania")) {
-                const votechannel = await interaction.options.getChannel("głosowania");
+        } else if (interaction.options.getChannel("skargi")) {
+            const complaintchannel = await interaction.options.getChannel("skargi");
 
-                await r.table("settings").insert({ id: interaction.guild.id, votechannel: votechannel.id }).run(client.con);
-                await r.table("settings").update({id: interaction.guild.id, votechannel: votechannel.id}).run(client.con);
+            await r.table("settings").insert({ id: interaction.guild.id, complaintChannel: complaintchannel.id}).run(client.con);
+            await r.table("settings").update({ id: interaction.guild.id, complaintChannel: complaintchannel.id }).run(client.con);
 
-                client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${votechannel.id}> (voteChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
-            } else {
-                if (interaction.options.getChannel("skargi")) {
-                    const complaintchannel = await interaction.options.getChannel("skargi");
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${complaintchannel.id}> (complaintChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getChannel("obrazki")) {
+            const imagechannel = await interaction.options.getChannel("obrazki");
 
-                    await r.table("settings").insert({ id: interaction.guild.id, complaintChannel: complaintchannel.id }).run(client.con)
-                    await r.table("settings").update({ id: interaction.guild.id, complaintChannel: complaintchannel.id }).run(client.con)
+            await r.table("settings").insert({ id: interaction.guild.id, imageChannel: imagechannel.id}).run(client.con);
+            await r.table("settings").update({ id: interaction.guild.id, imageChannel: imagechannel.id }).run(client.con);
 
-                    client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${complaintchannel.id}> (complaintChannel) \nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
-                }
-            }
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${imageChannel.id}> (imageChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getChannel("powitania")) {
+            const welcomechannel = await interaction.options.getChannel("powitania");
+
+            await r.table("settings").insert({ id: interaction.guild.id, welcomeChannel: welcomechannel.id}).run(client.con);
+            await r.table("settings").update({ id: interaction.guild.id, welcomeChannel: welcomechannel.id }).run(client.con);
+
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${welcomechannel.id}> (welcomeChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getChannel("pożegnania")) {
+            const goodbyechannel = await interaction.options.getChannel("pożegnania")
+
+            await r.table("settings").insert({ id: interaction.guild.id, goodbyeChannel: goodbyechannel.id}).run(client.con);
+            await r.table("settings").update({ id: interaction.guild.id, goodbyeChannel: goodbyechannel.id }).run(client.con);
+
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${goodbyechannel.id}> (goodbyeChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getChannel("sugestie")) {
+            const suggestionchannel = await interaction.options.getChannel("sugestie");
+
+            await r.table("settings").insert({ id: interaction.guild.id, suggestionChannel: suggestionchannel.id}).run(client.con);
+            await r.table("settings").update({ id: interaction.guild.id, suggestionChannel: suggestionchannel.id }).run(client.con);
+
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${suggestionchannel.id}> (suggestionChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getChannel("podania")) {
+            const applicationchannel = await interaction.options.getChannel("podania");
+
+            await r.table("settings").insert({ id: interaction.guild.id, applicationChannel: applicationchannel.id}).run(client.con);
+            await r.table("settings").update({ id: interaction.guild.id, applicationChannel: applicationchannel.id }).run(client.con);
+
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${applicationchannel.id}> (applicationChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         }
     }
 };
