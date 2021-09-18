@@ -4,7 +4,7 @@ const { token } = require('./config.json');
 const fs = require('fs');
 
     const clientId = '829812129074774086';
-    const guildId = '804477558061137972';
+    const guildId = '804477558061137972'; // id serwera
 
     const commands = [];
     const rest = new REST({version: '9'}).setToken(token);

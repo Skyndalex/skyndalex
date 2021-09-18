@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const r = require("rethinkdb")
-const {MessageEmbed} = require("discord.js");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('set')
