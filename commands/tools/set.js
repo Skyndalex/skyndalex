@@ -22,14 +22,15 @@ module.exports = {
             option.setName("sugestie").setDescription("Kanał sugestii")
         )).addChannelOption(option => (
             option.setName("podania").setDescription("Kanał podań")
+        )).addRoleOption(option => (
+            option.setName("moderatorrole").setDescription("Rola moderacji")
+        )).addRoleOption(option => (
+            option.setName("mutedrole").setDescription("Rola wyciszonego")
         )),
 
 
     async execute(client, interaction) {
         // (opcje opcjonalne)
-
-        client.builder(interaction, "", "**Błąd!**\n\nNic nie podano! Wybierz coś z opcji (/).", "Logi", "RED", "", "")
-
         if (interaction.options.getChannel("ogłoszenia")) {
             if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "Nie masz permisji!", ephemeral: true});
 
@@ -88,6 +89,14 @@ module.exports = {
             await r.table("settings").update({ id: interaction.guild.id, voteChannel: votechannel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${votechannel.id}> (voteChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getRole("moderatorrole")) {
+            const moderatorRole = await interaction.options.getRole("moderatorrole");
+
+            await r.table("settings").insert({ id: interaction.guild.id, moderatorRole: moderatorRole.id}).run(client.con);
+            await r.table("settings").update({ id: interaction.guild.id, moderatorRole: moderatorRole.id }).run(client.con);
+
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${moderatorRole.id}> (moderatorRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         }
     }
+
 };

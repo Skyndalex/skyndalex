@@ -5,7 +5,7 @@ module.exports = {
     once: false,
 
     async execute(client, channel) {
-        const channelLog = await r.table("logs").get(channel.guild.id)("channelCreate").run(client.con).catch(err => { })
+        const channelLog = await r.table("logs").get(channel.guild.id)("channelCreate").run(client.con).catch(err => {false})
 
         if (channel.type === "GUILD_CATEGORY") {
             const logEmbed = new MessageEmbed()

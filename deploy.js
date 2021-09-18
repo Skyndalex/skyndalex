@@ -11,7 +11,6 @@ const fs = require('fs');
 
     (async () => {
         try {
-            console.log('[/] Loading.');
             const commandFolders = fs.readdirSync('./commands');
 
             for (const folder of commandFolders) {
@@ -35,7 +34,6 @@ const fs = require('fs');
                     console.error(error);
                 }
             })();
-            console.log('[/] Loaded');
         } catch (error) {
             console.error(error);
         }
