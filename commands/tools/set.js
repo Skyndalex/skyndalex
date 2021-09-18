@@ -30,15 +30,15 @@ module.exports = {
             await r.table("settings").insert({ id: interaction.guild.id, broadcastChannel: channel.id}).run(client.con);
             await r.table("settings").update({ id: interaction.guild.id, broadcastChannel: channel.id }).run(client.con);
 
-            interaction.reply({content: `Pomyślnie ustawiono kanał ogłoszeń! (<#${channel.id}> ${channel.name})`, ephemeral: true});
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${channel.id}> (broadcastChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else {
             if (interaction.options.getChannel("głosowania")) {
-                const votechannel = await interaction.options.getChannel("vote");
+                const votechannel = await interaction.options.getChannel("głosowania");
 
-                await r.table("settings").insert({ id: interaction.guild.id,  voteChannel: votechannel.id }).run(client.con);
-                await r.table("settings").update({id: interaction.guild.id, voteChannel: votechannel.id}).run(client.con);
+                await r.table("settings").insert({ id: interaction.guild.id, votechannel: votechannel.id }).run(client.con);
+                await r.table("settings").update({id: interaction.guild.id, votechannel: votechannel.id}).run(client.con);
 
-                interaction.reply({content: `Pomyślnie ustawiono kanał głosowań! (<#${votechannel.id}> ${votechannel.name})`, ephemeral: true});
+                client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${votechannel.id}> (voteChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
             } else {
                 if (interaction.options.getChannel("skargi")) {
                     const complaintchannel = await interaction.options.getChannel("skargi");
@@ -46,7 +46,7 @@ module.exports = {
                     await r.table("settings").insert({ id: interaction.guild.id, complaintChannel: complaintchannel.id }).run(client.con)
                     await r.table("settings").update({ id: interaction.guild.id, complaintChannel: complaintchannel.id }).run(client.con)
 
-                    client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${complaintchannel.id}>\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+                    client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${complaintchannel.id}> (complaintChannel) \nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
                 }
             }
         }
