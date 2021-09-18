@@ -26,6 +26,8 @@ module.exports = {
             option.setName("moderatorrole").setDescription("Rola moderacji")
         )).addRoleOption(option => (
             option.setName("mutedrole").setDescription("Rola wyciszonego")
+        )).addRoleOption(option => (
+            option.setName("userrole").setDescription("Rola zweryfikowanego użytkownika")
         )),
 
 
@@ -96,6 +98,20 @@ module.exports = {
             await r.table("settings").update({ id: interaction.guild.id, moderatorRole: moderatorRole.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${moderatorRole.id}> (moderatorRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getRole("mutedrole")) {
+            const mutedRole = await interaction.options.getRole("mutedrole");
+
+            await r.table("settings").insert({ id: interaction.guild.id, mutedRole: mutedRole.id}).run(client.con);
+            await r.table("settings").update({ id: interaction.guild.id, mutedRole: mutedRole.id }).run(client.con);
+
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${mutedRole.id}> (mutedRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getRole("userrole")) {
+            const userRole = await interaction.options.getRole("userrole");
+
+            await r.table("settings").insert({ id: interaction.guild.id, userRole: userRole.id}).run(client.con);
+            await r.table("settings").update({ id: interaction.guild.id, userRole: userRole.id }).run(client.con);
+
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${userRole.id}> (userRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         }
     }
 

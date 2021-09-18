@@ -35,6 +35,13 @@ module.exports = {
                 cooldown.delete(interaction.user.id)
             }, 6000);
         }
+        if (interaction.customId === "verify") {
+            const settings = await r.table("settings").get(interaction.guild.id).run(client.con)
+
+            interaction.member.roles.add(settings?.userRole, { reason: "Zweryfikowano."})
+
+            interaction.reply({content: "Zweryfikowano."})
+        }
         if (!interaction.isCommand()) return;
         const command = client.commands.get(interaction.commandName);
         if (!command) return;
