@@ -36,7 +36,6 @@ const fs = require('fs');
                 }
             })();
             console.log('[/] Loaded');
-            console.log('Bot ready.')
         } catch (error) {
             console.error(error);
         }

@@ -39,6 +39,15 @@ module.exports = {
                 await r.table("settings").update({id: interaction.guild.id, voteChannel: votechannel.id}).run(client.con);
 
                 interaction.reply({content: `Pomyślnie ustawiono kanał głosowań! (<#${votechannel.id}> ${votechannel.name})`, ephemeral: true});
+            } else {
+                if (interaction.options.getChannel("skargi")) {
+                    const complaintchannel = await interaction.options.getChannel("skargi");
+
+                    await r.table("settings").insert({ id: interaction.guild.id, complaintChannel: complaintchannel.id }).run(client.con)
+                    await r.table("settings").update({ id: interaction.guild.id, complaintChannel: complaintchannel.id }).run(client.con)
+
+                    client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${complaintchannel.id}>\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+                }
             }
         }
     }
