@@ -28,7 +28,11 @@ module.exports = {
     async execute(client, interaction) {
         // (opcje opcjonalne)
 
+        client.builder(interaction, "", "**Błąd!**\n\nNic nie podano! Wybierz coś z opcji (/).", "Logi", "RED", "", "")
+
         if (interaction.options.getChannel("ogłoszenia")) {
+            if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "Nie masz permisji!", ephemeral: true});
+
             const channel = await interaction.options.getChannel("ogłoszenia");
 
             await r.table("settings").insert({ id: interaction.guild.id, broadcastChannel: channel.id}).run(client.con);
