@@ -27,3 +27,5 @@ await rest.put(
 - Na początku należy włączyć plik `deploy.js`. On zaktualizuje slash komendy na twoim serwerze bądź globalnie. Przy każdej zmianie komend należy włączyć ten plik aby na spokojnie mogło się zaktualizować.
 ## slash.js
 - Włącz ten plik, aby uruchomić bota, bazę danych oraz stronę.
+
+Fact: Aktualnie kod jest w totalnej rozsypce ale spokojnie. Większość rzeczy zostanie przepisane na objekty i wszystkie błędy są brane pod uwagę
