@@ -28,7 +28,10 @@ const fs = require('fs');
                         Routes.applicationGuildCommands(clientId, guildId),
                         { body: commands },
                     );
-
+                    await rest.put(
+                        Routes.applicationCommands(clientId),
+                        { body: commands },
+                    );
                     console.log('Loaded (/) commands.');
                 } catch (error) {
                     console.error(error);

@@ -40,7 +40,12 @@ module.exports = {
 
             interaction.member.roles.add(settings?.userRole, { reason: "Zweryfikowano."})
 
-            interaction.reply({content: "Zweryfikowano."})
+            const embed2 = new MessageEmbed()
+                .setDescription(`**Zweryfikowano**\n\nUżytkownik: ${interaction.user.tag}\nSerwer: ${interaction.guild.name}`)
+                .setFooter("Nadano rolę.")
+                .setColor("GREEN")
+                .setTimestamp()
+            await interaction.update({embeds: [embed2], components: []})
         }
         if (!interaction.isCommand()) return;
         const command = client.commands.get(interaction.commandName);
