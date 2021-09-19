@@ -5,11 +5,9 @@
     "discord.js": "^13.1.0",
     "express": "^4.17.1",
     "figlet": "^1.5.2",
-    "fs": "^0.0.1-security",
     "os": "^0.1.2",
     "path": "^0.12.7",
-    "rethinkdb": "^2.4.2",
-    "util": "^0.12.4"
+    "rethinkdb": "^2.4.2"
   },
   "name": "krivebot",
   "description": "- Przez globalne komendy komendy mogą się ładować wolniej. Jeżeli testujesz bota tylko na jednym serwerze, usuń tą część kodu z pliku ready.js (w kategorii: events)",
