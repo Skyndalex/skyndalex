@@ -7,6 +7,8 @@ module.exports = {
         .setDescription('Zweryfikuj się.'),
 
     async execute(client, interaction) {
+        if (!interaction.guild.me.permissions.has("MANAGE_ROLES")) return interaction.reply({content: "Nie mam permisji do nadawania roli!"})
+
         const row = new MessageActionRow()
             .addComponents(
                 new MessageButton()
