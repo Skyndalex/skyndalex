@@ -9,7 +9,10 @@ module.exports = {
         .setDescription('Tickety'),
 
     async execute(client, interaction) {
-            const row = new MessageActionRow()
+        if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "Nie masz permisji!", ephemeral: true});
+        if (!interaction.guild.me.permissions.has("MANAGE_CHANNELS")) return interaction.reply({content: "Nie mam permisji do zarządzania kanałami!"})
+
+        const row = new MessageActionRow()
                 .addComponents(
                     new MessageButton()
                         .setCustomId('createticket')
