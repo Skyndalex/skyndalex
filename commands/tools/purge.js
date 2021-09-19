@@ -8,6 +8,9 @@ module.exports = {
         )),
 
     async execute(client, interaction) {
+        if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "Nie masz permisji!", ephemeral: true});
+        if (!interaction.guild.me.permissions.has("MANAGE_MESSAGES")) return interaction.reply({content: "Nie mam permisji do zarządzania wiadomościami!"})
+
         const toClear = interaction.options.getString("amount");
 
         if (isNaN(toClear)) return interaction.reply({content: "To nie jest liczba!", ephemeral: true});
