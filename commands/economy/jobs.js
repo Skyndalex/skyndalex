@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageButton, MessageActionRow, MessageEmbed} = require("discord.js");
+const r = require("rethinkdb")
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('jobs')
@@ -11,9 +11,13 @@ module.exports = {
         )),
     async execute(client, interaction) {
         if (interaction.options.getString("job") === "developer") {
-            interaction.reply({content: 'siema'})
+            await r.table("economy").insert({ userid: interaction.user.id, money: 0, job: "developer" }).run(client.con)
+
+            client.builder(interaction, ``, `**Dołączono do pracy**\n\nUżytkownik: ${interaction.user.tag}\nPraca: Programista`, `Ekonomia`, `GREEN`)
         } else if (interaction.options.getString("job") === "miner") {
-            interaction.reply({content: "siema2"})
+            await r.table("economy").insert({ userid: interaction.user.id, money: 0, job: "miner "}).run(client.con)
+
+            client.builder(interaction, ``, `**Dołączono do pracy**\n\nUżytkownik: ${interaction.user.tag}\nPraca: Górnik`, `Ekonomia`, `GREEN`)
         }
     }
 
