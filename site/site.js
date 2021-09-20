@@ -26,7 +26,7 @@ exports.run = (client) => {
         res.redirect('https://github.com/Korrumz2PL/krivebot')
     });
     app.get('/invite', (req, res) => {
-        res.redirect('https://discord.com/oauth2/authorize?client_id=836529470122622986&scope=bot&permissions=0')
+        res.redirect('https://discord.com/oauth2/authorize?client_id=836529470122622986&permissions=0&scope=bot%20applications.commands')
     });
     app.get('/todo', (req, res) => {
         res.redirect('https://github.com/Korrumz2PL/krivebot/projects/3')
