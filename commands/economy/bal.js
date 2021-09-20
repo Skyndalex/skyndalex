@@ -12,7 +12,7 @@ module.exports = {
             miner: "Górnik",
             Developer: "Programista"
         }
-        client.builder(interaction, ``, `**Stan konta**\n\nTwoja praca: ${works[table.job]}\nIlość monet: ${table.money}\nUżytkownik: ${interaction.user.tag}`, `Ekonomia`, `GREEN`)
+        client.builder(interaction, ``, `**Stan konta**\n\nTwoja praca: ${works[table.job] || "Błąd"}\nIlość monet: ${table.money}\nUżytkownik: ${interaction.user.tag}`, `Ekonomia`, `GREEN`)
     }
 
 };
