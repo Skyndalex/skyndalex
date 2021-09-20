@@ -7,6 +7,6 @@ module.exports = {
         .setDescription('Lista komend'),
 
     async execute(client, interaction) {
-        client.builder(interaction, "", "**Lista komend**\n\nListę komend znajdziesz w slash-komendach [/komenda].", "Komendy", "GREEN", "", "https://i.imgur.com/2f58Twn.png")
+        client.builder(interaction, "", `**Lista komend**\n\nListę komend znajdziesz w slash-komendach [/komenda].\n\nLiczba komend: \`${client.commands.size}/100\``, "Komendy", "GREEN", "", "https://i.imgur.com/2f58Twn.png")
     }
 };
