@@ -5,6 +5,7 @@
     "discord.js": "^13.1.0",
     "express": "^4.17.1",
     "figlet": "^1.5.2",
+    "node-fetch": "^3.0.0",
     "os": "^0.1.2",
     "path": "^0.12.7",
     "rethinkdb": "^2.4.2"
