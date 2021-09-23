@@ -17,10 +17,7 @@ module.exports = {
         const settings = await r.table("settings").get(interaction.guild.id).run(client.con)
         if (!settings?.mutedRole) interaction.reply({content: "Administrator serwera nie ustawił roli wyciszonego!"})
 
-        const roleWatcher = await r.table("users").insert({
-            userid: interaction.user.id,
-            isMuted: true,
-        }).run(client.con);
+        const roleWatcher = await r.table("users").insert({ userid: interaction.user.id, isMuted: true, }).run(client.con);
 
         const member = interaction.options.getMember("user");
         const reason = interaction.options.getString("reaon");
