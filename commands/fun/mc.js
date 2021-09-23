@@ -17,7 +17,7 @@ module.exports = {
                 for (let i in json.username_history) {
                     data.push(json.username_history[i].username);
                 }
-                if (!data) return interaction.reply({content: "Nie podałeś nazwy gracza!"});
+                if (!json.username) return interaction.reply({content: "Użytkownik nie ma konta premium bądź w ogóle go nie znaleziono!"});
 
                 client.builder(interaction, `Informacje o koncie minecraft: ${json.username}`, ``, ``, `GREEN`, [
                     {
