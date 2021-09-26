@@ -38,12 +38,18 @@ module.exports = {
 
             const channel = await interaction.options.getChannel("ogłoszenia");
 
+            if (channel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (channel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
+
             await r.table("settings").insert({ id: interaction.guild.id, broadcastChannel: channel.id}).run(client.con);
             await r.table("settings").update({ id: interaction.guild.id, broadcastChannel: channel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${channel.id}> (broadcastChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getChannel("skargi")) {
             const complaintchannel = await interaction.options.getChannel("skargi");
+
+            if (complaintchannel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (complaintchannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
             await r.table("settings").insert({ id: interaction.guild.id, complaintChannel: complaintchannel.id}).run(client.con);
             await r.table("settings").update({ id: interaction.guild.id, complaintChannel: complaintchannel.id }).run(client.con);
@@ -52,12 +58,18 @@ module.exports = {
         } else if (interaction.options.getChannel("obrazki")) {
             const imagechannel = await interaction.options.getChannel("obrazki");
 
+            if (imagechannel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (imagechannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
+
             await r.table("settings").insert({ id: interaction.guild.id, imageChannel: imagechannel.id}).run(client.con);
             await r.table("settings").update({ id: interaction.guild.id, imageChannel: imagechannel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${imagechannel.id}> (imageChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getChannel("powitania")) {
             const welcomechannel = await interaction.options.getChannel("powitania");
+
+            if (welcomechannel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (welcomechannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
             await r.table("settings").insert({ id: interaction.guild.id, welcomeChannel: welcomechannel.id}).run(client.con);
             await r.table("settings").update({ id: interaction.guild.id, welcomeChannel: welcomechannel.id }).run(client.con);
@@ -66,12 +78,18 @@ module.exports = {
         } else if (interaction.options.getChannel("pożegnania")) {
             const goodbyechannel = await interaction.options.getChannel("pożegnania")
 
+            if (goodbyechannel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (goodbyechannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
+
             await r.table("settings").insert({ id: interaction.guild.id, goodbyeChannel: goodbyechannel.id}).run(client.con);
-            await r.table("settings").update({ id: interaction.guild.id, goodbyeChannel: goodbyechannel.id }).run(client.con);
+            await r.table("settings").update({ goodbyeChannel: goodbyechannel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${goodbyechannel.id}> (goodbyeChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getChannel("sugestie")) {
             const suggestionchannel = await interaction.options.getChannel("sugestie");
+
+            if (suggestionchannel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (suggestionchannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
             await r.table("settings").insert({ id: interaction.guild.id, suggestionChannel: suggestionchannel.id}).run(client.con);
             await r.table("settings").update({ id: interaction.guild.id, suggestionChannel: suggestionchannel.id }).run(client.con);
@@ -80,12 +98,18 @@ module.exports = {
         } else if (interaction.options.getChannel("podania")) {
             const applicationchannel = await interaction.options.getChannel("podania");
 
+            if (applicationchannel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (applicationchannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
+
             await r.table("settings").insert({ id: interaction.guild.id, applicationChannel: applicationchannel.id}).run(client.con);
             await r.table("settings").update({ id: interaction.guild.id, applicationChannel: applicationchannel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${applicationchannel.id}> (applicationChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getChannel("głosowania")) {
             const votechannel = await interaction.options.getChannel("głosowania");
+
+            if (votechannel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (votechannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
             await r.table("settings").insert({ id: interaction.guild.id, voteChannel: votechannel.id}).run(client.con);
             await r.table("settings").update({ id: interaction.guild.id, voteChannel: votechannel.id }).run(client.con);

@@ -12,7 +12,7 @@ module.exports = {
         .setColor("ORANGE")
         member.guild.channels.cache.get(table.welcomeChannel).send({
             embeds: [embed]
-        });
+        }).catch(err => {false})
 
         if (!table?.isMuted) {
             await member.roles.add(table?.mutedRole)
