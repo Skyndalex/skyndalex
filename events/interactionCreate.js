@@ -36,21 +36,11 @@ module.exports = {
                 cooldown.delete(interaction.user.id)
             }, 6000);
         }
-        if (interaction.customId === "verify") {
-            const settings = await r.table("settings").get(interaction.guild.id).run(client.con)
-
-            interaction.member.roles.add(settings?.userRole, { reason: "Zweryfikowano."})
-
-            const embed2 = new MessageEmbed()
-                .setDescription(`**Zweryfikowano**\n\nUżytkownik: ${interaction.user.tag}\nSerwer: ${interaction.guild.name}`)
-                .setFooter("Nadano rolę.")
-                .setColor("GREEN")
-                .setTimestamp()
-            await interaction.update({embeds: [embed2], components: []})
-        }
         if (!interaction.isCommand()) return;
+
         const command = client.commands.get(interaction.commandName);
         if (!command) return;
+
         try {
             await command.execute(client, interaction);
         } catch (error) {
