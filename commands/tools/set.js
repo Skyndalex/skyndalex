@@ -42,7 +42,7 @@ module.exports = {
             if (channel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
             await r.table("settings").insert({ id: interaction.guild.id, broadcastChannel: channel.id}).run(client.con);
-            await r.table("settings").update({ id: interaction.guild.id, broadcastChannel: channel.id }).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, broadcastChannel: channel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${channel.id}> (broadcastChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getChannel("skargi")) {
@@ -52,7 +52,7 @@ module.exports = {
             if (complaintchannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
             await r.table("settings").insert({ id: interaction.guild.id, complaintChannel: complaintchannel.id}).run(client.con);
-            await r.table("settings").update({ id: interaction.guild.id, complaintChannel: complaintchannel.id }).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, complaintChannel: complaintchannel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${complaintchannel.id}> (complaintChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getChannel("obrazki")) {
@@ -62,7 +62,7 @@ module.exports = {
             if (imagechannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
             await r.table("settings").insert({ id: interaction.guild.id, imageChannel: imagechannel.id}).run(client.con);
-            await r.table("settings").update({ id: interaction.guild.id, imageChannel: imagechannel.id }).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, imageChannel: imagechannel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${imagechannel.id}> (imageChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getChannel("powitania")) {
@@ -72,7 +72,7 @@ module.exports = {
             if (welcomechannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
             await r.table("settings").insert({ id: interaction.guild.id, welcomeChannel: welcomechannel.id}).run(client.con);
-            await r.table("settings").update({ id: interaction.guild.id, welcomeChannel: welcomechannel.id }).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, welcomeChannel: welcomechannel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${welcomechannel.id}> (welcomeChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getChannel("pożegnania")) {
@@ -82,7 +82,7 @@ module.exports = {
             if (goodbyechannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
             await r.table("settings").insert({ id: interaction.guild.id, goodbyeChannel: goodbyechannel.id}).run(client.con);
-            await r.table("settings").update({ goodbyeChannel: goodbyechannel.id }).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ goodbyeChannel: goodbyechannel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${goodbyechannel.id}> (goodbyeChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getChannel("sugestie")) {
@@ -92,7 +92,7 @@ module.exports = {
             if (suggestionchannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
             await r.table("settings").insert({ id: interaction.guild.id, suggestionChannel: suggestionchannel.id}).run(client.con);
-            await r.table("settings").update({ id: interaction.guild.id, suggestionChannel: suggestionchannel.id }).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, suggestionChannel: suggestionchannel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${suggestionchannel.id}> (suggestionChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getChannel("podania")) {
@@ -102,7 +102,7 @@ module.exports = {
             if (applicationchannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
             await r.table("settings").insert({ id: interaction.guild.id, applicationChannel: applicationchannel.id}).run(client.con);
-            await r.table("settings").update({ id: interaction.guild.id, applicationChannel: applicationchannel.id }).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, applicationChannel: applicationchannel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${applicationchannel.id}> (applicationChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getChannel("głosowania")) {
@@ -112,28 +112,28 @@ module.exports = {
             if (votechannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
             await r.table("settings").insert({ id: interaction.guild.id, voteChannel: votechannel.id}).run(client.con);
-            await r.table("settings").update({ id: interaction.guild.id, voteChannel: votechannel.id }).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, voteChannel: votechannel.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${votechannel.id}> (voteChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getRole("moderatorrole")) {
             const moderatorRole = await interaction.options.getRole("moderatorrole");
 
             await r.table("settings").insert({ id: interaction.guild.id, moderatorRole: moderatorRole.id}).run(client.con);
-            await r.table("settings").update({ id: interaction.guild.id, moderatorRole: moderatorRole.id }).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, moderatorRole: moderatorRole.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${moderatorRole.id}> (moderatorRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getRole("mutedrole")) {
             const mutedRole = await interaction.options.getRole("mutedrole");
 
             await r.table("settings").insert({ id: interaction.guild.id, mutedRole: mutedRole.id}).run(client.con);
-            await r.table("settings").update({ id: interaction.guild.id, mutedRole: mutedRole.id }).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, mutedRole: mutedRole.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${mutedRole.id}> (mutedRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else if (interaction.options.getRole("userrole")) {
             const userRole = await interaction.options.getRole("userrole");
 
             await r.table("settings").insert({ id: interaction.guild.id, userRole: userRole.id}).run(client.con);
-            await r.table("settings").update({ id: interaction.guild.id, userRole: userRole.id }).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, userRole: userRole.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${userRole.id}> (userRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         }
