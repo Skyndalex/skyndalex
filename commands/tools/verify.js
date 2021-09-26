@@ -15,6 +15,8 @@ module.exports = {
         const table = await r.table("settings").get(interaction.guild.id).run(client.con)
         if (!table?.userRole) return interaction.reply({content: "Nie ustawiono roli zweryfikowanego użytkownika na serwerze! \`(userRole)\`"})
 
+        if (interaction.member.roles.cache.map(r => r.id).includes(table?.userRole)) return client.builder(interaction, "", "**Błąd!**\n\nJesteś już zweryfikowany! Nie możesz zweryfikować się po raz drugi.", "", "RED", "", "")
+
         let captcha = new Captcha();
 
         await interaction.reply({content: "Wpisz captchę poniżej.", files: [new MessageAttachment(captcha.JPEGStream, "captcha.jpeg")]})
@@ -24,10 +26,10 @@ module.exports = {
             if (m.content.toUpperCase() === captcha.value) {
                 interaction.member.roles.add(table.userRole)
 
-                interaction.editReply({content: "Zweryfikowano."})
+                interaction.editReply({content: "Zweryfikowano.", attachements: [], files: []}) //todo: clear attachements
                 collector.stop()
             } else {
-                interaction.editReply({content: "Coś poszło nie tak! Najprawdopodobniej podałeś zły kod. Pamiętaj o dużych znakach itp!", files: null})
+                interaction.editReply({content: "Podano zły kod!\nNie możesz się rozczytać? Wpisz komendę ponownie."})
                 collector.stop()
             }
         })
