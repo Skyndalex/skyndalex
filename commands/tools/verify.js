@@ -22,6 +22,8 @@ module.exports = {
         let collector = interaction.channel.createMessageCollector(m => m.author.id === interaction.user.id);
         collector.on("collect", m => {
             if (m.content.toUpperCase() === captcha.value) {
+                interaction.member.roles.add(table.userRole)
+
                 interaction.editReply({content: "Zweryfikowano."})
                 collector.stop()
             } else {
