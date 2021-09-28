@@ -17,7 +17,10 @@ const client = new Base({ intents: [
     ], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 
 client.commands = new Collection;
+
 require("./site/site").run(client);
+// require("./panel/dash").run(client);
+
 require("./functions")(client);
 
 const commandFolders = fs.readdirSync('./commands');

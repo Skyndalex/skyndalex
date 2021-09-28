@@ -8,7 +8,7 @@ module.exports = {
     async execute(client, interaction) {
         const info = new MessageEmbed()
             .setTitle("Informacje o serwerze")
-            .setDescription(`Nazwa serwera: ${interaction.guild.name}\nID serwera: ${interaction.guild.id}\nLiczba członków: ${interaction.guild.memberCount}`)
+            .setDescription(`Nazwa serwera: ${interaction.guild.name}\nID serwera: ${interaction.guild.id}\nLiczba członków: ${interaction.guild.memberCount}\nNajwyższa rola: ${interaction.guild.roles.highest}\nLiczba boostów: ${interaction.guild.premiumSubscriptionCount}\nLiczba ról: ${interaction.guild.roles.cache.size}\nLiczba kanałów: ${interaction.guild.channels.cache.size}`)
             .setColor("GREEN")
         interaction.reply({ embeds: [info] });
     }
