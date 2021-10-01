@@ -30,7 +30,6 @@ module.exports = {
             option.setName("userrole").setDescription("Rola zweryfikowanego użytkownika")
         )),
 
-
     async execute(client, interaction) {
         // (opcje opcjonalne)
         if (interaction.options.getChannel("ogłoszenia")) {
