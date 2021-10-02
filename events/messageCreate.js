@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js")
+const { prefix } = require("../config.json")
 module.exports = {
     name: "messageCreate",
     once: false,
@@ -13,6 +14,6 @@ module.exports = {
             .setTimestamp()
         if (message.content.match(prefixMention)) {
             return message.channel.send({embeds: [mention], ephemeral: true});
-        }
+        };
     }
 }

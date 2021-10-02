@@ -45,7 +45,7 @@ module.exports = {
             await command.execute(client, interaction);
         } catch (error) {
             if (error) console.error(error);
-            await interaction.reply({ content: 'Wystąpił błąd podczas uruchamiania komendy! Informacja została wysłana do programistów.', ephemeral: true });
+            await interaction.reply({ content: 'Wystąpił błąd podczas uruchamiania komendy! Informacja została wysłana do programistów.'});
         }
     }
 }

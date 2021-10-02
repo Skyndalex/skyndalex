@@ -7,7 +7,7 @@ module.exports = {
     once: false,
 
     async execute(client) {
-        client.user.setPresence({ activities: [{ name: "/help | Gotowy." }] });
+        await client.user.setPresence({ activities: [{ name: "Gotowy do działania!" }] });
         console.log("Bot ready.")
     }
 }
