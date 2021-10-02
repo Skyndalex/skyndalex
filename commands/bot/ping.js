@@ -10,7 +10,7 @@ module.exports = {
     async execute(client, interaction) {
         const embed = new MessageEmbed()
             .setDescription(`Mój ping: \`${client.ws.ping}\`\n\n[\`Status serwisów\`](https://status.krivebot.xyz)\n[\`Status ogólny bota\`](https://status.krivebot.xyz/service/bot)`)
-            .setColor("GREEN")
+            .setColor("#2f3136")
 
         await interaction.deferReply()
         await wait(10)

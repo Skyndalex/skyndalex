@@ -28,6 +28,10 @@ module.exports = {
             option.setName("mutedrole").setDescription("Rola wyciszonego")
         )).addRoleOption(option => (
             option.setName("userrole").setDescription("Rola zweryfikowanego użytkownika")
+        )).addRoleOption(option => (
+            option.setName("adminrole").setDescription("Rola administratora serwera")
+        )).addRoleOption(option => (
+            option.setName("autorole").setDescription("Rola automatyczna")
         )),
 
     async execute(client, interaction) {
@@ -135,6 +139,20 @@ module.exports = {
             await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, userRole: userRole.id }).run(client.con);
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${userRole.id}> (userRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getRole("adminrole")) {
+            const adminRole = await interaction.options.getRole("adminrole");
+
+            await r.table("settings").insert({ id: interaction.guild.id, adminRole: adminRole.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, adminRole: adminRole.id }).run(client.con);
+
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${adminRole.id}> (adminRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getRole("autorole")) {
+            const autoRole = await interaction.options.getRole("autorole");
+
+            await r.table("settings").insert({ id: interaction.guild.id, autoRole: autoRole.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, autoRole: autoRole.id }).run(client.con);
+
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${autoRole.id}> (autoRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         }
     }
 
