@@ -20,7 +20,7 @@ client.commands = new Collection;
 
 // sites
 require("./site/site").run(client);
-require("./dashboard/server").run(client)
+require("./dashboard/render").run(client)
 
 // functions
 require("./functions")(client);

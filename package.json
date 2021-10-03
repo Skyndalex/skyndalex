@@ -18,7 +18,8 @@
     "passport-discord": "^0.1.4",
     "path": "^0.12.7",
     "rethinkdb": "^2.4.2",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "vue": "^2.6.14"
   },
   "name": "krivebot",
   "description": "- Przez globalne komendy komendy mogą się ładować wolniej. Jeżeli testujesz bota tylko na jednym serwerze, usuń tą część kodu z pliku ready.js (w kategorii: events)",
@@ -36,5 +37,9 @@
   "bugs": {
     "url": "https://github.com/Korrumz2PL/krivebot/issues"
   },
-  "homepage": "https://github.com/Korrumz2PL/krivebot#readme"
+  "homepage": "https://github.com/Korrumz2PL/krivebot#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0"
+  }
 }
