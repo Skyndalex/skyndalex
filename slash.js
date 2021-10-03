@@ -18,9 +18,11 @@ const client = new Base({ intents: [
 
 client.commands = new Collection;
 
+// sites
 require("./site/site").run(client);
-// require("./panel/dash").run(client);
+require("./dashboard/server").run(client)
 
+// functions
 require("./functions")(client);
 
 const commandFolders = fs.readdirSync('./commands');

@@ -22,7 +22,7 @@ module.exports = {
         const member = interaction.options.getMember("user");
         const reason = interaction.options.getString("reaon");
 
-        await r.table("users").insert({ userid: member.user.id, isMuted: true, }).run(client.con);
+        const roleWatcher = await r.table("users").insert({ userid: member.user.id, isMuted: true, }).run(client.con);
 
         member.roles.add(settings?.mutedRole, { reason: "Wyciszono." })
 
