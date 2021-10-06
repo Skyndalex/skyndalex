@@ -18,7 +18,7 @@ module.exports = {
         if (!settings?.mutedRole) interaction.reply({content: "Administrator serwera nie ustawił roli wyciszonego!"})
 
         const member = interaction.options.getMember("user");
-        const reason = interaction.options.getString("reaon");
+        const reason = interaction.options.getString("reason");
 
         member.roles.remove(settings?.mutedRole, { reason: "Odciszono." })
 

@@ -20,7 +20,7 @@ module.exports = {
         await r.table("users").get(interaction.user.id).update({ isMuted: true }).run(client.con);
 
         const member = interaction.options.getMember("user");
-        const reason = interaction.options.getString("reaon");
+        const reason = interaction.options.getString("reason");
 
         const roleWatcher = await r.table("users").insert({ userid: member.user.id, isMuted: true, }).run(client.con);
 
