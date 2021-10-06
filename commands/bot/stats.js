@@ -32,6 +32,7 @@ module.exports = {
 
         const cpu = osu.cpu
 
+        //todo: move to interactionCreate.js
         collector.on('collect', async i => {
             if (i.user.id === interaction.user.id) {
                 if (i.values[0] === 'cache_stats') {
@@ -52,7 +53,7 @@ module.exports = {
                    })
                     console.log(cpuInfo)
                 } else if (i.values[0] === "versions") {
-                    //todo: builder
+                    //todo: builder (embed)
                     const embed3 = new MessageEmbed()
                         .setDescription("Wersje")
                         .addField(`#> \`discord.js\``, `^${version}`)
