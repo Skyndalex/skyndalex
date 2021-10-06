@@ -13,6 +13,7 @@ module.exports = {
 
     async execute(client, interaction) {
         if (!interaction.member.permissions.has('MANAGE_ROLES')) return interaction.reply({content: "Nie masz permisji!", ephemeral: true});
+        if (!interaction.guild.me.permissions.has("MANAGE_ROLES")) return interaction.reply({content: "Nie mam permisji do nadawania roli!"})
 
         const settings = await r.table("settings").get(interaction.guild.id).run(client.con)
         if (!settings?.mutedRole) interaction.reply({content: "Administrator serwera nie ustawił roli wyciszonego!"})
