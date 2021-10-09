@@ -5,7 +5,7 @@ module.exports = {
     once: false,
 
     async execute(client, member) {
-        const table = await r.table("settings").get(member.guild.id).run(client.con).catch(err => {false});
+        const table = await r.table("settings").get(member.guild.id).run(client.con);
         const table2 = await r.table("users").get(member.user.id).run(client.con);
 
         const embed = new MessageEmbed()
@@ -13,7 +13,7 @@ module.exports = {
         .setColor("ORANGE")
         member.guild.channels.cache.get(table.welcomeChannel).send({
             embeds: [embed]
-        }).catch(err => {false})
+        })
 
         if (table2?.isMuted) {
             await member.roles.add(table?.mutedRole)
