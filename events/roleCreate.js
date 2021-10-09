@@ -6,6 +6,6 @@ module.exports = {
     once: false,
 
    async execute(client, role) { 
-        const logChannel = await r.table("logs").get(role.guild.id)("roleCreate").run(client.con).catch(err => {false})
+        const logChannel = await r.table("logs").get(role.guild.id)("roleCreate").run(client.con)
     }
 }

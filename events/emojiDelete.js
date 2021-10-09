@@ -6,7 +6,8 @@ module.exports = {
     once: false,
 
   async execute(client, emoji) {
-        const logChannel = await r.table("logs").get(emoji.guild.id)("emojiDelete").run(client.con).catch(err => {false})
+        const logChannel = await r.table("logs").get(emoji.guild.id)("emojiDelete").run(client.con)
+        if (!logChannel) return false;
 
         const embed = new MessageEmbed()
         .setDescription(`**Usunięto emoji!**\n\nID: ${emoji.id} `)
