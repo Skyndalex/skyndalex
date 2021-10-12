@@ -1,7 +1,6 @@
-// @formatter: off
 // todo: objects
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require("discord.js")
 const r = require("rethinkdb")
 module.exports = {
     data: new SlashCommandBuilder()
@@ -158,39 +157,21 @@ module.exports = {
 
             client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${autoRole.id}> (autoRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
         } else {
-            const object = Object(checkTable); // [Objekt] dodawanie fieldów (jeśli) coś jest ustawione.
-
-            const row = new MessageActionRow()
-                .addComponents(
-                    new MessageButton()
-                        .setCustomId('roles-set')
-                        .setLabel('Role')
-                        .setStyle('SUCCESS'),
-                );
-            const row2 = new MessageActionRow()
-                .addComponents(
-                    new MessageButton()
-                        .setCustomId('other-set')
-                        .setLabel('Inne')
-                        .setStyle('SUCCESS')
-                        .setDisabled(true),
-                );
+            const object = Object(checkTable);
 
             const embedError = new MessageEmbed()
                 .setDescription("Nic nie wpisano!\nProszę wybrać opcje.")
                 .setColor("RED")
-                object.broadcastChannel = embedError.addField(`> Kanał ogłoszeń`, `<#${checkTable.broadcastChannel}>`)
-                object.complaintChannel = embedError.addField(`> Kanał skarg`, `<#${checkTable.complaintChannel}>`)
-                object.imageChannel = embedError.addField(`> Kanał obrazków`, `<#${checkTable.imageChannel}>`)
-                object.welcomeChannel = embedError.addField(`> Kanał powitań`, `<#${checkTable.welcomeChannel}>`)
-                object.goodbyeChannel = embedError.addField(`> Kanał pożegnań`, `<#${checkTable.goodbyeChannel}>`)
-                object.suggestionChannel = embedError.addField("> Kanał sugestii", `<#${checkTable.suggestionChannel}>`)
-                object.applicationChannel = embedError.addField(`Kanał podań`, `<#${checkTable.applicationChannel}>`)
-                object.voteChannel = embedError.addField(`Kanał głosowań`, `<#${checkTable.voteChannel}>`)
-            await interaction.reply({
-                embeds: [embedError],
-                components: [row, row2]
-            })
+            object.broadcastChannel = embedError.addField(`> Kanał ogłoszeń`, `<#${checkTable.broadcastChannel}>`)
+            object.complaintChannel = embedError.addField(`> Kanał skarg`, `<#${checkTable.complaintChannel}>`)
+            object.imageChannel = embedError.addField(`> Kanał obrazków`, `<#${checkTable.imageChannel}>`)
+            object.welcomeChannel = embedError.addField(`> Kanał powitań`, `<#${checkTable.welcomeChannel}>`)
+            object.goodbyeChannel = embedError.addField(`> Kanał pożegnań`, `<#${checkTable.goodbyeChannel}>`)
+            object.suggestionChannel = embedError.addField("> Kanał sugestii", `<#${checkTable.suggestionChannel}>`)
+            object.applicationChannel = embedError.addField(`Kanał podań`, `<#${checkTable.applicationChannel}>`)
+            object.voteChannel = embedError.addField(`Kanał głosowań`, `#${checkTable.voteChannel}>`)
+            await interaction.reply({embeds: [embedError]})
         }
     }
+
 };

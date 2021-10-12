@@ -30,8 +30,6 @@ await rest.put(
 
 # Przydatne linki oraz poradniki
 
-Oficjalna strona: [discordjs.guide](https://discordjs.guide).
-
 - [Discord.Js Documentation (Main)](https://discord.js.org/#/docs/main/main/general/welcome),
 - [Discord.Js v13 (NPM)](https://www.npmjs.com/package/discord.js),
 - [Node.Js](https://nodejs.org),
