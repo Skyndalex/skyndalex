@@ -40,4 +40,5 @@ Oficjalna strona: [discordjs.guide](https://discordjs.guide).
 - [Discord.Js Guide #Event-Handling](https://discordjs.guide/creating-your-bot/event-handling.html#individual-event-files),
 - [Discord.Js Guide #Buttons](https://discordjs.guide/interactions/buttons.html),
 - [Discord.Js Guide #Select-Menus](https://discordjs.guide/interactions/select-menus.html#component-collectors)
+
 Nie zalecamy uruchamiać kodu bez żadnej znajomości javascriptu
