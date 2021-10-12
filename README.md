@@ -28,4 +28,12 @@ await rest.put(
 ## slash.js
 - Włącz ten plik, aby uruchomić bota, bazę danych oraz stronę.
 
-Fact: Aktualnie kod jest w totalnej rozsypce ale spokojnie. Większość rzeczy zostanie przepisane na objekty i wszystkie błędy są brane pod uwagę
+# Przydatne poradniki
+
+Oficjalna strona: [discordjs.guide](https://discordjs.guide).
+
+- [Discord.Js Guide #Reactions](https://discordjs.guide/popular-topics/reactions.html#listening-for-reactions-on-old-messages),
+- [Discord.Js Guide #Creating-Slash-Commands](https://discordjs.guide/creating-your-bot/creating-commands.html#replying-to-commands),
+- [Discord.Js Guide #Event-Handling](https://discordjs.guide/creating-your-bot/event-handling.html#individual-event-files),
+- [Discord.Js Guide #Buttons](https://discordjs.guide/interactions/buttons.html),
+- [Discord.Js Guide #Select-Menus](https://discordjs.guide/interactions/select-menus.html#component-collectors)
