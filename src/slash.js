@@ -50,4 +50,16 @@ for (const file of eventFiles) {
     }
 }
 
+//TODO: move to folder src/evnets
+client.on('messageReactionAdd', async(reaction, user) => {
+    if (reaction.partial) {
+        try {
+            await reaction.fetch();
+        } catch (error) {
+            console.error('Something went wrong:', error);
+            return;
+        }
+    }
+});
+
 client.login(token);
