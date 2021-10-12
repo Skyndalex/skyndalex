@@ -9,7 +9,7 @@ class Base extends Client {
             true: "Tak",
             false: "Nie"
         };
-        this.version = "v4.4";
+        this.version = "v4.6";
         this.site = "https://krivebot.xyz";
     }
     builder (interaction, title, text, footer, color, fields = [], image) {
