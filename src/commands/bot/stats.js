@@ -38,7 +38,7 @@ module.exports = {
                 if (i.values[0] === 'cache_stats') {
                     const embed = new MessageEmbed()
                         .setDescription(`**Statystyki cache**\n\nSerwery: ${client.guilds.cache.size}\nUżytkownicy: ${client.users.cache.size}\nKanały: ${client.channels.cache.size}\nLiczba emoji: ${client.emojis.cache.size}`)
-                        .setColor("GREEN")
+                        .setColor("#2f3136")
                     await i.reply({ embeds: [embed] })
                 } else if (i.values[0] === "vps_stats") {
                     //todo: fix
@@ -47,7 +47,7 @@ module.exports = {
                     const cpuInfo = cpu.usage().then(info => {
                        const embed2 = new MessageEmbed()
                            .setDescription(`**Zasoby**\n\nZużycie CPU: \`${info}%\`\nZużycie pamięci RAM: \`${rss}\`\nUptime: \`${require("moment").duration(client.uptime).humanize()}\``)
-                           .setColor("GREEN")
+                           .setColor("#2f3136)
                         i.reply({ embeds: [embed2] })
                    })
                 } else if (i.values[0] === "versions") {
@@ -60,7 +60,7 @@ module.exports = {
                         .addField("#> \`figlet\`", "^1.5.2")
                         .addField("#> \`node-html-parser\`", "^4.1.5")
                         .addField("#> \`body-parser\`", "^1.19.0")
-                        .setColor("GREEN")
+                        .setColor("#2f3136")
                         i.reply({ embeds: [embed3] })
                 }
             }
