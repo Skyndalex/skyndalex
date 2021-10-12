@@ -44,14 +44,12 @@ module.exports = {
                     //todo: fix
                     const rss = `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB/${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`;
 
-                    //todo: os
                     const cpuInfo = cpu.usage().then(info => {
                        const embed2 = new MessageEmbed()
                            .setDescription(`**Zasoby**\n\nZużycie CPU: \`${info}%\`\nZużycie pamięci RAM: \`${rss}\`\nUptime: \`${require("moment").duration(client.uptime).humanize()}\``)
                            .setColor("GREEN")
                         i.reply({ embeds: [embed2] })
                    })
-                    console.log(cpuInfo)
                 } else if (i.values[0] === "versions") {
                     //todo: builder (embed)
                     const embed3 = new MessageEmbed()
@@ -69,14 +67,3 @@ module.exports = {
         });
     }
 };
-/*
-let rss = `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB/${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`;
-
-const embed = new MessageEmbed()
-    .addField(`\`Cache:\``, `Serwery: ${client.guilds.cache.size}\nUżytkownicy: ${client.users.cache.size}\nKanały: ${client.channels.cache.size}\nEmoji: ${client.emojis.cache.size}`)
-    .addField(`\`Zasoby:\``, `${rss}`)
-    .addField(`\`Dane:\``, `Wersja bota: ${client.version}\nDiscord.js: ${version}\nNode.js: ${process.version}\nUptime: ${require("moment").duration(client.uptime).humanize()}`)
-    .setColor("GREEN")
-interaction.reply({embeds: [embed]});
-
- */
