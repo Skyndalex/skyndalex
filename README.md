@@ -1,5 +1,3 @@
-# Nowa wersja, v4.4
-
 ## Uwagi
 - Przez globalne komendy komendy mogą się ładować wolniej. Jeżeli testujesz bota tylko na jednym serwerze, usuń tą część kodu z pliku ready.js (w kategorii: events)
 
