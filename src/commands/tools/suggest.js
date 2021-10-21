@@ -19,6 +19,6 @@ module.exports = {
                 .setColor("GREEN")
             client.channels.cache.get(channel.suggestionChannel).send({embeds: [suggestionEmbed]});
 
-            interaction.reply({content: `Wysłano propozycje na <#${channel.broadcastChannel}>!\n\`Treść: ${suggestion}\``, ephemeral: true});
+            interaction.reply({content: `Wysłano propozycje na <#${channel.suggestionChannel}>!\n\`Treść: ${suggestion}\``, ephemeral: true});
     }
 };
