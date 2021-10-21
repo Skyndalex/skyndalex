@@ -17,8 +17,10 @@ module.exports = {
             const suggestionEmbed = new MessageEmbed()
                 .setDescription(`**Nowa sugestia**\n\nAutor: ${interaction.user.tag}\nTreść: \`${suggestion}\``)
                 .setColor("GREEN")
-            client.channels.cache.get(channel.suggestionChannel).send({embeds: [suggestionEmbed]});
-
+            client.channels.cache.get(channel.suggestionChannel).send({embeds: [suggestionEmbed]}).then(r => {
+                r.react("👍")
+                r.react("👎")
+            })
             interaction.reply({content: `Wysłano propozycje na <#${channel.suggestionChannel}>!\n\`Treść: ${suggestion}\``, ephemeral: true});
     }
 };
