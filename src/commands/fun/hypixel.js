@@ -18,8 +18,7 @@ module.exports = {
                     .setPlaceholder(`Tryb`)
                     .addOptions([
                         {label: 'Walls', description: 'Ściany', value: 'hypixel_walls'},
-                        {label: "Paintball", description: "Paintball", value: "hypixel_paintball"},
-                        {label: "Survival Games", description: "Gry survival", value: "hypixel_survivalgames"},
+                        {label: "paintball", description: "Paintball", value: "hypixel_paintball"},
                         {label: "TNT Games", description: "Gry TNT", value: "hypixel_tntgames"},
                         {label: "VampireZ", description: "Vampirez", value: "hypixel_vampirez"},
                         {label: "Walls3", description: "Mega walls", value: "hypixel_megawalls"},
@@ -34,7 +33,7 @@ module.exports = {
                     ]),
             );
 
-        interaction.reply({content: `Podany gracz: \`${interaction.options.getString("player")}\`\nJeśli wybór opcji nie działa, należy wpisać komendę ponownie. Jest to cooldown.`, components: [row]});
+        interaction.reply({content: `Podany gracz: \`${interaction.options.getString("player")}\`\nJeśli wybór opcji nie działa, należy wpisać komendę ponownie. Jest to cooldown.\n**Uwaga!** Statystyki mogą nie być w 100% poprawne.`, components: [row]});
 
         const collector = interaction.channel.createMessageComponentCollector({
             componentType: 'SELECT_MENU',
@@ -55,7 +54,28 @@ module.exports = {
                             .setDescription(`Podany tryb: \`Walls (ściany)\`\n\nLiczba monet: ${walls_coins}\nLiczba wygranych: ${walls_wins}`)
                             .setColor("BLUE")
                         i.update({embeds: [wallsEmbed]})
-                    break;
+                        break;
+                    case "hypixel_paintball":
+                        const paintballStats = data.player.achievements;
+                        const { paintball_kills, paintball_wins } = paintballStats;
+
+                        const paintballEmbed = new MessageEmbed()
+                            .setDescription(`Podany tryb: \`Paintball\`\n\nLiczba zabitych graczy: ${paintball_kills}\nLiczba wygranych: ${paintball_wins}`)
+                            .setColor("BLUE")
+                        i.update({embeds: [paintballEmbed]})
+                        break;
+                    case "hypixel_tntgames":
+                        const tntgamesStats = data.player.achievements;
+                        const { tntgames_wizards_wins, tntgames_pvp_run_killer, tntgames_tnt_tag_wins, tntgames_pvp_run_wins, tntgames_tnt_wizards_kills, tntgames_tnt_run_wins, tntgames_bow_spleef_wins, tntgames_tnt_triathlon, tntgames_tnt_banker, tntgames_block_runner, tntgames_clinic } = tntgamesStats;
+
+                        const otherStats = data.player.stats.TNTGames;
+                        const { record_tntrun, deaths_tntrun } = otherStats;
+
+                        const tntgamesEmbed = new MessageEmbed()
+                            .setDescription(`Podany tryb: \`TNT Games\`\n\nLiczba wygranych w TNT WIZARDS: ${tntgames_wizards_wins}\nLiczba zabitych graczy w TNT WIZARDS: ${tntgames_tnt_wizards_kills}\nLiczba zabitych graczy w PVP RUN: ${tntgames_tnt_run_wins}\nLiczba wygranych w PVP RUN: ${tntgames_pvp_run_wins}\nLiczba wygranych w TNT TAG: ${tntgames_tnt_tag_wins}\nLiczba wygranych w TNT RUN: ${tntgames_tnt_run_wins}\nLiczba wygranych w BOF SPLEEF: ${tntgames_bow_spleef_wins}\nŁączna liczba przebytych bloków w TNT RUN: ${tntgames_block_runner}\nRekord w TNT RUN: ${record_tntrun}\nŚmierci w TNT RUN: ${deaths_tntrun}\nBanker: ${tntgames_tnt_banker}\nClinic: ${tntgames_clinic}`)
+                            .setColor("BLUE")
+                        i.update({embeds: [tntgamesEmbed]})
+                        break;
                 }
             }
         })
