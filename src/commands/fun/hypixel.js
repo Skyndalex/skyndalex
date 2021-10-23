@@ -42,19 +42,19 @@ module.exports = {
         });
 
         const uuid = await axios(`https://api.mojang.com/users/profiles/minecraft/${interaction.options.getString("player")}`);
+        const { data } = await axios(`https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${hypixelkey}`);
 
         collector.on('collect', async i => {
             if (i.user.id === interaction.user.id) {
                 switch (i.values[0]) {
                     case "hypixel_walls":
-                        const { data } = await axios(`https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${hypixelkey}`);
-
                         const wallsStats = data.player.achievements
                         const { walls_coins, walls_wins } = wallsStats;
-                        client.builder(interaction, ``, `Podany gracz: ${interaction.options.getString("player")}\nPodany tryb: \`Walls (ściany)\``, `Statystyki hypixel`, `BLUE`, [
-                            { name: "Liczba monet na trybie", value: walls_coins },
-                            { name: "Liczba wygranych na trybie", value: walls_wins }
-                        ])
+
+                        const wallsEmbed = new MessageEmbed()
+                            .setDescription(`Podany tryb: \`Walls (ściany)\`\n\nLiczba monet: ${walls_coins}\nLiczba wygranych: ${walls_wins}`)
+                            .setColor("BLUE")
+                        i.update({embeds: [wallsEmbed]})
                     break;
                 }
             }
