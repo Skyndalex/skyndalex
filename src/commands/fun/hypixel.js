@@ -56,7 +56,7 @@ module.exports = {
                         const wallsEmbed = new MessageEmbed()
                             .setDescription(`Podany tryb: \`Walls (ściany)\`\n\nLiczba monet: ${walls_coins}\nLiczba wygranych: ${walls_wins}`)
                             .setColor("BLUE")
-                        i.update({embeds: [wallsEmbed]})
+                        await i.update({embeds: [wallsEmbed]})
                         break;
                     case "hypixel_paintball":
                         const paintballStats = data.player.achievements;
@@ -65,7 +65,7 @@ module.exports = {
                         const paintballEmbed = new MessageEmbed()
                             .setDescription(`Podany tryb: \`Paintball\`\n\nLiczba zabitych graczy: ${paintball_kills}\nLiczba wygranych: ${paintball_wins}`)
                             .setColor("BLUE")
-                        i.update({embeds: [paintballEmbed]})
+                        await i.update({embeds: [paintballEmbed]})
                         break;
                     case "hypixel_tntgames":
                         const tntgamesStats = data.player.achievements;
@@ -77,7 +77,7 @@ module.exports = {
                         const tntgamesEmbed = new MessageEmbed()
                             .setDescription(`Podany tryb: \`TNT Games\`\n\nLiczba wygranych w TNT WIZARDS: ${tntgames_wizards_wins}\nLiczba zabitych graczy w TNT WIZARDS: ${tntgames_tnt_wizards_kills}\nLiczba zabitych graczy w PVP RUN: ${tntgames_tnt_run_wins}\nLiczba wygranych w PVP RUN: ${tntgames_pvp_run_wins}\nLiczba wygranych w TNT TAG: ${tntgames_tnt_tag_wins}\nLiczba wygranych w TNT RUN: ${tntgames_tnt_run_wins}\nLiczba wygranych w BOF SPLEEF: ${tntgames_bow_spleef_wins}\nŁączna liczba przebytych bloków w TNT RUN: ${tntgames_block_runner}\nRekord w TNT RUN: ${record_tntrun}\nŚmierci w TNT RUN: ${deaths_tntrun}\nBanker: ${tntgames_tnt_banker}\nClinic: ${tntgames_clinic}`)
                             .setColor("BLUE")
-                        i.update({embeds: [tntgamesEmbed]})
+                        await i.update({embeds: [tntgamesEmbed]})
                         break;
                     case "hypixel_general":
                         const generalStats = data.player;
@@ -89,7 +89,7 @@ module.exports = {
                         const hypixelGeneralEmbed = new MessageEmbed()
                             .setDescription(`Statystyki generalne\n\nNazwa znalezionego gracza: ${data.player.playername}\nPierwsze logowanie: <t:${s1}:R>\nOstatnie logowanie: <t:${s2}:R>`)
                             .setColor("BLUE")
-                        i.update({embeds: [hypixelGeneralEmbed]})
+                        await i.update({embeds: [hypixelGeneralEmbed]})
                         break;
                 }
             }
