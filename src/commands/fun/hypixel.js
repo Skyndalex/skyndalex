@@ -1,7 +1,9 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageActionRow, MessageSelectMenu, MessageEmbed } = require("discord.js");
-const axios = require("axios");
 const { hypixelkey } = require("../commandKeys/keys.json")
+const axios = require("axios");
+const dayjs = require("dayjs")
+dayjs.locale("pl")
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('hypixel')
@@ -29,7 +31,8 @@ module.exports = {
                         {label: "Skywars", description: "Skywars", value: "hypixel_skywars"},
                         {label: "Bedwars", description: "Bedwars", value: "hypixel_bedwars"},
                         {label: "Murder_Mystrey", description: "Murder Mystrey", value: "hypixel_murdermystrey"},
-                        {label: "Build_Battle", description: "Build Battle", value: "hypixel_buildbatle"}
+                        {label: "Build_Battle", description: "Build Battle", value: "hypixel_buildbatle"},
+                        {label: "Generalne informacje", description: "Generalne informacje o graczu na serwerze hypixel.net", value: "hypixel_general"}
                     ]),
             );
 
@@ -75,6 +78,18 @@ module.exports = {
                             .setDescription(`Podany tryb: \`TNT Games\`\n\nLiczba wygranych w TNT WIZARDS: ${tntgames_wizards_wins}\nLiczba zabitych graczy w TNT WIZARDS: ${tntgames_tnt_wizards_kills}\nLiczba zabitych graczy w PVP RUN: ${tntgames_tnt_run_wins}\nLiczba wygranych w PVP RUN: ${tntgames_pvp_run_wins}\nLiczba wygranych w TNT TAG: ${tntgames_tnt_tag_wins}\nLiczba wygranych w TNT RUN: ${tntgames_tnt_run_wins}\nLiczba wygranych w BOF SPLEEF: ${tntgames_bow_spleef_wins}\nŁączna liczba przebytych bloków w TNT RUN: ${tntgames_block_runner}\nRekord w TNT RUN: ${record_tntrun}\nŚmierci w TNT RUN: ${deaths_tntrun}\nBanker: ${tntgames_tnt_banker}\nClinic: ${tntgames_clinic}`)
                             .setColor("BLUE")
                         i.update({embeds: [tntgamesEmbed]})
+                        break;
+                    case "hypixel_general":
+                        const generalStats = data.player;
+                        const { firstLogin, playername, lastLogin } = generalStats;
+
+                        let s1 = new Date(firstLogin / 1000).getTime();
+                        let s2 = new Date(lastLogin / 1000).getTime();
+
+                        const hypixelGeneralEmbed = new MessageEmbed()
+                            .setDescription(`Statystyki generalne\n\nNazwa znalezionego gracza: ${data.player.playername}\nPierwsze logowanie: <t:${s1}:R>\nOstatnie logowanie: <t:${s2}:R>`)
+                            .setColor("BLUE")
+                        i.update({embeds: [hypixelGeneralEmbed]})
                         break;
                 }
             }
