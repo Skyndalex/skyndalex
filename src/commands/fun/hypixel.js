@@ -13,6 +13,9 @@ module.exports = {
         )),
 
     async execute(client, interaction) {
+        const uuid = await axios(`https://api.mojang.com/users/profiles/minecraft/${interaction.options.getString("player")}`);
+        const { data } = await axios(`https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${hypixelkey}`);
+
         const row = new MessageActionRow()
             .addComponents(
                 new MessageSelectMenu()
@@ -43,8 +46,6 @@ module.exports = {
             time: 120000
         });
 
-        const uuid = await axios(`https://api.mojang.com/users/profiles/minecraft/${interaction.options.getString("player")}`);
-        const { data } = await axios(`https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${hypixelkey}`);
 
         collector.on('collect', async i => {
             if (i.user.id === interaction.user.id) {
@@ -75,7 +76,7 @@ module.exports = {
                         const { record_tntrun, deaths_tntrun } = otherStats;
 
                         const tntgamesEmbed = new MessageEmbed()
-                            .setDescription(`Podany tryb: \`TNT Games\`\n\nLiczba wygranych w TNT WIZARDS: ${tntgames_wizards_wins}\nLiczba zabitych graczy w TNT WIZARDS: ${tntgames_tnt_wizards_kills}\nLiczba zabitych graczy w PVP RUN: ${tntgames_tnt_run_wins}\nLiczba wygranych w PVP RUN: ${tntgames_pvp_run_wins}\nLiczba wygranych w TNT TAG: ${tntgames_tnt_tag_wins}\nLiczba wygranych w TNT RUN: ${tntgames_tnt_run_wins}\nLiczba wygranych w BOF SPLEEF: ${tntgames_bow_spleef_wins}\nŁączna liczba przebytych bloków w TNT RUN: ${tntgames_block_runner}\nRekord w TNT RUN: ${record_tntrun}\nŚmierci w TNT RUN: ${deaths_tntrun}\nBanker: ${tntgames_tnt_banker}\nClinic: ${tntgames_clinic}`)
+                            .setDescription(`Podany tryb: \`TNT Games\`\n\nLiczba wygranych w TNT WIZARDS: ${tntgames_wizards_wins || 0}\nLiczba zabitych graczy w TNT WIZARDS: ${tntgames_tnt_wizards_kills || 0}\nLiczba zabitych graczy w PVP RUN: ${tntgames_tnt_run_wins || 0}\nLiczba wygranych w PVP RUN: ${tntgames_pvp_run_wins || 0}\nLiczba wygranych w TNT TAG: ${tntgames_tnt_tag_wins || 0}\nLiczba wygranych w TNT RUN: ${tntgames_tnt_run_wins || 0}\nLiczba wygranych w BOF SPLEEF: ${tntgames_bow_spleef_wins || 0}\nŁączna liczba przebytych bloków w TNT RUN: ${tntgames_block_runner || 0}\nRekord w TNT RUN: ${record_tntrun || 0}\nŚmierci w TNT RUN: ${deaths_tntrun || 0}\nBanker: ${tntgames_tnt_banker || 0}\nClinic: ${tntgames_clinic || 0}`)
                             .setColor("BLUE")
                         await i.update({embeds: [tntgamesEmbed]})
                         break;
@@ -90,6 +91,24 @@ module.exports = {
                             .setDescription(`Statystyki generalne\n\nNazwa znalezionego gracza: ${data.player.playername}\nPierwsze logowanie: <t:${s1}:R>\nOstatnie logowanie: <t:${s2}:R>`)
                             .setColor("BLUE")
                         await i.update({embeds: [hypixelGeneralEmbed]})
+                        break;
+                    case "hypixel_vampirez":
+                        const vampirezStats = data.player.achievements;
+                        const { vampirez_zombie_killer } = vampirezStats;
+
+                        const hypixelVampireZEmbed = new MessageEmbed()
+                            .setDescription(`Podany tryb: \`VampireZ\`\n\nLiczba zabitych zombie: ${vampirez_zombie_killer}`)
+                            .setColor("BLUE")
+                        await i.update({embeds: [hypixelVampireZEmbed]})
+                        break;
+                    case "hypixel_bedwars":
+                        const bedwarsStats = data.player.achievements;
+                        const { bedwars_wins, bedwars_level, bedwars_beds, bedwars_loot_box, bedwars_bedwars_killer } = bedwarsStats;
+
+                        const hypixelBedwarsEmbed = new MessageEmbed()
+                            .setDescription(`Podany tryb: \`BedWars\`\n\nLiczba wygranych: ${bedwars_wins}\nPoziom: ${bedwars_level}\nZniszczone łóżka: ${bedwars_beds}\nLootboxy: ${bedwars_loot_box}\nZabitych graczy: ${bedwars_bedwars_killer}`)
+                            .setColor("BLUE")
+                        await i.update({embeds: [hypixelBedwarsEmbed]})
                         break;
                 }
             }
