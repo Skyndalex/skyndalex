@@ -1,31 +1,23 @@
-## Uwagi
-- Przez globalne komendy komendy mogą się ładować wolniej. Jeżeli testujesz bota tylko na jednym serwerze, usuń tą część kodu z pliku ready.js (w kategorii: events)
+# Włączanie bota
 
-[Zobacz plik](https://github.com/Korrumz2PL/krivebot/blob/slash/events/ready.js)
+```
+cd src
+node slash.js
+```
+## Dodawanie slash komend
+
+```
+cd src
+node deploy.js
+```
+## Wyłączanie globalnych slash-komend
+1. Przejdź do pliku `src/deploy.js`
+2. usuń tą część kodu:
 ```js
-await rest.put(
-    Routes.applicationCommands(clientId),
-    { body: commands },
+Routes.applicationCommands(clientId),
+{ body: commands },
 );
 ```
-
-### Wartości
-
-1. `clientId` = ID bota
-2. `guildId` = ID serwera
-## Puste pliki
-- Puste pliki będą oznaczone tekstem "TODO:" albo "todo:". Ułatwi to właścicielowi pisanie bota.
-# Włączanie bazy danych
-
-- Windows:
-1. Przejdź do katalogu: `cd rethinkdb-2.3.6`
-- Włącz: `./rethinkdb`
-# Włączanie bota
-## deploy.js
-- Na początku należy włączyć plik `deploy.js`. On zaktualizuje slash komendy na twoim serwerze bądź globalnie. Przy każdej zmianie komend należy włączyć ten plik aby na spokojnie mogło się zaktualizować.
-## slash.js
-- Włącz ten plik, aby uruchomić bota, bazę danych oraz stronę.
-
 # Przydatne linki oraz poradniki
 
 - [Discord.Js Documentation (Main)](https://discord.js.org/#/docs/main/main/general/welcome),
