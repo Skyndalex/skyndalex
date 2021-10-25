@@ -36,6 +36,8 @@ module.exports = {
                 cooldown.delete(interaction.user.id)
             }, 6000);
         }
+
+        
         if (!interaction.isCommand()) return;
 
         const command = client.commands.get(interaction.commandName);
@@ -45,7 +47,7 @@ module.exports = {
             await command.execute(client, interaction);
         } catch (error) {
             if (error) console.error(error);
-            await interaction.reply({ content: 'Wystąpił błąd podczas uruchamiania komendy! Informacja została wysłana do programistów.'});
+            await interaction.reply({ content: 'Wystąpił błąd podczas uruchamiania komendy! Informacja została wysłana do programistów.\n\nMożliwe przyczyny:\n- Bot nie ma permisji do wykonania komendy\n- Podano niewłaściwą opcję\n- coś się wysypało', ephemeral: true});
         }
     }
 }
