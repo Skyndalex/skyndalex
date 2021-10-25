@@ -15,15 +15,9 @@ module.exports = {
                 const channel = await interaction.guild.channels.create(`ticket-${interaction.user.tag}`, {
                     type: "GUILD_TEXT",
                     permissionOverwrites: [
-                        {
-                            id: interaction.user.id, allow: ["SEND_MESSAGES", "VIEW_CHANNEL"]
-                        },
-                        {
-                            id: interaction.guild.id, deny: ["VIEW_CHANNEL"]
-                        },
-                        {
-                            id: role, allow: ["VIEW_CHANNEL", "SEND_MESSAGES"]
-                        }
+                        { id: interaction.user.id, allow: ["SEND_MESSAGES", "VIEW_CHANNEL"] },
+                        { id: interaction.guild.id, deny: ["VIEW_CHANNEL"] },
+                        { id: role, allow: ["VIEW_CHANNEL", "SEND_MESSAGES"] }
                     ]
                 })
                 const ticketCreate = new MessageEmbed()
