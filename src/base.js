@@ -1,5 +1,4 @@
-const { Client, MessageEmbed } = require("discord.js");
-const r = require("rethinkdb")
+const { Client, MessageEmbed } = require("discord.js")
 
 class Base extends Client {
     constructor(clientOptions) {
