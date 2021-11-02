@@ -3,6 +3,9 @@ module.exports = {
     description: "Bot owners and admins.",
 
     run: async (client, interaction) => {
+
+        //TODO: users list from Discord role.
+
         client.builder(interaction, `Our Team`, `Contact us if you need help\n**Protip**: Click on the tag to open DM `, ``, `GREEN`, [
             { name: "Owners", value: "[\`entity#8235\`](https://discord.com/users/817883855310684180)"},
             { name: "Admins", value: "[\`Cyber#4993\`](https://discord.com/users/682572949219180547)\n[\`MatStef132#0069\`](https://discord.com/users/304979757852917762)"},
