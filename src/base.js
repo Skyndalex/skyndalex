@@ -5,7 +5,9 @@ class Base extends Client {
         super(clientOptions);
 
         this.version = "v4.7"
+        this.adminIDs = ["817883855310684180"]
     }
+
     builder (interaction, title, text, footer, color, fields = [], image, ephemeral = false) {
         const embed = new MessageEmbed()
             .setTimestamp();

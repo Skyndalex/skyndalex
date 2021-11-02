@@ -33,7 +33,8 @@ for (const file of eventFiles) {
 client.on("ready", async () => {
     console.log("Bot is online");
 
-    await client.guilds.cache.get("804477558061137972").commands.set(arrayOfSlashCommands);
+    await client.guilds.cache.get("804477558061137972").commands.set(arrayOfSlashCommands)
+    await client.application.commands.set(arrayOfSlashCommands)
 
     let actvs = [
         `Bot version: ${client.version}`,
@@ -46,10 +47,5 @@ client.on("ready", async () => {
     setInterval(() => client.user.setActivity(`${actvs[Math.floor(Math.random() * actvs.length)]}`, {type: "PLAYING"}), 10000)
 });
 
-r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
-    if (err) console.log(err)
-    client.con = con;
 
-    console.log("RethinkDb Connected");
-})
 client.login(token)

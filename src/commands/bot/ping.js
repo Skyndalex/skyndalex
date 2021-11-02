@@ -3,6 +3,6 @@ module.exports = {
     description: "WebSocket ping",
 
     run: async (client, interaction) => {
-        client.builder(interaction, `WebSocket status`, `Ping: \`${client.ws.ping}ms\`\n\nServices status: [Click here](https://status.krivebot.xyz)`, ``, `GREEN`)
+        client.builder(interaction, `WebSocket status`, `Ping: \`${client.ws.ping}ms\`\nServices status: [Click here](https://status.krivebot.xyz)`, ``, `GREEN`);
     }
 }
