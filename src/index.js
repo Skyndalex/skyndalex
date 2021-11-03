@@ -4,6 +4,8 @@ const Base = require("./base");
 const fs = require('fs');
 const r = require("rethinkdb");
 
+//TODO: fix (hardoced)
+
 const client = new Base({ intents: [ 32767 ], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 
 module.exports = client;
@@ -26,8 +28,8 @@ for (const folder of commandFolders) {
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
-        const event = require(`./events/${file}`);
-        client.on(event.name, (...args) => event.execute(client, ...args));
+    const event = require(`./events/${file}`);
+    client.on(event.name, (...args) => event.execute(client, ...args));
 }
 
 client.on("ready", async () => {

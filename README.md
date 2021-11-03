@@ -29,7 +29,7 @@ npm i
 cd src
 node index.js
 ```
-## Commands
+## Commands export example
 
 ```js
 module.exports = {
@@ -41,7 +41,7 @@ module.exports = {
     }
 }
 ```
-## Events
+## Events export example
 
 ```js
 module.exports = {
