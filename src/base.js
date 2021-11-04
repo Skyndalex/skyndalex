@@ -1,4 +1,5 @@
 const { Client, MessageEmbed } = require("discord.js")
+const strings = require("./strings.json")
 
 class Base extends Client {
     constructor(clientOptions) {
@@ -6,6 +7,7 @@ class Base extends Client {
 
         this.version = "v4.7"
         this.adminIDs = ["817883855310684180"]
+        this.strings = strings
     }
 
     builder (interaction, title, text, footer, color, fields = [], image, ephemeral = false) {

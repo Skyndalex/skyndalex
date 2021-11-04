@@ -4,12 +4,27 @@ module.exports = {
 
     run: async (client, interaction) => {
 
-        //TODO: users list from Discord role.
+        //TODO: users list from Discord role. || Now from strings!
+        let owners;
+        let admins;
+        let mods;
+
+        client.strings.bot.team.owners.array.forEach(element => {
+            owners.concat(`[${element.tag}](https://discord.com/users/${element.id})`)
+        }),
+        
+        client.strings.bot.team.admins.array.forEach(element => {
+            admins.concat(`[${element.tag}](https://discord.com/users/${element.id})`)
+        }),
+
+        client.strings.bot.team.mods.array.forEach(element => {
+            mods.concat(`[${element.tag}](https://discord.com/users/${element.id})`)
+        }),
 
         client.builder(interaction, `Our Team`, `Contact us if you need help\n**Protip**: Click on the tag to open DM `, ``, `GREEN`, [
-            { name: "Owners", value: "[\`entity#8235\`](https://discord.com/users/817883855310684180)"},
-            { name: "Admins", value: "[\`Cyber#4993\`](https://discord.com/users/682572949219180547)\n[\`MatStef132#0069\`](https://discord.com/users/304979757852917762)"},
-            { name: "Moderators", value: "[\`igreky#7567\`](https://discord.com/users/802148822989275197)\n[\`Minecrafter!#9481\`](https://discord.com/users/484419302200442890)\n[\`crash#3067\`](https://discord.com/users/308322131962494977)\n[\`puszek#2684\`](https://discord.com/users/842845575698186261)"}
+            { name: "Owners", value: owners },
+            { name: "Admins", value: admins },
+            { name: "Moderators", value: mods }
         ])
     }
 }
