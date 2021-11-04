@@ -35,8 +35,8 @@ for (const file of eventFiles) {
 client.on("ready", async () => {
     console.log("Bot is online");
 
-    await client.guilds.cache.get("804477558061137972").commands.set(arrayOfSlashCommands)
-    await client.application.commands.set(arrayOfSlashCommands)
+    client.guilds.cache.get("804477558061137972").commands.set(arrayOfSlashCommands)
+    client.application.commands.set(arrayOfSlashCommands)
 
     let actvs = [
         `Bot version: ${client.version}`,
