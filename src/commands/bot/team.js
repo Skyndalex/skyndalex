@@ -10,15 +10,15 @@ module.exports = {
         let mods;
 
         client.strings.bot.team.owners.array.forEach(element => {
-            owners.concat(`[${element.tag}](https://discord.com/users/${element.id})`)
+            owners.concat(`[${client.users.cache.get(element.id).user.tag}](https://discord.com/users/${element.id})`)
         }),
         
         client.strings.bot.team.admins.array.forEach(element => {
-            admins.concat(`[${element.tag}](https://discord.com/users/${element.id})`)
+            admins.concat(`[${client.users.cache.get(element.id).user.tag}](https://discord.com/users/${element.id})`)
         }),
 
         client.strings.bot.team.mods.array.forEach(element => {
-            mods.concat(`[${element.tag}](https://discord.com/users/${element.id})`)
+            mods.concat(`[${client.users.cache.get(element.id).user.tag}](https://discord.com/users/${element.id})`)
         }),
 
         client.builder(interaction, `Our Team`, `Contact us if you need help\n**Protip**: Click on the tag to open DM `, ``, `GREEN`, [
