@@ -2,12 +2,18 @@ module.exports = {
     name: "comments",
     description: "Comments system.",
     options: [
-        { type: "STRING", name: "enable", description: "enable comments", choices: [ { name: "Suggestions comment system", value: "Enable"}]},
-        { type: "STRING", name: "disable", description: "disable comments", choices: [ { name: "Suggestions comment system", value: "Disable"}]}],
+        { name: "enable", description: "Enable comments", type: 3, choices: [
+                { name: "suggestions", value: "suggestions_comments"},
+                { name: "votings", value: "votings_comments"},
+                { name: "announcements", value: "broadcasts_comments"}
+            ]},
+        { name: "disable", description: "Disable comments", type: 3, choices: [
+                { name: "suggestions", value: "suggestions_comments_disable"},
+                { name: "votings", value: "votings_comments_disable"},
+                { name: "announcements", value: "broadcasts_comments_disable"}
+            ]},
+    ],
 
     run: async (client, interaction) => {
-        client.builder(interaction, `Settings`, ``, `Logs settings: /logs`, `GREEN`, [
-            { name: "\`suggestionsChannel\`", value: `> Suggestion channel.\n*psst, you can set a comment system. \`/comments\`*`}
-        ])
     }
 }
