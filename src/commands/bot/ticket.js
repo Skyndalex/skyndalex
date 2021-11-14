@@ -6,7 +6,7 @@ module.exports = {
     options: [{ type: "STRING", name: "message", description: "Your content", required: true }],
 
     run: async (client, interaction) => {
-        if (cooldown.has(interaction.user.id)) {
+        if (cooldown.has(interaction.user.id)) { //todo: global cooldowns
             interaction.reply({content: "Please wait a few seconds before using this command again", ephemeral: true})
         } else {
             const channel = client.channels.cache.get("898987983913508915");
