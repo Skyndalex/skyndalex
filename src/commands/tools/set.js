@@ -12,12 +12,17 @@ module.exports = {
         { type: "CHANNEL", name: "applications", description: "Applications channel", channelTypes: ["GUILD_TEXT"]},
         { type: "CHANNEL", name: "moderator_role", description: "Server moderator role [Required for tickets]", channelTypes: ["GUILD_TEXT"]},
         { type: "CHANNEL", name: "muted_role", description: "The role of the muted user"},
-        { type: "CHANNEL", name: "user_role", description: "User role [Required for verification]", channelTypes: ["GUILD_TYPES"]},
-        { type: "CHANNEL", name: "auto_role", description: "If a user enters the server, they will automatically get the role set.", channelTypes: ["GUILD_TYPES"]},
-
+        { type: "CHANNEL", name: "user_role", description: "User role [Required for verification]", channelTypes: ["GUILD_TEXT"]},
+        { type: "CHANNEL", name: "auto_role", description: "If a user enters the server, they will automatically get the role set.", channelTypes: ["GUILD_TEXT"]},
     ],
 
     run: async (client, interaction) => {
-        // code
+            for (let option of interaction.options.data) {
+                switch (option.name) {
+                    case "broadcast":
+                        interaction.reply({content: `Choosed option: ${option.name}`}) // Test message
+                        break;
+                }
+            }
     }
 }
