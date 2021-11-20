@@ -1,3 +1,3 @@
-# Full documentation
+# Documentation
 
-*Link: https://docs.krivebot.xyz/github/*
+*Link: https://docs.krivebot.xyz*

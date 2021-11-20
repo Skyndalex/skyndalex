@@ -1,8 +1,14 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require("discord.js")
 module.exports = {
-    name: "ping",
-    description: "WebSocket ping",
+    data: new SlashCommandBuilder()
+        .setName('ping')
+        .setDescription('Client ping.'),
 
-    run: async (client, interaction) => {
-        client.builder(interaction, `WebSocket status`, `Ping: \`${client.ws.ping}ms\`\nServices status: [Click here](https://status.krivebot.xyz)`, ``, `GREEN`);
+    async execute(client, interaction) {
+        const embed = new MessageEmbed()
+            .setDescription(`Ping: \`${client.ws.ping}ms\``)
+            .setColor("#2f3136")
+        await interaction.reply({embeds: [embed]})
     }
-}
+};
