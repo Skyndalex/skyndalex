@@ -3,8 +3,8 @@ const { Routes } = require('discord-api-types/v9');
 const { token } = require('./config.json');
 const fs = require('fs');
 
-    const clientId = '906527810087174154';
-    const guildId = '804477558061137972'; // id serwera
+    const clientId = '906527810087174154'; // Skyndalex BETA
+    const guildId = '804477558061137972'; // Skyndalex support
 
     const commands = [];
     const rest = new REST({version: '9'}).setToken(token);
