@@ -9,7 +9,6 @@ const fs = require('fs');
     const commands = [];
     const rest = new REST({version: '9'}).setToken(token);
 
-    (async () => {
         try {
             const commandFolders = fs.readdirSync('./commands');
 
@@ -39,5 +38,4 @@ const fs = require('fs');
             })();
         } catch (error) {
             console.error(error);
-        }
-    })();
+        };
