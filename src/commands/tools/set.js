@@ -7,10 +7,16 @@ module.exports = {
         .setDescription("Settings")
         .addChannelOption(option =>
             option.setName("broadcast-channel").setDescription("Broadcast channel."))
-        .addChannelOption(option => (
-            option.setName("suggestions-channel").setDescription("Suggestions channel")),
-        ),
-
+        .addChannelOption(option =>
+            option.setName("suggestions-channel").setDescription("Suggestions channel"))
+        .addChannelOption(option =>
+            option.setName("vote-channel").setDescription("Voting channel"))
+        .addChannelOption(option =>
+            option.setName("complaint-channel").setDescription("Complaint channel"))
+        .addChannelOption(option =>
+            option.setName("image-channel").setDescription("Images channel"))
+        .addChannelOption(option =>
+            option.setName("application-channel").setDescription("Applications channel")),
     async execute(client, interaction) {
         if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "You need permissions: \`MANAGE_CHANNELS\`"});
 
@@ -42,6 +48,8 @@ module.exports = {
                         .addField(`New value`, `<#${channel_suggestions.id}>`)
                         .setColor("DARK_BUT_NOT_BLACK")
                     interaction.reply({ embeds: [embed_Suggestions] })
+                    break;
+                case "vote-channel":
                     break;
                 }
             }

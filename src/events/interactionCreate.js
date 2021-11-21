@@ -9,10 +9,11 @@ module.exports = {
     async execute (client, interaction) {
         if (!interaction.isCommand()) return;
 
-        const command = client.commands.get(interaction.commandName);
+        const command = client.slashCommands.get(interaction.commandName);
         if (!command) return;
         try {
             await command.execute(client, interaction);
+
         } catch (error) {
             if (error) console.error(error);
             await interaction.reply({ content: 'An error occurred while running the command! An error was sent to the console\nReason: The message may be too long, or there was some other problem with the code. Either way, I have contacted the administration'});

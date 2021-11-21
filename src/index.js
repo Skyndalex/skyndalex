@@ -5,7 +5,8 @@ const { Intents, Collection } = require("discord.js")
 const r = require("rethinkdb")
 const client = new Base({ intents: [ 32767 ], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 
-client.commands = new Collection;
+client.slashCommands  = new Collection;
+module.exports = client;
 
 const commandFolders = fs.readdirSync('./commands');
 
@@ -13,7 +14,7 @@ for (const folder of commandFolders) {
     const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith(".js"));
     for (const file of commandFiles) {
         const command = require(`./commands/${folder}/${file}`);
-        client.commands.set(command.data.name, command);
+        client.slashCommands .set(command.data.name, command);
     }
 }
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
