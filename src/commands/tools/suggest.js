@@ -13,8 +13,8 @@ module.exports = {
         if (!data?.suggestionsChannel) return interaction.reply({content: "The suggestions channel has not been set! Use the \`/set\` command to do this. "});
 
         const embed = new MessageEmbed()
-            .setDescription(`${interaction.options.getString("arguments")}`)
-            .setFooter(`\`Suggestion posted by: ${interaction.user.tag}(${interaction.user.id})\``)
+            .setDescription(`\`${interaction.options.getString("arguments")}\``)
+            .setFooter(`Suggestion posted by: ${interaction.user.tag} (${interaction.user.id})`)
             .setColor("DARK_BUT_NOT_BLACK")
         await client.channels.cache.get(data?.suggestionsChannel).send({embeds: [embed]}).then(message => {
             message.startThread({
@@ -22,7 +22,8 @@ module.exports = {
                 autoArchiveDuration: 1440,
                 reason: 'New suggestion',
             })
-
         })
+
+        interaction.reply({content: "Success!", ephemeral: true})
     }
 };
