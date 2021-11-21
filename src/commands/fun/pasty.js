@@ -1,0 +1,13 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require("discord.js")
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('pasty')
+        .setDescription('Random pasty. (Polish command)'),
+
+    async execute(client, interaction) {
+        if (!interaction.channel.nsfw) return interaction.reply("This channel is not NSFW.");
+
+        await interaction.reply({files: [`https://raw.githubusercontent.com/MrBoombastic/OpenPasty/1.0/pasty/${Math.floor(Math.random() * (300 - 0))}.txt`]})
+    }
+};

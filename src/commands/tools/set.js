@@ -30,6 +30,19 @@ module.exports = {
                         .setColor("DARK_BUT_NOT_BLACK")
                     interaction.reply({ embeds: [embed_Broadcast] })
                     break;
+                case "suggestions-channel":
+                    const channel_suggestions = await interaction.options.getChannel("suggestions-channel");
+
+                    await r.table("settings").insert({ id: interaction.guild.id, suggestionsChannel: channel_suggestions.id }).run(client.con)
+                    await r.table("settings").get(interaction.guild.id).update({ suggestionsChannel: channel_suggestions.id }).run(client.con)
+
+                    const embed_Suggestions = new MessageEmbed()
+                        .setTitle("Successfully set!")
+                        .setDescription(`Selected option: \`${option.name}\``)
+                        .addField(`New value`, `<#${channel_suggestions.id}>`)
+                        .setColor("DARK_BUT_NOT_BLACK")
+                    interaction.reply({ embeds: [embed_Suggestions] })
+                    break;
                 }
             }
         }
