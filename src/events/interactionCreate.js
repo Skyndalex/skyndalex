@@ -15,7 +15,7 @@ module.exports = {
             await command.execute(client, interaction);
         } catch (error) {
             if (error) console.error(error);
-            await interaction.reply({ content: 'Wystąpił błąd podczas uruchamiania komendy! Informacja została wysłana do programistów.'});
+            await interaction.reply({ content: 'An error occurred while running the command! An error was sent to the console\nReason: The message may be too long, or there was some other problem with the code. Either way, I have contacted the administration'});
         }
     }
 }

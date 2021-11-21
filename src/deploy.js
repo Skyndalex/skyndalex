@@ -37,5 +37,5 @@ const fs = require('fs');
                 }
             })();
         } catch (error) {
-            console.error(error);
+            console.error(error)
         };
