@@ -8,6 +8,6 @@ module.exports = {
     async execute(client, interaction) {
         if (!interaction.channel.nsfw) return interaction.reply("This channel is not NSFW.");
 
-        await interaction.reply({files: [`https://raw.githubusercontent.com/MrBoombastic/OpenPasty/1.0/pasty/${Math.floor(Math.random() * (300 - 0))}.txt`]})
+        interaction.reply({ files: [`https://raw.githubusercontent.com/MrBoombastic/OpenPasty/1.0/pasty/${Math.floor(Math.random() * (300 - 0))}.txt`]})
     }
 };
