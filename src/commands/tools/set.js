@@ -12,6 +12,7 @@ module.exports = {
             { type: 7, name: "welcome-channel", description: "Welcome channel" },
             { type: 7, name: "goodbye-channel", description: "Goodbye channel" },
             { type: 7, name: "applications-channel", description: "Applications channel" },
+            { type: 7, name: "vote-channel", description: "Voting channel"},
             { type: 8, name: "moderator-role", description: "Server moderator role [Required for tickets]" },
             { type: 8, name: "muted-role", description: "The role of the muted user" },
             { type: 8, name: "user-role", description: "User role [Required for verification]" },
@@ -28,7 +29,7 @@ module.exports = {
                     const channel = await interaction.options.getChannel("broadcast-channel");
 
                     if (channel.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
-                    if (channel_suggestions.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+                    if (channel.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
 
                     await r.table("settings").insert({ id: interaction.guild.id, broadcastChannel: channel.id }).run(client.con)
                     await r.table("settings").get(interaction.guild.id).update({ broadcastChannel: channel.id }).run(client.con)
@@ -44,7 +45,7 @@ module.exports = {
                     const channel_suggestions = await interaction.options.getChannel("suggestions-channel");
 
                     if (channel_suggestions.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
-                    if (channel.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+                    if (channel_suggestions.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
 
                     await r.table("settings").insert({ id: interaction.guild.id, suggestionsChannel: channel_suggestions.id }).run(client.con)
                     await r.table("settings").get(interaction.guild.id).update({ suggestionsChannel: channel_suggestions.id }).run(client.con)
@@ -56,7 +57,69 @@ module.exports = {
                         .setColor("DARK_BUT_NOT_BLACK")
                     interaction.reply({ embeds: [embed_Suggestions] })
                     break;
-                case "vote-channel":
+                case "complaints-channel":
+                    const channel_complaints = await interaction.options.getChannel("complaints-channel");
+
+                    if (channel_complaints.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
+                    if (channel_complaints.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+
+                    await r.table("settings").insert({ id: interaction.guild.id, complaintsChannel: channel_complaints.id }).run(client.con)
+                    await r.table("settings").get(interaction.guild.id).update({ complaintsChannel: channel_complaints.id }).run(client.con)
+
+                    const embed_Complaints = new MessageEmbed()
+                        .setTitle("Successfully set!")
+                        .setDescription(`Selected option: \`${option.name}\``)
+                        .addField(`New value`, `<#${channel_complaints.id}>`)
+                        .setColor("DARK_BUT_NOT_BLACK")
+                    interaction.reply({ embeds: [embed_Complaints] })
+                    break;
+                case "images-channel":
+                    const channel_images = await interaction.options.getChannel("images-channel");
+
+                    if (channel_images.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
+                    if (channel_goodbye.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+
+                    await r.table("settings").insert({ id: interaction.guild.id, imagesChannel: channel_images.id }).run(client.con)
+                    await r.table("settings").get(interaction.guild.id).update({ imagesChannel: channel_images.id }).run(client.con)
+
+                    const embed_Images = new MessageEmbed()
+                        .setTitle("Successfully set!")
+                        .setDescription(`Selected option: \`${option.name}\``)
+                        .addField(`New value`, `<#${channel_images.id}>`)
+                        .setColor("DARK_BUT_NOT_BLACK")
+                    interaction.reply({ embeds: [embed_Images] })
+                    break;
+                case "welcome-channel":
+                    const welcome_channel = await interaction.options.getChannel("welcome-channel");
+
+                    if (welcome_channel.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
+                    if (welcome_channel.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+
+                    await r.table("settings").insert({ id: interaction.guild.id, welcomeChannel: welcome_channel.id }).run(client.con)
+                    await r.table("settings").get(interaction.guild.id).update({ welcomeChannel: welcome_channel.id }).run(client.con)
+
+                    const embed_Welcome = new MessageEmbed()
+                        .setTitle("Successfully set!")
+                        .setDescription(`Selected option: \`${option.name}\``)
+                        .addField(`New value`, `<#${welcome_channel.id}>`)
+                        .setColor("DARK_BUT_NOT_BLACK")
+                    interaction.reply({ embeds: [embed_Welcome] })
+                    break;
+                case "goodbye-channel":
+                    const channel_goodbye = await interaction.options.getChannel("goodbye-channel");
+
+                    if (channel_goodbye.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
+                    if (channel_goodbye.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+
+                    await r.table("settings").insert({ id: interaction.guild.id, goodbyeChannel: channel_goodbye.id }).run(client.con)
+                    await r.table("settings").get(interaction.guild.id).update({ goodbyeChannel: channel_goodbye.id }).run(client.con)
+
+                    const embed_Goodbye = new MessageEmbed()
+                        .setTitle("Successfully set!")
+                        .setDescription(`Selected option: \`${option.name}\``)
+                        .addField(`New value`, `<#${channel_goodbye.id}>`)
+                        .setColor("DARK_BUT_NOT_BLACK")
+                    interaction.reply({ embeds: [embed_Goodbye] })
                     break;
                 }
             }
