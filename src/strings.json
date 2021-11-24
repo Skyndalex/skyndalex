@@ -1,10 +1,10 @@
 {
   "bot": {
-    "docs_link": "docs.krivebot.xyz",
-    "statuspage_link": "status.krivebot.xyz",
-    "discord_link": "krivebot.xyz/discord",
-    "github_link": "krivebot.xyz/github",
-    "site": "krivebot.xyz",
+    "link_docs": "docs.krivebot.xyz",
+    "link_statuspage": "status.krivebot.xyz",
+    "link_discord": "krivebot.xyz/discord",
+    "link_github": "krivebot.xyz/github",
+    "link_site": "krivebot.xyz",
     "version": "v1.0"
   },
   "tools": {

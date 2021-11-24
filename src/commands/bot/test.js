@@ -6,6 +6,6 @@ module.exports = {
         .setDescription("hhhh2"),
 
     async execute(client, interaction) {
-        let string = client.strings.tools.set.embed_successfully;
+       // let string = client.strings.tools.set.embed_successfully;
     }
 };
