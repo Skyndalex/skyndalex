@@ -5,8 +5,9 @@ module.exports = {
         .setDescription('memes about the pope (Polish command)'),
 
     async execute(client, interaction) {
-        if (!interaction.channel.nsfw) return interaction.reply("This channel is not NSFW. Warning: command contains swear words");
+        if (!interaction.channel.nsfw) return interaction.reply(client.strings.fun.warning_nsfw);
 
-        interaction.reply({ files: [`https://raw.githubusercontent.com/MrBoombastic/OpenPapaj/1.0/images/${Math.floor(Math.random() * (1142 - 0))}.jpg`]})
+        await interaction.reply(client.strings.fun.info_fetching)
+        await interaction.followUp({ content: client.strings.fun.info_success, files: [`https://raw.githubusercontent.com/MrBoombastic/OpenPapaj/1.0/images/${Math.floor(Math.random() * (1142 - 0))}.jpg`] })
     }
 };
