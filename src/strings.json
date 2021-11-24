@@ -1,0 +1,15 @@
+{
+  "bot": {
+    "docsLink": "docs.krivebot.xyz",
+    "statuspageLink": "status.krivebot.xyz",
+    "discordLink": "krivebot.xyz/discord",
+    "githubLink": "krivebot.xyz/github",
+    "site": "krivebot.xyz"
+  },
+  "tools": {
+    "set": {
+      "embed_successfully": "Successfully set!",
+      "embed_selected": "Selected option:"
+    }
+  }
+}

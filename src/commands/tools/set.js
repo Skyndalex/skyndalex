@@ -121,6 +121,38 @@ module.exports = {
                         .setColor("DARK_BUT_NOT_BLACK")
                     interaction.reply({ embeds: [embed_Goodbye] })
                     break;
+                case "applications-channel":
+                    const channel_applications = await interaction.options.getChannel("applications-channel");
+
+                    if (channel_applications.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
+                    if (channel_applications.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+
+                    await r.table("settings").insert({ id: interaction.guild.id, applicationsChannel: channel_applications.id }).run(client.con)
+                    await r.table("settings").get(interaction.guild.id).update({ applicaitonsChannel: channel_applications.id }).run(client.con)
+
+                    const embed_Applications = new MessageEmbed()
+                        .setTitle("Successfully set!")
+                        .setDescription(`Selected option: \`${option.name}\``)
+                        .addField(`New value`, `<#${channel_applications.id}>`)
+                        .setColor("DARK_BUT_NOT_BLACK")
+                    interaction.reply({ embeds: [embed_Applications] })
+                    break;
+                case "vote-channel":
+                    const channel_voting = await interaction.options.getChannel("vote-channel");
+
+                    if (channel_voting.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
+                    if (channel_voting.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+
+                    await r.table("settings").insert({ id: interaction.guild.id, voteChannel: channel_voting.id }).run(client.con)
+                    await r.table("settings").get(interaction.guild.id).update({ voteChannel: channel_voting.id }).run(client.con)
+
+                    const embed_Voting = new MessageEmbed()
+                        .setTitle("Successfully set!")
+                        .setDescription(`Selected option: \`${option.name}\``)
+                        .addField(`New value`, `<#${channel_voting.id}>`)
+                        .setColor("DARK_BUT_NOT_BLACK")
+                    interaction.reply({ embeds: [embed_Voting] })
+                    break;
                 }
             }
         }

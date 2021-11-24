@@ -6,6 +6,7 @@ const r = require("rethinkdb")
 const client = new Base({ intents: [ 32767 ], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 
 client.slashCommands  = new Collection;
+
 module.exports = client;
 
 const commandFolders = fs.readdirSync('./commands');
