@@ -4,7 +4,8 @@
     "statuspage_link": "status.krivebot.xyz",
     "discord_link": "krivebot.xyz/discord",
     "github_link": "krivebot.xyz/github",
-    "site": "krivebot.xyz"
+    "site": "krivebot.xyz",
+    "version": "v1.0"
   },
   "tools": {
     "set": {
