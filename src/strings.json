@@ -14,7 +14,7 @@
     }
   },
   "fun": {
-    "warning_nsfw": "This channel is not NSFW. Warning: command contains swear words.",
+    "warning_nsfw": "This channel is not NSFW. Warning: command might contains swear words.",
     "info_fetching": "Creating image from API.",
     "info_fetching_pasty": "Creating a text file from API.",
     "info_success": "Generated."

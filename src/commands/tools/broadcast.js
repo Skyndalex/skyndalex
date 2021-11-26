@@ -22,10 +22,11 @@ module.exports = {
             message.startThread({
                 name: 'Announcement discussion.',
                 autoArchiveDuration: 1440, // hours
-                reason: 'New broadcast', // Discord Audit Log
+                reason: 'New broadcast',
             })
         })
-        interaction.reply({content: "Success!", ephemeral: true})
+        interaction.reply({content: "Success!", ephemeral: true});
+
     }
 
 };

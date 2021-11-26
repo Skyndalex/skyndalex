@@ -1,4 +1,4 @@
-const {MessageEmbed} = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const r = require("rethinkdb")
 const wait = require('util').promisify(setTimeout);
 const cooldown = new Set;
@@ -22,7 +22,12 @@ module.exports = {
 
         } catch (error) {
             if (error) console.error(error);
-            await interaction.reply({ content: 'An error occurred while running the command! An error was sent to the console\nReason: The message may be too long, or there was some other problem with the code. Either way, I have contacted the administration'});
+
+            let errorEmbed = new MessageEmbed()
+                .setDescription(`An error has occurred!\nError:\n\`\`\`${error || "None."}\`\`\`\n\n[Contact with the bot administration](https://krivebot.xyz/discord)\n[Statuspage](https://status.krivebot.xyz)`)
+                .setColor("DARK_BUT_NOT_BLACK")
+                .setTimestamp()
+            await interaction.reply({embeds: [errorEmbed]})
         }
     }
 }
