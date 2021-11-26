@@ -9,6 +9,8 @@ client.slashCommands  = new Collection;
 
 module.exports = client;
 
+require("./web/site/redirect").run(client);
+
 const commandFolders = fs.readdirSync('./commands');
 
 for (const folder of commandFolders) {
