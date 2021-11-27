@@ -12,17 +12,17 @@ module.exports = {
         if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "You need permissions: \`MANAGE_CHANNELS\`!", ephemeral: true});
 
         const data = await r.table("settings").get(interaction.guild.id).run(client.con);
-        if (!data?.broadcastChannel) return interaction.reply({content: "The announcement channel has not been set! Use the \`/set\` command to do this. "});
+        if (!data?.broadcastChannel) return interaction.reply({content: client.strings.tools.info_nosetting});
 
         const embed = new MessageEmbed()
             .setDescription(`\`${interaction.options.getString("arguments")}\``)
             .setColor(`DARK_BUT_NOT_BLACK`)
             .setTimestamp()
-        await client.channels.cache.get(data?.broadcastChannel).send({embeds: [embed]}).then(message => {
-            message.startThread({
+        await client.channels.cache.get(data?.broadcastChannel).send({embeds: [embed]}).then(async message => {
+            await message.startThread({
                 name: 'Announcement discussion.',
                 autoArchiveDuration: 1440, // hours
-                reason: 'New broadcast',
+                reason: client.strings.tools.thread_reason
             })
         })
         interaction.reply({content: "Success!", ephemeral: true});

@@ -8,8 +8,8 @@ module.exports = {
         const prefixMention = new RegExp(`^<@!?${client.user.id}>(|)$`);
 
         const mention = new MessageEmbed()
-            .setDescription(`Documentation: [Link](${client.strings.bot.docs_link})\nPrefix: \`/\``)
-            .setColor("ORANGE")
+            .setDescription(`Documentation: [Link](https://docs.krivebot.xyz)\nPrefix: \`/\``)
+            .setColor("DARK_BUT_NOT_BLACK")
         if (message.content.match(prefixMention)) {
             return message.channel.send({embeds: [mention]});
         };

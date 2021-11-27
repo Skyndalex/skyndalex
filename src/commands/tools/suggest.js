@@ -10,17 +10,17 @@ module.exports = {
         )),
     async execute(client, interaction) {
         const data = await r.table("settings").get(interaction.guild.id).run(client.con);
-        if (!data?.suggestionsChannel) return interaction.reply({content: "The suggestions channel has not been set! Use the \`/set\` command to do this. "});
+        if (!data?.suggestionsChannel) return interaction.reply({content: client.strings.tools.info_nosetting});
 
         const embed = new MessageEmbed()
             .setDescription(`\`${interaction.options.getString("arguments")}\``)
             .setFooter(`Suggestion posted by: ${interaction.user.tag} (${interaction.user.id})`)
             .setColor("DARK_BUT_NOT_BLACK")
-        await client.channels.cache.get(data?.suggestionsChannel).send({embeds: [embed]}).then(message => {
-            message.startThread({
+        await client.channels.cache.get(data?.suggestionsChannel).send({embeds: [embed]}).then(async message => {
+            await message.startThread({
                 name: 'Suggestion discussion.',
                 autoArchiveDuration: 1440,
-                reason: 'New suggestion',
+                reason: client.strings.tools.thread_reason
             })
         })
 

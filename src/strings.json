@@ -8,9 +8,14 @@
     "version": "v1.0"
   },
   "tools": {
+    "thread_reason": "Used complaint/submission/suggestion command ",
+    "info_nosetting": "The channel has not been set! Use the \\`/set\\` command to do this. \"",
     "set": {
       "embed_successfully": "Successfully set!",
       "embed_selected": "Selected option:"
+    },
+    "complaint": {
+      "field_value": "Reason:"
     }
   },
   "fun": {
