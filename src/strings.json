@@ -19,9 +19,7 @@
     }
   },
   "dev": {
-    "eval": {
-      "error_eval_permissions": "Only the bot owner can use this command"
-    }
+      "error_permissions": "Only the bot owner can use this command"
   },
   "fun": {
     "warning_nsfw": "This channel is not NSFW. Warning: command may contains swear words.",

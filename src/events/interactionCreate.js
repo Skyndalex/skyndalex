@@ -1,13 +1,14 @@
 const { MessageEmbed } = require("discord.js");
-const r = require("rethinkdb")
-const wait = require('util').promisify(setTimeout);
-const cooldown = new Set;
+const r = require("rethinkdb");
 module.exports = {
     name: "interactionCreate",
     once: true,
 
     async execute (client, interaction) {
         if (!interaction.isCommand()) return;
+
+        const gban = await r.table("gbans").get(interaction.user.id).run(client.con);
+        if (gban) return interaction.channel.send({content: "You are blacklisted!", ephemeral: true });
 
         const command = client.slashCommands.get(interaction.commandName);
         if (!command) return;
@@ -19,7 +20,6 @@ module.exports = {
                 const command = client.slashCommands.get(interaction.commandName);
                 if (command) command.run(client, interaction);
             }
-
         } catch (error) {
             let errorEmbedChannel = new MessageEmbed()
                 .setDescription(`Server ID: ${interaction.guild.id} (${interaction.guild.name})\nError:\n\`\`\`${error || "None"}\`\`\``)
