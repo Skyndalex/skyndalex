@@ -1,5 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const r = require("rethinkdb");
+const cooldown = new Set;
 module.exports = {
     name: "interactionCreate",
     once: true,
@@ -13,8 +14,13 @@ module.exports = {
         const command = client.slashCommands.get(interaction.commandName);
         if (!command) return;
         try {
-            await command.execute(client, interaction);
-
+            if (cooldown.has(interaction.user.id)) {
+                interaction.reply("Please wait 2 seconds before using the command again.")
+            } else {
+                await command.execute(client, interaction);
+                cooldown.add(interaction.user.id);
+                setTimeout(() => cooldown.delete(interaction.user.id), 2000);
+            }
             if (interaction.isContextMenu()) {
                 await interaction.deferReply({ ephemeral: false });
                 const command = client.slashCommands.get(interaction.commandName);
