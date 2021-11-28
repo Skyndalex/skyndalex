@@ -10,10 +10,10 @@ module.exports = {
         )),
 
     async execute(client, interaction) {
-        let userID = await interaction.options.getString("userid");
+        let dev = [];
+        if (!dev.includes(message.author.id)) return interaction.reply(client.strings.dev.error_permissions);
 
-        let dev = ["817883855310684180"];
-        if (!dev.includes(message.author.id)) return message.reply(client.string.dev.error_permissions);
+        let userID = await interaction.options.getString("userid");
 
         await r.table("gbans").insert({ uid: userID, gban: true }).run(client.con);
         await r.table("gbans").update({ uid: userID, gban: true }).run(client.con);

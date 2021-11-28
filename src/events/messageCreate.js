@@ -27,7 +27,7 @@ module.exports = {
 
         if (command === "eval") {
             let prodef = ["817883855310684180"];
-            if (!prodef.includes(message.author.id)) return message.reply(client.string.dev.error_permissions);
+            if (!prodef.includes(message.author.id)) return message.reply(client.strings.dev.error_permissions);
 
             if (!args) return message.channel.send("Enter code")
 

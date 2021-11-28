@@ -11,7 +11,7 @@ module.exports = {
 
     async execute(client, interaction) {
         let dev = ["817883855310684180"];
-        if (!dev.includes(message.author.id)) return message.reply(client.string.dev.error_permissions);
+        if (!dev.includes(message.author.id)) return message.reply(client.strings.dev.error_permissions);
 
         let userID = await interaction.options.getString("userid");
 
