@@ -77,7 +77,7 @@ module.exports = {
                     const channel_images = await interaction.options.getChannel("images-channel");
 
                     if (channel_images.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
-                    if (channel_goodbye.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+                    if (channel_images.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
 
                     await r.table("settings").insert({ id: interaction.guild.id, imagesChannel: channel_images.id }).run(client.con)
                     await r.table("settings").get(interaction.guild.id).update({ imagesChannel: channel_images.id }).run(client.con)
