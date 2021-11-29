@@ -21,7 +21,6 @@ module.exports = {
             r.react("👍")
             r.react("👎")
         });
-
         interaction.reply({content: "Success!", ephemeral: true});
     }
 
