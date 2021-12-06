@@ -4,10 +4,9 @@ const Base = require("./base");
 const fs = require('fs');
 const r = require("rethinkdb");
 
-const client = new Base({ intents: [ 32767 ], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
+const client = new Base({ intents: [32767], partials: ["MESSAGE", "CHANNEL"]});
 
 module.exports = client;
-
 client.slashCommands = new Collection;
 
 const commandFolders = fs.readdirSync('./commands');
@@ -37,22 +36,18 @@ client.on("ready", async () => {
     client.application.commands.set(arrayOfSlashCommands)
 
     let actvs = [
-        `Bot version: ${client.version}`,
-        `View site: https://krivebot.xyz`,
-        `Community: https://krivebot.xyz/discord`,
-        `Statuspage: https://status.krivebot.xyz`,
-        `Docs: https://docs.krivebot.xyz`,
+        `Bot version: ${client.strings.bot.version}`,
+        `View site: htps://${client.strings.bot.link_site}`,
+        `Community: https://${client.strings.bot.link_discord}`,
+        `Statuspage: https://${client.strings.bot.link_statuspage}`,
+        `Docs: https://${client.strings.bot.link_docs}`,
     ];
-
     setInterval(() => client.user.setActivity(`${actvs[Math.floor(Math.random() * actvs.length)]}`, {type: "PLAYING"}), 10000)
 });
 
-
-r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
+r.connect({db: "db", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
     if (err) console.log(err)
-    client.con = con;
-
-    console.log("RethinkDb Connected");
+    client.conn = con;
+    console.log("success");
 })
-
 client.login(token)

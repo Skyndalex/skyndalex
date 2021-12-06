@@ -5,7 +5,7 @@ module.exports = {
     description: "Gban member.",
 
     run: async (client, interaction) => {
-        let dev = [];
+        let dev = ["817883855310684180"];
         if (!dev.includes(message.author.id)) return interaction.reply(client.strings.dev.error_permissions);
 
         let userID = await interaction.options.getString("userid");
