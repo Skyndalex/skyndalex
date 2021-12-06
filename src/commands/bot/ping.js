@@ -1,14 +1,12 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require("discord.js")
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('ping')
-        .setDescription('Client ping.'),
+    name: "ping",
+    description: "Bot ping",
 
-    async execute(client, interaction) {
+    run: async (client, interaction) => {
         const embed = new MessageEmbed()
-            .setDescription(`Ping: \`${client.ws.ping}ms\``)
-            .setColor("#2f3136")
-        await interaction.reply({embeds: [embed]})
+            .setDescription(`Ping: ${client.ws.ping}ms`)
+            .setColor("DARK_BUT_NOT_BLACK")
+        interaction.reply({embeds: [embed]})
     }
-};
+}

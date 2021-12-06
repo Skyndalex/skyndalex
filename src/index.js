@@ -1,26 +1,52 @@
-const { token } = require('./config.json');
+const { Collection } = require("discord.js");
+const { token } = require("./config.json");
+const Base = require("./base");
 const fs = require('fs');
-const Base = require("./Base.js");
-const { Intents, Collection } = require("discord.js")
-const r = require("rethinkdb")
-const client = new Base({ intents: [ 32767 ], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
+const r = require("rethinkdb");
 
-client.slashCommands  = new Collection;
+const client = new Base({ intents: [ 32767 ], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 
 module.exports = client;
 
-require("./web/site/redirect").run(client);
+client.slashCommands = new Collection;
 
 const commandFolders = fs.readdirSync('./commands');
+
+const arrayOfSlashCommands = [];
 
 for (const folder of commandFolders) {
     const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith(".js"));
     for (const file of commandFiles) {
         const command = require(`./commands/${folder}/${file}`);
-        client.slashCommands .set(command.data.name, command);
+        client.slashCommands.set(command.name, command);
+        if (["MESSAGE", "USER"].includes(command.type)) delete command.description;
+        arrayOfSlashCommands.push(command)
     }
 }
+
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+for (const file of eventFiles) {
+    const event = require(`./events/${file}`);
+    client.on(event.name, (...args) => event.execute(client, ...args));
+}
+
+client.on("ready", async () => {
+    console.log("Bot is online");
+
+    client.guilds.cache.get("804477558061137972").commands.set(arrayOfSlashCommands)
+    client.application.commands.set(arrayOfSlashCommands)
+
+    let actvs = [
+        `Bot version: ${client.version}`,
+        `View site: https://krivebot.xyz`,
+        `Community: https://krivebot.xyz/discord`,
+        `Statuspage: https://status.krivebot.xyz`,
+        `Docs: https://docs.krivebot.xyz`,
+    ];
+
+    setInterval(() => client.user.setActivity(`${actvs[Math.floor(Math.random() * actvs.length)]}`, {type: "PLAYING"}), 10000)
+});
+
 
 r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
     if (err) console.log(err)
@@ -29,14 +55,4 @@ r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, func
     console.log("RethinkDb Connected");
 })
 
-for (const file of eventFiles) {
-    const event = require(`./events/${file}`);
-    if (event.once) {
-        client.on(event.name, (...args) => event.execute(client, ...args));
-    } else {
-        client.on(event.name, (...args) => event.execute(client, ...args));
-    }
-}
-
-
-client.login(token);
+client.login(token)

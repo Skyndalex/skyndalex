@@ -6,38 +6,28 @@ module.exports = {
     once: true,
 
     async execute (client, interaction) {
-        if (!interaction.isCommand()) return;
+        if (!interaction.isCommand()) {
+            const cmd = client.slashCommands.get(interaction.commandName);
 
-        const gban = await r.table("gbans").get(interaction.user.id).run(client.con);
-        if (gban) return interaction.channel.send({content: "You are blacklisted!", ephemeral: true });
+            interaction.member = interaction.guild.members.cache.get(interaction.user.id);
 
-        const command = client.slashCommands.get(interaction.commandName);
-        if (!command) return;
-        try {
-            if (cooldown.has(interaction.user.id)) {
-                interaction.reply("Please wait 2 seconds before using the command again.")
-            } else {
-                await command.execute(client, interaction);
-                cooldown.add(interaction.user.id);
-                setTimeout(() => cooldown.delete(interaction.user.id), 2000);
-            }
-            if (interaction.isContextMenu()) {
-                await interaction.deferReply({ ephemeral: false });
-                const command = client.slashCommands.get(interaction.commandName);
-                if (command) command.run(client, interaction);
-            }
-        } catch (error) {
-            let errorEmbedChannel = new MessageEmbed()
-                .setDescription(`Server ID: ${interaction.guild.id} (${interaction.guild.name})\nError:\n\`\`\`${error || "None"}\`\`\``)
-                .setColor("DARK_BUT_NOT_BLACK")
-                .setTimestamp()
-            if (error) client.channels.cache.get("914250038744604672").send({ embeds: [errorEmbedChannel] })
+            if (cmd) cmd.run(client, interaction).catch(error => {
+                let errorEmbedChannel = new MessageEmbed()
+                    .setDescription(`Server ID: ${interaction.guild.id} (${interaction.guild.name})\nError:\n\`\`\`${error || "None"}\`\`\``)
+                    .setColor("DARK_BUT_NOT_BLACK")
+                    .setTimestamp()
+                if (error) client.channels.cache.get("914250038744604672").send({embeds: [errorEmbedChannel]})
 
-            let errorEmbed = new MessageEmbed()
-                .setDescription(`An error has occurred! View [Documentation](https://docs.krivebot.xyz)\nOr [Required bot permissions](https://docs.krivebot.xyz/permissions)\nError:\n\`\`\`${error || "None."}\`\`\`\n\n[Contact with the bot administration](https://krivebot.xyz/discord)\n[Statuspage](https://status.krivebot.xyz)`)
-                .setColor("DARK_BUT_NOT_BLACK")
-                .setTimestamp()
-            interaction.reply({embeds: [errorEmbed]})
+                let errorEmbed = new MessageEmbed()
+                    .setDescription(`An error has occurred! View [Documentation](https://docs.krivebot.xyz)\nOr [Required bot permissions](https://docs.krivebot.xyz/permissions)\nError:\n\`\`\`${error || "None."}\`\`\`\n\n[Contact with the bot administration](https://krivebot.xyz/discord)\n[Statuspage](https://status.krivebot.xyz)`)
+                    .setColor("DARK_BUT_NOT_BLACK")
+                    .setTimestamp()
+                interaction.reply({embeds: [errorEmbed]})
+            })
+        }
+        if (interaction.isContextMenu()) {
+            const command = client.slashCommands.get(interaction.commandName);
+            if (command) command.run(client, interaction);
         }
     }
 }

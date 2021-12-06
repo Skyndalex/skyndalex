@@ -1,8 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('pasty')
-        .setDescription('Random pasty. (Polish command)'),
+    name: "pasty",
+    description: "Polish pasty.",
 
     async execute(client, interaction) {
         if (!interaction.channel.nsfw) return interaction.reply(client.strings.fun.warning_nsfw);

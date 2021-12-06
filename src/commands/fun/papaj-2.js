@@ -1,10 +1,8 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('papaj')
-        .setDescription('memes about the pope (Polish command)'),
+    name: "papaj",
+    description: "memes about the pope",
 
-    async execute(client, interaction) {
+    run: async (client, interaction) => {
         if (!interaction.channel.nsfw) return interaction.reply(client.strings.fun.warning_nsfw);
 
         await interaction.reply(client.strings.fun.info_fetching)

@@ -1,15 +1,10 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require("discord.js");
 const r = require("rethinkdb")
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('ungban')
-        .setDescription('Ungban user')
-        .addStringOption(option => (
-            option.setName("userid").setDescription("User ID")
-        )),
+    name: "ungban",
+    description: "Ungban member.",
 
-    async execute(client, interaction) {
+    run: async (client, interaction) => {
         let dev = ["817883855310684180"];
         if (!dev.includes(message.author.id)) return message.reply(client.strings.dev.error_permissions);
 

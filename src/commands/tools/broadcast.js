@@ -2,13 +2,13 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require("discord.js")
 const r = require("rethinkdb")
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('broadcast')
-        .setDescription('broadcast.')
-        .addStringOption(option => (
-           option.setName("arguments").setDescription("Broadcast description").setRequired(true)
-        )),
-    async execute(client, interaction) {
+    name: "broadcast",
+    description: "Send broadcast.",
+    options: [
+        { type: "STRING", name: "arguments", description: "Broadcast description", required: true }
+    ],
+
+    run: async (client, interaction) => {
         if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "You need permissions: \`MANAGE_CHANNELS\`!", ephemeral: true});
 
         const data = await r.table("settings").get(interaction.guild.id).run(client.con);

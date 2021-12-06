@@ -1,26 +1,23 @@
 const { MessageEmbed } = require("discord.js");
 const r = require("rethinkdb")
 module.exports = {
-    data: {
         name: "set",
         description: "Bot settings.",
         options: [
-            { type: 7, name: "broadcast-channel", description: "Broadcast channel" },
-            { type: 7, name: "suggestions-channel", description: "Suggestions channel" },
-            { type: 7, name: "complaints-channel", description: "Complaints channel" },
-            { type: 7, name: "images-channel", description: "Images channel" },
-            { type: 7, name: "welcome-channel", description: "Welcome channel" },
-            { type: 7, name: "goodbye-channel", description: "Goodbye channel" },
-            { type: 7, name: "applications-channel", description: "Applications channel" },
-            { type: 7, name: "vote-channel", description: "Voting channel"},
-            { type: 8, name: "moderator-role", description: "Server moderator role [Required for tickets]" },
-            { type: 8, name: "muted-role", description: "The role of the muted user" },
-            { type: 8, name: "user-role", description: "User role [Required for verification]" },
-            { type: 8, name: "auto-role", description: "If a user enters the server, they will automatically get the role set." },
-    ],
-},
-
-    async execute(client, interaction) {
+            { type: "CHANNEL", name: "broadcast-channel", description: "Broadcast channel" },
+            { type: "CHANNEL", name: "suggestions-channel", description: "Suggestions channel" },
+            { type: "CHANNEL", name: "complaints-channel", description: "Complaints channel" },
+            { type: "CHANNEL", name: "images-channel", description: "Images channel" },
+            { type: "CHANNEL", name: "welcome-channel", description: "Welcome channel" },
+            { type: "CHANNEL", name: "goodbye-channel", description: "Goodbye channel" },
+            { type: "CHANNEL", name: "applications-channel", description: "Applications channel" },
+            { type: "CHANNEL", name: "vote-channel", description: "Voting channel"},
+            { type: "CHANNEL", name: "moderator-role", description: "Server moderator role [Required for tickets]" },
+            { type: "CHANNEL", name: "muted-role", description: "The role of the muted user" },
+            { type: "CHANNEL", name: "user-role", description: "User role [Required for verification]" },
+            { type: "CHANNEL", name: "auto-role", description: "If a user enters the server, they will automatically get the role set." },
+        ],
+    run: async (client, interaction) => {
         if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "You need permissions: \`MANAGE_CHANNELS\`"});
 
         for (let option of interaction.options.data) {

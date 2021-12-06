@@ -1,14 +1,10 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require("discord.js")
 const r = require("rethinkdb")
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('vote')
-        .setDescription('Start voting.')
-        .addStringOption(option => (
-            option.setName("arguments").setDescription("Voting description").setRequired(true)
-        )),
-    async execute(client, interaction) {
+    name: "vote",
+    description: "Organize a vote",
+
+    run: async (client, interaction) => {
         const data = await r.table("settings").get(interaction.guild.id).run(client.con);
         if (!data?.voteChannel) return interaction.reply({content: client.strings.tools.info_nosetting});
 
