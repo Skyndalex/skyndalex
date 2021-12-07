@@ -3,8 +3,8 @@ module.exports = {
     type: "USER",
 
     run: async (client, interaction) => {
-        const user = interaction.user;
+        const target = await interaction.guild.members.fetch(interaction.targetId);
 
-        interaction.reply({content: `UserID: ${user.id}\nMention: <@${user.id}>`})
+        interaction.reply({content: `UserID: ${target.id}\nMention: <@${target.id}>`})
     }
 }

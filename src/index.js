@@ -19,6 +19,7 @@ for (const folder of commandFolders) {
         const command = require(`./commands/${folder}/${file}`);
         client.slashCommands.set(command.name, command);
         if (["MESSAGE", "USER"].includes(command.type)) delete command.description;
+
         arrayOfSlashCommands.push(command)
     }
 }
@@ -28,6 +29,11 @@ for (const file of eventFiles) {
     const event = require(`./events/${file}`);
     client.on(event.name, (...args) => event.execute(client, ...args));
 }
+r.connect({db: "db", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
+    if (err) console.log(err)
+    client.conn = con;
+    console.log("success");
+})
 
 client.on("ready", async () => {
     console.log("Bot is online");
@@ -45,9 +51,5 @@ client.on("ready", async () => {
     setInterval(() => client.user.setActivity(`${actvs[Math.floor(Math.random() * actvs.length)]}`, {type: "PLAYING"}), 10000)
 });
 
-r.connect({db: "db", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
-    if (err) console.log(err)
-    client.conn = con;
-    console.log("success");
-})
+
 client.login(token)

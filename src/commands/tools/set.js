@@ -16,6 +16,7 @@ module.exports = {
             { type: "CHANNEL", name: "muted-role", description: "The role of the muted user" },
             { type: "CHANNEL", name: "user-role", description: "User role [Required for verification]" },
             { type: "CHANNEL", name: "auto-role", description: "If a user enters the server, they will automatically get the role set." },
+            { type: "CHANNEL", name: "mod-log", description: "Mod log channel "}
         ],
     run: async (client, interaction) => {
         if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "You need permissions: \`MANAGE_CHANNELS\`"});
@@ -149,6 +150,22 @@ module.exports = {
                         .addField(`New value`, `<#${channel_voting.id}>`)
                         .setColor("DARK_BUT_NOT_BLACK")
                     interaction.reply({ embeds: [embed_Voting] })
+                    break;
+                case "mod-log":
+                    const channel_modlog = await interaction.options.getChannel("mod-log");
+
+                    if (channel_modlog.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
+                    if (channel_modlog.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+
+                    await r.table("settings").insert({ id: interaction.guild.id, modlogChannel: channel_modlog.id }).run(client.con)
+                    await r.table("settings").get(interaction.guild.id).update({ modlogChannel: channel_modlog.id }).run(client.con)
+
+                    const embed_Modlog = new MessageEmbed()
+                        .setTitle(client.strings.tools.set.embed_successfully)
+                        .setDescription(`${client.strings.tools.set.embed_selected} \`${option.name}\``)
+                        .addField(`New value`, `<#${channel_modlog.id}>`)
+                        .setColor("DARK_BUT_NOT_BLACK")
+                    interaction.reply({ embeds: [embed_Modlog] })
                     break;
                 }
             }
