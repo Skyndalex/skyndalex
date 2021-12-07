@@ -1,10 +1,10 @@
 module.exports = {
-    name: "Get message content",
+    name: "getContent",
     type: "MESSAGE",
 
     run: async (client, interaction) => {
         const msg = await interaction.channel.messages.fetch(interaction.targetId);
 
-        await interaction.reply({content: `Content: \`${msg}\``})
+        interaction.reply({content: `Content: \`${msg}\``})
     }
 }

@@ -1,5 +1,5 @@
 module.exports = {
-    name: "Get user informations",
+    name: "getUser",
     type: "USER",
 
     run: async (client, interaction) => {
