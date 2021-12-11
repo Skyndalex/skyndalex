@@ -6,7 +6,8 @@ module.exports = {
     once: true,
 
     async execute (client, interaction) {
-        if (!interaction.isCommand()) {
+            if (!interaction.isCommand()) return;
+
             const cmd = client.slashCommands.get(interaction.commandName);
 
             interaction.member = interaction.guild.members.cache.get(interaction.user.id);
@@ -24,7 +25,6 @@ module.exports = {
                     .setTimestamp()
                 interaction.reply({embeds: [errorEmbed]})
             })
-        }
         if (interaction.isContextMenu()) {
             const command = client.slashCommands.get(interaction.commandName);
             if (command) command.run(client, interaction);
