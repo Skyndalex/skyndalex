@@ -20,7 +20,7 @@ for (const folder of commandFolders) {
         client.slashCommands.set(command.name, command);
         if (["MESSAGE", "USER"].includes(command.type)) delete command.description;
 
-        arrayOfSlashCommands.push(command)
+        arrayOfSlashCommands.push(command);
     }
 }
 r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {

@@ -24,10 +24,10 @@ module.exports = {
                     .setTimestamp()
                 interaction.reply({embeds: [errorEmbed]})
             })
-            if (interaction.isContextMenu()) {
-                const command = client.slashCommands.get(interaction.commandName);
-                if (command) command.run(client, interaction);
-            }
+        }
+        if (interaction.isContextMenu()) {
+            const command = client.slashCommands.get(interaction.commandName);
+            if (command) command.run(client, interaction);
         }
     }
 }
