@@ -1,6 +1,6 @@
 # Documentation
 
-*Link: https://docs.krivebot.xyz*
+*Link: https://krivebot.xyz*
 
 ## Reporting a bug
 
