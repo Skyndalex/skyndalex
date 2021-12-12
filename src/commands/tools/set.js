@@ -12,11 +12,11 @@ module.exports = {
             { type: "CHANNEL", name: "goodbye-channel", description: "Goodbye channel" },
             { type: "CHANNEL", name: "applications-channel", description: "Applications channel" },
             { type: "CHANNEL", name: "vote-channel", description: "Voting channel"},
-            { type: "CHANNEL", name: "moderator-role", description: "Server moderator role [Required for tickets]" },
             { type: "CHANNEL", name: "muted-role", description: "The role of the muted user" },
             { type: "CHANNEL", name: "user-role", description: "User role [Required for verification]" },
             { type: "CHANNEL", name: "auto-role", description: "If a user enters the server, they will automatically get the role set." },
-            { type: "CHANNEL", name: "mod-log", description: "Mod log channel "}
+            { type: "CHANNEL", name: "mod-log", description: "Mod log channel "},
+            { type: "ROLE", name: "moderator-role", description: "Server moderator role [Required for tickets]" },
         ],
     run: async (client, interaction) => {
         if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "You need permissions: \`MANAGE_CHANNELS\`"});
@@ -166,6 +166,19 @@ module.exports = {
                         .addField(`New value`, `<#${channel_modlog.id}>`)
                         .setColor("DARK_BUT_NOT_BLACK")
                     interaction.reply({ embeds: [embed_Modlog] })
+                    break;
+                case "moderator-role":
+                    const role_modrole = await interaction.options.getRole("moderator-role");
+
+                    await r.table("settings").insert({ id: interaction.guild.id, moderatorRole: role_modrole.id }).run(client.con)
+                    await r.table("settings").get(interaction.guild.id).update({ moderatorRole: role_modrole.id }).run(client.con)
+
+                    const embed_Modrole = new MessageEmbed()
+                        .setTitle(client.strings.tools.set.embed_successfully)
+                        .setDescription(`${client.strings.tools.set.embed_selected} \`${option.name}\``)
+                        .addField(`New value`, `<@%${role_modrole.id}>`)
+                        .setColor("DARK_BUT_NOT_BLACK")
+                    interaction.reply({ embeds: [embed_Modrole] })
                     break;
                 }
             }
