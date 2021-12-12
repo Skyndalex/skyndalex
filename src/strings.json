@@ -16,6 +16,10 @@
     },
     "complaint": {
       "field_value": "Reason:"
+    },
+    "ticket": {
+      "create_ticket_title": "Create ticket",
+      "create_ticket_description": "To create a ticket, just click a button."
     }
   },
   "dev": {

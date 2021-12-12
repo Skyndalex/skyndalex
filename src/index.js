@@ -19,7 +19,7 @@ for (const folder of commandFolders) {
     for (const file of commandFiles) {
         const command = require(`./commands/${folder}/${file}`);
         client.slashCommands.set(command.name, command);
-        if (["MESSAGE", "USER"].includes(command.type)) delete command.description;
+       // if (["MESSAGE", "USER"].includes(command.type)) delete command.description;
         arrayOfSlashCommands.push(command)
     }
 }
