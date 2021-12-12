@@ -2,7 +2,8 @@ const { Collection } = require("discord.js");
 const { token } = require("./config.json");
 const Base = require("./base");
 const fs = require('fs');
-const r = require("rethinkdb");
+
+global.r = require("rethinkdb");
 
 const client = new Base({ intents: [ 32767 ], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 

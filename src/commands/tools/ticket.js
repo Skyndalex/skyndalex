@@ -1,4 +1,4 @@
-const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js")
+const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 module.exports = {
     name: "ticket",
     description: "Create guild ticket.",

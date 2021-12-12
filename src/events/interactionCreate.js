@@ -1,5 +1,4 @@
 const { MessageEmbed } = require("discord.js");
-const r = require("rethinkdb");
 const cooldown = new Set;
 module.exports = {
     name: "interactionCreate",
