@@ -44,9 +44,9 @@ module.exports = {
                     const channel = await interaction.guild.channels.create(`ticket-${interaction.user.tag}`, {
                         type: "GUILD_TEXT",
                         permissionOverwrites: [
-                            { id: interaction.user.id, allow: [ "SEND_MESSAGES", "VIEW_CHANNEL" ] },
-                            { id: data?.moderatorRole, allow: [ "SEND_MESSAGES", "VIEW_CHANNEL" ] },
-                            { id: client.user.id, allow: [ "SEND_MESSAGES", "VIEW_CHANNEL" ] },
+                            { id: interaction.user.id, allow: [ "SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"] },
+                            { id: data?.moderatorRole, allow: [ "SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"] },
+                            { id: client.user.id, allow: [ "SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"] },
                             { id: interaction.guild.id, deny: [ "VIEW_CHANNEL" ] }
                         ],
                     });
@@ -71,6 +71,12 @@ module.exports = {
                         .setDescription(`-> <#${channel.id}>`)
                         .setColor("DARK_BUT_NOT_BLACK")
                     await interaction.reply({ embeds: [embedCreate], ephemeral: true })
+
+                    const embedModlog = new MessageEmbed()
+                        .setDescription(`Opened ticket by <@${interaction.user.id}> (${interaction.user.id}).\n\n-> <#${channel.id}>`)
+                        .setColor("BLUE")
+                        .setTimestamp()
+                    await client.channels.cache.get(data?.modlogChannel).send({ embeds: [embedModlog] })
                 };
                 cooldown.add(interaction.user.id);
                 setTimeout(() => {
@@ -79,6 +85,12 @@ module.exports = {
                 break;
             case "ticket_close":
                 await interaction.channel.delete();
+
+                const embedModlog2 = new MessageEmbed()
+                    .setDescription(`Closed ticket by <@${interaction.user.id}> (${interaction.user.id}).`)
+                    .setColor("RED")
+                    .setTimestamp()
+                await client.channels.cache.get(data?.modlogChannel).send({ embeds: [embedModlog2] })
                 break;
         }
     }
