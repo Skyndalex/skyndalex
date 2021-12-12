@@ -4,6 +4,9 @@ module.exports = {
     description: "Create guild ticket.",
 
     run: async (client, interaction) => {
+        const data = await r.table("settings").get(interaction.guild.id).run(client.con);
+        if (!data?.moderatorRole) return interaction.reply(`There is no moderator role set on this server! Please configure the role using the \`set\` command.`);
+
         const row = new MessageActionRow()
             .addComponents(
                 new MessageButton()

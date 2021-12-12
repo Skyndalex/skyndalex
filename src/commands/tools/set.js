@@ -175,7 +175,7 @@ module.exports = {
                     const embed_Modrole = new MessageEmbed()
                         .setTitle(client.strings.tools.set.embed_successfully)
                         .setDescription(`${client.strings.tools.set.embed_selected} \`${option.name}\``)
-                        .addField(`New value`, `<@%${role_modrole.id}>`)
+                        .addField(`New value`, `<@&${role_modrole.id}>`)
                         .setColor("DARK_BUT_NOT_BLACK")
                     interaction.reply({ embeds: [embed_Modrole] })
                     break;
