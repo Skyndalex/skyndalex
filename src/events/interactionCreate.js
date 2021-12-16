@@ -9,7 +9,9 @@ module.exports = {
             const cmd = client.slashCommands.get(interaction.commandName);
             interaction.member = interaction.guild.members.cache.get(interaction.user.id);
 
-            if (client.debug === 1 && interaction.user.id!=="817883855310684180") return interaction.reply("You cannot use commands when debugging is enabled.")
+            //TODO: add client.debug to let
+
+            if (client.debug === true && interaction.user.id!=="817883855310684180") return interaction.reply("You cannot use commands when debugging is enabled.")
 
             if (cmd) cmd.run(client, interaction).catch(error => {
                 let errorEmbedChannel = new MessageEmbed()

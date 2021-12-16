@@ -5,7 +5,7 @@ class Base extends Client {
         super(clientOptions);
 
         this.strings = strings
-        this.debug = 1
+        this.debug = false
     }
 }
 module.exports = Base;
