@@ -9,6 +9,8 @@ module.exports = {
             const cmd = client.slashCommands.get(interaction.commandName);
             interaction.member = interaction.guild.members.cache.get(interaction.user.id);
 
+            if (client.debug === 1 && interaction.user.id!=="817883855310684180") return interaction.reply("You cannot use commands when debugging is enabled.")
+
             if (cmd) cmd.run(client, interaction).catch(error => {
                 let errorEmbedChannel = new MessageEmbed()
                     .setDescription(`Server ID: ${interaction.guild.id} (${interaction.guild.name})\nError:\n\`\`\`${error || "None"}\`\`\``)
@@ -23,13 +25,12 @@ module.exports = {
                 interaction.reply({embeds: [errorEmbed]})
             });
 
-
         /*
-        if (interaction.isContextMenu()) {
-            const command = client.slashCommands.get(interaction.commandName);
-            if (command) command.run(client, interaction);
-        }
-        */
+    if (interaction.isContextMenu()) {
+        const command = client.slashCommands.get(interaction.commandName);
+        if (command) command.run(client, interaction);
+    }
+    */
 
         // Buttons
 

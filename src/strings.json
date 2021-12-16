@@ -30,5 +30,7 @@
     "info_fetching": "Creating image from API.",
     "info_fetching_pasty": "Creating a text file from API.",
     "info_success": "Generated."
+  },
+  "events": {
   }
 }
