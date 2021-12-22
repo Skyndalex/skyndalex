@@ -10,7 +10,6 @@ const client = new Base({ intents: [ 32767 ], partials: ["MESSAGE", "CHANNEL", "
 module.exports = client;
 
 client.slashCommands = new Collection;
-
 const commandFolders = fs.readdirSync('./commands');
 
 const arrayOfSlashCommands = [];

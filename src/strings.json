@@ -32,5 +32,32 @@
     "info_success": "Generated."
   },
   "events": {
+    "channelCreate": {
+
+    },
+    "channelDelete": {
+
+    },
+    "channelUpdate": {
+
+    },
+    "emojiCreate": {
+
+    },
+    "emojiDelete": {
+
+    },
+    "emojiUpdate": {
+
+    },
+    "roleCreate": {
+
+    },
+    "roleDelete": {
+
+    },
+    "roleUpdate": {
+
+    }
   }
 }

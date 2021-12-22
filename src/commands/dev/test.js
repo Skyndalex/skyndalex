@@ -4,6 +4,5 @@ module.exports = {
     description: "test",
 
     run: async (client, interaction) => {
-        interaction.reply("Test message.")
     }
 }
