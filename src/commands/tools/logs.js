@@ -87,6 +87,86 @@ module.exports = {
                 .addField(`New value`, `<#${channel_update.id}>`)
                 .setColor("DARK_BUT_NOT_BLACK")
             await interaction.channel.send({ embeds: [channelupdateEmbed] })
+
+            // emojiCreateLog
+            let emoji_create = interaction.options.getChannel("emoji_create");
+
+            if (emoji_create.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
+            if (emoji_create.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+
+            await r.table("logs").insert({ id: interaction.guild.id, emojiCreateLog: emoji_create.id }).run(client.con)
+            await r.table("logs").get(interaction.guild.id).update({ emojiCreateLog: emoji_create.id }).run(client.con)
+
+            const emojicreateEmbed = new MessageEmbed()
+                .setTitle(client.strings.tools.set.embed_successfully)
+                .setDescription(`${client.strings.tools.set.embed_selected} \`emoji_create\``)
+                .addField(`New value`, `<#${emoji_create.id}>`)
+                .setColor("DARK_BUT_NOT_BLACK")
+            await interaction.channel.send({ embeds: [emojicreateEmbed] })
+
+            // emojiUpdateLog
+            let emoji_update = interaction.options.getChannel("emoji_update");
+
+            if (emoji_update.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
+            if (emoji_update.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+
+            await r.table("logs").insert({ id: interaction.guild.id, emojiUpdateLog: emoji_update.id }).run(client.con)
+            await r.table("logs").get(interaction.guild.id).update({ emojiUpdateLog: emoji_update.id }).run(client.con)
+
+            const emojiupdateEmbed = new MessageEmbed()
+                .setTitle(client.strings.tools.set.embed_successfully)
+                .setDescription(`${client.strings.tools.set.embed_selected} \`emoji_update\``)
+                .addField(`New value`, `<#${emoji_update.id}>`)
+                .setColor("DARK_BUT_NOT_BLACK")
+            await interaction.channel.send({ embeds: [emojiupdateEmbed] })
+
+            // emojiDeleteLog
+            let emoji_delete = interaction.options.getChannel("emoji_delete");
+
+            if (emoji_delete.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
+            if (emoji_delete.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+
+            await r.table("logs").insert({ id: interaction.guild.id, emojiDeleteLog: emoji_delete.id }).run(client.con)
+            await r.table("logs").get(interaction.guild.id).update({ emojiDeleteLog: emoji_delete.id }).run(client.con)
+
+            const emojideleteEmbed = new MessageEmbed()
+                .setTitle(client.strings.tools.set.embed_successfully)
+                .setDescription(`${client.strings.tools.set.embed_selected} \`emoji_delete\``)
+                .addField(`New value`, `<#${emoji_delete.id}>`)
+                .setColor("DARK_BUT_NOT_BLACK")
+            await interaction.channel.send({ embeds: [emojideleteEmbed] })
+
+            // roleCreateLog
+            let role_create = interaction.options.getChannel("role_create");
+
+            if (role_create.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
+            if (role_create.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+
+            await r.table("logs").insert({ id: interaction.guild.id, roleCreateLog: role_create.id }).run(client.con)
+            await r.table("logs").get(interaction.guild.id).update({ roleCreateLog: role_create.id }).run(client.con)
+
+            const rolecreateEmbed = new MessageEmbed()
+                .setTitle(client.strings.tools.set.embed_successfully)
+                .setDescription(`${client.strings.tools.set.embed_selected} \`role_create\``)
+                .addField(`New value`, `<#${role_create.id}>`)
+                .setColor("DARK_BUT_NOT_BLACK")
+            await interaction.channel.send({ embeds: [rolecreateEmbed] })
+
+            // roleDeleteLog
+            let role_delete = interaction.options.getChannel("role_delete");
+
+            if (role_delete.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
+            if (role_delete.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+
+            await r.table("logs").insert({ id: interaction.guild.id, roleDeleteLog: role_delete.id }).run(client.con)
+            await r.table("logs").get(interaction.guild.id).update({ roleDeleteLog: role_delete.id }).run(client.con)
+
+            const roledeleteEmbed = new MessageEmbed()
+                .setTitle(client.strings.tools.set.embed_successfully)
+                .setDescription(`${client.strings.tools.set.embed_selected} \`role_delete\``)
+                .addField(`New value`, `<#${role_create.id}>`)
+                .setColor("DARK_BUT_NOT_BLACK")
+            await interaction.channel.send({ embeds: [roledeleteEmbed] })
         }
         },
 };
