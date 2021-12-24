@@ -15,6 +15,6 @@ module.exports = {
                     .setStyle('PRIMARY'),
             );
 
-        const msg1 = await interaction.channel.send({ content: "Hello world!", components: [row] });
+        await interaction.channel.send({ content: "Hello world!", components: [row] });
     }
 }
