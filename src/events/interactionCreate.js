@@ -95,17 +95,25 @@ module.exports = {
                     .setTimestamp()
                 await client.channels.cache.get(data?.modlogChannel).send({ embeds: [embedModlog2] })
                 break;
+                /*
             case "test-1":
-                interaction.reply({ content: 'Select arg', components: [] });
+                if (interaction.user.id === ) { // 1
+                    interaction.reply({ content: 'Select arg', components: [] });
 
-                const filter = m => m.content
-                const collector = interaction.channel.createMessageCollector({ filter, time: 15000 });
+                    const filter = m => m.content
+                    const collector = interaction.channel.createMessageCollector({ filter, time: 15000 });
 
-                collector.on('collect', m => {
-                    interaction.editReply({ content: `Content: ${m.content}` })
-                    collector.stop();
-                });
+                    collector.on('collect', m => {
+                        interaction.editReply({ content: `Content: ${m.content}` });
+
+                        collector.stop();
+                    });
+                } else {
+                    interaction.reply(`, you can't control this component`); // 2
+                }
                 break;
+                
+                 */
         }
     }
 }
