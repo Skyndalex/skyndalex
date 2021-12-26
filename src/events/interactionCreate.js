@@ -95,17 +95,6 @@ module.exports = {
                     .setTimestamp()
                 await client.channels.cache.get(data?.modlogChannel).send({ embeds: [embedModlog2] })
                 break;
-            case "test-1":
-                await interaction.channel.send({ content: 'Select arg', components: [] });
-
-                const filter = m => m.content
-                const collector = interaction.channel.createMessageCollector({ filter, time: 15000 });
-
-                collector.on('collect', async m => {
-                    await interaction.update({ content: `Content: ${m.content}` })
-                    collector.stop();
-                });
-                break;
         }
     }
 }
