@@ -1,4 +1,4 @@
-const { MessageButton, MessageActionRow } = require("discord.js")
+const { MessageEmbed, MessageButton, MessageActionRow } = require("discord.js")
 module.exports = {
     name: "test",
     description: "test",
@@ -15,6 +15,6 @@ module.exports = {
                     .setStyle('PRIMARY'),
             );
 
-        await interaction.channel.send({ content: "Hello world!", components: [row] });
+        await interaction.reply({ content: "Hello world!", components: [row] });
     }
 }
