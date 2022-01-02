@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageActionRow, MessageSelectMenu, MessageEmbed } = require("discord.js");
-const { hypixelkey } = require("../commandKeys/keys.json")
+const { hypixel } = require("../commandKeys/hypixel.json")
 const axios = require("axios");
 const dayjs = require("dayjs")
 dayjs.locale("pl")
@@ -14,7 +14,7 @@ module.exports = {
 
     async execute(client, interaction) {
         const uuid = await axios(`https://api.mojang.com/users/profiles/minecraft/${interaction.options.getString("player")}`);
-        const { data } = await axios(`https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${hypixelkey}`);
+        const { data } = await axios(`https://api.hypixel.net/player?uuid=${uuid.data.id}&key=${hypixel}`);
 
         const row = new MessageActionRow()
             .addComponents(
