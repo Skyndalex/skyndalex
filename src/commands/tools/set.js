@@ -1,185 +1,177 @@
-const { MessageEmbed } = require("discord.js");
+// todo: objects
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require("discord.js")
+const r = require("rethinkdb")
 module.exports = {
-        name: "set",
-        description: "Bot settings.",
-        options: [
-            { type: "CHANNEL", name: "broadcast-channel", description: "Broadcast channel" },
-            { type: "CHANNEL", name: "suggestions-channel", description: "Suggestions channel" },
-            { type: "CHANNEL", name: "complaints-channel", description: "Complaints channel" },
-            { type: "CHANNEL", name: "images-channel", description: "Images channel" },
-            { type: "CHANNEL", name: "welcome-channel", description: "Welcome channel" },
-            { type: "CHANNEL", name: "goodbye-channel", description: "Goodbye channel" },
-            { type: "CHANNEL", name: "applications-channel", description: "Applications channel" },
-            { type: "CHANNEL", name: "vote-channel", description: "Voting channel"},
-            { type: "CHANNEL", name: "muted-role", description: "The role of the muted user" },
-            { type: "CHANNEL", name: "user-role", description: "User role [Required for verification]" },
-            { type: "CHANNEL", name: "auto-role", description: "If a user enters the server, they will automatically get the role set." },
-            { type: "CHANNEL", name: "mod-log", description: "Mod log channel "},
-            { type: "ROLE", name: "moderator-role", description: "Server moderator role [Required for tickets]" },
-        ],
-    run: async (client, interaction) => {
-        if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "You need permissions: \`MANAGE_CHANNELS\`"});
+    data: new SlashCommandBuilder()
+        .setName('set')
+        .setDescription('Ustawienia serwerowe.')
+        .addChannelOption(option => (
+            option.setName("ogłoszenia").setDescription("Kanał ogłoszeniowy")
+        )).addChannelOption(option => (
+            option.setName('głosowania').setDescription("Kanał głosowań")
+        )).addChannelOption(option => (
+            option.setName("skargi").setDescription("Kanał skarg")
+        )).addChannelOption(option => (
+            option.setName("obrazki").setDescription("Kanał obrazkowy")
+        )).addChannelOption(option => (
+            option.setName("powitania").setDescription("Kanał powitań")
+        )).addChannelOption(option => (
+            option.setName("pożegnania").setDescription("Kanał pożegnań")
+        )).addChannelOption(option => (
+            option.setName("sugestie").setDescription("Kanał sugestii")
+        )).addChannelOption(option => (
+            option.setName("podania").setDescription("Kanał podań")
+        )).addRoleOption(option => (
+            option.setName("moderatorrole").setDescription("Rola moderacji")
+        )).addRoleOption(option => (
+            option.setName("mutedrole").setDescription("Rola wyciszonego")
+        )).addRoleOption(option => (
+            option.setName("userrole").setDescription("Rola zweryfikowanego użytkownika")
+        )).addRoleOption(option => (
+            option.setName("adminrole").setDescription("Rola administratora serwera")
+        )).addRoleOption(option => (
+            option.setName("autorole").setDescription("Rola automatyczna")
+        )),
 
-        for (let option of interaction.options.data) {
-            switch (option.name) {
-                case "broadcast-channel":
-                    const channel = await interaction.options.getChannel("broadcast-channel");
+    async execute(client, interaction) {
+        // (opcje opcjonalne)
 
-                    if (channel.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
-                    if (channel.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+        const checkTable = await r.table("settings").get(interaction.guild.id).run(client.con);
 
-                    await r.table("settings").insert({ id: interaction.guild.id, broadcastChannel: channel.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ broadcastChannel: channel.id }).run(client.con)
+        if (interaction.options.getChannel("ogłoszenia")) {
+            if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "Nie masz permisji!", ephemeral: true});
 
-                    const embed_Broadcast = new MessageEmbed()
-                        .setTitle(client.strings.tools.set.embed_successfully)
-                        .setDescription(`${client.strings.tools.set.embed_selected} \`${option.name}\``)
-                        .addField(`New value`, `<#${channel.id}>`)
-                        .setColor("DARK_BUT_NOT_BLACK")
-                    interaction.reply({ embeds: [embed_Broadcast] })
-                    break;
-                case "suggestions-channel":
-                    const channel_suggestions = await interaction.options.getChannel("suggestions-channel");
+            const channel = await interaction.options.getChannel("ogłoszenia");
 
-                    if (channel_suggestions.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
-                    if (channel_suggestions.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+            if (channel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (channel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
-                    await r.table("settings").insert({ id: interaction.guild.id, suggestionsChannel: channel_suggestions.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ suggestionsChannel: channel_suggestions.id }).run(client.con)
+            await r.table("settings").insert({ id: interaction.guild.id, broadcastChannel: channel.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, broadcastChannel: channel.id }).run(client.con);
 
-                    const embed_Suggestions = new MessageEmbed()
-                        .setTitle(client.strings.tools.set.embed_successfully)
-                        .setDescription(`${client.strings.tools.set.embed_selected} \`${option.name}\``)
-                        .addField(`New value`, `<#${channel_suggestions.id}>`)
-                        .setColor("DARK_BUT_NOT_BLACK")
-                    interaction.reply({ embeds: [embed_Suggestions] })
-                    break;
-                case "complaints-channel":
-                    const channel_complaints = await interaction.options.getChannel("complaints-channel");
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${channel.id}> (broadcastChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getChannel("skargi")) {
+            const complaintchannel = await interaction.options.getChannel("skargi");
 
-                    if (channel_complaints.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
-                    if (channel_complaints.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+            if (complaintchannel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (complaintchannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
-                    await r.table("settings").insert({ id: interaction.guild.id, complaintsChannel: channel_complaints.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ complaintsChannel: channel_complaints.id }).run(client.con)
+            await r.table("settings").insert({ id: interaction.guild.id, complaintChannel: complaintchannel.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, complaintChannel: complaintchannel.id }).run(client.con);
 
-                    const embed_Complaints = new MessageEmbed()
-                        .setTitle(client.strings.tools.set.embed_successfully)
-                        .setDescription(`${client.strings.tools.set.embed_selected} \`${option.name}\``)
-                        .addField(`New value`, `<#${channel_complaints.id}>`)
-                        .setColor("DARK_BUT_NOT_BLACK")
-                    interaction.reply({ embeds: [embed_Complaints] })
-                    break;
-                case "images-channel":
-                    const channel_images = await interaction.options.getChannel("images-channel");
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${complaintchannel.id}> (complaintChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getChannel("obrazki")) {
+            const imagechannel = await interaction.options.getChannel("obrazki");
 
-                    if (channel_images.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
-                    if (channel_images.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+            if (imagechannel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (imagechannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
-                    await r.table("settings").insert({ id: interaction.guild.id, imagesChannel: channel_images.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ imagesChannel: channel_images.id }).run(client.con)
+            await r.table("settings").insert({ id: interaction.guild.id, imageChannel: imagechannel.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, imageChannel: imagechannel.id }).run(client.con);
 
-                    const embed_Images = new MessageEmbed()
-                        .setTitle(client.strings.tools.set.embed_successfully)
-                        .setDescription(`${client.strings.tools.set.embed_selected} \`${option.name}\``)
-                        .addField(`New value`, `<#${channel_images.id}>`)
-                        .setColor("DARK_BUT_NOT_BLACK")
-                    interaction.reply({ embeds: [embed_Images] })
-                    break;
-                case "welcome-channel":
-                    const welcome_channel = await interaction.options.getChannel("welcome-channel");
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${imagechannel.id}> (imageChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getChannel("powitania")) {
+            const welcomechannel = await interaction.options.getChannel("powitania");
 
-                    if (welcome_channel.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
-                    if (welcome_channel.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+            if (welcomechannel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (welcomechannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
-                    await r.table("settings").insert({ id: interaction.guild.id, welcomeChannel: welcome_channel.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ welcomeChannel: welcome_channel.id }).run(client.con)
+            await r.table("settings").insert({ id: interaction.guild.id, welcomeChannel: welcomechannel.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, welcomeChannel: welcomechannel.id }).run(client.con);
 
-                    const embed_Welcome = new MessageEmbed()
-                        .setTitle(client.strings.tools.set.embed_successfully)
-                        .setDescription(`${client.strings.tools.set.embed_selected} \`${option.name}\``)
-                        .addField(`New value`, `<#${welcome_channel.id}>`)
-                        .setColor("DARK_BUT_NOT_BLACK")
-                    interaction.reply({ embeds: [embed_Welcome] })
-                    break;
-                case "goodbye-channel":
-                    const channel_goodbye = await interaction.options.getChannel("goodbye-channel");
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${welcomechannel.id}> (welcomeChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getChannel("pożegnania")) {
+            const goodbyechannel = await interaction.options.getChannel("pożegnania")
 
-                    if (channel_goodbye.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
-                    if (channel_goodbye.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+            if (goodbyechannel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (goodbyechannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
-                    await r.table("settings").insert({ id: interaction.guild.id, goodbyeChannel: channel_goodbye.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ goodbyeChannel: channel_goodbye.id }).run(client.con)
+            await r.table("settings").insert({ id: interaction.guild.id, goodbyeChannel: goodbyechannel.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ goodbyeChannel: goodbyechannel.id }).run(client.con);
 
-                    const embed_Goodbye = new MessageEmbed()
-                        .setTitle(client.strings.tools.set.embed_successfully)
-                        .setDescription(`${client.strings.tools.set.embed_selected} \`${option.name}\``)
-                        .addField(`New value`, `<#${channel_goodbye.id}>`)
-                        .setColor("DARK_BUT_NOT_BLACK")
-                    interaction.reply({ embeds: [embed_Goodbye] })
-                    break;
-                case "applications-channel":
-                    const channel_applications = await interaction.options.getChannel("applications-channel");
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${goodbyechannel.id}> (goodbyeChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getChannel("sugestie")) {
+            const suggestionchannel = await interaction.options.getChannel("sugestie");
 
-                    if (channel_applications.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
-                    if (channel_applications.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+            if (suggestionchannel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (suggestionchannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
-                    await r.table("settings").insert({ id: interaction.guild.id, applicationsChannel: channel_applications.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ applicaitonsChannel: channel_applications.id }).run(client.con)
+            await r.table("settings").insert({ id: interaction.guild.id, suggestionChannel: suggestionchannel.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, suggestionChannel: suggestionchannel.id }).run(client.con);
 
-                    const embed_Applications = new MessageEmbed()
-                        .setTitle(client.strings.tools.set.embed_successfully)
-                        .setDescription(`${client.strings.tools.set.embed_selected} \`${option.name}\``)
-                        .addField(`New value`, `<#${channel_applications.id}>`)
-                        .setColor("DARK_BUT_NOT_BLACK")
-                    interaction.reply({ embeds: [embed_Applications] })
-                    break;
-                case "vote-channel":
-                    const channel_voting = await interaction.options.getChannel("vote-channel");
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${suggestionchannel.id}> (suggestionChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getChannel("podania")) {
+            const applicationchannel = await interaction.options.getChannel("podania");
 
-                    if (channel_voting.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
-                    if (channel_voting.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+            if (applicationchannel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (applicationchannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
-                    await r.table("settings").insert({ id: interaction.guild.id, voteChannel: channel_voting.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ voteChannel: channel_voting.id }).run(client.con)
+            await r.table("settings").insert({ id: interaction.guild.id, applicationChannel: applicationchannel.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, applicationChannel: applicationchannel.id }).run(client.con);
 
-                    const embed_Voting = new MessageEmbed()
-                        .setTitle(client.strings.tools.set.embed_successfully)
-                        .setDescription(`${client.strings.tools.set.embed_selected} \`${option.name}\``)
-                        .addField(`New value`, `<#${channel_voting.id}>`)
-                        .setColor("DARK_BUT_NOT_BLACK")
-                    interaction.reply({ embeds: [embed_Voting] })
-                    break;
-                case "mod-log":
-                    const channel_modlog = await interaction.options.getChannel("mod-log");
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${applicationchannel.id}> (applicationChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getChannel("głosowania")) {
+            const votechannel = await interaction.options.getChannel("głosowania");
 
-                    if (channel_modlog.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
-                    if (channel_modlog.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
+            if (votechannel.type === "GUILD_CATEGORY") return client.builder(interaction, "Błąd!", "Podałeś kategorię! Podaj kanał tekstowy.", "", "RED")
+            if (votechannel.type === "GUILD_VOICE") return client.builder(interaction, "Błąd!", "Podałeś kanał głosowy! Podaj kanał tekstowy.", "", "RED")
 
-                    await r.table("settings").insert({ id: interaction.guild.id, modlogChannel: channel_modlog.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ modlogChannel: channel_modlog.id }).run(client.con)
+            await r.table("settings").insert({ id: interaction.guild.id, voteChannel: votechannel.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, voteChannel: votechannel.id }).run(client.con);
 
-                    const embed_Modlog = new MessageEmbed()
-                        .setTitle(client.strings.tools.set.embed_successfully)
-                        .setDescription(`${client.strings.tools.set.embed_selected} \`${option.name}\``)
-                        .addField(`New value`, `<#${channel_modlog.id}>`)
-                        .setColor("DARK_BUT_NOT_BLACK")
-                    interaction.reply({ embeds: [embed_Modlog] })
-                    break;
-                case "moderator-role":
-                    const role_modrole = await interaction.options.getRole("moderator-role");
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nKanał: <#${votechannel.id}> (voteChannel)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getRole("moderatorrole")) {
+            const moderatorRole = await interaction.options.getRole("moderatorrole");
 
-                    await r.table("settings").insert({ id: interaction.guild.id, moderatorRole: role_modrole.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ moderatorRole: role_modrole.id }).run(client.con)
+            await r.table("settings").insert({ id: interaction.guild.id, moderatorRole: moderatorRole.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, moderatorRole: moderatorRole.id }).run(client.con);
 
-                    const embed_Modrole = new MessageEmbed()
-                        .setTitle(client.strings.tools.set.embed_successfully)
-                        .setDescription(`${client.strings.tools.set.embed_selected} \`${option.name}\``)
-                        .addField(`New value`, `<@&${role_modrole.id}>`)
-                        .setColor("DARK_BUT_NOT_BLACK")
-                    interaction.reply({ embeds: [embed_Modrole] })
-                    break;
-                }
-            }
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${moderatorRole.id}> (moderatorRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getRole("mutedrole")) {
+            const mutedRole = await interaction.options.getRole("mutedrole");
+
+            await r.table("settings").insert({ id: interaction.guild.id, mutedRole: mutedRole.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, mutedRole: mutedRole.id }).run(client.con);
+
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${mutedRole.id}> (mutedRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getRole("userrole")) {
+            const userRole = await interaction.options.getRole("userrole");
+
+            await r.table("settings").insert({ id: interaction.guild.id, userRole: userRole.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, userRole: userRole.id }).run(client.con);
+
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${userRole.id}> (userRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getRole("adminrole")) {
+            const adminRole = await interaction.options.getRole("adminrole");
+
+            await r.table("settings").insert({ id: interaction.guild.id, adminRole: adminRole.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, adminRole: adminRole.id }).run(client.con);
+
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${adminRole.id}> (adminRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else if (interaction.options.getRole("autorole")) {
+            const autoRole = await interaction.options.getRole("autorole");
+
+            await r.table("settings").insert({ id: interaction.guild.id, autoRole: autoRole.id}).run(client.con);
+            await r.table("settings").get(interaction.guild.id).update({ id: interaction.guild.id, autoRole: autoRole.id }).run(client.con);
+
+            client.ephemeral(interaction, ``, `**Ustawiono!**\n\nRola: <@&${autoRole.id}> (autoRole)\nAutor: ${interaction.user.tag}`, `Ustawienia`, `#34ebb7`, ``, ``)
+        } else {
+            const object = Object(checkTable);
+
+            const embedError = new MessageEmbed()
+                .setDescription("Nic nie wpisano!\nProszę wybrać opcje.")
+                .setColor("RED")
+            object.broadcastChannel = embedError.addField(`> Kanał ogłoszeń`, `<#${checkTable.broadcastChannel}>`)
+            object.complaintChannel = embedError.addField(`> Kanał skarg`, `<#${checkTable.complaintChannel}>`)
+            object.imageChannel = embedError.addField(`> Kanał obrazków`, `<#${checkTable.imageChannel}>`)
+            object.welcomeChannel = embedError.addField(`> Kanał powitań`, `<#${checkTable.welcomeChannel}>`)
+            object.goodbyeChannel = embedError.addField(`> Kanał pożegnań`, `<#${checkTable.goodbyeChannel}>`)
+            object.suggestionChannel = embedError.addField("> Kanał sugestii", `<#${checkTable.suggestionChannel}>`)
+            object.applicationChannel = embedError.addField(`Kanał podań`, `<#${checkTable.applicationChannel}>`)
+            object.voteChannel = embedError.addField(`Kanał głosowań`, `#${checkTable.voteChannel}>`)
+            await interaction.reply({embeds: [embedError]})
         }
+    }
+
 };

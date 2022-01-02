@@ -1,24 +1,26 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require("discord.js")
+const r = require("rethinkdb")
 module.exports = {
-    name: "suggest",
-    description: "Send suggestion",
+    data: new SlashCommandBuilder()
+        .setName('suggest')
+        .setDescription('Wyślij propozycje.')
+        .addStringOption(option => (
+            option.setName("suggestion").setDescription("Treść sugestii.").setRequired(true)
+        )),
+    async execute(client, interaction) {
+            const suggestion = interaction.options.getString("suggestion");
 
-    run: async (client, interaction) => {
-        const data = await r.table("settings").get(interaction.guild.id).run(client.con);
-        if (!data?.suggestionsChannel) return interaction.reply({content: client.strings.tools.info_nosetting});
+            const channel = await r.table("settings").get(interaction.guild.id).run(client.con)
+            if (!channel?.suggestionChannel) return interaction.reply({ content: "Nie ustawiono kanału ogłoszeń!", ephemeral: true });
 
-        const embed = new MessageEmbed()
-            .setDescription(`\`${interaction.options.getString("arguments")}\``)
-            .setFooter(`Suggestion posted by: ${interaction.user.tag} (${interaction.user.id})`)
-            .setColor("DARK_BUT_NOT_BLACK")
-        await client.channels.cache.get(data?.suggestionsChannel).send({embeds: [embed]}).then(async message => {
-            await message.startThread({
-                name: 'Suggestion discussion.',
-                autoArchiveDuration: 1440,
-                reason: client.strings.tools.thread_reason
+            const suggestionEmbed = new MessageEmbed()
+                .setDescription(`**Nowa sugestia**\n\nAutor: ${interaction.user.tag}\nTreść: \`${suggestion}\``)
+                .setColor("GREEN")
+            client.channels.cache.get(channel.suggestionChannel).send({embeds: [suggestionEmbed]}).then(r => {
+                r.react("👍")
+                r.react("👎")
             })
-        })
-
-        interaction.reply({content: "Success!", ephemeral: true})
+            interaction.reply({content: `Wysłano propozycje na <#${channel.suggestionChannel}>!\n\`Treść: ${suggestion}\``, ephemeral: true});
     }
 };

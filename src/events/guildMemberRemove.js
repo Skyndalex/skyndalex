@@ -1,16 +1,18 @@
-const { MessageEmbed } = require("discord.js");
+const r = require("rethinkdb")
+const { MessageEmbed } = require("discord.js")
 module.exports = {
-    name: "guildMemberAdd",
+    name: "guildMemberRemove",
     once: false,
 
     async execute(client, member) {
-        const table = await r.table("settings").get(member.guild.id).run(client.con);
+        const table = await r.table("settings").get(member.guild.id).run(client.con)
         if (!table?.goodbyeChannel) return;
 
-        let embed = new MessageEmbed()
-            .setTitle(`User left!`)
-            .setDescription(`Goodbye ${member.user.tag} :(. There are ${member.guild.memberCount} people on the server `)
+        const embed = new MessageEmbed()
+            .setDescription(`**Właśnie ktoś wyszedł!**\n\nWitamy użytkownika ${member.user}(${member.user.tag})! Mamy nadzieję że się będziesz dobrze u nas bawił.\nAktualna ilość osób na serwerze: ${member.guild.memberCount}`)
             .setColor("RED")
-        await member.guild.channels.cache.get(table.goodbyeChannel).send({ embeds: [embed]})
+        member.guild.channels.cache.get(table.goodbyeChannel).send({
+            embeds: [embed]
+        })
     }
 }

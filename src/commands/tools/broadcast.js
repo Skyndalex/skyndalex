@@ -1,30 +1,28 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require("discord.js")
+const r = require("rethinkdb")
 module.exports = {
-    name: "broadcast",
-    description: "Send broadcast.",
-    options: [
-        { type: "STRING", name: "arguments", description: "Broadcast description", required: true }
-    ],
+    data: new SlashCommandBuilder()
+        .setName('ogłoszenie')
+        .setDescription('Wyślij ogłoszenie.')
+        .addStringOption(option => (
+            option.setName("args").setDescription("Treść ogłoszenia.").setRequired(true)
+    )),
+    async execute(client, interaction) {
+        if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "Nie masz permisji!", ephemeral: true});
 
-    run: async (client, interaction) => {
-        if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "You need permissions: \`MANAGE_CHANNELS\`!", ephemeral: true});
+        if (interaction.options.getString("args")) {
+            const broadcast = interaction.options.getString("args");
 
-        const data = await r.table("settings").get(interaction.guild.id).run(client.con);
-        if (!data?.broadcastChannel) return interaction.reply({content: client.strings.tools.info_nosetting});
+            const channel = await r.table("settings").get(interaction.guild.id).run(client.con)
+            if (!channel?.broadcastChannel) return interaction.reply({ content: "Nie ustawiono kanału ogłoszeń!", ephemeral: true });
 
-        const embed = new MessageEmbed()
-            .setDescription(`\`${interaction.options.getString("arguments")}\``)
-            .setColor(`DARK_BUT_NOT_BLACK`)
-            .setTimestamp()
-        await client.channels.cache.get(data?.broadcastChannel).send({embeds: [embed]}).then(async message => {
-            await message.startThread({
-                name: 'Announcement discussion.',
-                autoArchiveDuration: 1440, // hours
-                reason: client.strings.tools.thread_reason
-            })
-        })
-        interaction.reply({content: "Success!", ephemeral: true});
+            const broadcastEmbed = new MessageEmbed()
+                .setDescription(`**Nowe ogłoszenie**\n\n${broadcast}`)
+                .setColor("GREEN")
+            client.channels.cache.get(channel.broadcastChannel).send({embeds: [broadcastEmbed]});
 
+            interaction.reply({content: `Wysłano ogłoszenie na <#${channel.broadcastChannel}>!`, ephemeral: true});
+        }
     }
-
 };

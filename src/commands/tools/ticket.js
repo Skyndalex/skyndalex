@@ -1,30 +1,32 @@
-const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
+// @formatter: off
+// todo: objects
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageButton, MessageActionRow, MessageEmbed} = require("discord.js");
+const r = require("rethinkdb")
 module.exports = {
-    name: "ticket",
-    description: "Create guild ticket.",
+    data: new SlashCommandBuilder()
+        .setName('ticket')
+        .setDescription('Tickety'),
 
-    run: async (client, interaction) => {
-        const data = await r.table("settings").get(interaction.guild.id).run(client.con);
-        if (!data?.moderatorRole) return interaction.reply(`There is no moderator role set on this server! Please configure the role using the \`set\` command.`);
+    async execute(client, interaction) {
+        if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "Nie masz permisji!", ephemeral: true});
+        if (!interaction.guild.me.permissions.has("MANAGE_CHANNELS")) return interaction.reply({content: "Nie mam permisji do zarządzania kanałami!"})
 
         const row = new MessageActionRow()
-            .addComponents(
-                new MessageButton()
-                    .setCustomId('ticket_open')
-                    .setLabel('Open ticket')
-                    .setStyle('SUCCESS'),
-                new MessageButton()
-                    .setCustomId("ticket_delete")
-                    .setLabel("Delete (this message)")
-                    .setStyle("DANGER")
-            );
-        const embed = new MessageEmbed()
-            .setTitle(client.strings.tools.ticket.create_ticket_title)
-            .setDescription(client.strings.tools.ticket.create_ticket_description)
-            .setColor("DARK_BUT_NOT_BLACK")
-        await interaction.reply({
-            embeds: [embed],
-            components: [row]
-        })
+                .addComponents(
+                    new MessageButton()
+                        .setCustomId('createticket')
+                        .setLabel('Utwórz ticket')
+                        .setEmoji("✉")
+                        .setStyle('SUCCESS'),
+                );
+            const embed = new MessageEmbed()
+                .setDescription("**Utwórz ticket**\n\nAby otworzyć ticket, naciśnij przycisk \`Utwórz ticket\`.")
+                .setColor("GREEN")
+
+            await interaction.reply({
+                embeds: [embed],
+                components: [row]
+            })
     }
 };
