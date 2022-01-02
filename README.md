@@ -30,3 +30,5 @@ Routes.applicationCommands(clientId),
 - [Discord.Js Guide #Select-Menus](https://discordjs.guide/interactions/select-menus.html#component-collectors)
 
 We do not recommend running the code without any knowledge of javascript
+
+Warning: **This branch is no longer supported. If you want to see the supported code, please go to the default branch.**
