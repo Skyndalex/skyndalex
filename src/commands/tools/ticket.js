@@ -1,5 +1,3 @@
-// @formatter: off
-// todo: objects
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageButton, MessageActionRow, MessageEmbed} = require("discord.js");
 const r = require("rethinkdb")
@@ -12,10 +10,15 @@ module.exports = {
         if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "Nie masz permisji!", ephemeral: true});
         if (!interaction.guild.me.permissions.has("MANAGE_CHANNELS")) return interaction.reply({content: "Nie mam permisji do zarządzania kanałami!"})
 
+        const data = await r.table("settings").get(interaction.guild.id).run(client.con);
+        if (!data?.moderatorRole) {
+            return interaction.channel.send("Nie ustawiono wartości w ustawieniach: \`moderatorRole\`")
+        };
+
         const row = new MessageActionRow()
                 .addComponents(
                     new MessageButton()
-                        .setCustomId('createticket')
+                        .setCustomId('ticket_open')
                         .setLabel('Utwórz ticket')
                         .setEmoji("✉")
                         .setStyle('SUCCESS'),
