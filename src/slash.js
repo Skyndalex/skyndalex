@@ -28,7 +28,7 @@ r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, func
     client.con = con;
 
     console.log("RethinkDb Connected");
-})
+});
 
 for (const file of eventFiles) {
     const event = require(`./events/${file}`);
