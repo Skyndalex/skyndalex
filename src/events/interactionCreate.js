@@ -27,17 +27,9 @@ module.exports = {
                 interaction.reply({embeds: [errorEmbed]})
             });
 
-        /*
-    if (interaction.isContextMenu()) {
-        const command = client.slashCommands.get(interaction.commandName);
-        if (command) command.run(client, interaction);
-    }
-    */
-
-        // Buttons
-
         const data = await r.table("settings").get(interaction.guild.id).run(client.con);
         if (!data?.moderatorRole) return;
+        if (!data?.modlogChannel) return;
 
         switch (interaction.customId) {
             case "ticket_open":
@@ -57,9 +49,17 @@ module.exports = {
                     const row = new MessageActionRow()
                         .addComponents(
                             new MessageButton()
+                                .setCustomId('ticket_open_2')
+                                .setLabel('Open ticket again')
+                                .setStyle('PRIMARY'),
+                            new MessageButton()
                                 .setCustomId('ticket_close')
                                 .setLabel('Close ticket')
                                 .setStyle('DANGER'),
+                            new MessageButton()
+                                .setCustomId('ticket_delete')
+                                .setLabel('Delete ticket')
+                                .setStyle("DANGER")
                         );
                     const embed = new MessageEmbed()
                         .setTitle("Close ticket")
@@ -86,11 +86,11 @@ module.exports = {
                     cooldown.delete(interaction.user.id);
                 }, 60000);
                 break;
-            case "ticket_close":
+            case "ticket_delete":
                 await interaction.channel.delete();
 
                 const embedModlog2 = new MessageEmbed()
-                    .setDescription(`Closed ticket by <@${interaction.user.id}> (${interaction.user.id}).`)
+                    .setDescription(`Deleted ticket by <@${interaction.user.id}> (${interaction.user.id}).`)
                     .setColor("RED")
                     .setTimestamp()
                 await client.channels.cache.get(data?.modlogChannel).send({ embeds: [embedModlog2] })
