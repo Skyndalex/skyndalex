@@ -4,13 +4,12 @@ const Base = require("./base");
 const fs = require('fs');
 
 global.r = require("rethinkdb");
+global.arrayOfSlashCommands = [];
 
 const client = new Base({ intents: [ 32767 ], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 
 client.slashCommands = new Collection;
 const commandFolders = fs.readdirSync('./commands');
-
-global.arrayOfSlashCommands = [];
 
 for (const folder of commandFolders) {
     const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith(".js"));
@@ -18,7 +17,6 @@ for (const folder of commandFolders) {
         const command = require(`./commands/${folder}/${file}`);
         client.slashCommands.set(command.name, command);
         arrayOfSlashCommands.push(command)
-
     }
 }
 
