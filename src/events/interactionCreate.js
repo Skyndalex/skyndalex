@@ -108,6 +108,17 @@ module.exports = {
                     .setTimestamp()
                 await client.channels.cache.get(data?.modlogChannel).send({ embeds: [embedModlog3] })
                 break;
+            case "ticket_open2":
+                await interaction.guild.channel.permissionOverwrites([
+                    { id: user.id, allow: [ "SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"] },
+                ]);
+
+                const embedModlog4 = new MessageEmbed()
+                    .setDescription(`Opened ticket again by <@${user.id}> (${interaction.user.id}).`)
+                    .setColor("GREEN")
+                    .setTimestamp()
+                await client.channels.cache.get(data?.modlogChannel).send({ embeds: [embedModlog4] })
+                break;
         }
     }
 }
