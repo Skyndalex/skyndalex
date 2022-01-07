@@ -32,12 +32,8 @@ module.exports = {
     ],
     run: async (client, interaction) => {
         if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "You need permissions: \`MANAGE_CHANNELS\`"});
-        /*
-        TODO:
-        - add IFs to global
-        - Choices handling
-        - Remove r.table(...) and replace it with the db tructure
-         */
+
+        // TODO: rewrite to switch
 
         if (interaction.options.getSubcommand() === "channel") {
             // channelCreateLog

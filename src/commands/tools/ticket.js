@@ -13,10 +13,6 @@ module.exports = {
                     .setCustomId('ticket_open')
                     .setLabel('Open ticket')
                     .setStyle('SUCCESS'),
-                new MessageButton()
-                    .setCustomId("ticket_delete")
-                    .setLabel("Delete (this message)")
-                    .setStyle("DANGER")
             );
         const embed = new MessageEmbed()
             .setTitle(client.strings.tools.ticket.create_ticket_title)

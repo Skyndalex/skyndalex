@@ -28,8 +28,10 @@ module.exports = {
             });
 
         const data = await r.table("settings").get(interaction.guild.id).run(client.con);
-        if (!data?.moderatorRole) return;
-        if (!data?.modlogChannel) return;
+        if (data?.moderatorRole) return;
+        if (data?.modlogChannel) return;
+
+        let user = interaction.user.id;
 
         switch (interaction.customId) {
             case "ticket_open":
@@ -94,6 +96,17 @@ module.exports = {
                     .setColor("RED")
                     .setTimestamp()
                 await client.channels.cache.get(data?.modlogChannel).send({ embeds: [embedModlog2] })
+                break;
+            case "ticket_close":
+                await interaction.guild.channel.permissionOverwrites([
+                    { id: user.id, deny: [ "SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"] },
+                ]);
+
+                const embedModlog3 = new MessageEmbed()
+                    .setDescription(`Closed ticket by <@${user.id}> (${interaction.user.id}).`)
+                    .setColor("ORANGE")
+                    .setTimestamp()
+                await client.channels.cache.get(data?.modlogChannel).send({ embeds: [embedModlog3] })
                 break;
         }
     }
