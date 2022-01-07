@@ -10,6 +10,13 @@ module.exports = {
 
         setInterval(() => client.user.setActivity(actvs[Math.floor(Math.random() * actvs.length)], {type: "PLAYING"}), 10000);
 
+        await r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
+            if (err) console.log(err)
+            client.con = con;
+
+            console.log("RethinkDb Connected");
+        });
+
         console.log("Bot is online");
     }
 }
