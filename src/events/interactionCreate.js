@@ -72,7 +72,7 @@ module.exports = {
                 if (error) client.channels.cache.get("914250038744604672").send({embeds: [errorEmbedChannel]})
 
                 let errorEmbed = new MessageEmbed()
-                    .setDescription(`Ojoj! Wystąpił jakiś błąd z uruchomieniem komendy. Jeśli problem dalej występuje, zgłoś się na serwerze [\`support\`](https://discord.gg/WEas4WFjse)\mBłąd:\n\`\`\`${error || "Brak."}\`\`\``)
+                    .setDescription(`Ojoj! Wystąpił jakiś błąd z uruchomieniem komendy. Jeśli problem dalej występuje, zgłoś się na serwerze [\`support\`](https://discord.gg/WEas4WFjse)\nBłąd:\n\`\`\`${error || "Brak."}\`\`\``)
                     .setColor("DARK_BUT_NOT_BLACK")
                     .setTimestamp()
                 if (error) interaction.reply({embeds: [errorEmbed]})
