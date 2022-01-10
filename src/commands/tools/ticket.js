@@ -22,6 +22,12 @@ module.exports = {
                         .setLabel('Utwórz ticket')
                         .setEmoji("✉")
                         .setStyle('SUCCESS'),
+                    new MessageButton()
+                        .setCustomId('delete_all_tickets')
+                        .setLabel('Usuń WSZYSTKIE tickety')
+                        .setEmoji("❌")
+                        .setStyle('DANGER')
+                        .setDisabled(true),
                 );
             const embed = new MessageEmbed()
                 .setDescription("**Utwórz ticket**\n\nAby otworzyć ticket, naciśnij przycisk \`Utwórz ticket\`.")

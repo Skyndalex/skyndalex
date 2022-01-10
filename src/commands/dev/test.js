@@ -7,4 +7,5 @@ module.exports = {
     async execute(client, interaction) {
         await interaction.reply({content: `Witaj świecie!`})
     }
+
 };

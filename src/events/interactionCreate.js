@@ -48,25 +48,39 @@ module.exports = {
             case "ticket_close":
                 await interaction.channel.delete()
                 break;
+            case "delete_all_tickets":
+                let channels = await interaction.guild.channels.cache.get(channel => channel.name.toLowerCase() === "ticket-")
+
+                channels.delete()
+                await interaction.reply({ content: "Usunięto wszystkie tickety!", ephemeral: true })
+                break;
         }
         if (!interaction.isCommand()) return;
         const command = client.commands.get(interaction.commandName);
         if (!command) return;
 
-        try {
-            await command.execute(client, interaction);
-        } catch (error) {
-            let errorEmbedChannel = new MessageEmbed()
-                .setDescription(`Server ID: ${interaction.guild.id} (${interaction.guild.name})\nError:\n\`\`\`${error || "None"}\`\`\``)
-                .setColor("DARK_BUT_NOT_BLACK")
-                .setTimestamp()
-            if (error) client.channels.cache.get("914250038744604672").send({embeds: [errorEmbedChannel]})
+        if (cooldown.has(interaction.user.id)) {
+            await interaction.reply({ content: "Poczekaj 3 sekundy przed ponownym uruchomieniem komendy.", ephemeral: true })
+        } else {
+            try {
+                await command.execute(client, interaction);
+            } catch (error) {
+                let errorEmbedChannel = new MessageEmbed()
+                    .setDescription(`Server ID: ${interaction.guild.id} (${interaction.guild.name})\nError:\n\`\`\`${error || "None"}\`\`\``)
+                    .setColor("DARK_BUT_NOT_BLACK")
+                    .setTimestamp()
+                if (error) client.channels.cache.get("914250038744604672").send({embeds: [errorEmbedChannel]})
 
-            let errorEmbed = new MessageEmbed()
-                .setDescription(`Ojoj! Wystąpił jakiś błąd z uruchomieniem komendy. Jeśli problem dalej występuje, zgłoś się na serwerze [\`support\`](https://discord.gg/WEas4WFjse)\mBłąd:\n\`\`\`${error || "Brak."}\`\`\``)
-                .setColor("DARK_BUT_NOT_BLACK")
-                .setTimestamp()
-            if (error) interaction.reply({embeds: [errorEmbed]})
+                let errorEmbed = new MessageEmbed()
+                    .setDescription(`Ojoj! Wystąpił jakiś błąd z uruchomieniem komendy. Jeśli problem dalej występuje, zgłoś się na serwerze [\`support\`](https://discord.gg/WEas4WFjse)\mBłąd:\n\`\`\`${error || "Brak."}\`\`\``)
+                    .setColor("DARK_BUT_NOT_BLACK")
+                    .setTimestamp()
+                if (error) interaction.reply({embeds: [errorEmbed]})
+            }
         }
+        cooldown.add(interaction.user.id);
+        setTimeout(() => {
+            cooldown.delete(interaction.user.id);
+        }, 3000);
     }
 }
