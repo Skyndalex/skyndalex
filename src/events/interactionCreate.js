@@ -28,10 +28,8 @@ module.exports = {
             });
 
         const data = await r.table("settings").get(interaction.guild.id).run(client.con);
-        if (data?.moderatorRole) return;
-        if (data?.modlogChannel) return;
-
-        let user = interaction.user.id;
+        if (!data?.moderatorRole) return;
+        if (!data?.modlogChannel) return;
 
         switch (interaction.customId) {
             case "ticket_open":
@@ -98,26 +96,27 @@ module.exports = {
                 await client.channels.cache.get(data?.modlogChannel).send({ embeds: [embedModlog2] })
                 break;
             case "ticket_close":
-                await interaction.guild.channel.permissionOverwrites([
-                    { id: user.id, deny: [ "SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"] },
-                ]);
+                await interaction.channel.permissionOverwrites.edit(ticketUser, {
+                    VIEW_CHANNEL: false,
+                })
 
                 const embedModlog3 = new MessageEmbed()
-                    .setDescription(`Closed ticket by <@${user.id}> (${interaction.user.id}).`)
+                    .setDescription(`Closed ticket by <@${user}> (${interaction.user.id})`)
                     .setColor("ORANGE")
                     .setTimestamp()
                 await client.channels.cache.get(data?.modlogChannel).send({ embeds: [embedModlog3] })
                 break;
             case "ticket_open2":
-                await interaction.guild.channel.permissionOverwrites([
-                    { id: user.id, allow: [ "SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"] },
-                ]);
+                await interaction.channel.permissionOverwrites.edit(ticketUser, {
+                    VIEW_CHANNEL: true,
+                })
 
                 const embedModlog4 = new MessageEmbed()
-                    .setDescription(`Opened ticket again by <@${user.id}> (${interaction.user.id}).`)
+                    .setDescription(`Opened ticket again by <@${interaction.user.id}> (${interaction.user.id}).`)
                     .setColor("GREEN")
                     .setTimestamp()
                 await client.channels.cache.get(data?.modlogChannel).send({ embeds: [embedModlog4] })
+                await interaction.channel.send({ embeds: [embedModLog4]} )
                 break;
         }
     }
