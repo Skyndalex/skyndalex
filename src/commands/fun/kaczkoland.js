@@ -1,10 +1,11 @@
 const { MessageEmbed } = require("discord.js");
+const fetch = require("node-fetch")
 module.exports = {
     name: "kaczkoland",
     description: "Kaczkoland.PL Polish minecraft server stats",
     options: [
         { name: "view", description: "View player stats", type: 2, options: [
-                { name: "currentguildstats", description: "All server stats", type: 1 },
+                { name: "currentstats", description: "All current server stats", type: 1 },
                 { name: "top", description: "Top ", type: 1, options: [
                         { name: "mode", description: "Choice top options", required: true, type: 3, choices: [
                                 { name: "money", value: "top_money" },
@@ -21,6 +22,24 @@ module.exports = {
             ]},
     ],
     run: async (client, interaction) => {
-
-    },
+        if (interaction.options.getSubcommand() === "currentstats") {
+             fetch("https://api.kaczkoland.pl/v2/getSumData")
+                 .then(res => res.json())
+                 .then(async res => {
+                     let embed = new MessageEmbed()
+                         .setTitle("Total Kaczkoland stats")
+                         .setDescription("Data from [api](https://api.kaczkoland.pl/v2/getSumData)")
+                         .addField("Mined blocks", `\`${res.data.minedBlocks}\``, true)
+                         .addField("Placed blocks", `\`${res.data.placedBlocks}\``, true)
+                         .addField(`Crafted items`, `\`${res.data.craftedItems}\``, true)
+                         .addField(`All deaths`, `\`${res.data.allDeaths}\``, true)
+                         .addField(`Killed mobs`, `\`${res.data.killedMobs}\``, true)
+                         .addField(`Mined diamonds`, `\`${res.data.minedDiamonds}\``, true)
+                         .addField(`Total users`, `\`${res.data.totalUsers}\``, true)
+                         .addField(`Total money`, `\`${res.data.money}\``, true)
+                         .setColor("GREEN")
+                     await interaction.reply({ embeds: [embed] })
+                 })
+        }
+    }
 };
