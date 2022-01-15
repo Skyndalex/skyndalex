@@ -4,6 +4,7 @@ const fetch = require("node-fetch")
     https://api.kaczkoland.pl/v2/u/<nick>
     https://api.kaczkoland.pl/v2/getTopPlayers
     https://api.kaczkoland.pl/v2/getSumData
+    wss://api.kaczkoland.pl/v2/ws
 */
 module.exports = {
     name: "kaczkoland",
