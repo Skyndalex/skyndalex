@@ -4,6 +4,7 @@ const Base = require("./base");
 const fs = require('fs');
 
 global.r = require("rethinkdb");
+global.fetch = require("node-fetch");
 
 const client = new Base({ intents: [ 32767 ], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 

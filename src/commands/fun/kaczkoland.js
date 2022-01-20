@@ -1,5 +1,4 @@
 const { MessageEmbed } = require("discord.js");
-const fetch = require("node-fetch")
 /* endpoints
     https://api.kaczkoland.pl/v2/u/<nick>
     https://api.kaczkoland.pl/v2/getTopPlayers
