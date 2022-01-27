@@ -1,22 +1,22 @@
+const { activities } = require("../config.json");
+
 module.exports = {
     name: "ready",
     once: false,
 
     async execute(client) {
         client.guilds.cache.get("804477558061137972").commands.set(arrayOfSlashCommands)
-        client.application.commands.set(arrayOfSlashCommands)
+        // client.application.commands.set(arrayOfSlashCommands);
 
-        let actvs = [`Bot version: ${client.version}`, `View site: https://krivebot.xyz`, `Community: https://krivebot.xyz/discord`, `Statuspage: https://status.krivebot.xyz`, `Docs: https://docs.krivebot.xyz`,];
-
-        setInterval(() => client.user.setActivity(actvs[Math.floor(Math.random() * actvs.length)], {type: "PLAYING"}), 10000);
-
-        await r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
-            if (err) console.log(err)
-            client.con = con;
-
-            console.log("RethinkDb Connected");
-        });
+        this.setRandomStatus(client);
+        setInterval(() => this.setRandomStatus(client), 10000);
 
         console.log("Bot is online");
+    },
+    parseActivity(text, client) {
+        return text.replace("{version}", client.version);
+    },
+    setRandomStatus(client) {
+        client.user.setActivity(this.parseActivity(activities[Math.floor(Math.random() * activities.length)], client), {type: "PLAYING"})
     }
 }

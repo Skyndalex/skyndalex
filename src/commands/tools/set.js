@@ -28,8 +28,7 @@ module.exports = {
                     if (channel.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
                     if (channel.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
 
-                    await r.table("settings").insert({ id: interaction.guild.id, broadcastChannel: channel.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ broadcastChannel: channel.id }).run(client.con)
+                    await r.table("settings").insert({ id: interaction.guild.id, broadcastChannel: channel.id }, { conflict: 'update' }).run(client.con)
 
                     const embed_Broadcast = new MessageEmbed()
                         .setTitle(client.strings.tools.set.embed_successfully)
@@ -44,8 +43,7 @@ module.exports = {
                     if (channel_suggestions.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
                     if (channel_suggestions.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
 
-                    await r.table("settings").insert({ id: interaction.guild.id, suggestionsChannel: channel_suggestions.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ suggestionsChannel: channel_suggestions.id }).run(client.con)
+                    await r.table("settings").insert({ id: interaction.guild.id, suggestionsChannel: channel_suggestions.id }, { conflict: 'update' }).run(client.con)
 
                     const embed_Suggestions = new MessageEmbed()
                         .setTitle(client.strings.tools.set.embed_successfully)
@@ -60,8 +58,7 @@ module.exports = {
                     if (channel_complaints.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
                     if (channel_complaints.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
 
-                    await r.table("settings").insert({ id: interaction.guild.id, complaintsChannel: channel_complaints.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ complaintsChannel: channel_complaints.id }).run(client.con)
+                    await r.table("settings").insert({ id: interaction.guild.id, complaintsChannel: channel_complaints.id }, { conflict: 'update' }).run(client.con)
 
                     const embed_Complaints = new MessageEmbed()
                         .setTitle(client.strings.tools.set.embed_successfully)
@@ -76,8 +73,8 @@ module.exports = {
                     if (channel_images.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
                     if (channel_images.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
 
-                    await r.table("settings").insert({ id: interaction.guild.id, imagesChannel: channel_images.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ imagesChannel: channel_images.id }).run(client.con)
+                    await r.table("settings").insert({ id: interaction.guild.id, imagesChannel: channel_images.id }, { conflict: 'update' }).run(client.con)
+                    // await r.table("settings").get(interaction.guild.id).update({ imagesChannel: channel_images.id }).run(client.con)
 
                     const embed_Images = new MessageEmbed()
                         .setTitle(client.strings.tools.set.embed_successfully)
@@ -92,8 +89,7 @@ module.exports = {
                     if (welcome_channel.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
                     if (welcome_channel.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
 
-                    await r.table("settings").insert({ id: interaction.guild.id, welcomeChannel: welcome_channel.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ welcomeChannel: welcome_channel.id }).run(client.con)
+                    await r.table("settings").insert({ id: interaction.guild.id, welcomeChannel: welcome_channel.id }, { conflict: 'update' }).run(client.con)
 
                     const embed_Welcome = new MessageEmbed()
                         .setTitle(client.strings.tools.set.embed_successfully)
@@ -108,8 +104,7 @@ module.exports = {
                     if (channel_goodbye.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
                     if (channel_goodbye.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
 
-                    await r.table("settings").insert({ id: interaction.guild.id, goodbyeChannel: channel_goodbye.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ goodbyeChannel: channel_goodbye.id }).run(client.con)
+                    await r.table("settings").insert({ id: interaction.guild.id, goodbyeChannel: channel_goodbye.id }, { conflict: 'update' }).run(client.con)
 
                     const embed_Goodbye = new MessageEmbed()
                         .setTitle(client.strings.tools.set.embed_successfully)
@@ -124,8 +119,7 @@ module.exports = {
                     if (channel_applications.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
                     if (channel_applications.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
 
-                    await r.table("settings").insert({ id: interaction.guild.id, applicationsChannel: channel_applications.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ applicaitonsChannel: channel_applications.id }).run(client.con)
+                    await r.table("settings").insert({ id: interaction.guild.id, applicationsChannel: channel_applications.id }, { conflict: 'update' }).run(client.con)
 
                     const embed_Applications = new MessageEmbed()
                         .setTitle(client.strings.tools.set.embed_successfully)
@@ -140,8 +134,7 @@ module.exports = {
                     if (channel_voting.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
                     if (channel_voting.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
 
-                    await r.table("settings").insert({ id: interaction.guild.id, voteChannel: channel_voting.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ voteChannel: channel_voting.id }).run(client.con)
+                    await r.table("settings").insert({ id: interaction.guild.id, voteChannel: channel_voting.id }, { conflict: 'update' }).run(client.con)
 
                     const embed_Voting = new MessageEmbed()
                         .setTitle(client.strings.tools.set.embed_successfully)
@@ -156,8 +149,7 @@ module.exports = {
                     if (channel_modlog.type === "GUILD_CATEGORY") return interaction.reply({content: "\`Specify a text channel.\`"});
                     if (channel_modlog.type === "GUILD_VOICE") return interaction.reply({content: "\`Specify a text channel.\`"});
 
-                    await r.table("settings").insert({ id: interaction.guild.id, modlogChannel: channel_modlog.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ modlogChannel: channel_modlog.id }).run(client.con)
+                    await r.table("settings").insert({ id: interaction.guild.id, modlogChannel: channel_modlog.id }, { conflict: 'update' }).run(client.con)
 
                     const embed_Modlog = new MessageEmbed()
                         .setTitle(client.strings.tools.set.embed_successfully)
@@ -169,8 +161,7 @@ module.exports = {
                 case "moderator-role":
                     const role_modrole = await interaction.options.getRole("moderator-role");
 
-                    await r.table("settings").insert({ id: interaction.guild.id, moderatorRole: role_modrole.id }).run(client.con)
-                    await r.table("settings").get(interaction.guild.id).update({ moderatorRole: role_modrole.id }).run(client.con)
+                    await r.table("settings").insert({ id: interaction.guild.id, moderatorRole: role_modrole.id }, { conflict: 'update' }).run(client.con)
 
                     const embed_Modrole = new MessageEmbed()
                         .setTitle(client.strings.tools.set.embed_successfully)
