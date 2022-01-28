@@ -33,26 +33,25 @@ r.connect({db: config.rethinkdb.database, host: config.rethinkdb.host, port: con
     if (err) console.log(err)
     client.con = con;
 
-    /*
-     const existTables = await r.tableList().run(con);
-
-     const tables = ["autorole", "comments", "economy", "gbans", "giveaways", "logs", "notifications", "profiles",
-     "settings", "system", "todo", "warns"];
-
-     for (const table of tables) {
-         if(!existTables.includes(table)) {
-             await r.tableCreate(table).run(con);
-             console.log(`[RethinkDB] Created table ${table}`)
-         }
-     }
-     console.log(await r.tableList().run(con))
-     console.log("Connected to RethinkDB");
-     r.table("users").insert({id: "a", aa: "dadsaads"}).run(con);
-     r.table("users").insert({id: "b", aa: "dadsaads"}).run(con);
-     r.table("users").insert({id: "a", aa: "aadsadsadsadsa"}).run(con);
-     const d = await r.table("users").getAll("dsadsadsadsa", {index:'id'}).run(con);
-     console.log(d)
-     */
+    // const existTables = await r.tableList().run(con);
+    //
+    // const tables = ["autorole", "comments", "economy", "gbans", "giveaways", "logs", "notifications", "profiles",
+    // "settings", "system", "todo", "warns"];
+    //
+    // for (const table of tables) {
+    //     if(!existTables.includes(table)) {
+    //         await r.tableCreate(table).run(con);
+    //         console.log(`[RethinkDB] Created table ${table}`)
+    //     }
+    // }
+    // console.log(await r.tableList().run(con))
+    console.log("Connected to RethinkDB");
+    // console.log("Connected to RethinkDB");
+    // r.table("users").insert({id: "a", aa: "dadsaads"}).run(con);
+    // r.table("users").insert({id: "b", aa: "dadsaads"}).run(con);
+    // r.table("users").insert({id: "a", aa: "aadsadsadsadsa"}).run(con);
+    // const d = await r.table("users").getAll("dsadsadsadsa", {index:'id'}).run(con);
+    // console.log(d)
 
     if(config.api.enable) {
         dashboard(client);

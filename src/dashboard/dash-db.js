@@ -3,7 +3,8 @@ const crypto = require("crypto");
 module.exports = class DashDb {
     constructor(con) {
         this.con = con;
-    };
+    }
+
     async saveUser(access_token, refresh_token, expiresIn) {
         let id = crypto.randomBytes(20).toString('hex');
 
