@@ -31,7 +31,7 @@ module.exports = async (client) => {
         const token = req.headers.token;
 
         if(!token) {
-            res.json({success: false, message: "No `token` in headers"});
+            res.json({ success: false, message: "No `token` in headers" });
             return;
         }
         next()
@@ -48,7 +48,7 @@ module.exports = async (client) => {
 
         const data = await db.getUser(token);
         if(!data) {
-            res.json({success: false, message: "User not found!"});
+            res.json({ success: false, message: "User not found!" });
             return;
         }
 
@@ -67,7 +67,7 @@ module.exports = async (client) => {
         res.json(filteredGuilds);
     });
 
-    const keysSettings = [{key: "complaintsChannel", type: "CHANNEL"}, {key: "moderatorRole", type: "ROLE"}];
+    const keysSettings = [{ key: "complaintsChannel", type: "CHANNEL" }, { key: "moderatorRole", type: "ROLE" }];
 
     app.get("/guild/:id", checkAuth, async (req, res) => {
         const token = req.headers.token;
@@ -79,7 +79,7 @@ module.exports = async (client) => {
         } else {
             const data = await db.getUser(token);
             if(!data) {
-                res.json({success: false, message: "User not found!"});
+                res.json({ success: false, message: "User not found!" });
                 return;
             }
 
@@ -95,14 +95,14 @@ module.exports = async (client) => {
         console.log(g)
 
         if(!g) {
-            res.json({success: false, message: "Guild not found or no permission!"});
+            res.json({ success: false, message: "Guild not found or no permission!"} );
             return;
         }
 
         const botGuild = client.guilds.cache.get(g.id);
 
         if(!botGuild) {
-            res.json({success: false, message: "Bot isn't on guild!"});
+            res.json({ success: false, message: "Bot isn't on guild!"} );
             return;
         }
 
@@ -114,9 +114,9 @@ module.exports = async (client) => {
 
         keysSettings.forEach(key => {
             if(result === undefined) {
-                settings.push({key: key.key, type: key.type, value: "-1"});
+                settings.push({ key: key.key, type: key.type, value: "-1" });
             } else {
-                settings.push({key: key.key, type: key.type, value: (result[key.key] !== undefined ? result[key.key] : "-1") })
+                settings.push({ key: key.key, type: key.type, value: (result[key.key] !== undefined ? result[key.key] : "-1") } )
             }
         });
 
@@ -125,10 +125,10 @@ module.exports = async (client) => {
         });
 
         botGuild.roles.cache.forEach(role => {
-            roles.push({id: role.id, name: role.name, color: role.color})
+            roles.push({ id: role.id, name: role.name, color: role.color })
         });
 
-        res.json({channels, roles, settings});
+        res.json({ channels, roles, settings });
     })
 
     app.post("/guild/:id", checkAuth, async (req, res) => {
@@ -136,11 +136,11 @@ module.exports = async (client) => {
 
         let guilds;
 
-        if(guildsCache.get(token)) {
+        if (guildsCache.get(token)) {
             guilds = guildsCache.get(token);
         } else {
             const data = await db.getUser(token);
-            if(!data) {
+            if (!data) {
                 res.json({success: false, message: "User not found!"});
                 return;
             }
@@ -154,7 +154,7 @@ module.exports = async (client) => {
 
         const g = getGuildById(req.params.id, guilds);
 
-        if(!g) {
+         if (!g) {
             res.json({success: false, message: "Guild not found or no permission!"});
             return;
         }
@@ -162,21 +162,21 @@ module.exports = async (client) => {
         const botGuild = client.guilds.cache.get(g.id);
 
         if(!botGuild) {
-            res.json({success: false, message: "Bot isn't on guild!"});
+            res.json({ success: false, message: "Bot isn't on guild!" });
             return;
         }
 
         const dataToUpdate = {};
 
         keysSettings.forEach(key => {
-            if(req.body[key.key] !== undefined) {
-                if(key.type === "CHANNEL") {
-                    if(botGuild.channels.cache.get(req.body[key.key])) {
+            if (req.body[key.key] !== undefined) {
+                if (key.type === "CHANNEL") {
+                    if (botGuild.channels.cache.get(req.body[key.key])) {
                         dataToUpdate[key.key] = req.body[key.key];
                     }
                 }
                 if(key.type === "ROLE") {
-                    if(botGuild.roles.cache.get(req.body[key.key])) {
+                    if (botGuild.roles.cache.get(req.body[key.key])) {
                         dataToUpdate[key.key] = req.body[key.key];
                     }
                 }
@@ -195,7 +195,7 @@ module.exports = async (client) => {
     app.get("/me", checkAuth, async (req, res) => {
         const token = req.headers.token;
 
-        if(usersCache.get(token)) {
+        if (usersCache.get(token)) {
             console.log("CACHED DATA")
             res.json(usersCache.get(token));
             return;
@@ -203,7 +203,7 @@ module.exports = async (client) => {
 
         const data = await db.getUser(token);
         if(!data) {
-            res.json({success: false, message: "User not found!"});
+            res.json({ success: false, message: "User not found!" });
             return;
         }
 
@@ -216,15 +216,15 @@ module.exports = async (client) => {
 
     app.post("/callback", async (req, res) => {
         if(!req.body.token) {
-            res.json({success: false, message: "No `token` in body"});
+            res.json({ uccess: false, message: "No `token` in body" });
             return;
         }
 
         oauthClient.getAccessToken(req.body.token).then(async response => {
             const token = await db.saveUser(response.accessToken, response.refreshToken, response.expiresIn)
-            res.json({success: true, token: token});
+            res.json({ success: true, token: token });
         }).catch(err => {
-            res.json({success: false, message: "Failed to auth user! " + err});
+            res.json({ success: false, message: "Failed to auth user! " + err });
         });
     })
 
@@ -232,15 +232,16 @@ module.exports = async (client) => {
         const parsedGuilds = [];
 
         guilds.forEach(guild => {
-            if(client.guilds.cache.get(guild.id)) {
+            if (client.guilds.cache.get(guild.id)) {
                 const perms = new Permissions(BigInt(guild.permissions));
 
-                if(perms.has(Permissions.FLAGS.ADMINISTRATOR) || perms.has(Permissions.FLAGS.MANAGE_GUILD)) {
+                if (perms.has(Permissions.FLAGS.ADMINISTRATOR) || perms.has(Permissions.FLAGS.MANAGE_GUILD)) {
                     delete guild.features;
                     delete guild.owner;
                     delete guild.permissions;
 
                     parsedGuilds.push(guild);
+
                 }
             }
         })
@@ -249,16 +250,20 @@ module.exports = async (client) => {
     }
 
     function getGuildById(id, guilds) {
-        for (let i = 0; i < guilds.length; i++){
+        for (let i = 0; i < guilds.length; i++) {
             const guild = guilds[i];
-            if(guild.id === id) {
+            if (guild.id === id) {
                 return guild;
             }
         }
-
         return undefined;
     }
+    /*
+    app.get("/", async (req, res) => {
+        res.send("Login: https://discord.com/oauth2/authorize?client_id=YourClientIDFromDiscord.dev&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fcallback&response_type=code&scope=guilds")
+    })
 
+     */
     app.listen(config.api.port, null, null, () => {
         console.log("Api listening on " + config.api.port);
     });
