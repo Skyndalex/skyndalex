@@ -11,9 +11,14 @@ module.exports = {
             .then(res => res.json())
             .then(async json => {
                 const embed = new MessageEmbed()
-                    .setTitle(`New release!`)
-                    .setDescription(`${json[0].body}\n\nName: \`${json[0].name}\`\nTag: \`${json[0].tag_name}\`\nBranch: \`${json[0].target_commitish}\`\nPre-Release: \`${json[0].prerelease}\`\nURL: [\`Click\`](${json[0].html_url})`)
+                    .setTitle(`New release! (${json[0].tag_name})`)
+                    .setDescription(`${json[0].body}`)
+                    .addField(`Name`, `${json[0].name}`, true)
+                    .addField(`Tag`, `${json[0].tag_name}`, true)
+                    .addField(`Branch`, `${json[0].target_commitish}`, true)
+                    .addField(`Is Pre-Release?`, `${json[0].prerelease}`, true)
                     .setColor(`DARK_BUT_NOT_BLACK`)
+                    .setURL(`${json[0].html_url}`)
                 client.channels.cache.get("937763371133075546").send({ embeds: [embed] })
 
                 await interaction.reply({ content: "Published.", ephemeral: true })
