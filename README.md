@@ -1,4 +1,4 @@
-**Warning:**: This is the code of the stable version, we now support "beta" branch. test
+**Warning:**: This is the code of the stable version, we now support "beta" branch.
 
 
 # Launching
