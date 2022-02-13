@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require("discord.js");
-const os = require("os");
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('linki')

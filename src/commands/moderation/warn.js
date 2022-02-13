@@ -1,6 +1,4 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const r = require("rethinkdb")
-const {use} = require("express/lib/router");
 
 module.exports = {
     data: new SlashCommandBuilder()

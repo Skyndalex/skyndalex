@@ -1,5 +1,4 @@
 const { MessageEmbed } = require("discord.js");
-const { prefix } = require("../config.json");
 const Twitter = require("twitter");
 module.exports = {
     name: "messageCreate",

@@ -1,6 +1,5 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 const r = require("rethinkdb")
-const wait = require('util').promisify(setTimeout);
 const cooldown = new Set;
 module.exports = {
     name: "interactionCreate",

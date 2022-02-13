@@ -1,5 +1,5 @@
 const r = require("rethinkdb")
-const { MessageEmbed, Message } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = {
     name: "messageDelete",

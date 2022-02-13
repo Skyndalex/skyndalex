@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const r = require("rethinkdb");
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('test')

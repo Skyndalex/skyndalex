@@ -1,6 +1,5 @@
 // todo: objects
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require("discord.js")
 const r = require("rethinkdb")
 module.exports = {
     data: new SlashCommandBuilder()

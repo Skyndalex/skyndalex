@@ -1,8 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageAttachment } = require('discord.js');
-const path = require("path")
 const Captcha = require("@haileybot/captcha-generator");
-const fs = require("fs")
 const r = require("rethinkdb");
 module.exports = {
     data: new SlashCommandBuilder()
