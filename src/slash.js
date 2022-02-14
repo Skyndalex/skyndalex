@@ -1,4 +1,3 @@
-const { token } = require('./config.json');
 const fs = require('fs');
 const Base = require("./Base.js");
 const { Intents, Collection } = require("discord.js")
@@ -53,4 +52,4 @@ client.on('messageReactionAdd', async(reaction, user) => {
     }
 });
 
-client.login(token);
+client.login(process.env.TOKEN);
