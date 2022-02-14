@@ -16,5 +16,3 @@ jobs:
         run: yarn install
       - name: eslint
         uses: icrawl/action-eslint@v1
-        with:
-          custom-glob: apps
