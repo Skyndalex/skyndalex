@@ -1,6 +1,5 @@
-
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageSelectMenu, MessageEmbed, version } = require('discord.js');
+const { MessageEmbed, version } = require('discord.js');
 const os = require("os"); // default
 const osu = require("node-os-utils")
 module.exports = {
@@ -22,6 +21,7 @@ module.exports = {
                 .addField(`Liczba emoji`, client.emojis.cache.size.toString())
                 .addField(`Zużycie CPU`, `${info}%`.toString())
                 .addField(`Zużycie pamięci RAM (rss)`, rss.toString())
+                .addField(`Wersja discord.js`, version)
                 .setColor("DARK_NAVY")
             await interaction.reply({ embeds: [embed] })
         })

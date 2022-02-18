@@ -3,7 +3,7 @@ const { Routes } = require('discord-api-types/v9');
 const { token } = require('./config.json');
 const fs = require('fs');
 
-    const clientId = '829812129074774086';
+    const clientId = '940955064833560596';
     const guildId = '804477558061137972'; // id serwera
 
     const commands = [];

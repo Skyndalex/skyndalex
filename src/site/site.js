@@ -37,4 +37,4 @@ exports.run = (client) => {
         res.send("404: Not found. Get support here: https://docs.krivebot.xyz/site")
     });
 }
-app.listen(3214, () => console.log("http://localhost:3214"));
+app.listen(3214, () => console.log("[SITE] localhost:3214"));

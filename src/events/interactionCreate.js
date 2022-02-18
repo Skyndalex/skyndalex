@@ -2,49 +2,45 @@ const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 const r = require("rethinkdb")
 const wait = require('util').promisify(setTimeout);
 const cooldown = new Set;
-module.exports = {
-    name: "interactionCreate",
-    once: true,
+module.exports = async (client, interaction) => {
+    switch (interaction.customId) {
+        case "ticket_open":
+            if (cooldown.has(interaction.user.id)) {
+                interaction.reply({ content: "Poczekaj minutę przed otwarciem następnego ticketa!", ephemeral: true });
+            } else {
+                const data = await r.table("settings").get(interaction.guild.id).run(client.con);
 
-    async execute (client, interaction) {
-        switch (interaction.customId) {
-            case "ticket_open":
-                if (cooldown.has(interaction.user.id)) {
-                    interaction.reply({ content: "Poczekaj minutę przed otwarciem następnego ticketa!", ephemeral: true });
-                } else {
-                    const data = await r.table("settings").get(interaction.guild.id).run(client.con);
+                const channel = await interaction.guild.channels.create(`ticket-${interaction.user.tag}`, {
+                    type: "GUILD_TEXT",
+                    permissionOverwrites: [
+                        { id: interaction.user.id, allow: [ "SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"] },
+                        { id: data?.moderatorRole, allow: [ "SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"] },
+                        { id: client.user.id, allow: [ "SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"] },
+                        { id: interaction.guild.id, deny: [ "VIEW_CHANNEL" ] }
+                    ],
+                });
 
-                    const channel = await interaction.guild.channels.create(`ticket-${interaction.user.tag}`, {
-                        type: "GUILD_TEXT",
-                        permissionOverwrites: [
-                            { id: interaction.user.id, allow: [ "SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"] },
-                            { id: data?.moderatorRole, allow: [ "SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"] },
-                            { id: client.user.id, allow: [ "SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"] },
-                            { id: interaction.guild.id, deny: [ "VIEW_CHANNEL" ] }
-                        ],
-                    });
-
-                    await interaction.reply({ content: `Otworzyłeś ticket!\n\n-> <#${channel.id}>`, ephemeral: true })
-                    const row = new MessageActionRow()
-                        .addComponents(
-                            new MessageButton()
-                                .setCustomId('ticket_close')
-                                .setLabel('Zamknij ticket')
-                                .setStyle('DANGER'),
+                await interaction.reply({ content: `Otworzyłeś ticket!\n\n-> <#${channel.id}>`, ephemeral: true })
+                const row = new MessageActionRow()
+                    .addComponents(
+                        new MessageButton()
+                            .setCustomId('ticket_close')
+                            .setLabel('Zamknij ticket')
+                            .setStyle('DANGER'),
                         );
-                    const embed = new MessageEmbed()
-                        .setTitle("Zamknij ticket")
-                        .setDescription("Aby zamknąć ticket, naciśnij przycisk")
-                        .setColor("YELLOW")
-                    await channel.send({ embeds: [embed], components: [row] }).then(message => {
-                        message.pin({ reason: "Przypięto." })
-                    })
-                };
-                cooldown.add(interaction.user.id);
-                setTimeout(() => {
-                    cooldown.delete(interaction.user.id);
+                const embed = new MessageEmbed()
+                    .setTitle("Zamknij ticket")
+                    .setDescription("Aby zamknąć ticket, naciśnij przycisk")
+                    .setColor("YELLOW")
+                await channel.send({ embeds: [embed], components: [row] }).then(message => {
+                    message.pin({ reason: "Przypięto." })
+                })
+            };
+            cooldown.add(interaction.user.id);
+            setTimeout(() => {
+                cooldown.delete(interaction.user.id);
                 }, 60000);
-            break
+                break
             case "ticket_close":
                 await interaction.channel.delete()
                 break;
@@ -82,5 +78,4 @@ module.exports = {
         setTimeout(() => {
             cooldown.delete(interaction.user.id);
         }, 3000);
-    }
 }

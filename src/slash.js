@@ -21,34 +21,21 @@ for (const folder of commandFolders) {
         client.commands.set(command.data.name, command);
     }
 }
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
 r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
     if (err) console.log(err)
     client.con = con;
 
-    console.log("RethinkDb Connected");
+    console.log("[DB] RethinkDB connected");
 });
+global.r = require("rethinkdb");
 
-for (const file of eventFiles) {
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+
+for (file of eventFiles) {
     const event = require(`./events/${file}`);
-    if (event.once) {
-        client.on(event.name, (...args) => event.execute(client, ...args));
-    } else {
-        client.on(event.name, (...args) => event.execute(client, ...args));
-    }
-}
-
-//TODO: move to folder src/evnets
-client.on('messageReactionAdd', async(reaction, user) => {
-    if (reaction.partial) {
-        try {
-            await reaction.fetch();
-        } catch (error) {
-            console.error('Something went wrong:', error);
-            return;
-        }
-    }
-});
+    const eventName = file.split('.js')[0];
+    client.on(eventName, (...args) => event (client, ...args))
+};
 
 client.login(token);
