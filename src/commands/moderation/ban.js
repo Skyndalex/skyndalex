@@ -22,13 +22,13 @@ module.exports = {
 
         client.builder(interaction, `Zbanowano użytkownika!`, `Zbanowano użytkownika na serwerze ${interaction.guild.name}`, ``, `RED`, [
             {
-                name: "Użytkownik", value: member.tag
+                name: "Użytkownik", value: `${member.tag}`
             },
             {
-                name: "Zbanowany przez", value: interaction.user.tag
+                name: "Zbanowany przez", value: `${interaction.user.tag}`
             },
             {
-                name: "Powód", value: reason
+                name: "Powód", value: `${reason}`
             }
         ])
     }
