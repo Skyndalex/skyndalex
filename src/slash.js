@@ -22,7 +22,7 @@ for (const folder of commandFolders) {
     }
 }
 
-r.connect({db: "krivebot", host: "localhost", port: "28015", timeout: 600}, function(err, con) {
+r.connect({ db: "krivebot", host: "localhost", port: "28015", timeout: 600 }, function(err, con) {
     if (err) console.log(err)
     client.con = con;
 
