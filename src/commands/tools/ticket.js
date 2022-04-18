@@ -1,41 +1,30 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageButton, MessageActionRow, MessageEmbed} = require("discord.js");
-const r = require("rethinkdb")
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('ticket')
-        .setDescription('Tickety'),
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("enable")
+                .setDescription("Enable tickets"))
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("disable")
+                .setDescription("Disable tickets"))
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("send")
+                .setDescription("send ticket"))
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("adduser")
+                .setDescription("Add user to ticket")
+                .addUserOption(option => option.setName("target").setDescription("Target user")))
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("removeuser")
+                .setDescription("Remove user from ticket")
+                .addUserOption(option => option.setName("target").setDescription("Target user"))),
 
     async execute(client, interaction) {
-        if (!interaction.member.permissions.has('MANAGE_CHANNELS')) return interaction.reply({content: "Nie masz permisji!", ephemeral: true});
-        if (!interaction.guild.me.permissions.has("MANAGE_CHANNELS")) return interaction.reply({content: "Nie mam permisji do zarządzania kanałami!"})
-
-        const data = await r.table("settings").get(interaction.guild.id).run(client.con);
-        if (!data?.moderatorRole) {
-            return interaction.channel.send("Nie ustawiono wartości w ustawieniach: \`moderatorRole\`")
-        };
-
-        const row = new MessageActionRow()
-                .addComponents(
-                    new MessageButton()
-                        .setCustomId('ticket_open')
-                        .setLabel('Utwórz ticket')
-                        .setEmoji("✉")
-                        .setStyle('SUCCESS'),
-                    new MessageButton()
-                        .setCustomId('delete_all_tickets')
-                        .setLabel('Usuń WSZYSTKIE tickety')
-                        .setEmoji("❌")
-                        .setStyle('DANGER')
-                        .setDisabled(true),
-                );
-            const embed = new MessageEmbed()
-                .setDescription("**Utwórz ticket**\n\nAby otworzyć ticket, naciśnij przycisk \`Utwórz ticket\`.")
-                .setColor("GREEN")
-
-            await interaction.reply({
-                embeds: [embed],
-                components: [row]
-            })
-    }
+        interaction.reply('co to jest');
+    },
 };

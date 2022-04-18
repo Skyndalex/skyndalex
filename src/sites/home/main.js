@@ -17,5 +17,5 @@ exports.run = (client) => {
         res.sendFile('index.html', options)
     });
 
-    app.listen(3344, () => console.log(`${pc.yellow('[WEBSITE]')} ${pc.green("Connected")}`));
+    app.listen(3344, () => console.log(`${pc.yellow('[WEBSITE:3344]')} ${pc.green("Connected")}`));
 }
