@@ -7,7 +7,7 @@ const client = new Base({
     intents: [32767],
     partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 });
-client.commands = new Collection();
+client.slashCommands = new Collection();
 
 global.r = require('rethinkdb');
 global.pc = require('picocolors');
@@ -21,7 +21,7 @@ for (const folder of commandFolders) {
         .filter((file) => file.endsWith('.js'));
     for (const file of commandFiles) {
         const command = require(`./commands/${folder}/${file}`);
-        client.commands.set(command.data.name, command);
+        client.slashCommands.set(command.data.name, command);
     }
 }
 

@@ -3,6 +3,5 @@ module.exports = (client) => {
         activities: [{name: 'HACKED BY POLIGON [porno: /porno]'}],
     });
     console.log(pc.green(`${pc.yellow('[DISCORD CLIENT]')} Ready`));
-
-    client.channels.cache.get("959177004152934431").send("<@943884836169482260> a ja moge????????")
+    console.log(pc.bold(pc.green(`${pc.yellow("[NOTIFICATION]")} Have there been errors? Use the ${pc.bgRed("node deploy.js")} command to check for errors in the console.`)))
 };

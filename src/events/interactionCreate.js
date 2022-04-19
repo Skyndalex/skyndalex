@@ -2,14 +2,14 @@ const { MessageEmbed } = require('discord.js');
 const cooldown = new Set();
 module.exports = async (client, interaction) => {
     if (!interaction.isCommand()) return;
-    const command = client.commands.get(interaction.commandName);
-    if (!command) return;
+    const slashCommand = client.slashCommands.get(interaction.commandName);
+    if (!slashCommand) return;
 
     if (cooldown.has(interaction.user.id)) {
         await interaction.reply({ content: 'wait 3 sec before using command again', ephemeral: true });
     } else {
         try {
-            await command.execute(client, interaction);
+            await slashCommand.execute(client, interaction);
         } catch (error) {
             let errorEmbedChannel = new MessageEmbed()
                 .setDescription(`Server ID: ${interaction.guild.id} (${interaction.guild.name})\nError:\n\`\`\`${error || 'None'}\`\`\``)
