@@ -8,7 +8,7 @@ module.exports = {
         const row = new MessageActionRow()
             .addComponents(
                 new MessageSelectMenu()
-                    .setCustomId('embed-builder')
+                    .setCustomId('embed_builder')
                     .setPlaceholder('Nothing selected')
                     .addOptions([
                         { label: 'Title', description: 'Embed title', value: 'embed_builder_title' },

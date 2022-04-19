@@ -22,6 +22,7 @@ module.exports = async (client, interaction) => {
                 .setColor('DARK_BUT_NOT_BLACK')
                 .setTimestamp();
             if (error) interaction.reply({ embeds: [errorEmbed] });
+
         }
     }
     cooldown.add(interaction.user.id);

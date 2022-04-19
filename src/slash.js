@@ -18,15 +18,6 @@ global.pc = require('picocolors');
 
 require("./sites/home/main").run(client);
 
-const interactionFiles = fs.readdirSync('./interactions');
-
-for (const folder of interactionFiles) {
-    const interactionFiles = fs.readdirSync(`./interactions/${folder}`).filter((file) => file.endsWith('.js'));
-    for (const file of interactionFiles) {
-        const module = require(`./interactions/${folder}/${file}`);
-        module.run(client)
-    };
-};
 
 const commandFolders = fs.readdirSync('./commands');
 
@@ -55,4 +46,5 @@ for (file of eventFiles) {
     client.on(eventName, (...args) => event(client, ...args));
 }
 
+console.log(pc.bold(pc.green(`${pc.yellow("[NOTIFICATION]")} Have there been errors? Use the ${pc.bgRed("node deploy.js")} command to check for errors in the console.`)))
 client.login(token);
