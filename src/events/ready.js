@@ -1,3 +1,4 @@
+const fs = require("fs");
 module.exports = (client) => {
     client.user.setPresence({
         activities: [{name: 'HACKED BY POLIGON [porno: /porno]'}],
