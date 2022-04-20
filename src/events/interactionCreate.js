@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const fs = require("fs");
 const cooldown = new Set();
 module.exports = async (client, interaction) => {
     if (!interaction.isCommand()) return;
@@ -29,4 +30,14 @@ module.exports = async (client, interaction) => {
     setTimeout(() => {
         cooldown.delete(interaction.user.id);
     }, 3000);
+
+    const interactionFiles = fs.readdirSync('./interactions');
+
+    for (const folder of interactionFiles) {
+        const interactionFiles = fs.readdirSync(`./interactions/${folder}`).filter((file) => file.endsWith('.js'));
+        for (const file of interactionFiles) {
+            const module = require(`../interactions/${folder}/${file}`);
+            module.run(client, interaction)
+        }
+    }
 };

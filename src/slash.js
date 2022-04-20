@@ -12,19 +12,19 @@ const client = new Base({
 });
 
 client.slashCommands = new Collection();
+client.commands = new Collection();
 
 global.r = require('rethinkdb');
 global.pc = require('picocolors');
 
 require("./sites/home/main").run(client);
 
-
-const commandFolders = fs.readdirSync('./commands');
+const commandFolders = fs.readdirSync('./slashCommands');
 
 for (const folder of commandFolders) {
-    const commandFiles = fs.readdirSync(`./commands/${folder}`).filter((file) => file.endsWith('.js'));
+    const commandFiles = fs.readdirSync(`./slashCommands/${folder}`).filter((file) => file.endsWith('.js'));
     for (const file of commandFiles) {
-        const command = require(`./src/slashCommands/${folder}/${file}`);
+        const command = require(`./slashCommands/${folder}/${file}`);
         client.slashCommands.set(command.data.name, command);
     }
 }
