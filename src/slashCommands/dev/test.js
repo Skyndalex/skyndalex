@@ -8,8 +8,9 @@ module.exports = {
         let embed = new MessageEmbed()
             .setTitle("Set title: title")
             .setDescription(`\`desc [string]\``)
-        await interaction.reply({ embeds: [embed] });
+        await interaction.reply({ embeds: [embed] })
 
+            //  console.log(interaction)
         const filter = m => m.author.id === interaction.user.id;
         let collector = interaction.channel.createMessageCollector({ filter, time: 15000 });
 
@@ -21,6 +22,8 @@ module.exports = {
                 let embedTitleEdit = new MessageEmbed()
                     .setTitle(`${titleStr.join(" ")}`)
                 await interaction.editReply({ embeds: [embedTitleEdit], content: "✅ Success!" })
+
+                // console.log(m)
             } else {
                 if (m.content.startsWith("desc")) {
                     let embedTitleEdit2 = new MessageEmbed()
