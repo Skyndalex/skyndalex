@@ -5,24 +5,30 @@ module.exports = {
         .setName("test")
         .setDescription("sus command"),
     async execute(client, interaction) {
-            interaction.reply("hhhhhhh");
+        let embed = new MessageEmbed()
+            .setTitle("Set title: title")
+            .setDescription(`\`desc [string]\``)
+        await interaction.reply({ embeds: [embed] });
 
-            const filter = m => m.author.id === interaction.user.id;
-            let collector = interaction.channel.createMessageCollector({ filter, time: 15000 });
+        const filter = m => m.author.id === interaction.user.id;
+        let collector = interaction.channel.createMessageCollector({ filter, time: 15000 });
 
-            collector.on("collect", m => {
-                switch (m.content) {
-                    case "h":
-                        interaction.editReply({ content: "Dobrze!" })
+        collector.on("collect", async m => {
+            const titleStr = m.content.slice("title".length).trim().split(/ +/);
+            const descStr = m.content.slice("desc".length).trim().split(/ +/);
 
-                        collector.stop()
-                        break;
-                    default:
-                        interaction.editReply({ content: "Błąd!" })
-
-                        collector.stop()
-                        break;
+            if (m.content.startsWith("title")) {
+                let embedTitleEdit = new MessageEmbed()
+                    .setTitle(`${titleStr.join(" ")}`)
+                await interaction.editReply({ embeds: [embedTitleEdit], content: "✅ Success!" })
+            } else {
+                if (m.content.startsWith("desc")) {
+                    let embedTitleEdit2 = new MessageEmbed()
+                        .setTitle(`${titleStr.join(" ")}`)
+                        .setDescription(`${descStr.join(" ")}`)
+                    await interaction.editReply({ embeds: [embedTitleEdit2], content: "✅ Success!" })
                 }
-            });
+            }
+        })
     }
 }
