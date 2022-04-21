@@ -447,5 +447,5 @@ exports.run = async (client, interaction) => {
             modalSubmitComplaintInteractionQuestions.reply("Successfully sent.")
             break;
     }
-    console.log(`${pc.yellow('[TICKETS:BUTTONS]')} ${pc.green("Enabled")}`)
+    console.log(`${pc.yellow('[TICKETS:BUTTONS]')} ${pc.green("Enabled")}`) //  todo: fix console copying
 }

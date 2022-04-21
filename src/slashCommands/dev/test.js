@@ -14,7 +14,7 @@ module.exports = {
         const filter = m => m.author.id === interaction.user.id;
         let collector = interaction.channel.createMessageCollector({ filter, time: 15000 });
 
-        collector.on("collect", async m => {
+        collector.on("collect", async m => { // TODO: fix embed description
             const title = m.content.slice("title".length).trim().split(/ +/);
             const desc = m.content.slice("desc".length).trim().split(/ +/);
 
