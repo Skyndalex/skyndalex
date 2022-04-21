@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed, Message, MessageActionRow, MessageButton, Modal, MessageSelectMenu} = require("discord.js")
+const { MessageEmbed } = require("discord.js");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("test")
@@ -15,20 +15,23 @@ module.exports = {
         let collector = interaction.channel.createMessageCollector({ filter, time: 15000 });
 
         collector.on("collect", async m => {
-            const titleStr = m.content.slice("title".length).trim().split(/ +/);
-            const descStr = m.content.slice("desc".length).trim().split(/ +/);
+            const title = m.content.slice("title".length).trim().split(/ +/);
+            const desc = m.content.slice("desc".length).trim().split(/ +/);
 
             if (m.content.startsWith("title")) {
                 let embedTitleEdit = new MessageEmbed()
-                    .setTitle(`${titleStr.join(" ")}`)
+                .setTitle(`${title.join(" ")}`);
+
                 await interaction.editReply({ embeds: [embedTitleEdit], content: "✅ Success!" })
 
                 // console.log(m)
             } else {
                 if (m.content.startsWith("desc")) {
                     let embedTitleEdit2 = new MessageEmbed()
-                        .setTitle(`${titleStr.join(" ")}`)
-                        .setDescription(`${descStr.join(" ")}`)
+                        .setTitle(`${title.join(" ")}`)
+                        .setDescription(`${desc.join(" ")}`);
+                    console.log(interaction.message.embeds)
+                    console.log(embedTitleEdit2)
                     await interaction.editReply({ embeds: [embedTitleEdit2], content: "✅ Success!" })
                 }
             }
