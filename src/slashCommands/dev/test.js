@@ -10,7 +10,7 @@ module.exports = {
             .setDescription(`\`desc [string]\``)
         await interaction.reply({ embeds: [embed] })
 
-            //  console.log(interaction)
+        //  console.log(interaction)
         const filter = m => m.author.id === interaction.user.id;
         let collector = interaction.channel.createMessageCollector({ filter, time: 15000 });
 
@@ -18,22 +18,26 @@ module.exports = {
             const title = m.content.slice("title".length).trim().split(/ +/);
             const desc = m.content.slice("desc".length).trim().split(/ +/);
 
-            if (m.content.startsWith("title")) {
-                let embedTitleEdit = new MessageEmbed()
-                .setTitle(`${title.join(" ")}`);
+            try {
+                if (m.content.startsWith("title")) {
+                    let embedTitleEdit = new MessageEmbed()
+                        .setTitle(`${title.join(" ")}`);
 
-                await interaction.editReply({ embeds: [embedTitleEdit], content: "✅ Success!" })
+                    await interaction.editReply({embeds: [embedTitleEdit], content: "✅ Success!"})
 
-                // console.log(m)
-            } else {
-                if (m.content.startsWith("desc")) {
-                    let embedTitleEdit2 = new MessageEmbed()
-                        .setTitle(`${title.join(" ")}`)
-                        .setDescription(`${desc.join(" ")}`);
-                    console.log(interaction.message.embeds)
-                    console.log(embedTitleEdit2)
-                    await interaction.editReply({ embeds: [embedTitleEdit2], content: "✅ Success!" })
+                    // console.log(m)
+                } else {
+                    if (m.content.startsWith("desc")) {
+                        let embedTitleEdit2 = new MessageEmbed()
+                            .setTitle(`${title.join(" ")}`)
+                            .setDescription(`${desc.join(" ")}`);
+
+                        await interaction.editReply({embeds: [embedTitleEdit2], content: "✅ Success!"})
+                    }
                 }
+            } catch (err) {
+                await interaction.channel.send(err)
+                console.log(err)
             }
         })
     }

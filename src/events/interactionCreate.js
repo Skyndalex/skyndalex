@@ -40,6 +40,4 @@ module.exports = async (client, interaction) => {
             module.run(client, interaction)
         }
     }
-    const embed = interaction.message.embeds[0];
-    console.log(embed)
 };
