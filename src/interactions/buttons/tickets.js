@@ -1,5 +1,6 @@
 const { MessageEmbed, Modal, MessageActionRow, MessageButton, MessageSelectMenu } = require("discord.js")
 exports.run = async (client, interaction) => {
+    console.log(interaction)
     let table = await r.table("settings").get(interaction.guild.id).run(client.con);
     let ticketCategories = await r.table("tickets").get(interaction.guild.id).run(client.con); // TODO: fix error
 
