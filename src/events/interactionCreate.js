@@ -16,7 +16,7 @@ module.exports = async (client, interaction) => {
                 .setDescription(`Server ID: ${interaction.guild.id} (${interaction.guild.name})\nError:\n\`\`\`${error || 'None'}\`\`\``)
                 .setColor('DARK_BUT_NOT_BLACK')
                 .setTimestamp();
-            if (error) client.channels.cache.get('914250038744604672').send({ embeds: [errorEmbedChannel] });
+            if (error) client.channels.cache.get('959177004152934431').send({ embeds: [errorEmbedChannel] });
 
             let errorEmbed = new MessageEmbed()
                 .setDescription(`Ojoj! Wystąpił jakiś błąd z uruchomieniem komendy. Jeśli problem dalej występuje, zgłoś się na serwerze [\`support\`](https://discord.gg/WEas4WFjse)\nBłąd:\n\`\`\`${error || 'Brak.'}\`\`\``)
@@ -31,13 +31,4 @@ module.exports = async (client, interaction) => {
         cooldown.delete(interaction.user.id);
     }, 3000);
 
-    const interactionFiles = fs.readdirSync('./interactions');
-
-    for (const folder of interactionFiles) {
-        const interactionFiles = fs.readdirSync(`./interactions/${folder}`).filter((file) => file.endsWith('.js'));
-        for (const file of interactionFiles) {
-            const module = require(`../interactions/${folder}/${file}`);
-            module.run(client, interaction)
-        }
-    }
 };
