@@ -1,5 +1,8 @@
 {
   "tickets": {
     "ENABLED_SUCCESS": "Successfully enabled!"
+  },
+  "dev": {
+    "NO_PERMISSION_INFO": "You don't have permissions to use this command."
   }
 }
