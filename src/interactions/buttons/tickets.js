@@ -1,6 +1,7 @@
 const { MessageEmbed, Modal, MessageActionRow, MessageButton, MessageSelectMenu } = require("discord.js")
 exports.run = async (client, interaction) => {
-    console.log(interaction)
+    console.log(`${pc.yellow('[MODULES]')} ${pc.green(`Used module: ${pc.red(`buttons (Ticket system)`)}`)}`);
+
     let table = await r.table("settings").get(interaction.guild.id).run(client.con);
     let ticketCategories = await r.table("tickets").get(interaction.guild.id).run(client.con); // TODO: fix error
 
@@ -448,5 +449,4 @@ exports.run = async (client, interaction) => {
             modalSubmitComplaintInteractionQuestions.reply("Successfully sent.")
             break;
     }
-    console.log(`${pc.yellow('[TICKETS:BUTTONS]')} ${pc.green("Enabled")}`)
 }
