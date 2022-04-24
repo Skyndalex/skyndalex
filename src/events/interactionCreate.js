@@ -23,13 +23,13 @@ module.exports = async (client, interaction) => {
             await slashCommand.execute(client, interaction);
         } catch (error) {
             let errorEmbedChannel = new MessageEmbed()
-                .setDescription(`Server ID: ${interaction.guild.id} (${interaction.guild.name})\nError:\n\`\`\`${error || 'None'}\`\`\``)
+                .setDescription(`\`\`\`ERROR\`\`\`\nServer ID: ${interaction.guild.id} (${interaction.guild.name})\nError:\n\`\`\`${error || 'None'}\`\`\``)
                 .setColor('DARK_BUT_NOT_BLACK')
                 .setTimestamp();
             if (error) client.channels.cache.get('959177004152934431').send({ embeds: [errorEmbedChannel] });
 
             let errorEmbed = new MessageEmbed()
-                .setDescription(`Ojoj! Wystąpił jakiś błąd z uruchomieniem komendy. Jeśli problem dalej występuje, zgłoś się na serwerze [\`support\`](https://discord.gg/WEas4WFjse)\nBłąd:\n\`\`\`${error || 'Brak.'}\`\`\``)
+                .setDescription(`\`\`\`ERROR\`\`\`\n[\`support\`](https://discord.gg/WEas4WFjse)\nBłąd:\n\`\`\`${error || 'none.'}\`\`\``)
                 .setColor('DARK_BUT_NOT_BLACK')
                 .setTimestamp();
             if (error) interaction.reply({ embeds: [errorEmbed] });
@@ -41,4 +41,11 @@ module.exports = async (client, interaction) => {
         cooldown.delete(interaction.user.id);
     }, 3000);
 
+    let embed = new MessageEmbed()
+    if (interaction.fields.getTextInputValue("title")) embed.setTitle(interaction.fields.getTextInputValue("title"))
+    if (interaction.fields.getTextInputValue("desc")) embed.setDescription(interaction.fields.getTextInputValue("desc"))
+    if (interaction.fields.getTextInputValue("color")) embed.setColor(interaction.fields.getTextInputValue("color"))
+    if (interaction.fields.getTextInputValue("footer")) embed.setFooter({ text: interaction.fields.getTextInputValue("footer") })
+    if (interaction.fields.getTextInputValue("author")) embed.setAuthor({ name: interaction.fields.getTextInputValue("author") })
+    await interaction.reply({ embeds: [embed] })
 };
