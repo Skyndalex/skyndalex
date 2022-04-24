@@ -5,26 +5,52 @@ module.exports = {
         .setName("embed")
         .setDescription("Embed builder"),
     async execute(client, interaction) {
-        const row = new MessageActionRow()
-            .addComponents(
-                new MessageSelectMenu()
-                    .setCustomId('embed_builder')
-                    .setPlaceholder('Nothing selected')
-                    .addOptions([
-                        { label: 'Title', description: 'Embed title', value: 'embed_builder_title' },
-                        { label: 'Description',  description: 'Embed description', value: 'embed_builder_description' },
-                        { label: 'Footer', description: 'Embed footer', value: 'embed_builder_footer' },
-                        { label: 'Author', description: 'Embed author', value: 'embed_builder_author'},
-                        { label: 'Author IMG', description: 'Embed author image', value: 'embed_builder_author_image' },
-                        { label: 'Thumbnail', description: 'Embed Thumbnail', value: 'embed_builder_thumbnail' },
-                        { label: 'URL', description: 'Embed URL', value: 'embed_builder_url' }
-                    ]),
-            )
+        const testModal = new Modal({ // TODO: add modals to client
+            customId: `testModal-${interaction.id}`,
+            title: "docs.skyndalex.xyz/builders",
+            components: [
+                { type: "ACTION_ROW", components: [
+                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "title", label: "title embed component", placeholder: "Embed title", minLength: 2, maxLength: 50, style: "SHORT" },
+                    ]},
+                { type: "ACTION_ROW", components: [
+                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "desc", label: "description embed component", placeholder: "Embed description", minLength: 2, maxLength: 500 }
+                    ]},
+                { type: "ACTION_ROW", components: [
+                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "footer", label: "footer embed component", placeholder: "Embed footer", minLength: 2, maxLength: 80, style: "SHORT" },
+                    ]},
+                { type: "ACTION_ROW", components: [
+                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "author", label: "author embed component", placeholder: "Embed author", minLength: 2, maxLength: 50, style: "SHORT" },
+                    ]},
+                { type: "ACTION_ROW", components: [
+                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "color", label: "color embed component", placeholder: "Embed color", minLength: 2, maxLength: 20, style: "SHORT" },
+                    ]},
+            ]
+        })
+        const useModal = async (
+            sourceInteraction,
+            testModal,
+            timeout = 2 * 60 * 1000,
+        ) => {
+            await sourceInteraction.showModal(testModal);
 
-        const embed = new MessageEmbed()
-            .setTitle("Build your embed")
-            .setDescription("Choose options from messagemenu.")
-            .setColor("DARK_BUT_NOT_BLACK")
-        await interaction.reply({ embeds: [embed], components: [row] })
+            return sourceInteraction
+                .awaitModalSubmit({
+                    time: timeout,
+                    filter: (filterInteraction) =>
+                        filterInteraction.customId === `testModal-${sourceInteraction.id}`,
+                })
+                .catch(() => null);
+        };
+        const submitInteraction = await useModal(interaction, testModal)
+
+
+        let embed = new MessageEmbed()
+        if (submitInteraction.fields.getTextInputValue("title")) embed.setTitle(submitInteraction.fields.getTextInputValue("title"))
+        if (submitInteraction.fields.getTextInputValue("desc")) embed.setDescription(submitInteraction.fields.getTextInputValue("desc"))
+        if (submitInteraction.fields.getTextInputValue("color")) embed.setColor(submitInteraction.fields.getTextInputValue("color"))
+        if (submitInteraction.fields.getTextInputValue("footer")) embed.setFooter({ text: submitInteraction.fields.getTextInputValue("footer")})
+        if (submitInteraction.fields.getTextInputValue("author")) embed.setAuthor({ name: submitInteraction.fields.getTextInputValue("author")})
+
+        await submitInteraction.reply({ embeds: [embed] })
     }
 }
