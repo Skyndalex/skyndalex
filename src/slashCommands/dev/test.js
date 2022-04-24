@@ -14,9 +14,8 @@ module.exports = {data: new SlashCommandBuilder()
             title: "docs.skyndalex.xyz/builders",
             components: [
                 { type: "ACTION_ROW", components: [
-                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "title", label: "title embed component", placeholder: "Embed title", minLength: 2, maxLength: 500, style: "SHORT" },
-                    ]
-                },
+                    { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "title", label: "title embed component", placeholder: "Embed title", minLength: 2, maxLength: 500, style: "SHORT" },
+                    ]},
                 { type: "ACTION_ROW", components: [
                     { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "desc", label: "description embed component", placeholder: "Embed description", minLength: 2, maxLength: 500 }
                     ]},
