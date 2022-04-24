@@ -47,4 +47,13 @@ module.exports = {data: new SlashCommandBuilder()
         };
         const submitInteraction = await useModal(interaction, testModal)
 
+
+        let embed = new MessageEmbed()
+        if (submitInteraction.fields.getTextInputValue("title")) embed.setTitle(submitInteraction.fields.getTextInputValue("title"))
+        if (submitInteraction.fields.getTextInputValue("desc")) embed.setDescription(submitInteraction.fields.getTextInputValue("desc"))
+        if (submitInteraction.fields.getTextInputValue("color")) embed.setColor(submitInteraction.fields.getTextInputValue("color"))
+        if (submitInteraction.fields.getTextInputValue("footer")) embed.setFooter({ text: submitInteraction.fields.getTextInputValue("footer")})
+        if (submitInteraction.fields.getTextInputValue("author")) embed.setAuthor({ name: submitInteraction.fields.getTextInputValue("author")})
+
+        await submitInteraction.reply({ embeds: [embed] })
     }}
