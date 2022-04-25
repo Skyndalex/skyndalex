@@ -10,19 +10,19 @@ module.exports = {
             title: "docs.skyndalex.xyz/builders",
             components: [
                 { type: "ACTION_ROW", components: [
-                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "title", label: "title embed component", placeholder: "Embed title", minLength: 2, maxLength: 50, style: "SHORT" },
+                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "title", label: "title embed component", placeholder: "Embed title", style: "SHORT", maxLength: 256, minLength: 2 },
                     ]},
                 { type: "ACTION_ROW", components: [
-                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "desc", label: "description embed component", placeholder: "Embed description", minLength: 2, maxLength: 500 }
+                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "desc", label: "description embed component", placeholder: "Embed description", maxLength: 2048, minLength: 2  }
                     ]},
                 { type: "ACTION_ROW", components: [
-                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "footer", label: "footer embed component", placeholder: "Embed footer", minLength: 2, maxLength: 80, style: "SHORT" },
+                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "footer", label: "footer embed component", placeholder: "Embed footer", style: "SHORT", maxLength: 2048, minLength: 2 },
                     ]},
                 { type: "ACTION_ROW", components: [
-                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "author", label: "author embed component", placeholder: "Embed author", minLength: 2, maxLength: 50, style: "SHORT" },
+                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "author", label: "author embed component", placeholder: "Embed author", style: "SHORT", maxLength: 256, minLength: 2 },
                     ]},
                 { type: "ACTION_ROW", components: [
-                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "color", label: "color embed component", placeholder: "Embed color", minLength: 2, maxLength: 20, style: "SHORT" },
+                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "color", label: "color embed component", placeholder: "Embed color",  style: "SHORT", maxLength: 10, minLength: 2 },
                     ]},
             ]
         })
@@ -51,6 +51,6 @@ module.exports = {
         if (submitInteraction.fields.getTextInputValue("footer")) embed.setFooter({ text: submitInteraction.fields.getTextInputValue("footer")})
         if (submitInteraction.fields.getTextInputValue("author")) embed.setAuthor({ name: submitInteraction.fields.getTextInputValue("author")})
 
-        await submitInteraction.reply({ embeds: [embed] })
+        return submitInteraction.reply({ embeds: [embed] })
     }
 }
