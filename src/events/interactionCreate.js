@@ -34,6 +34,7 @@ module.exports = async (client, interaction) => {
                 .setTimestamp();
             if (error) interaction.reply({ embeds: [errorEmbed] });
 
+            console.error(error)
         }
     }
     cooldown.add(interaction.user.id);
