@@ -4,6 +4,5 @@ module.exports = (client, interaction) => {
         activities: [{name: 'HACKED BY POLIGON'}],
     });
 
-
     console.log(pc.green(`${pc.yellow('[DISCORD CLIENT]')} Ready`));
 };
