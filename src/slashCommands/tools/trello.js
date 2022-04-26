@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const Trello = require("trello");
 const {MessageEmbed} = require("discord.js");
 
-module.exports = {
+module.exports = { // TODO: remove sub commands and rewrite to choices.
     data: new SlashCommandBuilder()
         .setName("trello")
         .setDescription("Trello manager")
