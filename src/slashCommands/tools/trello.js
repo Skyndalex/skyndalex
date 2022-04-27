@@ -19,7 +19,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
         switch (add) {
             case "add_card_choice":
 
-                await interaction.reply("\`\`\`ansi\n[1;31;44mNOTIFICATION\n\n[0;32mType 'name [string]' to choose your trello card name\nType 'description [desc]' to choose your trello card description\`\`\`")
+                await interaction.reply("\`\`\`ansi\n[1;31;44mNOTIFICATION\n\n[0;32;40mType 'name [string]' to choose your trello card name\nType 'description [desc]' to choose your trello card description\`\`\`")
                 const collector = await interaction.channel.createMessageCollector(m => m.author.id === interaction.user.id);
 
                 collector.on("collect", m => {
