@@ -7,15 +7,7 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName("enable")
-                .setDescription("Enable tickets")
-                .addStringOption(pingOption =>
-                    pingOption.setName("pingmod").setDescription("Set pinging mods value to true/false")
-                        .addChoice("true", "pingmod_true_value")
-                        .addChoice("false", "pingmod_false_value"))
-                .addStringOption(pingOption =>
-                    pingOption.setName("pinguser").setDescription("Set pinging users value to true/false")
-                        .addChoice("true", "pingmod_true_value")
-                        .addChoice("false", "pingmod_false_value")))
+                .setDescription("Enable tickets"))
         .addSubcommand(subcommand =>
             subcommand
                 .setName("disable")
