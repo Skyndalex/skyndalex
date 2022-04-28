@@ -18,19 +18,23 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
 
         switch (add) {
             case "add_card_choice":
-
-                await interaction.reply(client.strings.trello.NOTIFICATION_COMMAND_USE);
-
                 const collector = await interaction.channel.createMessageCollector(m => m.author.id === interaction.user.id);
+
+                let embedNotificatio = new MessageEmbed()
+                    .setTitle("✅ Created message collector")
+                    .setDescription(client.strings.trello.NOTIFICATION_COMMAND_USE)
+                    .setFooter({ text: "Full trello guide: https://docs.skyndalex.xyz/trello" })
+                    .setColor("GREEN")
+                await interaction.reply({ embeds: [embedNotificatio] });
 
                 collector.on("collect", m => {
 
                     if (m.content.startsWith("name ")) {
                         m.reply({ content: `Card name: ${m.content}`})
-                    }
+                    };
                     if (m.content.startsWith("description ")) {
                         m.reply({ content: `Card description: ${m.content}`})
-                    }
+                    };
                 })
                 break
         }
