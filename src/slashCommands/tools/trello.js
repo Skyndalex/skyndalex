@@ -28,13 +28,22 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                     .setColor("GREEN")
                 await interaction.reply({ embeds: [embedNotify] });
 
-                collector.on("collect", m => {
+                collector.on("collect", async m => {
+                    const name = m.content.slice("name".length).trim().split(/ +/);
+                    const desc = m.content.slice("description".length).trim().split(/ +/);
 
-                    if (m.content.startsWith("name ")) {
-                        m.reply({ content: `Card name: ${m.content}`})
+                    if (m.content.startsWith("name")) {
+
+                        let embedCardAddNameEdit = new MessageEmbed()
+                            .setDescription(`\`\`\`ansi\n\u001B[1;34;40m Successfully choosed card name: ${name.join(" ")} \`\`\``)
+                            .setColor("GREEN")
+                        await interaction.editReply({ embeds: [embedCardAddNameEdit]})
                     }
-                    if (m.content.startsWith("description ")) {
-                        m.reply({ content: `Card description: ${m.content}`})
+                    if (m.content.startsWith("desc")) {
+                        let embedCardAddDescEdit = new MessageEmbed()
+                            .setDescription(`\`\`\`ansi\n\u001B[1;34;40m Successfully choosed card name: ${name.join(" ")}\nSuccessfully choosed card description: ${desc.join(" ")} \`\`\``)
+                            .setColor("GREEN")
+                        await interaction.editReply({ embeds: [embedCardAddDescEdit]})
                     }
                 })
                 break
