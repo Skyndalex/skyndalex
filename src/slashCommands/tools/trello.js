@@ -69,6 +69,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
 
                         let name = modalSubmitComplaintInteractionSuggestions.fields.getTextInputValue("cardAdd_name")
                         let desc = modalSubmitComplaintInteractionSuggestions.fields.getTextInputValue("cardAdd_desc")
+                        let listid = modalSubmitComplaintInteractionSuggestions.fields.getTextInputValue("cardAdd_listid")
 
                         let row = new MessageActionRow()
                             .addComponents(
@@ -80,8 +81,9 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                         let messageConfirmEmbed = new MessageEmbed()
                             .setTitle("Are you sure?")
                             .setDescription("You provided these values:")
-                            .addField(`Name`, `${name}`)
-                            .addField(`Description`, `${desc}`)
+                            .addField(`Name`, `${name}`, true)
+                            .addField(`Description`, `${desc}`, true)
+                            .addField(`List ID`, `${listid}`, true)
                             .setColor("BLUE")
                         await modalSubmitComplaintInteractionSuggestions.reply({ embeds: [messageConfirmEmbed], components: [row] })
                         break
