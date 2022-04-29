@@ -41,9 +41,11 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                             title: "Create trello card",
                             components: [
                                 { type: "ACTION_ROW", components: [
-                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAdd_name", label: "Card name", style: "SHORT", placeholder: "Your card name", minLength: 2}] },
+                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAdd_name", label: "Card name", style: "SHORT", placeholder: "Your card name", minLength: 2, required: true }] },
                                 { type: "ACTION_ROW", components: [
-                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAdd_desc", label: "Card description", placeholder: "Your card description", minLength: 2 }] },
+                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAdd_desc", label: "Card description", placeholder: "Your card description", minLength: 2, required: true}] },
+                                { type: "ACTION_ROW", components: [
+                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAdd_listid", label: "list ID", placeholder: "Your list ID (from example: https://trello.com/b/NrfT9JgV/skyndalex-v10.json)", minLength: 2, required: true }] },
                             ]
                         })
 
