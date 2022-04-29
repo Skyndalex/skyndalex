@@ -25,6 +25,10 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
         ),
 
     async execute(client, interaction) {
+        const db = await r.table("trello").get(interaction.user.id).run(client.con);
+        if (!db?.key) return interaction.reply("Not authorized!\nUse \`/trello auth\`")
+        if (!db?.token) return interaction.reply("Not authorized!\nUse \`/trello auth\`")
+
         switch (interaction.options.getSubcommand()) {
             case "auth":
                 await r.table("trello").insert({ uid: interaction.user.id, key: interaction.options.getString("key"), token: interaction.options.getString("token") }, { conflict: "update" }).run(client.con)
@@ -36,56 +40,91 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
 
                 switch (add) {
                     case "add_card_choice":
-                        const modal = new Modal({
-                            customId: `cardAdd-${interaction.id}`,
-                            title: "Create trello card",
-                            components: [
-                                { type: "ACTION_ROW", components: [
-                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAdd_name", label: "Card name", style: "SHORT", placeholder: "Your card name", minLength: 2, required: true }] },
-                                { type: "ACTION_ROW", components: [
-                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAdd_desc", label: "Card description", placeholder: "Your card description", minLength: 2, required: true}] },
-                                { type: "ACTION_ROW", components: [
-                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAdd_listid", label: "list ID", placeholder: "Your list ID (from example: https://trello.com/b/NrfT9JgV/skyndalex-v10.json)", minLength: 2, required: true }] },
-                            ]
-                        })
+                            const modal = new Modal({
+                                customId: `cardAdd-${interaction.id}`,
+                                title: "Create trello card",
+                                components: [
+                                    {
+                                        type: "ACTION_ROW", components: [
+                                            {
+                                                type: "TEXT_INPUT",
+                                                style: "PARAGRAPH",
+                                                customId: "cardAdd_name",
+                                                label: "Card name",
+                                                style: "SHORT",
+                                                placeholder: "Your card name",
+                                                minLength: 2,
+                                                required: true
+                                            }]
+                                    },
+                                    {
+                                        type: "ACTION_ROW", components: [
+                                            {
+                                                type: "TEXT_INPUT",
+                                                style: "PARAGRAPH",
+                                                customId: "cardAdd_desc",
+                                                label: "Card description",
+                                                placeholder: "Your card description",
+                                                minLength: 2,
+                                                required: true
+                                            }]
+                                    },
+                                    {
+                                        type: "ACTION_ROW", components: [
+                                            {
+                                                type: "TEXT_INPUT",
+                                                style: "PARAGRAPH",
+                                                customId: "cardAdd_listid",
+                                                label: "list ID",
+                                                placeholder: "Your list ID (from example: https://trello.com/b/NrfT9JgV/skyndalex-v10.json)",
+                                                minLength: 2,
+                                                required: true
+                                            }]
+                                    },
+                                ]
+                            })
 
-                        const useModal = async (
-                            sourceInteraction,
-                            cardAddModal,
-                            timeout = 2 * 60 * 1000,
-                        ) => {
-                            await sourceInteraction.showModal(cardAddModal);
+                            const useModal = async (
+                                sourceInteraction,
+                                cardAddModal,
+                                timeout = 2 * 60 * 1000,
+                            ) => {
+                                await sourceInteraction.showModal(cardAddModal);
 
-                            return sourceInteraction
-                                .awaitModalSubmit({
-                                    time: timeout,
-                                    filter: (filterInteraction) =>
-                                        filterInteraction.customId === `cardAdd-${sourceInteraction.id}`,
-                                })
-                                .catch(() => null);
-                        };
+                                return sourceInteraction
+                                    .awaitModalSubmit({
+                                        time: timeout,
+                                        filter: (filterInteraction) =>
+                                            filterInteraction.customId === `cardAdd-${sourceInteraction.id}`,
+                                    })
+                                    .catch(() => null);
+                            };
 
-                        const modalSubmitComplaintInteractionSuggestions = await useModal(interaction, modal)
+                            const modalSubmitComplaintInteractionSuggestions = await useModal(interaction, modal)
 
-                        let name = modalSubmitComplaintInteractionSuggestions.fields.getTextInputValue("cardAdd_name")
-                        let desc = modalSubmitComplaintInteractionSuggestions.fields.getTextInputValue("cardAdd_desc")
-                        let listid = modalSubmitComplaintInteractionSuggestions.fields.getTextInputValue("cardAdd_listid")
 
-                        let row = new MessageActionRow()
-                            .addComponents(
-                                new MessageButton()
-                                    .setCustomId("trello_add_card_confirm")
-                                    .setStyle("SUCCESS")
-                                    .setLabel("Confirm")
-                            )
-                        let messageConfirmEmbed = new MessageEmbed()
-                            .setTitle("Are you sure?")
-                            .setDescription("You provided these values:")
-                            .addField(`Name`, `${name}`, true)
-                            .addField(`Description`, `${desc}`, true)
-                            .addField(`List ID`, `${listid}`, true)
-                            .setColor("BLUE")
-                        await modalSubmitComplaintInteractionSuggestions.reply({ embeds: [messageConfirmEmbed], components: [row] })
+                            let name = modalSubmitComplaintInteractionSuggestions.fields.getTextInputValue("cardAdd_name")
+                            let desc = modalSubmitComplaintInteractionSuggestions.fields.getTextInputValue("cardAdd_desc")
+                            let listid = modalSubmitComplaintInteractionSuggestions.fields.getTextInputValue("cardAdd_listid")
+
+                            let row = new MessageActionRow()
+                                .addComponents(
+                                    new MessageButton()
+                                        .setCustomId("trello_add_card_confirm")
+                                        .setStyle("SUCCESS")
+                                        .setLabel("Confirm")
+                                )
+                            let messageConfirmEmbed = new MessageEmbed()
+                                .setTitle("Are you sure?")
+                                .setDescription("You provided these values:")
+                                .addField(`Name`, `${name}`, true)
+                                .addField(`Description`, `${desc}`, true)
+                                .addField(`List ID`, `${listid}`, true)
+                                .setColor("BLUE")
+                            await modalSubmitComplaintInteractionSuggestions.reply({
+                                embeds: [messageConfirmEmbed],
+                                components: [row]
+                            })
                         break
                 }
                 break;
