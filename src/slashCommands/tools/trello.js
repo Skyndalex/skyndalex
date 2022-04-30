@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, ContextMenuCommandBuilder} = require('@discordjs/builders');
 const Trello = require("trello");
+const axios = require("axios");
 const {MessageEmbed, Modal, MessageActionRow, MessageButton} = require("discord.js");
-
 module.exports = { // TODO: remove sub commands and rewrite to choices.
     data: new SlashCommandBuilder()
         .setName("trello")
@@ -12,6 +12,12 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                 .setDescription("Trello account authentication")
                 .addStringOption(option => option.setName("key").setDescription("Account key").setRequired(true))
                 .addStringOption(option => option.setName("token").setDescription("Application token").setRequired(true))
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("getlistid")
+                .setDescription("Get your trello list ID")
+                .addStringOption(option => option.setName("name").setDescription("Board name").setRequired(true))
         )
         .addSubcommand(subcommand =>
             subcommand
@@ -90,12 +96,26 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                 .addField(`Description`, `${desc}`, true)
                                 .addField(`List ID`, `${listid}`, true)
                                 .setColor("BLUE")
-                            await modalSubmitComplaintInteractionSuggestions.reply({
+                            await modalSubmitInteraction.reply({
                                 embeds: [messageConfirmEmbed],
                                 components: [row]
                             })
                         break
                 }
+                break;
+            case "getlistid":
+                let boardName = await interaction.options.getString("name");
+
+                await axios.get(`https://trello.com/b/NrfT9JgV/${boardName}.json`)
+                    .then(async function (response) {
+                        let listNames = [];
+
+                        for (let i in response.data.lists) {
+                            listNames.push(`${response.data.lists[i].name} : ${response.data.lists[i].id}`)
+                        }
+
+                        await interaction.reply(`\`\`\`${listNames.join(",\n")}\`\`\``)
+            })
                 break;
         }
     }
