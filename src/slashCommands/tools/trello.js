@@ -44,43 +44,12 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                 customId: `cardAdd-${interaction.id}`,
                                 title: "Create trello card",
                                 components: [
-                                    {
-                                        type: "ACTION_ROW", components: [
-                                            {
-                                                type: "TEXT_INPUT",
-                                                style: "PARAGRAPH",
-                                                customId: "cardAdd_name",
-                                                label: "Card name",
-                                                style: "SHORT",
-                                                placeholder: "Your card name",
-                                                minLength: 2,
-                                                required: true
-                                            }]
-                                    },
-                                    {
-                                        type: "ACTION_ROW", components: [
-                                            {
-                                                type: "TEXT_INPUT",
-                                                style: "PARAGRAPH",
-                                                customId: "cardAdd_desc",
-                                                label: "Card description",
-                                                placeholder: "Your card description",
-                                                minLength: 2,
-                                                required: true
-                                            }]
-                                    },
-                                    {
-                                        type: "ACTION_ROW", components: [
-                                            {
-                                                type: "TEXT_INPUT",
-                                                style: "PARAGRAPH",
-                                                customId: "cardAdd_listid",
-                                                label: "list ID",
-                                                placeholder: "Your list ID (from example: https://trello.com/b/NrfT9JgV/skyndalex-v10.json)",
-                                                minLength: 2,
-                                                required: true
-                                            }]
-                                    },
+                                    { type: "ACTION_ROW", components: [
+                                            { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAdd_name", label: "Card name", style: "SHORT", placeholder: "Your card name", minLength: 2, required: true }]},
+                                    { type: "ACTION_ROW", components: [
+                                            { type: "TEXT_INPUT",  style: "PARAGRAPH", customId: "cardAdd_desc", label: "Card description", placeholder: "Your card description", minLength: 2, required: true }]},
+                                    { type: "ACTION_ROW", components: [
+                                            { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAdd_listid", label: "list ID", placeholder: "Your list ID (from example: https://trello.com/b/NrfT9JgV/skyndalex-v10.json)", minLength: 2, required: true }]},
                                 ]
                             })
 
@@ -100,12 +69,12 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                     .catch(() => null);
                             };
 
-                            const modalSubmitComplaintInteractionSuggestions = await useModal(interaction, modal)
+                            const modalSubmitInteraction = await useModal(interaction, modal)
 
 
-                            let name = modalSubmitComplaintInteractionSuggestions.fields.getTextInputValue("cardAdd_name")
-                            let desc = modalSubmitComplaintInteractionSuggestions.fields.getTextInputValue("cardAdd_desc")
-                            let listid = modalSubmitComplaintInteractionSuggestions.fields.getTextInputValue("cardAdd_listid")
+                            let name = modalSubmitInteraction.fields.getTextInputValue("cardAdd_name")
+                            let desc = modalSubmitInteraction.fields.getTextInputValue("cardAdd_desc")
+                            let listid = modalSubmitInteraction.fields.getTextInputValue("cardAdd_listid")
 
                             let row = new MessageActionRow()
                                 .addComponents(
