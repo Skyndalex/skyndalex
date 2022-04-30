@@ -2,6 +2,7 @@ const { SlashCommandBuilder, ContextMenuCommandBuilder} = require('@discordjs/bu
 const Trello = require("trello");
 const axios = require("axios");
 const {MessageEmbed, Modal, MessageActionRow, MessageButton} = require("discord.js");
+const {response} = require("express");
 module.exports = { // TODO: remove sub commands and rewrite to choices.
     data: new SlashCommandBuilder()
         .setName("trello")
@@ -114,8 +115,11 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                             listNames.push(`${response.data.lists[i].name} : ${response.data.lists[i].id}`)
                         }
 
-                        await interaction.reply(`\`\`\`${listNames.join(",\n")}\`\`\``)
-            })
+                        let embed = new MessageEmbed()
+                            .setDescription(`\`\`\`ansi\n[0;37;45m${listNames.join(",\n")}\`\`\``)
+                            .setColor("GREEN")
+                        await interaction.reply({ embeds: [embed]})
+                    });
                 break;
         }
     }

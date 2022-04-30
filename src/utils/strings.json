@@ -6,6 +6,6 @@
     "NO_PERMISSION_INFO": "You don't have permissions to use this command."
   },
     "trello": {
-      "NOTIFICATION_COMMAND_USE": "```ansi\n\u001B[1;32;40mType <name [cardName]> to choose your trello card name\n\nType <description [cardDescription]> to choose your trello card description```"
+      "NOTIFICATION_COMMAND_USE": "```ansi\n\u001B[1;32;40mType [name [cardName]] to choose your trello card name\n\nType <description [cardDescription]> to choose your trello card description```"
     }
 }
