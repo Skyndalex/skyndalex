@@ -18,7 +18,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
             subcommand
                 .setName("getlistid")
                 .setDescription("Get your trello list ID")
-                .addStringOption(option => option.setName("name").setDescription("Board name").setRequired(true))
+                .addStringOption(option => option.setName("boardid").setDescription("Board ID from url (example: trello.com/b/NrfT9JgV)").setRequired(true))
         )
         .addSubcommand(subcommand =>
             subcommand
@@ -105,9 +105,9 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                 }
                 break;
             case "getlistid":
-                let boardName = await interaction.options.getString("name");
+                let boardID = await interaction.options.getString("boardid");
 
-                await axios.get(`https://trello.com/b/NrfT9JgV/${boardName}.json`)
+                await axios.get(`https://trello.com/b/${boardID}.json`)
                     .then(async function (response) {
                         let listNames = [];
 
