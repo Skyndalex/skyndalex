@@ -29,6 +29,7 @@ exports.run = async (client, interaction) => {
                 }
                 }
             )
+            // manager.addAttachmentToCard("", "", "")
             break;
 
     }
