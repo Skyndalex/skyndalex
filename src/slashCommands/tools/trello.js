@@ -22,6 +22,12 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
         )
         .addSubcommand(subcommand =>
             subcommand
+                .setName("getcardids")
+                .setDescription("Get card IDs from list ID")
+                .addStringOption(option => option.setName("listid").setDescription("List ID").setRequired(true))
+        )
+        .addSubcommand(subcommand =>
+            subcommand
                 .setName("options")
                 .setDescription("Trello settings")
                 .addStringOption(option => option.setName("add").setDescription("Add options")
@@ -60,65 +66,65 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
 
                 await interaction.reply({ content: `Your key and token successfully added to database.\n\nToken: ${interaction.options.getString("token")}\nKey: ${interaction.options.getString("key")}`, ephemeral: true})
                 break;
-            case "set":
+            case "options":
                 const add = await interaction.options.getString("add");
 
                 switch (add) {
                     case "add_card_choice":
-                            const modal = new Modal({
-                                customId: `cardAdd-${interaction.id}`,
-                                title: "Create trello card",
-                                components: [
-                                    { type: "ACTION_ROW", components: [
-                                            { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAdd_name", label: "Card name", style: "SHORT", placeholder: "Your card name", minLength: 2, required: true }]},
-                                    { type: "ACTION_ROW", components: [
-                                            { type: "TEXT_INPUT",  style: "PARAGRAPH", customId: "cardAdd_desc", label: "Card description", placeholder: "Your card description", minLength: 2, required: true }]},
-                                    { type: "ACTION_ROW", components: [
-                                            { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAdd_listid", label: "list ID", placeholder: "Your list ID (from example: https://trello.com/b/NrfT9JgV/skyndalex-v10.json)", minLength: 2, required: true }]},
-                                ]
-                            })
+                        const modal = new Modal({
+                            customId: `cardAdd-${interaction.id}`,
+                            title: "Create trello card",
+                            components: [
+                                { type: "ACTION_ROW", components: [
+                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAdd_name", label: "Card name", style: "SHORT", placeholder: "Your card name", minLength: 2, required: true }]},
+                                { type: "ACTION_ROW", components: [
+                                        { type: "TEXT_INPUT",  style: "PARAGRAPH", customId: "cardAdd_desc", label: "Card description", placeholder: "Your card description", minLength: 2, required: true }]},
+                                { type: "ACTION_ROW", components: [
+                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAdd_listid", label: "list ID", placeholder: "Your list ID (from example: https://trello.com/b/NrfT9JgV/skyndalex-v10.json)", minLength: 2, required: true }]},
+                            ]
+                        })
 
-                            const useModal = async (
-                                sourceInteraction,
-                                cardAddModal,
-                                timeout = 2 * 60 * 1000,
-                            ) => {
-                                await sourceInteraction.showModal(cardAddModal);
+                        const useModal = async (
+                            sourceInteraction,
+                            cardAddModal,
+                            timeout = 2 * 60 * 1000,
+                        ) => {
+                            await sourceInteraction.showModal(cardAddModal);
 
-                                return sourceInteraction
-                                    .awaitModalSubmit({
-                                        time: timeout,
-                                        filter: (filterInteraction) =>
-                                            filterInteraction.customId === `cardAdd-${sourceInteraction.id}`,
-                                    })
-                                    .catch(() => null);
-                            };
+                            return sourceInteraction
+                                .awaitModalSubmit({
+                                    time: timeout,
+                                    filter: (filterInteraction) =>
+                                        filterInteraction.customId === `cardAdd-${sourceInteraction.id}`,
+                                })
+                                .catch(() => null);
+                        };
 
-                            const modalSubmitInteraction = await useModal(interaction, modal)
+                        const modalSubmitInteraction = await useModal(interaction, modal)
 
 
-                            let name = modalSubmitInteraction.fields.getTextInputValue("cardAdd_name")
-                            let desc = modalSubmitInteraction.fields.getTextInputValue("cardAdd_desc")
-                            let listid = modalSubmitInteraction.fields.getTextInputValue("cardAdd_listid")
+                        let name = modalSubmitInteraction.fields.getTextInputValue("cardAdd_name")
+                        let desc = modalSubmitInteraction.fields.getTextInputValue("cardAdd_desc")
+                        let listid = modalSubmitInteraction.fields.getTextInputValue("cardAdd_listid")
 
-                            let row = new MessageActionRow()
-                                .addComponents(
-                                    new MessageButton()
-                                        .setCustomId("trello_add_card_confirm")
-                                        .setStyle("SUCCESS")
-                                        .setLabel("Confirm")
-                                )
-                            let messageConfirmEmbed = new MessageEmbed()
-                                .setTitle("Are you sure?")
-                                .setDescription("You provided these values:")
-                                .addField(`Name`, `${name}`, true)
-                                .addField(`Description`, `${desc}`, true)
-                                .addField(`List ID`, `${listid}`, true)
-                                .setColor("BLUE")
-                            await modalSubmitInteraction.reply({
-                                embeds: [messageConfirmEmbed],
-                                components: [row]
-                            })
+                        let row = new MessageActionRow()
+                            .addComponents(
+                                new MessageButton()
+                                    .setCustomId("trello_add_card_confirm")
+                                    .setStyle("SUCCESS")
+                                    .setLabel("Confirm")
+                            )
+                        let messageConfirmEmbed = new MessageEmbed()
+                            .setTitle("Are you sure?")
+                            .setDescription("You provided these values:")
+                            .addField(`Name`, `${name}`, true)
+                            .addField(`Description`, `${desc}`, true)
+                            .addField(`List ID`, `${listid}`, true)
+                            .setColor("BLUE")
+                        await modalSubmitInteraction.reply({
+                            embeds: [messageConfirmEmbed],
+                            components: [row]
+                        })
                         break
                     case "add_attach_to_card":
                         const addAttachToCardModal = new Modal({
@@ -128,7 +134,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                 { type: "ACTION_ROW", components: [
                                         { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "cardAttachAdd_id", label: "Card ID", style: "SHORT", placeholder: "Your card ID", minLength: 2, required: true }]},
                                 { type: "ACTION_ROW", components: [
-                                        { type: "TEXT_INPUT",  style: "PARAGRAPH", customId: "cardAttachAdd_url", label: "Card URL", placeholder: "Your card URL", minLength: 2, required: true, style: "SHORT"}]},
+                                        { type: "TEXT_INPUT",  style: "PARAGRAPH", customId: "cardAttachAdd_url", label: "Image URL", placeholder: "Your image URL", minLength: 2, required: true, style: "SHORT"}]},
                             ]
                         })
 
@@ -148,7 +154,27 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                 .catch(() => null);
                         };
 
-                        const modalSubmitInteraction2 = await addAttachToCard(interaction, addAttachToCardModal)
+                        const modalSubmitInteraction2 = await addAttachToCard(interaction, addAttachToCardModal) // TODO: name it (modalSubmitInteraction2)
+
+                        let cardID = modalSubmitInteraction2.fields.getTextInputValue("cardAttachAdd_id");
+                        let imageURL = modalSubmitInteraction2.fields.getTextInputValue("cardAttachAdd_url");
+
+                        let attachAddToCardRowConfirm = new MessageActionRow()
+                            .addComponents(
+                                new MessageButton()
+                                    .setCustomId("trello_add_attach_to_card_confirm")
+                                    .setStyle("SUCCESS")
+                                    .setLabel("Confirm")
+                            )
+
+                        let messageConfirmEmbed2 = new MessageEmbed() // TODO: name it (messageConfirmEmbed2)
+                            .setTitle("Are you sure?")
+                            .setDescription("You provided these values:")
+                            .addField(`Card ID`, `${cardID}`)
+                            .addField(`Img URL`, `${imageURL}`)
+                            .setImage(imageURL)
+                            .setColor("BLUE")
+                        await modalSubmitInteraction2.reply({ embeds: [messageConfirmEmbed2], components: [attachAddToCardRowConfirm] })
                         break;
                 }
                 break;
@@ -168,6 +194,25 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                             .setColor("GREEN")
                         await interaction.reply({ embeds: [embed]})
                     });
+                break;
+            case "getcardids":
+                let boardID2 = interaction.options.getString("listid");
+
+                await axios.get(`https://trello.com/b/${boardID2}.json`)
+                    .then(async function (response) {
+                        let list = [];
+
+                        for (let x in response.data.cards) {
+                            list.push(`${response.data.cards[x].name} : ${response.data.cards[x].id}`)
+                        }
+
+                        let embed = new MessageEmbed()
+                            .setAuthor({ name: `Found ${list.length} cards.`})
+                            .setTitle("\`Card NAME : Card ID\`")
+                            .setDescription(`\`\`\`ansi\n[0;34m${list.join(",\n")}\`\`\``)
+                            .setColor("YELLOW")
+                        await interaction.reply({ embeds: [embed] })
+                    })
                 break;
         }
     }
