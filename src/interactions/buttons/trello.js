@@ -49,5 +49,27 @@ exports.run = async (client, interaction) => {
                     }
                 })
             break;
+        case "board_add_confirm":
+            if (interaction.message.interaction.user.id !== interaction.user.id) return interaction.reply({ content: "It's not your button!", ephemeral: true })
+
+            let boardAddString = interaction.message.embeds[0];
+
+            let bName = boardAddString.fields[0].value;
+            let organizationID = boardAddString.fields[1].value;
+            let description = boardAddString.fields[2].value;
+
+            await manager.addBoard(bName, description, organizationID,
+                async function (error, addBoard) {
+                if (error) {
+                    interaction.reply(`\`\`\`${error}\`\`\``)
+                } else {
+                    let embedSuccessful = new MessageEmbed()
+                        .setDescription(`\`[${addBoard.name}]\` Successfully added board to your account`)
+                        .setColor("DARK_BUT_NOT_BLACK")
+                    await interaction.reply({ embeds: [embedSuccessful] })
+                }
+
+            })
+            break;
     }
 }

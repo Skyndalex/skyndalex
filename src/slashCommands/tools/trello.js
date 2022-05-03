@@ -52,7 +52,12 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                         { name: 'addWebhook', value: 'add_webhook' },
                         { name: 'copyBoard', value: 'copy_board' },
                         { name: 'setCustomFieldOnCard', value: 'set_custom_field_on_board' }
-                    )),
+                    ))
+                .addStringOption(option => option.setName("get").setDescription("Get data about your trello settings")
+                    .addChoices(
+                        { name: "getListIDs", value: "get_list_ids" },
+                        { name: "getCardIDs", value: "get_card_ids"}
+                    ))
         ),
 
     async execute(client, interaction) {
@@ -176,43 +181,100 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                             .setColor("BLUE")
                         await modalSubmitInteraction2.reply({ embeds: [messageConfirmEmbed2], components: [attachAddToCardRowConfirm] })
                         break;
+                    case "add_board":
+                        const addBoardModal = new Modal({
+                            customId: `addBoard-${interaction.id}`,
+                            title: "Add new board",
+                            components: [
+                                { type: "ACTION_ROW", components: [
+                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "addBoard_name", label: "Board name", style: "SHORT", placeholder: "Board name", minLength: 2, required: true, style: "SHORT" }]},
+                                { type: "ACTION_ROW", components: [
+                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "addBoard_organizationID", label: "Organization ID", placeholder: "Board organization ID", minLength: 2, style: "SHORT" }]},
+                                { type: "ACTION_ROW", components: [
+                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "addBoard_description", label: "Board description", placeholder: "Board description", minLength: 2 }]},
+                            ]
+                        })
+
+                        const addBoard = async (
+                            sourceInteraction,
+                            addBoard,
+                            timeout = 2 * 60 * 1000,
+                        ) => {
+                            await sourceInteraction.showModal(addBoard);
+
+                            return sourceInteraction
+                                .awaitModalSubmit({
+                                    time: timeout,
+                                    filter: (filterInteraction) =>
+                                        filterInteraction.customId === `addBoard-${sourceInteraction.id}`,
+                                })
+                                .catch(() => null);
+                        };
+
+                        const modalSubmitInteraction3 = await addBoard(interaction, addBoardModal) // TODO: name it (modalSubmitInteraction2)
+
+                        let boardName = modalSubmitInteraction3.fields.getTextInputValue("addBoard_name");
+                        let organizationID = modalSubmitInteraction3.fields.getTextInputValue("addBoard_organizationID");
+                        let boardDescription = modalSubmitInteraction3.fields.getTextInputValue("addBoard_description");
+
+                        let boardAddConfirm = new MessageActionRow()
+                            .addComponents(
+                                new MessageButton()
+                                    .setCustomId("board_add_confirm")
+                                    .setStyle("SUCCESS")
+                                    .setLabel("Confirm")
+                            )
+
+                        let messageConfirmEmbed3 = new MessageEmbed() // TODO: name it (messageConfirmEmbed3)
+                            .setTitle("Are you sure?")
+                            .setDescription("You provided these values:")
+                            .addField(`Board name`, `${boardName}`)
+                            .addField(`Organization ID`, `${organizationID || "None"}`)
+                            .addField(`Board description`, `${boardDescription || "None"}`)
+                            .setColor("BLUE")
+                        await modalSubmitInteraction3.reply({ embeds: [messageConfirmEmbed3], components: [boardAddConfirm] })
+                        break;
                 }
-                break;
-            case "getlistid":
-                let boardID = await interaction.options.getString("boardid");
+                const get = await interaction.options.getString("get");
 
-                await axios.get(`https://trello.com/b/${boardID}.json`)
-                    .then(async function (response) {
-                        let listNames = [];
+                switch (get) {
+                    case "get_list_ids":
+                        let boardID = await interaction.options.getString("boardid");
 
-                        for (let i in response.data.lists) {
-                            listNames.push(`${response.data.lists[i].name} : ${response.data.lists[i].id}`)
-                        }
+                        await axios.get(`https://trello.com/b/${boardID}.json`)
+                            .then(async function (response) {
+                                let listNames = [];
 
-                        let embed = new MessageEmbed()
-                            .setDescription(`\`\`\`ansi\n[0;37;45m${listNames.join(",\n")}\`\`\``)
-                            .setColor("GREEN")
-                        await interaction.reply({ embeds: [embed]})
-                    });
-                break;
-            case "getcardids":
-                let boardID2 = interaction.options.getString("listid");
+                                for (let i in response.data.lists) {
+                                    listNames.push(`${response.data.lists[i].name} : ${response.data.lists[i].id}`)
+                                }
 
-                await axios.get(`https://trello.com/b/${boardID2}.json`)
-                    .then(async function (response) {
-                        let list = [];
+                                let embed = new MessageEmbed()
+                                    .setDescription(`\`\`\`ansi\n[0;37;45m${listNames.join(",\n")}\`\`\``)
+                                    .setColor("GREEN")
+                                await interaction.reply({ embeds: [embed]})
+                            });
+                        break;
+                    case "get_card_ids":
+                        let boardID2 = interaction.options.getString("listid");
 
-                        for (let x in response.data.cards) {
-                            list.push(`${response.data.cards[x].name} : ${response.data.cards[x].id}`)
-                        }
+                        await axios.get(`https://trello.com/b/${boardID2}.json`)
+                            .then(async function (response) {
+                                let list = [];
 
-                        let embed = new MessageEmbed()
-                            .setAuthor({ name: `Found ${list.length} cards.`})
-                            .setTitle("\`Card NAME : Card ID\`")
-                            .setDescription(`\`\`\`ansi\n[0;34m${list.join(",\n")}\`\`\``)
-                            .setColor("YELLOW")
-                        await interaction.reply({ embeds: [embed] })
-                    })
+                                for (let x in response.data.cards) {
+                                    list.push(`${response.data.cards[x].name} : ${response.data.cards[x].id}`)
+                                }
+
+                                let embed = new MessageEmbed()
+                                    .setAuthor({ name: `Found ${list.length} cards.`})
+                                    .setTitle("\`Card NAME : Card ID\`")
+                                    .setDescription(`\`\`\`ansi\n[0;34m${list.join(",\n")}\`\`\``)
+                                    .setColor("YELLOW")
+                                await interaction.reply({ embeds: [embed] })
+                            })
+                        break;
+                }
                 break;
         }
     }
