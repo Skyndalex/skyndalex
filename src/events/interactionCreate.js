@@ -20,23 +20,7 @@ module.exports = async (client, interaction) => {
     if (cooldown.has(interaction.user.id)) {
         await interaction.reply({ content: 'wait 3 sec before using command again', ephemeral: true });
     } else {
-        try {
-            await slashCommand.execute(client, interaction);
-        } catch (error) {
-            let errorEmbedChannel = new MessageEmbed()
-                .setDescription(`\`\`\`ERROR\`\`\`\nServer ID: ${interaction.guild.id} (${interaction.guild.name})\nError:\n\`\`\`${error || 'None'}\`\`\``)
-                .setColor('DARK_BUT_NOT_BLACK')
-                .setTimestamp();
-            if (error) client.channels.cache.get('959177004152934431').send({ embeds: [errorEmbedChannel] });
-
-            let errorEmbed = new MessageEmbed()
-                .setDescription(`\`\`\`ERROR\`\`\`\n[\`support\`](https://discord.gg/WEas4WFjse)\nBłąd:\n\`\`\`${error || 'none.'}\`\`\``)
-                .setColor('DARK_BUT_NOT_BLACK')
-                .setTimestamp();
-            if (error) interaction.reply({ embeds: [errorEmbed] });
-
-            console.error(error)
-        }
+        await slashCommand.execute(client, interaction);
     }
     cooldown.add(interaction.user.id);
     setTimeout(() => {

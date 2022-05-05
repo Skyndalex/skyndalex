@@ -239,7 +239,34 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
 
                 switch (get) {
                     case "get_list_ids":
-                        let boardID = await interaction.options.getString("boardid");
+                        const getListIDsModal = new Modal({ // TODO: add modals to client
+                            customId: `getListIDsModal-${interaction.id}`,
+                            title: "Get list IDs",
+                            components: [
+                                { type: "ACTION_ROW", components: [
+                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "board_id", label: "Board ID", placeholder: "Board ID", style: "SHORT", maxLength: 256, minLength: 2 },
+                                    ]},
+                            ]
+                        })
+                        const useModal = async (
+                            sourceInteraction,
+                            getListIDsModal,
+                            timeout = 2 * 60 * 1000,
+                        ) => {
+                            await sourceInteraction.showModal(getListIDsModal);
+
+                            return sourceInteraction
+                                .awaitModalSubmit({
+                                    time: timeout,
+                                    filter: (filterInteraction) =>
+                                        filterInteraction.customId === `getListIDsModal-${sourceInteraction.id}`,
+                                })
+                                .catch(() => null);
+                        };
+                        const submitInteraction = await useModal(interaction, getListIDsModal)
+
+
+                        let boardID = submitInteraction.fields.getTextInputValue("board_id")
 
                         await axios.get(`https://trello.com/b/${boardID}.json`)
                             .then(async function (response) {
@@ -252,26 +279,53 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                 let embed = new MessageEmbed()
                                     .setDescription(`\`\`\`ansi\n[0;37;45m${listNames.join(",\n")}\`\`\``)
                                     .setColor("GREEN")
-                                await interaction.reply({ embeds: [embed]})
+                                await submitInteraction.reply({ embeds: [embed]})
                             });
                         break;
                     case "get_card_ids":
-                        let boardID2 = interaction.options.getString("listid");
+                        const getCardIDsModal = new Modal({ // TODO: add modals to client
+                            customId: `getCardIDsModal-${interaction.id}`,
+                            title: "Get card IDs",
+                            components: [
+                                { type: "ACTION_ROW", components: [
+                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "board_id", label: "Board ID", placeholder: "Board ID", style: "SHORT", maxLength: 256, minLength: 2 },
+                                    ]},
+                            ]
+                        })
+                        const getCardIDs = async (
+                            sourceInteraction,
+                            getCardIDsModal,
+                            timeout = 2 * 60 * 1000,
+                        ) => {
+                            await sourceInteraction.showModal(getCardIDsModal);
+
+                            return sourceInteraction
+                                .awaitModalSubmit({
+                                    time: timeout,
+                                    filter: (filterInteraction) =>
+                                        filterInteraction.customId === `getCardIDsModal-${sourceInteraction.id}`,
+                                })
+                                .catch(() => null);
+                        };
+                        const submitInteraction2 = await getCardIDs(interaction, getCardIDsModal)
+
+                        let boardID2 = submitInteraction2.fields.getTextInputValue("board_id")
 
                         await axios.get(`https://trello.com/b/${boardID2}.json`)
                             .then(async function (response) {
                                 let list = [];
-
                                 for (let x in response.data.cards) {
                                     list.push(`${response.data.cards[x].name} : ${response.data.cards[x].id}`)
                                 }
+
+                                if (list.length > 2000) return submitInteraction2.reply({ content: `\`\`\`ansi\n[0;31;40mYour message is too long, so I've moved the reply elsewhere.\`\`\`` });
 
                                 let embed = new MessageEmbed()
                                     .setAuthor({ name: `Found ${list.length} cards.`})
                                     .setTitle("\`Card NAME : Card ID\`")
                                     .setDescription(`\`\`\`ansi\n[0;34m${list.join(",\n")}\`\`\``)
                                     .setColor("YELLOW")
-                                await interaction.reply({ embeds: [embed] })
+                                await submitInteraction2.reply({ embeds: [embed] })
                             })
                         break;
                 }
