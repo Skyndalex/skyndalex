@@ -9,11 +9,5 @@ class Base extends Client {
         this.site = 'https://skyndalex.xyz';
         this.strings = strings;
     }
-    createModal (customId, title, components) {
-        const modal = new Modal({
-            customId: customId,
-            title: title
-        })
-    }
 }
 module.exports = Base;

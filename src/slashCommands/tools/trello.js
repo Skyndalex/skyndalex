@@ -307,7 +307,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                 }
 
                                 if (list.length > 2000) {
-                                    hastebin.createPaste(`Card name : Card ID\nBoard name: ${response.data.name}\nDescription: ${response.data.desc}\n\n${list.join(",\n")}`, {
+                                    hastebin.createPaste(`(CTRL + F to search)\nCard name : Card ID\nBoard name: ${response.data.name}\nDescription: ${response.data.desc}\n\n${list.join(",\n")}`, {
                                         raw: true,
                                         contentType: 'text/plain',
                                         server: 'https://hastebin.com'

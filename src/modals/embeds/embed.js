@@ -1,5 +1,5 @@
 const { Modal } = require("discord.js");
-module.exports = async (client, interaction) => {
+exports.run = async (client, interaction) => {
     const testModal = new Modal({ // TODO: add modals to client
         customId: `testModal-${interaction.id}`,
         title: "docs.skyndalex.xyz/builders",
@@ -37,5 +37,5 @@ module.exports = async (client, interaction) => {
             })
             .catch(() => null);
     };
-    const submitInteraction  = await useModal(interaction, testModal)
+    const { submitInteraction }  = await useModal(interaction, testModal)
 }
