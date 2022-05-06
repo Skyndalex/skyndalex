@@ -271,61 +271,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                             });
                         break;
                     case "get_card_ids":
-                        const getCardIDsModal = new Modal({ // TODO: add modals to client
-                            customId: `getCardIDsModal-${interaction.id}`,
-                            title: "Get card IDs",
-                            components: [
-                                { type: "ACTION_ROW", components: [
-                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "board_id", label: "Board ID", placeholder: "Board ID", style: "SHORT", maxLength: 256, minLength: 2 },
-                                    ]},
-                            ]
-                        })
-                        const getCardIDs = async (
-                            sourceInteraction,
-                            getCardIDsModal,
-                            timeout = 2 * 60 * 1000,
-                        ) => {
-                            await sourceInteraction.showModal(getCardIDsModal);
-
-                            return sourceInteraction
-                                .awaitModalSubmit({
-                                    time: timeout,
-                                    filter: (filterInteraction) =>
-                                        filterInteraction.customId === `getCardIDsModal-${sourceInteraction.id}`,
-                                })
-                                .catch(() => null);
-                        };
-                        const submitInteraction2 = await getCardIDs(interaction, getCardIDsModal)
-
-                        let boardID2 = submitInteraction2.fields.getTextInputValue("board_id")
-
-                        await axios.get(`https://trello.com/b/${boardID2}.json`)
-                            .then(async function (response) {
-                                let list = [];
-                                for (let x in response.data.cards) {
-                                    list.push(`${response.data.cards[x].name} : ${response.data.cards[x].id}`)
-                                }
-
-                                if (list.length > 2000) {
-                                    hastebin.createPaste(`(CTRL + F to search)\nCard name : Card ID\nBoard name: ${response.data.name}\nDescription: ${response.data.desc}\n\n${list.join(",\n")}`, {
-                                        raw: true,
-                                        contentType: 'text/plain',
-                                        server: 'https://hastebin.com'
-                                    }, {})
-                                        .then(async function (urlToPaste) {
-                                            submitInteraction2.channel.send({content: `\`\`\`ansi\n[0;31mYour message is too long, so I've moved the reply elsewhere.\nHaste: ${urlToPaste}\`\`\``});
-                                        })
-                                } else {
-                                    if (list.length < 2000 ) {
-                                        let embed = new MessageEmbed()
-                                            .setAuthor({ name: `Found ${list.length} cards.`})
-                                            .setTitle("\`Card NAME : Card ID\`")
-                                            .setDescription(`\`\`\`ansi\n[0;34m${list.join(",\n")}\`\`\``)
-                                            .setColor("YELLOW")
-                                        submitInteraction2.reply({ embeds: [embed] })
-                                    }
-                                }
-                            })
+                        require("../../modals/trello/getCardIDs.js").run(client, interaction)
                         break;
                 }
                 break;

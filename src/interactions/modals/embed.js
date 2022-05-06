@@ -1,5 +1,6 @@
 const {MessageEmbed} = require("discord.js");
 exports.run = (client, interaction) => {
+    /*
     if (!interaction.isModalSubmit()) return;
 
     let embed = new MessageEmbed()
@@ -9,4 +10,5 @@ exports.run = (client, interaction) => {
     if (interaction.fields.getTextInputValue("footer")) embed.setFooter({ text: interaction.fields.getTextInputValue("footer")})
     if (interaction.fields.getTextInputValue("author")) embed.setAuthor({ name: interaction.fields.getTextInputValue("author")})
     return interaction.reply({ embeds: [embed]})
+     */
 }
