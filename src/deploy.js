@@ -9,6 +9,7 @@ const guildId = '943884836169482260';
 const commands = [];
 const rest = new REST({ version: '9' }).setToken(token);
 
+
 (async () => {
     try {
         const commandFolders = fs.readdirSync('./slashCommands');
@@ -20,7 +21,7 @@ const rest = new REST({ version: '9' }).setToken(token);
                 commands.push(command.data.toJSON());
             }
         }
-        (async () => {
+        await (async () => {
             try {
                 console.log('Loading (/) commands.');
 

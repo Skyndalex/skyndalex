@@ -16,6 +16,7 @@ client.commands = new Collection();
 
 global.r = require('rethinkdb');
 global.pc = require('picocolors');
+global.hastebin = require("hastebin");
 
 require("./sites/home/main").run(client);
 

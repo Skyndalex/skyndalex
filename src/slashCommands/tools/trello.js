@@ -16,18 +16,6 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
         )
         .addSubcommand(subcommand =>
             subcommand
-                .setName("getlistid")
-                .setDescription("Get your trello list ID")
-                .addStringOption(option => option.setName("boardid").setDescription("Board ID from url (example: trello.com/b/NrfT9JgV)").setRequired(true))
-        )
-        .addSubcommand(subcommand =>
-            subcommand
-                .setName("getcardids")
-                .setDescription("Get card IDs from list ID")
-                .addStringOption(option => option.setName("listid").setDescription("List ID").setRequired(true))
-        )
-        .addSubcommand(subcommand =>
-            subcommand
                 .setName("options")
                 .setDescription("Trello settings")
                 .addStringOption(option => option.setName("add").setDescription("Add options")
@@ -318,14 +306,25 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                     list.push(`${response.data.cards[x].name} : ${response.data.cards[x].id}`)
                                 }
 
-                                if (list.length > 2000) return submitInteraction2.reply({ content: `\`\`\`ansi\n[0;31;40mYour message is too long, so I've moved the reply elsewhere.\`\`\`` });
-
-                                let embed = new MessageEmbed()
-                                    .setAuthor({ name: `Found ${list.length} cards.`})
-                                    .setTitle("\`Card NAME : Card ID\`")
-                                    .setDescription(`\`\`\`ansi\n[0;34m${list.join(",\n")}\`\`\``)
-                                    .setColor("YELLOW")
-                                await submitInteraction2.reply({ embeds: [embed] })
+                                if (list.length > 2000) {
+                                    hastebin.createPaste(`Card name : Card ID\nBoard name: ${response.data.name}\nDescription: ${response.data.desc}\n\n${list.join(",\n")}`, {
+                                        raw: true,
+                                        contentType: 'text/plain',
+                                        server: 'https://hastebin.com'
+                                    }, {})
+                                        .then(async function (urlToPaste) {
+                                            submitInteraction2.channel.send({content: `\`\`\`ansi\n[0;31mYour message is too long, so I've moved the reply elsewhere.\nHaste: ${urlToPaste}\`\`\``});
+                                        })
+                                } else {
+                                    if (list.length < 2000 ) {
+                                        let embed = new MessageEmbed()
+                                            .setAuthor({ name: `Found ${list.length} cards.`})
+                                            .setTitle("\`Card NAME : Card ID\`")
+                                            .setDescription(`\`\`\`ansi\n[0;34m${list.join(",\n")}\`\`\``)
+                                            .setColor("YELLOW")
+                                        submitInteraction2.reply({ embeds: [embed] })
+                                    }
+                                }
                             })
                         break;
                 }
