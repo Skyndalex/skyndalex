@@ -1,9 +1,9 @@
 const axios = require("axios");
 const {MessageEmbed} = require("discord.js");
 exports.run = async (client, interaction) => {
-    if (!interaction.isModalSubmit()) return;
+    if (!interaction.isModalSubmit()) return
 
-    if (interaction.customId !== `getCardIDsModal-${interaction.id}`) {
+    if (interaction.customId !== `getCardIDsModal-${interaction.id}`) return
 
         let boardID2 = interaction.fields.getTextInputValue("boardId")
 
@@ -34,5 +34,4 @@ exports.run = async (client, interaction) => {
                     }
                 }
             })
-    }
 }
