@@ -1,8 +1,9 @@
 const axios = require("axios");
 const {MessageEmbed} = require("discord.js");
 exports.run = async (client, interaction) => {
-    if (interaction.customId === `getCardIDsModal-${interaction.id}`) {
-        if (!interaction.isModalSubmit()) return;
+    if (!interaction.isModalSubmit()) return;
+
+    if (interaction.customId !== `getCardIDsModal-${interaction.id}`) {
 
         let boardID2 = interaction.fields.getTextInputValue("boardId")
 
@@ -23,13 +24,13 @@ exports.run = async (client, interaction) => {
                             interaction.channel.send({content: `\`\`\`ansi\n[0;31mYour message is too long, so I've moved the reply elsewhere.\nHaste: ${urlToPaste}\`\`\``});
                         })
                 } else {
-                    if (list.length < 2000 ) {
+                    if (list.length < 2000) {
                         let embed = new MessageEmbed()
-                            .setAuthor({ name: `Found ${list.length} cards.`})
+                            .setAuthor({name: `Found ${list.length} cards.`})
                             .setTitle("\`Card NAME : Card ID\`")
                             .setDescription(`\`\`\`ansi\n[0;34m${list.join(",\n")}\`\`\``)
                             .setColor("YELLOW")
-                        interaction.reply({ embeds: [embed] })
+                        interaction.reply({embeds: [embed]})
                     }
                 }
             })
