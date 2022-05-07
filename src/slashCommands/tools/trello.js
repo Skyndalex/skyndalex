@@ -271,7 +271,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                             });
                         break;
                     case "get_card_ids":
-                        require("../../modals/trello/getCardIDs.js").run(client, interaction)
+                        await require("../../modals/trello/getCardIDs.js").run(client, interaction)
                         break;
                 }
                 break;

@@ -5,7 +5,7 @@ exports.run = async (client, interaction) => {
         title: "Get card IDs",
         components: [
             { type: "ACTION_ROW", components: [
-                    { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "board_id", label: "Board ID", placeholder: "Board ID", style: "SHORT", maxLength: 256, minLength: 2 },
+                    { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "boardId", label: "Board ID", placeholder: "Board ID", style: "SHORT", maxLength: 256, minLength: 2 },
                 ]},
         ]
     })

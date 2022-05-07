@@ -4,6 +4,6 @@ module.exports = {
         .setName("embed")
         .setDescription("Embed builder"),
     async execute(client, interaction) {
-        require("../../modals/embeds/embed").run(client, interaction)
+        await require("../../modals/embeds/embed").run(client, interaction)
     }
 }
