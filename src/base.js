@@ -9,5 +9,23 @@ class Base extends Client {
         this.site = 'https://skyndalex.xyz';
         this.strings = strings;
     }
+    useModal () {
+        const useModal = async (
+            sourceInteraction,
+            modal,
+            timeout = 2 * 60 * 1000,
+        ) => {
+            await sourceInteraction.showModal(modal)
+
+            return sourceInteraction
+                .awaitModalSubmit({
+                    time: timeout,
+                    filter: (filterInteraction) =>
+                        filterInteraction.customId === `builderModal`,
+                })
+                .catch(() => null);
+        }
+
+    }
 }
 module.exports = Base;
