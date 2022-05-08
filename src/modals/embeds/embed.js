@@ -1,7 +1,7 @@
 const { Modal } = require("discord.js");
 exports.run = async (client, interaction) => {
     const testModal = new Modal({ // TODO: add modals to client
-        customId: `testModal-${interaction.id}`,
+        customId: `builderModal`,
         title: "docs.skyndalex.xyz/builders",
         components: [
             { type: "ACTION_ROW", components: [
@@ -33,7 +33,7 @@ exports.run = async (client, interaction) => {
             .awaitModalSubmit({
                 time: timeout,
                 filter: (filterInteraction) =>
-                    filterInteraction.customId === `testModal-${sourceInteraction.id}`,
+                    filterInteraction.customId === `builderModal`,
             })
             .catch(() => null);
     };

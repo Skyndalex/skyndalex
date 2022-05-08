@@ -1,7 +1,7 @@
 const {Modal} = require("discord.js");
 exports.run = async (client, interaction) => {
     const getCardIDsModal = new Modal({ // TODO: add modals to client
-        customId: `getCardIDsModal-${interaction.id}`,
+        customId: `getCardIDsModal`,
         title: "Get card IDs",
         components: [
             { type: "ACTION_ROW", components: [
@@ -20,7 +20,7 @@ exports.run = async (client, interaction) => {
             .awaitModalSubmit({
                 time: timeout,
                 filter: (filterInteraction) =>
-                    filterInteraction.customId === `getCardIDsModal-${sourceInteraction.id}`,
+                    filterInteraction.customId === `getCardIDsModal`,
             })
             .catch(() => null);
     };

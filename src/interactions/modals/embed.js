@@ -2,7 +2,7 @@ const {MessageEmbed} = require("discord.js");
 exports.run = async (client, interaction) => {
     if (!interaction.isModalSubmit()) return;
 
-    if (interaction.customId !==`testModal-${interaction.id}`) return
+    if (interaction.customId !==`builderModal`) return
 
     let embed = new MessageEmbed()
     if (interaction.fields.getTextInputValue("title")) embed.setTitle(interaction.fields.getTextInputValue("title"))

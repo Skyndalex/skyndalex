@@ -3,7 +3,7 @@ const {MessageEmbed} = require("discord.js");
 exports.run = async (client, interaction) => {
     if (!interaction.isModalSubmit()) return
 
-    if (interaction.customId !== `getCardIDsModal-${interaction.id}`) return
+    if (interaction.customId !== `getCardIDsModal`) return
 
         let boardID2 = interaction.fields.getTextInputValue("boardId")
 
@@ -15,6 +15,7 @@ exports.run = async (client, interaction) => {
                 }
 
                 if (list.length > 2000) {
+
                     hastebin.createPaste(`(CTRL + F to search)\nCard name : Card ID\nBoard name: ${response.data.name}\nDescription: ${response.data.desc}\n\n${list.join(",\n")}`, {
                         raw: true,
                         contentType: 'text/plain',
