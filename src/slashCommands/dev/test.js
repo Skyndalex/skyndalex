@@ -9,20 +9,19 @@ module.exports = {
 
     async execute(client, interaction) {
         const getCardIDsModal = new Modal({ // TODO: add modals to client
-            customId: `getCardIDsModal`,
+            customId: `testmodal`,
             title: "Get card IDs",
             components: [
                 { type: "ACTION_ROW", components: [
-                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "boardId", label: "Board ID", placeholder: "Board ID", style: "SHORT", maxLength: 256, minLength: 2 },
+                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "test", label: "Board ID", placeholder: "Board ID", style: "SHORT", maxLength: 256, minLength: 2 },
                     ]},
             ]
         })
 
-        await showModal(interaction, getCardIDsModal, "getCardIDsModal", 2 * 60 * 1000)
-        await useModal(interaction, getCardIDsModal)
+        let modal = await showModal(interaction, getCardIDsModal, "testmodal", 2 * 60 * 1000)
 
-        if (interaction.fields.getTextInputValue("boardId")) {
-            interaction.reply(`\`${interaction.fields.getTextInputValue("boardId")}`)
+        if (modal.fields.getTextInputValue("test")) {
+            modal.reply(`\`${modal.fields.getTextInputValue("test")}\``)
         }
 
     }

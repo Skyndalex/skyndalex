@@ -9,6 +9,3 @@ exports.showModal = async (sourceInteraction, modal, customId,  timeout) => {
         })
         .catch(() => null);
 }
-exports.useModal = async (interaction, modal) => {
-    const submitInteraction = await useModal(interaction, modal)
-}
