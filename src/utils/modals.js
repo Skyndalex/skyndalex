@@ -1,6 +1,14 @@
-exports.show = (sourceInteraction, modal, timeout = 2 * 60 * 1000) => {
+exports.showModal = async (sourceInteraction, modal, customId,  timeout) => {
+    await sourceInteraction.showModal(modal);
 
+    return sourceInteraction
+        .awaitModalSubmit({
+            time: timeout,
+            filter: (filterInteraction) =>
+                filterInteraction.customId === customId,
+        })
+        .catch(() => null);
 }
-exports.use = () => {
-
+exports.useModal = async (interaction, modal) => {
+    const submitInteraction = await useModal(interaction, modal)
 }

@@ -31,9 +31,9 @@
     "url": "^0.11.0",
     "vue": "^2.6.14"
   },
-  "name": "krivebot",
-  "description": "- Przez globalne komendy komendy mogą się ładować wolniej. Jeżeli testujesz bota tylko na jednym serwerze, usuń tą część kodu z pliku ready.js (w kategorii: events)",
-  "version": "4.4.4",
+  "name": "skyndalex",
+  "description": "Work In Progress",
+  "version": "1.0 BETA",
   "main": "src/slash.js",
   "scripts": {
     "test": "node src/slash.js"
