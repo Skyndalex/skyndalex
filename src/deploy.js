@@ -31,11 +31,9 @@ const rest = new REST({ version: '9' }).setToken(token);
                         body: commands,
                     }
                 );
-                /*
                 await rest.put(Routes.applicationCommands(clientId), {
-                    body: commands,
+                    body: [], // commands
                 });
-                 */
                 console.log('Loaded (/) commands.');
             } catch (error) {
                 console.error(error);
