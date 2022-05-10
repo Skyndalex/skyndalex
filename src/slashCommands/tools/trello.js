@@ -1,8 +1,8 @@
-const { SlashCommandBuilder, ContextMenuCommandBuilder} = require('@discordjs/builders');
-const Trello = require("trello");
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const axios = require("axios");
 const {MessageEmbed, Modal, MessageActionRow, MessageButton} = require("discord.js");
-const {response} = require("express");
+const { showModal } = require("../../utils/modals");
+
 module.exports = { // TODO: remove sub commands and rewrite to choices.
     data: new SlashCommandBuilder()
         .setName("trello")
@@ -64,8 +64,8 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
 
                 switch (add) {
                     case "add_card_choice":
-                        const modal = new Modal({
-                            customId: `cardAdd-${interaction.id}`,
+                        const addCard = new Modal({
+                            customId: `cardAdd-modal`,
                             title: "Create trello card",
                             components: [
                                 { type: "ACTION_ROW", components: [
@@ -77,28 +77,12 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                             ]
                         })
 
-                        const useModal = async (
-                            sourceInteraction,
-                            cardAddModal,
-                            timeout = 2 * 60 * 1000,
-                        ) => {
-                            await sourceInteraction.showModal(cardAddModal);
-
-                            return sourceInteraction
-                                .awaitModalSubmit({
-                                    time: timeout,
-                                    filter: (filterInteraction) =>
-                                        filterInteraction.customId === `cardAdd-${sourceInteraction.id}`,
-                                })
-                                .catch(() => null);
-                        };
-
-                        const modalSubmitInteraction = await useModal(interaction, modal)
+                        let showAddCardModal = await showModal(interaction, addCard, "cardAdd-modal",2 * 60 * 1000)
 
 
-                        let name = modalSubmitInteraction.fields.getTextInputValue("cardAdd_name")
-                        let desc = modalSubmitInteraction.fields.getTextInputValue("cardAdd_desc")
-                        let listid = modalSubmitInteraction.fields.getTextInputValue("cardAdd_listid")
+                        let name = showAddCardModal.fields.getTextInputValue("cardAdd_name")
+                        let desc = showAddCardModal.fields.getTextInputValue("cardAdd_desc")
+                        let listid = showAddCardModal.fields.getTextInputValue("cardAdd_listid")
 
                         let row = new MessageActionRow()
                             .addComponents(
@@ -107,6 +91,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                     .setStyle("SUCCESS")
                                     .setLabel("Confirm")
                             )
+
                         let messageConfirmEmbed = new MessageEmbed()
                             .setTitle("Are you sure?")
                             .setDescription("You provided these values:")
@@ -114,7 +99,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                             .addField(`Description`, `${desc}`, true)
                             .addField(`List ID`, `${listid}`, true)
                             .setColor("BLUE")
-                        await modalSubmitInteraction.reply({
+                        showAddCardModal.reply({
                             embeds: [messageConfirmEmbed],
                             components: [row]
                         })

@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed, Message, MessageActionRow, MessageButton, Modal, MessageSelectMenu} = require("discord.js")
-const {showModal, useModal} = require("../../utils/modals");
+const { showModal } = require("../../utils/modals");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("test")

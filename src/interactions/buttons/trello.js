@@ -25,7 +25,7 @@ exports.run = async (client, interaction) => {
                     let embedSuccessful = new MessageEmbed()
                         .setDescription(`\`[${name}]\` successfully added to trello list [\`${trelloCard.id}\`](${trelloCard.shortUrl})`)
                         .setColor("DARK_BUT_NOT_BLACK")
-                    await interaction.reply({ embeds: [embedSuccessful] })
+                    interaction.reply({ embeds: [embedSuccessful] })
                 }})
             // manager.addAttachmentToCard("", "", "")
             break;
