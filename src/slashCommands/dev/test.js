@@ -23,6 +23,5 @@ module.exports = {
         if (modal.fields.getTextInputValue("test")) {
             modal.reply(`\`${modal.fields.getTextInputValue("test")}\``)
         }
-
     }
 }
