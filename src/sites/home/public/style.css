@@ -23,7 +23,7 @@ nav {
     align-items: center;
     width: 100vw;
     background-color: #272727;
-    font-family: 'Noto Sans';
+    font-family: 'JetBrains Mono';
     text-align: center;
     margin: 0;
     width: 100%;
@@ -32,14 +32,14 @@ nav {
     display: inline-block;
     padding: 0px 10px;
     text-align: right;
-    font-family: 'Noto Sans';
+    font-family: 'JetBrains Mono';
     text-align: left;
     font-size: 100%;
 }
 
 .nav_links li a {
     transition: all 0.3s ease 0s;
-    font-family: 'Noto Sans';
+    font-family: 'JetBrains Mono';
     text-align: left;
     font-size: 100%;
 }
@@ -61,18 +61,18 @@ a {
 .navbar-skyndalex {
     font-size: 100%;
     color: #98fb98;
-    font-family: "Lexend Deca";
+    font-family: "JetBrains Mono NL ExtraLight";
     text-align: left;
 }
 .home {
     color: #98fb98;
-    font-family: 'Lexend Deca';
+    font-family: 'JetBrains Mono ExtraBold';
     text-align: center;
     font-size: 150%;
 }
 .good {
     color: white;
-    font-family: 'Poppins';
+    font-family: 'JetBrains Mono Light';
     text-align: center;
 
 }
