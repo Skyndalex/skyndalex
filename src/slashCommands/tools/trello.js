@@ -106,7 +106,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                         break
                     case "add_attach_to_card":
                         const addAttachToCardModal = new Modal({
-                            customId: `cardAttachAdd-${interaction.id}`,
+                            customId: `cardAttachAdd`,
                             title: "Add attachement to card",
                             components: [
                                 { type: "ACTION_ROW", components: [
@@ -116,26 +116,11 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                             ]
                         })
 
-                        const addAttachToCard = async (
-                            sourceInteraction,
-                            cardAttachAddModal,
-                            timeout = 2 * 60 * 1000,
-                        ) => {
-                            await sourceInteraction.showModal(cardAttachAddModal);
+                        let addAttachToCardModalShow = await showModal(interaction, addAttachToCardModal, "cardAttachAdd", 2 * 60 * 1000)
 
-                            return sourceInteraction
-                                .awaitModalSubmit({
-                                    time: timeout,
-                                    filter: (filterInteraction) =>
-                                        filterInteraction.customId === `cardAttachAdd-${sourceInteraction.id}`,
-                                })
-                                .catch(() => null);
-                        };
 
-                        const modalSubmitInteraction2 = await addAttachToCard(interaction, addAttachToCardModal) // TODO: name it (modalSubmitInteraction2)
-
-                        let cardID = modalSubmitInteraction2.fields.getTextInputValue("cardAttachAdd_id");
-                        let imageURL = modalSubmitInteraction2.fields.getTextInputValue("cardAttachAdd_url");
+                        let cardID = addAttachToCardModalShow.fields.getTextInputValue("cardAttachAdd_id");
+                        let imageURL = addAttachToCardModalShow.fields.getTextInputValue("cardAttachAdd_url");
 
                         let attachAddToCardRowConfirm = new MessageActionRow()
                             .addComponents(
@@ -152,11 +137,11 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                             .addField(`Img URL`, `${imageURL}`)
                             .setImage(imageURL)
                             .setColor("BLUE")
-                        await modalSubmitInteraction2.reply({ embeds: [messageConfirmEmbed2], components: [attachAddToCardRowConfirm] })
+                        await addAttachToCardModalShow.reply({ embeds: [messageConfirmEmbed2], components: [attachAddToCardRowConfirm] })
                         break;
                     case "add_board":
                         const addBoardModal = new Modal({
-                            customId: `addBoard-${interaction.id}`,
+                            customId: `addBoard`,
                             title: "Add new board",
                             components: [
                                 { type: "ACTION_ROW", components: [
@@ -168,27 +153,12 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                             ]
                         })
 
-                        const addBoard = async (
-                            sourceInteraction,
-                            addBoard,
-                            timeout = 2 * 60 * 1000,
-                        ) => {
-                            await sourceInteraction.showModal(addBoard);
+                        let addBoardModalShow = await showModal(interaction, addBoardModal, "addBoard", 2 * 60 * 1000)
 
-                            return sourceInteraction
-                                .awaitModalSubmit({
-                                    time: timeout,
-                                    filter: (filterInteraction) =>
-                                        filterInteraction.customId === `addBoard-${sourceInteraction.id}`,
-                                })
-                                .catch(() => null);
-                        };
 
-                        const modalSubmitInteraction3 = await addBoard(interaction, addBoardModal) // TODO: name it (modalSubmitInteraction2)
-
-                        let boardName = modalSubmitInteraction3.fields.getTextInputValue("addBoard_name");
-                        let organizationID = modalSubmitInteraction3.fields.getTextInputValue("addBoard_organizationID");
-                        let boardDescription = modalSubmitInteraction3.fields.getTextInputValue("addBoard_description");
+                        let boardName = addBoardModalShow.fields.getTextInputValue("addBoard_name");
+                        let organizationID = addBoardModalShow.fields.getTextInputValue("addBoard_organizationID");
+                        let boardDescription = addBoardModalShow.fields.getTextInputValue("addBoard_description");
 
                         let boardAddConfirm = new MessageActionRow()
                             .addComponents(
@@ -205,7 +175,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                             .addField(`Organization ID`, `${organizationID || "None"}`)
                             .addField(`Board description`, `${boardDescription || "None"}`)
                             .setColor("BLUE")
-                        await modalSubmitInteraction3.reply({ embeds: [messageConfirmEmbed3], components: [boardAddConfirm] })
+                        await addBoardModalShow.reply({ embeds: [messageConfirmEmbed3], components: [boardAddConfirm] })
                         break;
                 }
                 const get = await interaction.options.getString("get");
@@ -213,7 +183,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                 switch (get) {
                     case "get_list_ids":
                         const getListIDsModal = new Modal({ // TODO: add modals to client
-                            customId: `getListIDsModal-${interaction.id}`,
+                            customId: `getListIDsModal`,
                             title: "Get list IDs",
                             components: [
                                 { type: "ACTION_ROW", components: [
@@ -221,25 +191,10 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                     ]},
                             ]
                         })
-                        const useModal = async (
-                            sourceInteraction,
-                            getListIDsModal,
-                            timeout = 2 * 60 * 1000,
-                        ) => {
-                            await sourceInteraction.showModal(getListIDsModal);
 
-                            return sourceInteraction
-                                .awaitModalSubmit({
-                                    time: timeout,
-                                    filter: (filterInteraction) =>
-                                        filterInteraction.customId === `getListIDsModal-${sourceInteraction.id}`,
-                                })
-                                .catch(() => null);
-                        };
-                        const submitInteraction = await useModal(interaction, getListIDsModal)
+                        let getListIDsModalShow = await showModal(interaction, getListIDsModal, "getListIDsModal", 2 * 60 * 1000)
 
-
-                        let boardID = submitInteraction.fields.getTextInputValue("board_id")
+                        let boardID = getListIDsModalShow.fields.getTextInputValue("board_id")
 
                         await axios.get(`https://trello.com/b/${boardID}.json`)
                             .then(async function (response) {
@@ -250,13 +205,53 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                 }
 
                                 let embed = new MessageEmbed()
-                                    .setDescription(`\`\`\`ansi\n[0;37;45m${listNames.join(",\n")}\`\`\``)
+                                    .setDescription(`\`\`\`ansi\n[0;37m${listNames.join(",\n")}\`\`\``)
                                     .setColor("GREEN")
-                                await submitInteraction.reply({ embeds: [embed]})
+                                await getListIDsModalShow.reply({ embeds: [embed]})
                             });
                         break;
                     case "get_card_ids":
-                        await require("../../modals/trello/getCardIDs.js").run(client, interaction)
+                        const getCardIDsModal = new Modal({ // TODO: add modals to client
+                            customId: `getCardIDsModal`,
+                            title: "Get card IDs",
+                            components: [
+                                { type: "ACTION_ROW", components: [
+                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "boardId", label: "Board ID", placeholder: "Board ID", style: "SHORT", maxLength: 256, minLength: 2 },
+                                    ]},
+                            ]
+                        })
+
+                        let getCardIDsModalShow = await showModal(interaction, getCardIDsModal, "getCardIDsModal", 2 * 60 * 1000)
+
+                        let boardID2 = getCardIDsModalShow.fields.getTextInputValue("boardId")
+
+                        await axios.get(`https://trello.com/b/${boardID2}.json`)
+                            .then(async function (response) {
+                                let list = [];
+                                for (let x in response.data.cards) {
+                                    list.push(`${response.data.cards[x].name} : ${response.data.cards[x].id}`)
+                                }
+
+                                if (list.length > 2000) {
+                                    hastebin.createPaste(`(CTRL + F to search)\nCard name : Card ID\nBoard name: ${response.data.name}\nDescription: ${response.data.desc}\n\n${list.join(",\n")}`, {
+                                        raw: true,
+                                        contentType: 'text/plain',
+                                        server: 'https://hastebin.com'
+                                    }, {})
+                                        .then(async function (urlToPaste) {
+                                            interaction.channel.send({content: `\`\`\`ansi\n[0;31mYour message is too long, so I've moved the reply elsewhere.\nHaste: ${urlToPaste}\`\`\``});
+                                        })
+                                } else {
+                                    if (list.length < 2000) {
+                                        let embed = new MessageEmbed()
+                                            .setAuthor({name: `Found ${list.length} cards.`})
+                                            .setTitle("\`Card NAME : Card ID\`")
+                                            .setDescription(`\`\`\`ansi\n[0;34m${list.join(",\n")}\`\`\``)
+                                            .setColor("YELLOW")
+                                        getCardIDsModalShow.reply({embeds: [embed]})
+                                    }
+                                }
+                            })
                         break;
                 }
                 break;
