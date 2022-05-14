@@ -13,6 +13,7 @@ module.exports = async (client, interaction) => {
     }
 
     if (!interaction.isCommand()) return;
+
     const slashCommand = client.slashCommands.get(interaction.commandName);
     if (!slashCommand) return;
     if (!interaction.user.bot)
