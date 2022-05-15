@@ -20,6 +20,7 @@ global.hastebin = require("hastebin");
 
 require("./sites/home/main").run(client);
 require("./sites/statuspage/main").run(client);
+require("./utils/DataDogDB/pushStats.js").run(client);
 
 const commandFolders = fs.readdirSync('./slashCommands');
 
