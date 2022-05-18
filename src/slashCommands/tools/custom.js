@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const {Modal, TextInputComponent, MessageActionRow} = require("discord.js");
+const {Modal, TextInputComponent, MessageActionRow, MessageEmbed} = require("discord.js");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("custom")
@@ -38,7 +38,7 @@ module.exports = {
                         const buttonStyleLabel = new TextInputComponent()
                             .setStyle("SHORT")
                             .setRequired(true)
-                            .setPlaceholder("PRIMARY/SECONDARY/SUCCESS/DANGER/LINK")
+                            .setPlaceholder("e.g    PRIMARY/SECONDARY/SUCCESS/DANGER/LINK")
                             .setCustomId("button_style_setting_label")
                             .setLabel("Button style")
 
@@ -55,9 +55,19 @@ module.exports = {
                         testButtonCustomization.addComponents(ACTION_ROW, ACTION_ROW1)
 
                         await interaction.showModal(testButtonCustomization)
+
+                        const filter = (interaction) => interaction.customId === 'custom_buttons_settings_modal';
+                        interaction.awaitModalSubmit({ filter, time: 15_000 })
+                            .then(interaction =>
+                            interaction.reply(`Style: ${interaction.fields.getTextInputValue("button_style_setting_label")}`)
+                            );
+
                         break;
                     default:
-                        await interaction.reply("Please choose option from choices list.")
+                        let embedError = new MessageEmbed()
+                            .setTitle("\`[ NoArgumentsError ]\` Please choose option from choices list.")
+                            .setColor("DARK_ORANGE")
+                        await interaction.reply({ embeds: [embedError], ephemeral: true })
                         break;
                 }
                 break;
