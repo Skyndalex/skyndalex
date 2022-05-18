@@ -1,3 +1,5 @@
+**WARNING: The repository will not be updated until June 1.**
+
 # Deploying commands
 
 
