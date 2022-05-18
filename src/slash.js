@@ -31,7 +31,6 @@ for (const folder of commandFolders) {
         client.slashCommands.set(command.data.name, command);
     }
 }
-
 r.connect({ db: 'krivebot', host: 'localhost', port: '28015', timeout: 600 },
     function (err, con) {
         if (err) console.log(err);

@@ -2,6 +2,7 @@ const { SlashCommandBuilder, ContextMenuCommandBuilder} = require('@discordjs/bu
 const Trello = require("trello");
 const {MessageEmbed, Modal, MessageActionRow, MessageButton} = require("discord.js");
 exports.run = async (client, interaction) => {
+    /*
     const db = await r.table("trello").get(interaction.user.id).run(client.con);
     if (!db?.key) interaction.reply("Invalid trello account key!\nAuthorize: \`/trello auth\`");
     if (!db?.token) interaction.reply("Invalid trello application token!\nAuthorize: \`/trello auth\`");
@@ -72,4 +73,5 @@ exports.run = async (client, interaction) => {
             })
             break;
     }
+     */
 }
