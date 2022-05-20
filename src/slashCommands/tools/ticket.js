@@ -51,11 +51,13 @@ module.exports = {
                 await interaction.channel.send({ embeds: [permsembed2] })
                 break;
             case "enable":
+                let custom = await r.table("customizationSystem").get(interaction.guild.id).run(client.con);
+
                 const buttonsEnable = new MessageActionRow()
                     .addComponents(
                         new MessageButton()
-                            .setStyle("SUCCESS")
-                            .setLabel("Complaints")
+                            .setStyle(custom?.buttonStyle || "SUCCESS")
+                            .setLabel(custom?.buttonLabel || "Complaints")
                             .setCustomId("enable_complaints"),
                         new MessageButton()
                             .setStyle("SUCCESS")

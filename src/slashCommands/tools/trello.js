@@ -50,9 +50,6 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
 
     async execute(client, interaction) {
         const db = await r.table("trello").get(interaction.user.id).run(client.con);
-        if (!db?.key) return interaction.reply("Not authorized!\nUse \`/trello auth\`")
-        if (!db?.token) return interaction.reply("Not authorized!\nUse \`/trello auth\`")
-
         switch (interaction.options.getSubcommand()) {
             case "auth":
                 await r.table("trello").insert({ uid: interaction.user.id, key: interaction.options.getString("key"), token: interaction.options.getString("token") }, { conflict: "update" }).run(client.con)
@@ -140,42 +137,63 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                         await addAttachToCardModalShow.reply({ embeds: [messageConfirmEmbed2], components: [attachAddToCardRowConfirm] })
                         break;
                     case "add_board":
-                        const addBoardModal = new Modal({
-                            customId: `addBoard`,
-                            title: "Add new board",
-                            components: [
-                                { type: "ACTION_ROW", components: [
-                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "addBoard_name", label: "Board name", style: "SHORT", placeholder: "Board name", minLength: 2, required: true, style: "SHORT" }]},
-                                { type: "ACTION_ROW", components: [
-                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "addBoard_organizationID", label: "Organization ID", placeholder: "Board organization ID", minLength: 2, style: "SHORT" }]},
-                                { type: "ACTION_ROW", components: [
-                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "addBoard_description", label: "Board description", placeholder: "Board description", minLength: 2 }]},
-                            ]
-                        })
+                        const addBoardModal = new Modal()
+                            .setTitle("Add board")
+                            .setCustomId("addBoard")
 
-                        let addBoardModalShow = await showModal(interaction, addBoardModal, "addBoard", 2 * 60 * 1000)
+                        const addBoardModalComponent_NAME = new TextInputComponent()
+                            .setStyle("SHORT")
+                            .setRequired(true)
+                            .setPlaceholder("Board Name")
+                            .setMaxLength(100)
+                            .setCustomId("addBoard_name")
+                            .setLabel("Board name")
 
+                        const addBoardModalComponent_ORGANIZATIONID = new TextInputComponent()
+                            .setStyle("SHORT")
+                            .setRequired(true)
+                            .setPlaceholder("Organization ID")
+                            .setMaxLength(100)
+                            .setCustomId("addBoard_organizationID")
+                            .setLabel("Organization ID")
 
-                        let boardName = addBoardModalShow.fields.getTextInputValue("addBoard_name");
-                        let organizationID = addBoardModalShow.fields.getTextInputValue("addBoard_organizationID");
-                        let boardDescription = addBoardModalShow.fields.getTextInputValue("addBoard_description");
+                        const addBoardModalComponent_DESCRIPTION = new TextInputComponent()
+                            .setStyle("PARAGRAPH")
+                            .setRequired(true)
+                            .setPlaceholder("Description")
+                            .setMaxLength(100)
+                            .setCustomId("addBoard_description")
+                            .setLabel("Description")
+                        const firstActionRow = new MessageActionRow().addComponents(addBoardModalComponent_NAME)
+                        const secondActionRow = new MessageActionRow().addComponents(addBoardModalComponent_ORGANIZATIONID)
+                        const threeActionRow = new MessageActionRow().addComponents(addBoardModalComponent_DESCRIPTION)
 
-                        let boardAddConfirm = new MessageActionRow()
-                            .addComponents(
-                                new MessageButton()
-                                    .setCustomId("board_add_confirm")
-                                    .setStyle("SUCCESS")
-                                    .setLabel("Confirm")
-                            )
+                        addBoardModal.addComponents(firstActionRow, secondActionRow, threeActionRow)
+                        await interaction.showModal(addBoardModal)
 
-                        let messageConfirmEmbed3 = new MessageEmbed() // TODO: name it (messageConfirmEmbed3)
-                            .setTitle("Are you sure?")
-                            .setDescription("You provided these values:")
-                            .addField(`Board name`, `${boardName}`)
-                            .addField(`Organization ID`, `${organizationID || "None"}`)
-                            .addField(`Board description`, `${boardDescription || "None"}`)
-                            .setColor("BLUE")
-                        await addBoardModalShow.reply({ embeds: [messageConfirmEmbed3], components: [boardAddConfirm] })
+                        const filter = (interaction) => interaction.customId === "addBoard";
+                        await interaction.awaitModalSubmit({ filter, time: 15_000 }).then(async interaction => {
+                            let boardName = interaction.fields.getTextInputValue("addBoard_name");
+                            let organizationID = interaction.fields.getTextInputValue("addBoard_organizationID");
+                            let boardDescription = interaction.fields.getTextInputValue("addBoard_description");
+
+                            let boardAddConfirm = new MessageActionRow()
+                                .addComponents(
+                                    new MessageButton()
+                                        .setCustomId("board_add_confirm")
+                                        .setStyle("SUCCESS")
+                                        .setLabel("Confirm")
+                                )
+
+                            let messageConfirmEmbed3 = new MessageEmbed() // TODO: name it (messageConfirmEmbed3)
+                                .setTitle("Are you sure?")
+                                .setDescription("You provided these values:")
+                                .addField(`Board name`, `${boardName}`)
+                                .addField(`Organization ID`, `${organizationID || "None"}`)
+                                .addField(`Board description`, `${boardDescription || "None"}`)
+                                .setColor("BLUE")
+                            await interaction.reply({ embeds: [messageConfirmEmbed3], components: [boardAddConfirm] })
+                        });
                         break;
                 }
                 const get = await interaction.options.getString("get");
@@ -262,7 +280,6 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                     }
                                 })
                         });
-
                         break;
                 }
                 break;

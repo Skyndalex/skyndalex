@@ -58,8 +58,15 @@ module.exports = {
 
                         const filter = (interaction) => interaction.customId === 'custom_buttons_settings_modal';
                         interaction.awaitModalSubmit({ filter, time: 15_000 })
-                            .then(interaction =>
-                            interaction.reply(`Style: ${interaction.fields.getTextInputValue("button_style_setting_label")}`)
+                            .then(async interaction =>
+                           // interaction.reply(`Style: ${interaction.fields.getTextInputValue("button_style_setting_label")}`)
+
+                                await r.table("customizationSystem").insert({
+                                    id: interaction.guild.id,
+                                    buttonId: "test",
+                                    buttonStyle: interaction.fields.getTextInputValue("button_style_setting_label"),
+                                    buttonLabel: interaction.fields.getTextInputValue("button_label_setting_label")
+                                }).run(client.con)
                             );
 
                         break;
