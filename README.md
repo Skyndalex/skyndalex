@@ -28,7 +28,7 @@
 
 ![GitHub](https://img.shields.io/github/license/Skyndalex/skyndalex)
 
-# General info 
+# General info
 
 **WARNING: The repository will not be updated until June 1.**
 
