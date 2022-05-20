@@ -17,7 +17,18 @@
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
-# Version
+# Github info
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Skyndalex/skyndalex?include_prereleases)
+
+![GitHub last commit](https://img.shields.io/github/last-commit/Skyndalex/skyndalex)
+
+![GitHub issues](https://img.shields.io/github/issues-raw/Skyndalex/skyndalex)
+
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Skyndalex/skyndalex)
+
+![GitHub](https://img.shields.io/github/license/Skyndalex/skyndalex)
+
+# General info 
 
 **WARNING: The repository will not be updated until June 1.**
 
