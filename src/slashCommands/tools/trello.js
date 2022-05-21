@@ -44,7 +44,8 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                 .addStringOption(option => option.setName("get").setDescription("Get data about your trello settings")
                     .addChoices(
                         { name: "getListIDs", value: "get_list_ids" },
-                        { name: "getCardIDs", value: "get_card_ids"}
+                        { name: "getCardIDs", value: "get_card_ids" },
+                        { name: "getOrganizationID", value: "get_org_id" }
                     ))
         ),
 
@@ -280,6 +281,36 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                     }
                                 })
                         });
+                        break;
+                    case "get_org_id":
+                        const getOrgIdModal = new Modal()
+                            .setTitle("Get organization ID")
+                            .setCustomId("getOrgIdModal")
+
+                        const getOrgIdModalComponents = new TextInputComponent()
+                            .setStyle("SHORT")
+                            .setRequired(true)
+                            .setPlaceholder("Board ID")
+                            .setMaxLength(100)
+                            .setCustomId("getOrgIdModalComponent")
+                            .setLabel("Board id")
+
+                        const getOrgIdModalRow = new MessageActionRow().addComponents(getOrgIdModalComponents)
+
+                        getOrgIdModal.addComponents(getOrgIdModalRow)
+
+                        await interaction.showModal(getOrgIdModal)
+
+                        const orgFilter = (interaction) => interaction.customId === "getOrgIdModal";
+
+                        await interaction.awaitModalSubmit({ orgFilter, time: 15_000 }).then(async interaction => {
+                            let boardID = interaction.fields.getTextInputValue("getOrgIdModalComponent")
+
+                            await axios.get("https://trello.com/b/NrfT9JgV.json")
+                                .then(async function (response) {
+                                    await interaction.reply(`\`\`\`ansi\n\u001B[1;32mOrganization ID for ${response.data.name} board: ${response.data.idOrganization} \`\`\``)
+                                })
+                        })
                         break;
                 }
                 break;
