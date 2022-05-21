@@ -18,15 +18,9 @@
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
 # Github info
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Skyndalex/skyndalex?include_prereleases)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Skyndalex/skyndalex?include_prereleases) ![GitHub last commit](https://img.shields.io/github/last-commit/Skyndalex/skyndalex) 
 
-![GitHub last commit](https://img.shields.io/github/last-commit/Skyndalex/skyndalex)
-
-![GitHub issues](https://img.shields.io/github/issues-raw/Skyndalex/skyndalex)
-
-![GitHub pull requests](https://img.shields.io/github/issues-pr/Skyndalex/skyndalex)
-
-![GitHub](https://img.shields.io/github/license/Skyndalex/skyndalex)
+![GitHub issues](https://img.shields.io/github/issues-raw/Skyndalex/skyndalex) ![GitHub pull requests](https://img.shields.io/github/issues-pr/Skyndalex/skyndalex)
 
 # General info
 
