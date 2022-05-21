@@ -132,7 +132,7 @@ a {
     grid-auto-rows: minmax(100px, auto);
 }
 .grid-container {
-    transition-duration: 0.2s;
+    transition-duration: 0.20s;
     display: grid;
     column-gap: 50px;
     grid-template-columns: auto auto auto;
@@ -141,7 +141,7 @@ a {
 }
 
 .grid-item {
-    transition-duration: 0.2s;
+    transition-duration: 0.6s;
     background-color: #161616;
     padding: 20px;
     font-size: 30px;
