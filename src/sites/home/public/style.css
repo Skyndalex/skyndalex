@@ -23,7 +23,7 @@ nav {
     align-items: center;
     width: 100vw;
     background-color: #272727;
-    font-family: 'JetBrains Mono';
+    font-family: 'Calibri';
     text-align: center;
     margin: 0;
     width: 100%;
@@ -32,24 +32,24 @@ nav {
     display: inline-block;
     padding: 0px 10px;
     text-align: right;
-    font-family: 'JetBrains Mono';
+    font-family: 'Calibri';
     text-align: left;
-    font-size: 100%;
+    font-size: 120%;
 }
 
 .nav_links li a {
     transition: all 0.3s ease 0s;
-    font-family: 'JetBrains Mono';
+    font-family: 'Calibri';
     text-align: left;
-    font-size: 100%;
+    font-size: 120%;
 }
 
 .nav_links li a:hover {
     transition: all 0.3s ease 0s;
     color: #2bedac;
-    font-family: 'Noto Sans';
+    font-family: 'Calibri';
     text-align: left;
-    font-size: 100%;
+    font-size: 120%;
 }
 a {
     text-decoration: none;
@@ -69,10 +69,11 @@ a {
     font-family: 'JetBrains Mono ExtraBold';
     text-align: center;
     font-size: 150%;
+    transition-duration: 0.4s;
 }
 .good {
     color: white;
-    font-family: 'JetBrains Mono Light';
+    font-family: 'Calibri';
     text-align: center;
 
 }
@@ -129,4 +130,29 @@ a {
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     grid-auto-rows: minmax(100px, auto);
+}
+.grid-container {
+    transition-duration: 0.2s;
+    display: grid;
+    column-gap: 50px;
+    grid-template-columns: auto auto auto;
+    background-color: #161616;
+    padding: 10px;
+}
+
+.grid-item {
+    transition-duration: 0.2s;
+    background-color: #161616;
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+}
+.about-title {
+    color: #2bedac;
+    font-family: Calibri;
+}
+.about-description {
+    color: white;
+    font-family: "JetBrains Mono";
 }

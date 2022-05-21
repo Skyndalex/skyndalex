@@ -8,6 +8,7 @@ module.exports = (client) => {
     });
 
     console.log(pc.green(`${pc.yellow('[DISCORD CLIENT]')} Ready`));
+    console.log(r.table("trello").get(["server", "uid"]).run(client.con));
 
 
 };
