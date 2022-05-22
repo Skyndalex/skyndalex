@@ -16,7 +16,7 @@ module.exports = async (client, interaction) => {
 
     const slashCommand = client.slashCommands.get(interaction.commandName);
     if (!slashCommand) return;
-    if (!interaction.user.bot)
+        if (!interaction.user.bot)
 
     if (cooldown.has(interaction.user.id)) {
         await interaction.reply({ content: 'wait 3 sec before using command again', ephemeral: true });

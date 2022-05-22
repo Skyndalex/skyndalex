@@ -141,7 +141,7 @@ a {
 }
 
 .grid-item {
-    transition-duration: 0.6s;
+    transition-duration: 0.20s;
     background-color: #161616;
     padding: 20px;
     font-size: 30px;
@@ -154,5 +154,12 @@ a {
 }
 .about-description {
     color: white;
-    font-family: "JetBrains Mono";
+    font-family: "Noto Sans";
+}
+.aboutus {
+    color: cyan;
+    font-family: 'JetBrains Mono ExtraBold';
+    text-align: center;
+    font-size: 300%;
+    transition-duration: 0.4s;
 }

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const {Modal, TextInputComponent, MessageActionRow, MessageEmbed} = require("discord.js");
+const { Modal, TextInputComponent, MessageActionRow, MessageEmbed } = require("discord.js");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("custom")
@@ -38,7 +38,7 @@ module.exports = {
                         const buttonStyleLabel = new TextInputComponent()
                             .setStyle("SHORT")
                             .setRequired(true)
-                            .setPlaceholder("e.g    PRIMARY/SECONDARY/SUCCESS/DANGER/LINK")
+                            .setPlaceholder("e.g PRIMARY/SECONDARY/SUCCESS/DANGER/LINK")
                             .setCustomId("button_style_setting_label")
                             .setLabel("Button style")
 
@@ -49,15 +49,21 @@ module.exports = {
                             .setCustomId("button_label_setting_label")
                             .setLabel("Button label")
 
+                        const buttonDisabled = new TextInputComponent()
+                            .setStyle("SHORT")
+                            .setPlaceholder("true/false")
+                            .setCustomId("button_disable_setting_label")
+                            .setLabel("Is disabled?")
+
                         const ACTION_ROW = new MessageActionRow().addComponents(buttonStyleLabel)
                         const ACTION_ROW1 = new MessageActionRow().addComponents(buttonLabelLabel)
+                        const ACTION_ROW2 = new MessageActionRow().addComponents(buttonDisabled)
 
-                        testButtonCustomization.addComponents(ACTION_ROW, ACTION_ROW1)
+                        testButtonCustomization.addComponents(ACTION_ROW, ACTION_ROW1, ACTION_ROW2)
 
                         await interaction.showModal(testButtonCustomization)
 
-                        const filter = (interaction) => interaction.customId === 'custom_buttons_settings_modal';
-                        interaction.awaitModalSubmit({ filter, time: 15_000 })
+                        await interaction.awaitModalSubmit({ time: 15_000 }).catch(e => interaction.reply("There was some kind of error while uploading the modal. Are you sure you made it in time?"))
                             .then(async interaction =>
                            // interaction.reply(`Style: ${interaction.fields.getTextInputValue("button_style_setting_label")}`)
 
@@ -65,10 +71,18 @@ module.exports = {
                                     id: interaction.guild.id,
                                     buttonId: "test",
                                     buttonStyle: interaction.fields.getTextInputValue("button_style_setting_label"),
-                                    buttonLabel: interaction.fields.getTextInputValue("button_label_setting_label")
-                                }).run(client.con)
+                                    buttonLabel: interaction.fields.getTextInputValue("button_label_setting_label"),
+                                    btnDisabled: interaction.fields.getTextInputValue("button_disable_setting_label")
+                                }, { conflict: "update" }).run(client.con)
                             );
 
+                        let check = await r.table("customizationSystem").get(interaction.guild.id).run(client.con);
+                        let embedSuccessfull = new MessageEmbed()
+                            .setTitle(`\`successfully changed the data in the database.\``)
+                            .addField(`Button style`, String(check.buttonStyle))
+                            .addField(`Button label`, String(check.buttonLabel))
+                            .addField(`Is disabled?`, String(check.btnDisabled || "None"))
+                        await interaction.channel.send({ embeds: [embedSuccessfull] })
                         break;
                     default:
                         let embedError = new MessageEmbed()

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed, Message, MessageActionRow, MessageButton, Modal } = require("discord.js")
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js")
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("tickets")
@@ -58,6 +58,7 @@ module.exports = {
                         new MessageButton()
                             .setStyle(custom?.buttonStyle || "SUCCESS")
                             .setLabel(custom?.buttonLabel || "Complaints")
+                            .setDisabled(custom?.btnDisabled || false)
                             .setCustomId("enable_complaints"),
                         new MessageButton()
                             .setStyle("SUCCESS")
