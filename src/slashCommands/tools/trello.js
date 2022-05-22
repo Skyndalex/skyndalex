@@ -45,7 +45,8 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                     .addChoices(
                         { name: "getListIDs", value: "get_list_ids" },
                         { name: "getCardIDs", value: "get_card_ids" },
-                        { name: "getOrganizationID", value: "get_org_id" }
+                        { name: "getOrganizationID", value: "get_org_id" },
+                        { name: "getChecklist", value: "get_check_list"}
                     ))
         ),
 
@@ -306,7 +307,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                         await interaction.awaitModalSubmit({ orgFilter, time: 15_000 }).then(async interaction => {
                             let boardID = interaction.fields.getTextInputValue("getOrgIdModalComponent")
 
-                            await axios.get("https://trello.com/b/NrfT9JgV.json")
+                            await axios.get(`https://trello.com/b/${boardID}.json`)
                                 .then(async function (response) {
                                     await interaction.reply(`\`\`\`ansi\n\u001B[1;32mOrganization ID for ${response.data.name} board: ${response.data.idOrganization} \`\`\``)
                                 })
