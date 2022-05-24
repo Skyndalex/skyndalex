@@ -153,7 +153,7 @@ module.exports = {
                     );
                 let embedTickets = new MessageEmbed()
                     .setTitle("Tickets")
-                    .setDescription("\`\`\`md\n# [📥] Choose ticket category.\`\`\`")
+                    .setDescription(client.strings.tickets.CATEGORY_CHOOSE)
                     .setColor("BLUE")
                 await interaction.channel.send({
                     embeds: [embedTickets],
