@@ -87,7 +87,7 @@ module.exports = {
 
                 let embedEnableButtons = new MessageEmbed()
                     .setTitle("Enable tickets")
-                    .setDescription("\`\`\`diff\n+ [✅] Enable tickets for individual categories.\`\`\`")
+                    .setDescription(client.strings.tickets.CATEGORY_ENABLE)
                     .setColor("GREEN")
                 return interaction.reply({ embeds: [embedEnableButtons], components: [buttonsEnable, buttonsEnable2] })
                 break;
@@ -114,20 +114,15 @@ module.exports = {
                             .setStyle("DANGER")
                             .setLabel("Appeal")
                             .setCustomId("disable_appeal"),
-                        new MessageButton()
-                            .setStyle("DANGER")
-                            .setStyle("Archive")
-                            .setCustomId("disable_archive"),
                     );
+
                 let embedDisableButtons = new MessageEmbed()
                     .setTitle("Disable tickets")
-                    .setDescription("\`\`\`diff\n- [❌] Disable tickets for individual categories.\`\`\`")
+                    .setDescription(client.strings.tickets.CATEGORY_DISABLE)
                     .setColor("RED")
                 return interaction.reply({ embeds: [embedDisableButtons], components: [buttonsDisable] })
                 break;
             case "send":
-                let tick = await r.table("tickets").get(interaction.guild.id).run(client.con);
-
                 const buttonsTickets = new MessageActionRow()
                     .addComponents(
                         new MessageButton()
@@ -152,10 +147,10 @@ module.exports = {
                             .setStyle("SUCCESS")
                     );
                 let embedTickets = new MessageEmbed()
-                    .setTitle("Tickets")
+                    .setTitle("Send ticket to specified category")
                     .setDescription(client.strings.tickets.CATEGORY_CHOOSE)
                     .setColor("BLUE")
-                await interaction.channel.send({
+                return interaction.reply({
                     embeds: [embedTickets],
                     components: [buttonsTickets]
                 })

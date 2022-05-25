@@ -1,7 +1,9 @@
 {
   "tickets": {
     "ENABLED_SUCCESS": "Successfully enabled!",
-    "CATEGORY_CHOOSE": "```ansi\n\u001B[2;34m\uD83D\uDCE5 Choose ticket category\u001B[0m```"
+    "CATEGORY_CHOOSE": "```ansi\n\u001B[2;34m\uD83D\uDCE5 Choose ticket category\u001B[0m```",
+    "CATEGORY_ENABLE": "```ansi\n✅ \u001B[2;32m\u001B[2;40mEnable tickets for individual categories\u001B[0m\u001B[2;32m\u001B[0m```",
+    "CATEGORY_DISABLE": "```ansi\n❌ \u001B[2;31mDisable tickets for individual categories. \u001B[0m\u001B[2;32m\u001B[0m```"
   },
   "dev": {
     "NO_PERMISSION_INFO": "You don't have permissions to use this command."
