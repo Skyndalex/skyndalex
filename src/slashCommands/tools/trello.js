@@ -14,11 +14,6 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
         )
         .addSubcommand(subcommand =>
             subcommand
-                .setName("addid")
-                .setDescription("Add your user ID to database.")
-        )
-        .addSubcommand(subcommand =>
-            subcommand
                 .setName("options")
                 .setDescription("Trello settings")
                 .addStringOption(option => option.setName("add").setDescription("Add options")
@@ -59,11 +54,6 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
             case "auth":
                 const { callbackURL } = require("../../config.json").trello
                 await interaction.reply(`Trello authentication webstie: ${callbackURL}`);
-                break;
-            case "addid":
-                await r.table("trello").insert({ uid: interaction.user.id }, { conflict: "update" }).run(client.con)
-
-                await interaction.reply("OK. Your ID was added to database.")
                 break;
             case "options":
                 const add = await interaction.options.getString("add");
