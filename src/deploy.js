@@ -1,6 +1,6 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { token } = require('./config.json');
+const { token } = require('./config.json').discord
 const fs = require('fs');
 
 const clientId = '829812129074774086';

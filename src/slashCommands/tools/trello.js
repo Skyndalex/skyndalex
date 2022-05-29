@@ -11,8 +11,11 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
             subcommand
                 .setName("auth")
                 .setDescription("Trello account authentication")
-                .addStringOption(option => option.setName("key").setDescription("Account key").setRequired(true))
-                .addStringOption(option => option.setName("token").setDescription("Application token").setRequired(true))
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("addid")
+                .setDescription("Add your user ID to database.")
         )
         .addSubcommand(subcommand =>
             subcommand
@@ -54,13 +57,16 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
         const db = await r.table("trello").get(interaction.user.id).run(client.con);
         switch (interaction.options.getSubcommand()) {
             case "auth":
-                await r.table("trello").insert({ uid: interaction.user.id, key: interaction.options.getString("key"), token: interaction.options.getString("token") }, { conflict: "update" }).run(client.con)
+                const { callbackURL } = require("../../config.json").trello
+                await interaction.reply(`Trello authentication webstie: ${callbackURL}`);
+                break;
+            case "addid":
+                await r.table("trello").insert({ uid: interaction.user.id }, { conflict: "update" }).run(client.con)
 
-                await interaction.reply({ content: `Your key and token successfully added to database.\n\nToken: ${interaction.options.getString("token")}\nKey: ${interaction.options.getString("key")}`, ephemeral: true})
+                await interaction.reply("OK. Your ID was added to database.")
                 break;
             case "options":
                 const add = await interaction.options.getString("add");
-
                 switch (add) {
                     case "add_card_choice":
                         const addCard = new Modal({

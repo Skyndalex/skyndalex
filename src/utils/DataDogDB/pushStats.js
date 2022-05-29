@@ -1,7 +1,5 @@
 const metrics = require("datadog-metrics");
-const { dgToken } = require("../../config.json");
-const { v1 } = require("@datadog/datadog-api-client");
-const axios = require("axios")
+const { dgToken } = require("../../config.json").datadog
 exports.run = (client) => {
     metrics.init({ host: 'noskyndalex', prefix: 'skyndalex.', apiKey: dgToken});
 
