@@ -40,7 +40,7 @@ exports.run = (client) => {
             info: null,
             guilds: null,
         }
-
+// h
         if (!userData.info) {
             response = await fetch('https://discord.com/api/users/@me', {
                 method: 'GET',
