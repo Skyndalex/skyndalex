@@ -21,8 +21,8 @@ global.hastebin = require("hastebin");
 require("./sites/home/main").run(client);
 require("./sites/statuspage/main").run(client);
 require("./utils/DataDogDB/pushStats.js").run(client);
-require("./utils/trello/authentication.js").run(client)
-require("./utils/discord/Oauth.js").run(client);
+require("./utils/trello/trelloAuthentication.js").run(client)
+require("./utils/discord/trelloDiscordAuthentication.js").run(client);
 
 const commandFolders = fs.readdirSync('./slashCommands');
 

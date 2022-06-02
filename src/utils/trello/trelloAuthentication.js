@@ -42,8 +42,9 @@ exports.run = (client, interaction) => {
         oauth.getOAuthAccessToken(oauth_token, tokenSecret, oauth_verifier, async (error, accessToken) => {
             if (error) console.log(error);
             console.log(key)
+            console.log(accessToken)
 
-            await r.table("trello").insert({ uid: 0, key: key, token: accessToken }).run(client.con);
+            await r.table("trello").get("uid").insert({ accessToken: accessToken, key: key }).run(client.con);
 
             res.redirect("/");
         })

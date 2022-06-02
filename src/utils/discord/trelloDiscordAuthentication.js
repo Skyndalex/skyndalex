@@ -8,11 +8,13 @@ exports.run = (client) => {
 
     app.use(express.json())
     app.use(session({ secret: secret, resave: false, saveUninitialized: false }))
-    app.get('/', (req, res) => {
+    app.get('/', async (req, res) => {
         if (!req.session.user) return res.redirect(config.url)
 
         res.json(req.session.user)
         console.log(req.session.user)
+
+        await r.table("trello").insert({ uid: req.session.user.id }, { conflict: "update" }).run(client.con)
     })
     app.get('/callback', async (req, res) => {
         if (!req.query.code) return res.send({ message: 'Query code is invalid!' })
