@@ -23,6 +23,15 @@ require("./sites/statuspage/main").run(client);
 require("./utils/DataDogDB/pushStats.js").run(client);
 require("./routers/app.js").run(client)
 
+r.connect({ db: 'krivebot', host: 'localhost', port: '28015', timeout: 600 },
+    function (err, con) {
+        if (err) console.log(err);
+        client.con = con;
+
+        console.log(pc.green(`${pc.yellow('[DATABASE]')} Connected`));
+    }
+);
+
 const commandFolders = fs.readdirSync('./slashCommands');
 
 for (const folder of commandFolders) {
@@ -32,14 +41,7 @@ for (const folder of commandFolders) {
         client.slashCommands.set(command.data.name, command);
     }
 }
-r.connect({ db: 'krivebot', host: 'localhost', port: '28015', timeout: 600 },
-    function (err, con) {
-        if (err) console.log(err);
-        client.con = con;
 
-        console.log(pc.green(`${pc.yellow('[DATABASE]')} Connected`));
-    }
-);
 
 const eventFiles = fs.readdirSync('./events').filter((file) => file.endsWith('.js'));
 

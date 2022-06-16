@@ -39,7 +39,7 @@ const { key, secret, appName, callbackURL } = require("../../config.json").trell
             if (error) console.log(error);
             console.log(key)
             console.log(accessToken)
-            console.log(req.session.user)
+            console.log(req.session)
            // await r.table("trello").get(req.session.user.id).update({ accessToken: accessToken, key: key }).run(req.client.con);
 
             res.redirect("/trello/trello_success");
