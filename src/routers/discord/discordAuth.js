@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const express = require('express')
 const { fetch } = require("undici");
-const { secret, clientID } = require("../../config.json");
+const { secret, clientID } = require("../../config.json").discord
     router.get('/discordData', async (req, res) => {
        // if (!req.session.user) return res.redirect(config.url)
 
