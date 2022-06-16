@@ -11,7 +11,7 @@ const { key, secret, appName, callbackURL } = require("../../config.json").trell
             'x-sent': true
         }
     }
-    router.get('/', function (req, res) {
+    router.get('/trello_success', function (req, res) {
         res.send("OK")
     });
 
@@ -39,9 +39,10 @@ const { key, secret, appName, callbackURL } = require("../../config.json").trell
             if (error) console.log(error);
             console.log(key)
             console.log(accessToken)
-            await r.table("trello").get(req.session.user.id).update({ accessToken: accessToken, key: key }).run(req.client.con);
+            console.log(req.session.user)
+           // await r.table("trello").get(req.session.user.id).update({ accessToken: accessToken, key: key }).run(req.client.con);
 
-            res.redirect("/");
+            res.redirect("/trello/trello_success");
         })
     })
 module.exports = router
