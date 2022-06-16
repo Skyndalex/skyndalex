@@ -1,12 +1,8 @@
-exports.run = (client, interaction) => {
-    const express = require("express")
-    const path = require("path")
-    const app = express()
-    const { OAuth }  = require("oauth")
-    const { key, secret, appName, callbackURL } = require("../../config.json").trello
-
-    app.use(express.static(__dirname + '/public'));
-
+const express = require("express");
+const path = require("path");
+const router = require('express').Router()
+const { OAuth }  = require("oauth")
+const { key, secret, appName, callbackURL } = require("../../config.json").trello
     let options = {
         root: path.join(__dirname, 'public'),
         dotfiles: 'deny',
@@ -15,7 +11,7 @@ exports.run = (client, interaction) => {
             'x-sent': true
         }
     }
-    app.get('/', function (req, res) {
+    router.get('/', function (req, res) {
         res.send("OK")
     });
 
@@ -27,7 +23,7 @@ exports.run = (client, interaction) => {
 
     const oauth = new OAuth(requestURL, accessURL, key, secret, "1.0A", callbackURL, "HMAC-SHA1")
 
-    app.get("/trello_auth", (req, res) => {
+    router.get("/trello_auth", (req, res) => {
         oauth.getOAuthRequestToken((error, token, tokenSecret) => {
             if (error) console.error(error);
             oauth_secrets[token] = tokenSecret;
@@ -35,7 +31,7 @@ exports.run = (client, interaction) => {
         });
     });
 
-    app.get("/trello_callback", (req, res) => {
+    router.get("/trello_callback", (req, res) => {
         const { oauth_token, oauth_verifier } = req.query
         const tokenSecret = oauth_secrets[oauth_token]
 
@@ -43,12 +39,10 @@ exports.run = (client, interaction) => {
             if (error) console.log(error);
             console.log(key)
             console.log(accessToken)
-
-            await r.table("trello").get("uid").insert({ accessToken: accessToken, key: key }).run(client.con);
+            console.log(req.session.user)
+            await r.table("trello").get("uid").update({ accessToken: accessToken, key: key }).run(req.client.con);
 
             res.redirect("/");
         })
     })
-
-    app.listen(5555, () => console.log("Connected"))
-}
+module.exports = router

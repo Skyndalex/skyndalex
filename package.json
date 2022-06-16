@@ -13,7 +13,7 @@
     "dotenv": "^16.0.1",
     "ejs": "^3.1.6",
     "express": "^4.17.2",
-    "express-session": "^1.17.2",
+    "express-session": "^1.17.3",
     "express-vue": "^5.16.0",
     "figlet": "^1.5.2",
     "hastebin": "^0.2.1",
