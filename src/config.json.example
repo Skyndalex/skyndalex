@@ -1,5 +1,18 @@
 {
-  "token": "token",
-  "clientSecret": "clientSecret",
-  "hypixelKey": "hypixelkey"
+    "discord": {
+        "token": "token",
+        "secret": "secret",
+        "callbackURL": "callbackURL",
+        "port": "port",
+        "clientID": "clientID"
+    },
+    "trello": {
+        "key": "developer key",
+        "secret": "oauth secret",
+        "appName": "app name",
+        "callbackURL": "callbackURL"
+    },
+    "datadog": {
+        "dgToken": "datadog agent token"
+    }
 }
