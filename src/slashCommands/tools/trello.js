@@ -52,8 +52,8 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
         const db = await r.table("trello").get(interaction.user.id).run(client.con);
         switch (interaction.options.getSubcommand()) {
             case "auth":
-                const { callbackURL } = require("../../config.json").trello
-                await interaction.reply(`Trello authentication webstie: ${callbackURL}`);
+                const { authURL } = require("../../config.json").discord
+                await interaction.reply(`Please authorize your trello account [here](${authURL})`);
                 break;
             case "options":
                 const add = await interaction.options.getString("add");
