@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed, Message, MessageActionRow, MessageButton, Modal, MessageSelectMenu} = require("discord.js")
-const { showModal } = require("../../utils/modals");
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js")
 const osu = require('node-os-utils')
 module.exports = {
     data: new SlashCommandBuilder()
