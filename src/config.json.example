@@ -2,15 +2,16 @@
     "discord": {
         "token": "token",
         "secret": "secret",
-        "callbackURL": "callbackURL",
-        "port": "port",
-        "clientID": "clientID"
+        "callbackURL": "https://localhost:3000/discord/discordData",
+        "port": "3000",
+        "clientID": "clientID",
+        "guildID": "guildID"
     },
     "trello": {
-        "key": "developer key",
-        "secret": "oauth secret",
-        "appName": "app name",
-        "callbackURL": "callbackURL"
+        "key": "app key",
+        "secret": "app secret",
+        "appName": "App name",
+        "callbackURL": "http://localhost:3000/trello/trello_callback"
     },
     "datadog": {
         "dgToken": "datadog agent token"

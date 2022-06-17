@@ -1,6 +1,6 @@
-const { Client, Modal } = require('discord.js');
-const r = require('rethinkdb');
+const { Client } = require('discord.js');
 const strings = require('./utils/json/strings.json');
+
 class Base extends Client {
     constructor(clientOptions) {
         super(clientOptions);
@@ -10,4 +10,5 @@ class Base extends Client {
         this.strings = strings;
     }
 }
+
 module.exports = Base;

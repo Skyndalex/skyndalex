@@ -1,8 +1,8 @@
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
-const { fetch } = require("undici");
-const { port, secret, clientID } = require("../config.json").discord
+const { port } = require("../config.json").discord
+
 exports.run = (client) => {
     const app = express();
     app.use(express.json())
@@ -13,7 +13,6 @@ exports.run = (client) => {
 
     app.use((req, res, next) => {
         req.client = client
-
         next()
     })
 

@@ -1,14 +1,10 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { token } = require('./config.json').discord
+const { token, clientID, guildID } = require('./config.json').discord
 const fs = require('fs');
-
-const clientId = '829812129074774086';
-const guildId = '943884836169482260';
 
 const commands = [];
 const rest = new REST({ version: '9' }).setToken(token);
-
 
 (async () => {
     try {
@@ -26,12 +22,12 @@ const rest = new REST({ version: '9' }).setToken(token);
                 console.log('Loading (/) commands.');
 
                 await rest.put(
-                    Routes.applicationGuildCommands(clientId, guildId),
+                    Routes.applicationGuildCommands(clientID, guildID),
                     {
                         body: commands,
                     }
                 );
-                await rest.put(Routes.applicationCommands(clientId), {
+                await rest.put(Routes.applicationCommands(clientID), {
                     body: [], // commands
                 });
                 console.log('Loaded (/) commands.');

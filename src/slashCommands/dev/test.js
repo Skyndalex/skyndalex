@@ -1,8 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed, Message, MessageActionRow, MessageButton, Modal, MessageSelectMenu} = require("discord.js")
-const { showModal } = require("../../utils/modals");
-const {JSON} = require("@datadog/datadog-api-client/dist/packages/datadog-api-client-v1/models/WebhooksIntegrationEncoding");
-require("dotenv").config()
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("test")

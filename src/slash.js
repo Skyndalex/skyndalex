@@ -1,10 +1,11 @@
+require("dotenv").config()
 const { token } = require('./config.json').discord
 const fs = require('fs');
 const Base = require('./Base.js');
-const { Collection, Options } = require('discord.js');
+const { Collection, Options, Intents } = require('discord.js');
 const r = require('rethinkdb');
 const client = new Base({
-    intents: [32767],
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES ],
     partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
     makeCache: Options.cacheWithLimits({
         PresenceManager: 0,
@@ -18,8 +19,6 @@ global.r = require('rethinkdb');
 global.pc = require('picocolors');
 global.hastebin = require("hastebin");
 
-require("./sites/home/main").run(client);
-require("./sites/statuspage/main").run(client);
 require("./utils/DataDogDB/pushStats.js").run(client);
 require("./routers/app.js").run(client)
 
