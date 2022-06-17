@@ -3,7 +3,7 @@ const express = require('express')
 const { fetch } = require("undici");
 const { secret, clientID } = require("../../config.json").discord
     router.get('/discordData', async (req, res) => {
-       // if (!req.session.user) return res.redirect(config.url)
+        if (!req.session.user) return res.redirect('https://discord.com/api/oauth2/authorize?client_id=829812129074774086&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdiscord%2Fcallback&response_type=code&scope=identify%20guilds')
 
         res.send(req.session.user)
         console.log(req.session.user)
