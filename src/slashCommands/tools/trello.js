@@ -259,7 +259,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
 
                         const filter = (interaction) => interaction.customId === "getCardIDsModal";
 
-                        await interaction.awaitModalSubmit({ filter, time: 15_000 }).then(async interaction => {
+                        await interaction.awaitModalSubmit({ filter, time: 15000 }).then(async interaction => {
                             let boardID2 = interaction.fields.getTextInputValue("get_card_ids_board")
 
                             await axios.get(`https://trello.com/b/${boardID2}.json`)

@@ -3,10 +3,19 @@ const Trello = require("trello");
 const {MessageEmbed, Modal, MessageActionRow, MessageButton} = require("discord.js");
 exports.run = async (client, interaction) => {
     const db = await r.table("trello").get(interaction.user.id).run(client.con);
-    if (!db?.key) interaction.reply("Invalid trello account key!\nAuthorize: \`/trello auth\`");
-    if (!db?.token) interaction.reply("Invalid trello application token!\nAuthorize: \`/trello auth\`");
+    const { authURL } = require("../../config.json").discord;
 
-    let manager = new Trello(db.key, db.token);
+    const row = new MessageActionRow()
+        .addComponents(
+            new MessageButton()
+                .setURL(authURL)
+                .setLabel("Authorize")
+                .setStyle("LINK")
+        )
+
+    if (!db?.key || !db?.token) return interaction.reply({ content: "You are not authorized!", components: [row] });
+
+    let manager = new Trello(db?.key, db?.token);
 
     switch (interaction.customId) {
         case "trello_add_card_confirm":
