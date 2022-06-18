@@ -53,7 +53,19 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
         switch (interaction.options.getSubcommand()) {
             case "auth":
                 const { authURL } = require("../../config.json").discord
-                await interaction.reply(`Please authorize your trello account [here](${authURL})`);
+
+                const row = new MessageActionRow()
+                    .addComponents(
+                        new MessageButton()
+                            .setStyle("LINK")
+                            .setLabel("Authorize here")
+                            .setURL(authURL)
+                    );
+
+                let authInfo = new MessageEmbed()
+                    .setDescription(`To continue, you must authorize your trello and discord account. I need access to your board information`)
+                    .setColor("BLURPLE")
+                await interaction.reply({ embeds: [authInfo], components: [row] });
                 break;
             case "options":
                 const add = await interaction.options.getString("add");

@@ -28,7 +28,7 @@ router.get("/trello_callback", (req, res) => {
 
     oauth.getOAuthAccessToken(oauth_token, tokenSecret, oauth_verifier, async (error, accessToken) => {
         if (error) console.log(error);
-        await r.table("trello").get(req.session.user.id).update({ accessToken: accessToken, key: key }).run(req.client.con);
+        await r.table("trello").get(req.session.user.id).update({ token: accessToken, key: key }).run(req.client.con);
 
         res.redirect("/trello/trello_success");
     })
