@@ -4,6 +4,7 @@ const { secret, clientID, callbackURL } = require("../../config.json").discord
 
 router.get('/discordData', async (req, res) => {
     if (!req.session.user) return res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${clientID}&redirect_uri=${callbackURL}&response_type=code&scope=identify%20guilds`)
+
     await r.table("trello").insert({ uid: req.session.user.id }, { conflict: "update" }).run(req.client.con)
 
     return res.redirect("/trello/trello_auth")
