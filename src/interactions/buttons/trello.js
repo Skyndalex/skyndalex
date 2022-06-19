@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, ContextMenuCommandBuilder} = require('@discordjs/builders');
 const Trello = require("trello");
 const {MessageEmbed, Modal, MessageActionRow, MessageButton} = require("discord.js");
+const { fetch } = require("undici")
 exports.run = async (client, interaction) => {
     const db = await r.table("trello").get(interaction.user.id).run(client.con);
     const { authURL } = require("../../config.json").discord;
@@ -19,24 +20,22 @@ exports.run = async (client, interaction) => {
 
     switch (interaction.customId) {
         case "trello_add_card_confirm":
-            if (interaction.message.interaction.user.id !== interaction.user.id) return interaction.reply({ content: "It's not your button!", ephemeral: true })
             let addCardString = interaction.message.embeds[0]
 
-            let name = addCardString.fields[0].value;
-            let desc = addCardString.fields[1].value;
-            let listId = addCardString.fields[2].value;
+            const cardName = addCardString.fields[0].value
+            const cardDesc = addCardString.fields[0].value
+            const listID = addCardString.fields[2].value
 
-            await manager.addCard(name, desc, listId,
-                async function(error, trelloCard) {
-                if (error) {
-                    await interaction.reply(`\`\`\`${error}\`\`\``)
-                } else {
-                    let embedSuccessful = new MessageEmbed()
-                        .setDescription(`\`[${name}]\` successfully added to trello list [\`${trelloCard.id}\`](${trelloCard.shortUrl})`)
-                        .setColor("DARK_BUT_NOT_BLACK")
-                    interaction.reply({ embeds: [embedSuccessful] })
-                }})
-            // manager.addAttachmentToCard("", "", "")
+            const res = await fetch(`https://api.trello.com/1/cards?idList=${listID}&key=${db.key}&token=${db.token}&name=${cardName}&description=${cardDesc}`, {
+                method: "POST"
+            })
+            const json = await res.json()
+            console.log(json)
+
+            let embedSuccessful = new MessageEmbed()
+                .setDescription(`\`[${json.name}]\` successfully added to trello list: **[${json.id}](${json.idList})**`)
+                .setColor("DARK_BUT_NOT_BLACK")
+            interaction.reply({ embeds: [embedSuccessful] })
             break;
         case "trello_add_attach_to_card_confirm":
             if (interaction.message.interaction.user.id !== interaction.user.id) return interaction.reply({ content: "It's not your button!", ephemeral: true })
