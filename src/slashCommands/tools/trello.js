@@ -162,7 +162,6 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
 
                         const addBoardModalComponent_ORGANIZATIONID = new TextInputComponent()
                             .setStyle("SHORT")
-                            .setRequired(true)
                             .setPlaceholder("Organization ID")
                             .setMaxLength(100)
                             .setCustomId("addBoard_organizationID")
