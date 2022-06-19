@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const axios = require("axios");
 const {MessageEmbed, Modal, MessageActionRow, MessageButton, TextInputComponent} = require("discord.js");
-const { showModal } = require("../../utils/modals");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,7 +20,6 @@ module.exports = {
                         { name: 'Add card', value: 'add_card_choice' },
                         { name: 'Add attachment to card', value: 'add_attach_to_card' },
                         { name: 'Add board', value: 'add_board' },
-                        { name: 'Add card with extra params', value: 'add_card_with_extra_params' },
                         { name: 'Add checklist to card', value: 'add_checklist_to_card' },
                         { name: 'Add comment to card', value: 'add_comment_to_card' },
                         { name: 'Add custom field', value: 'add_custom_field' },
@@ -57,7 +55,7 @@ module.exports = {
                         { name: "Get board organization", value: "get_org_id" },
                         { name: "Get checklist", value: "get_check_list"},
                         { name: "Get boards", value: "get_board_ids" },
-                    ).setAutocomplete(true)
+                    )
                 )
         ),
 
@@ -216,6 +214,55 @@ module.exports = {
                                 .setColor("BLUE")
                             await interaction.reply({ embeds: [messageConfirmEmbed3], components: [boardAddConfirm] })
                         });
+                        break;
+                    case "add_checklist_to_card":
+                        const addCheckListModal = new Modal()
+                            .setTitle("Add check list")
+                            .setCustomId("add_check_list_modal")
+
+                        const addCheckList_CardID = new TextInputComponent()
+                            .setStyle("SHORT")
+                            .setRequired(true)
+                            .setPlaceholder("Card ID (get card ids: /trello options)")
+                            .setMaxLength(100)
+                            .setCustomId("add_check_list_card_id_component")
+                            .setLabel("Card ID")
+
+                        const addCheckList_Name = new TextInputComponent()
+                            .setStyle("SHORT")
+                            .setRequired(true)
+                            .setPlaceholder("Checklist name")
+                            .setMaxLength(100)
+                            .setCustomId("add_check_list_name_component")
+                            .setLabel("Add checklist")
+
+                        const addChecklistCardIdRow = new MessageActionRow().addComponents(addCheckList_CardID)
+                        const addChecklistNameRow = new MessageActionRow().addComponents(addCheckList_Name)
+
+                        addCheckListModal.addComponents(addChecklistCardIdRow, addChecklistNameRow)
+                        await interaction.showModal(addCheckListModal)
+
+                        const addChecklistFilter = (interaction) => interaction.customId === "add_check_list_modal";
+                        await interaction.awaitModalSubmit({ addChecklistFilter, time: 15000 }).then(async interaction => {
+                            let cardID = interaction.fields.getTextInputValue("add_check_list_card_id_component");
+                            let checklistName = interaction.fields.getTextInputValue("add_check_list_name_component");
+
+                            let addChecklistConfirm = new MessageActionRow()
+                                .addComponents(
+                                    new MessageButton()
+                                        .setCustomId("add_checklist_confirm")
+                                        .setStyle("SUCCESS")
+                                        .setLabel("Confirm")
+                                )
+
+                            let messageConfirmEmbed3 = new MessageEmbed()
+                                .setTitle("Are you sure?")
+                                .setDescription("You provided these values:")
+                                .addField(`Card ID`, `${cardID}`)
+                                .addField(`Checklist name`, `${checklistName || "None"}`)
+                                .setColor("BLUE")
+                            await interaction.reply({ embeds: [messageConfirmEmbed3], components: [addChecklistConfirm] })
+                        })
                         break;
                 }
                 const get = await interaction.options.getString("get");

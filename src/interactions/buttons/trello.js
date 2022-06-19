@@ -2,6 +2,7 @@ const { SlashCommandBuilder, ContextMenuCommandBuilder} = require('@discordjs/bu
 const Trello = require("trello");
 const {MessageEmbed, Modal, MessageActionRow, MessageButton} = require("discord.js");
 const { fetch } = require("undici")
+const {check} = require("dogapi/lib/api/serviceCheck");
 exports.run = async (client, interaction) => {
     const db = await r.table("trello").get(interaction.user.id).run(client.con);
     const { authURL } = require("../../config.json").discord;
@@ -28,7 +29,7 @@ exports.run = async (client, interaction) => {
             const cardDesc = addCardString.fields[0].value
             const listID = addCardString.fields[2].value
 
-            const cardAdd = await fetch(`https://api.trello.com/1/cards?idList=${listID}&key=${db.key}&token=${db.token}&name=${cardName}&description=${cardDesc}`, {
+            const cardAdd = await fetch(`https://api.trello.com/1/cards?idList=${listID}&key=${db.key}&token=${db.token}&name=${cardName}&desc=${cardDesc}`, {
                 method: "POST"
             });
             const cardAddedData = await cardAdd.json()
@@ -75,5 +76,25 @@ exports.run = async (client, interaction) => {
 
             await interaction.reply("OK")
             break;
+        case "add_checklist_confirm":
+            if (interaction.message.interaction.user.id !== interaction.user.id) return interaction.reply({ content: "It's not your button!", ephemeral: true })
+
+            let addChecklistString = interaction.message.embeds[0];
+
+            let cardID2 = addChecklistString.fields[0].value;
+            let checklistName = addChecklistString.fields[1].value;
+
+            const addChecklist = await fetch(`https://api.trello.com/1/checklists?idCard=${cardID2}&key=${db.key}&token=${db.token}&name=${checklistName}`, {
+                method: "POST"
+            })
+            const addedChecklist = await addChecklist.json()
+
+            let addedChecklistSuccess = new MessageEmbed()
+                .setDescription(`\`[${addedChecklist.name}]\` successfully added checklist`)
+                .setColor("DARK_BUT_NOT_BLACK")
+            interaction.reply({ embeds: [addedChecklistSuccess] })
+
+            break;
+
     }
 }

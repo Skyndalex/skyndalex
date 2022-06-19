@@ -19,8 +19,8 @@ global.r = require('rethinkdb');
 global.pc = require('picocolors');
 global.hastebin = require("hastebin");
 
-require("./utils/DataDogDB/pushStats.js").run(client);
-require("./routers/app.js").run(client)
+require("./datadog/collectStats").run(client);
+require("./routers/app.js").run(client);
 
 r.connect({ db: 'krivebot', host: 'localhost', port: '28015', timeout: 600 },
     function (err, con) {
