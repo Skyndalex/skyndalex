@@ -54,7 +54,7 @@ exports.run = async (client, interaction) => {
             });
             const addedAttachmentToCard = await addAttachmentToCard.json()
 
-            console.log(addedAttachmentToCard)
+           // console.log(addedAttachmentToCard)
 
             await interaction.reply("OK")
             break;
@@ -71,7 +71,7 @@ exports.run = async (client, interaction) => {
                 method: "POST"
             })
             const addedBoard = addBoard.json()
-            console.log(addedBoard)
+           // console.log(addedBoard)
 
             await interaction.reply("OK")
             break;

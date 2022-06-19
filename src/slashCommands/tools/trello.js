@@ -3,7 +3,7 @@ const axios = require("axios");
 const {MessageEmbed, Modal, MessageActionRow, MessageButton, TextInputComponent} = require("discord.js");
 const { showModal } = require("../../utils/modals");
 
-module.exports = { // TODO: remove sub commands and rewrite to choices.
+module.exports = {
     data: new SlashCommandBuilder()
         .setName("trello")
         .setDescription("Trello manager")
@@ -138,7 +138,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                     .setLabel("Confirm")
                             )
 
-                        let messageConfirmEmbed2 = new MessageEmbed() // TODO: name it (messageConfirmEmbed2)
+                        let messageConfirmEmbed2 = new MessageEmbed()
                             .setTitle("Are you sure?")
                             .setDescription("You provided these values:")
                             .addField(`Card ID`, `${cardID}`)
@@ -195,7 +195,7 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                         .setLabel("Confirm")
                                 )
 
-                            let messageConfirmEmbed3 = new MessageEmbed() // TODO: name it (messageConfirmEmbed3)
+                            let messageConfirmEmbed3 = new MessageEmbed()
                                 .setTitle("Are you sure?")
                                 .setDescription("You provided these values:")
                                 .addField(`Board name`, `${boardName}`)
