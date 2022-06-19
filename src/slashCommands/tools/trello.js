@@ -18,35 +18,47 @@ module.exports = {
                 .setDescription("Trello settings")
                 .addStringOption(option => option.setName("add").setDescription("Add options")
                     .addChoices(
-                        { name: 'addCard', value: 'add_card_choice' },
-                        { name: 'addAttachmentToCard', value: 'add_attach_to_card' },
-                        { name: 'addBoard', value: 'add_board' },
-                        { name: 'addCardWithExtraParams', value: 'add_card_with_extra_params' },
-                        { name: 'addChecklistToCard', value: 'add_checklist_to_card' },
-                        { name: 'addCommentToCard', value: 'add_comment_to_card' },
-                        { name: 'addCustomField', value: 'add_custom_field' },
-                        { name: 'addDueDateToCard', value: 'add_due_date_to_card' },
-                        { name: 'addExistingChecklistToCard', value: 'add_existing_checklist_to_card' },
-                        { name: 'addItemToChecklist', value: 'add_item_to_checklist' },
-                        { name: 'addLabelOnBoard', value: 'add_label_on_board' },
-                        { name: 'addLabelToCard', value: 'add_label_to_card' },
-                        { name: 'addListToBoard', value: 'add_list_to_board' },
-                        { name: 'addMemberToBoard', value: 'add_member_to_board' },
-                        { name: 'addMemberToCard', value: 'add_member_to_card' },
-                        { name: 'addOptionToCustomField', value: 'add_option_to_custom_field' },
-                        { name: 'addStickerToCard', value: 'add_sticker_to_card' },
-                        { name: 'addWebhook', value: 'add_webhook' },
-                        { name: 'copyBoard', value: 'copy_board' },
-                        { name: 'setCustomFieldOnCard', value: 'set_custom_field_on_board' }
-                    ))
+                        { name: 'Add card', value: 'add_card_choice' },
+                        { name: 'Add attachment to card', value: 'add_attach_to_card' },
+                        { name: 'Add board', value: 'add_board' },
+                        { name: 'Add card with extra params', value: 'add_card_with_extra_params' },
+                        { name: 'Add checklist to card', value: 'add_checklist_to_card' },
+                        { name: 'Add comment to card', value: 'add_comment_to_card' },
+                        { name: 'Add custom field', value: 'add_custom_field' },
+                        { name: 'Add due date to card', value: 'add_due_date_to_card' },
+                        { name: 'Add existing checklist to card', value: 'add_existing_checklist_to_card' },
+                        { name: 'Add item to checklist', value: 'add_item_to_checklist' },
+                        { name: 'Add label on board', value: 'add_label_on_board' },
+                        { name: 'Add label to card', value: 'add_label_to_card' },
+                        { name: 'Add list to board', value: 'add_list_to_board' },
+                        { name: 'Add member to board', value: 'add_member_to_board' },
+                        { name: 'Add member to card', value: 'add_member_to_card' },
+                        { name: 'Add option to custom field', value: 'add_option_to_custom_field' },
+                        { name: 'Add sticker to card', value: 'add_sticker_to_card' },
+                        { name: 'Add webhook', value: 'add_webhook' },
+                        { name: 'Copy board', value: 'copy_board' },
+                        { name: 'Set custom field on card', value: 'set_custom_field_on_board' }
+                    )
+                )
+                .addStringOption(option => option.setName("update").setDescription("Update options")
+                    .addChoices(
+                        { name: "updateCard", value: "update_card" },
+                        { name: "Update board", value: "update_board" },
+                        { name: "Update membership of member on board", value: "update_membership_of_member_on_board" },
+                        { name: "Update checkitem on card", value: "update_checkitem_on_card" },
+                        { name: "Update sticker on card", value: "update_sticker_on_card" },
+                        { name: "Update checkitem on checklist on card", value: "update_checkitem_on_checklist_on_card" }
+                    )
+                )
                 .addStringOption(option => option.setName("get").setDescription("Get data about your trello settings")
                     .addChoices(
-                        { name: "getListIDs", value: "get_list_ids" },
-                        { name: "getCardIDs", value: "get_card_ids" },
-                        { name: "getOrganizationID", value: "get_org_id" },
-                        { name: "getChecklist", value: "get_check_list"},
-                        { name: "getBoardIDs", value: "get_board_ids" },
-                    ))
+                        { name: "Get lists", value: "get_list_ids" },
+                        { name: "Get cards", value: "get_card_ids" },
+                        { name: "Get board organization", value: "get_org_id" },
+                        { name: "Get checklist", value: "get_check_list"},
+                        { name: "Get boards", value: "get_board_ids" },
+                    ).setAutocomplete(true)
+                )
         ),
 
     async execute(client, interaction) {
