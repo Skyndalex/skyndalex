@@ -13,7 +13,7 @@ exports.run = async (client, interaction) => {
                 .setStyle("LINK")
         )
 
-    if (!db?.key || !db?.token) return interaction.reply({ content: "You are not authorized!", components: [row] });
+    if (!db?.key || !db?.token) return interaction.reply({ content: "You are not authorized!", components: [row], ephemeral: true });
 
     let manager = new Trello(db?.key, db?.token);
 

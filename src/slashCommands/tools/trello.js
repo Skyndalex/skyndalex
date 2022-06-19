@@ -44,7 +44,8 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                         { name: "getListIDs", value: "get_list_ids" },
                         { name: "getCardIDs", value: "get_card_ids" },
                         { name: "getOrganizationID", value: "get_org_id" },
-                        { name: "getChecklist", value: "get_check_list"}
+                        { name: "getChecklist", value: "get_check_list"},
+                        { name: "getBoardIDs", value: "get_board_ids" },
                     ))
         ),
 
@@ -210,33 +211,42 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
 
                 switch (get) {
                     case "get_list_ids":
-                        const getListIDsModal = new Modal({ // TODO: add modals to client
-                            customId: `getListIDsModal`,
-                            title: "Get list IDs",
-                            components: [
-                                { type: "ACTION_ROW", components: [
-                                        { type: "TEXT_INPUT", style: "PARAGRAPH", customId: "board_id", label: "Board ID", placeholder: "Board ID", style: "SHORT", maxLength: 256, minLength: 2 },
-                                    ]},
-                            ]
-                        })
+                        const getListIDsModal = new Modal()
+                            .setTitle("Get list IDs")
+                            .setCustomId("getListIDsModal")
 
-                        let getListIDsModalShow = await showModal(interaction, getListIDsModal, "getListIDsModal", 2 * 60 * 1000)
+                        const boardIdComponent = new TextInputComponent()
+                            .setStyle("SHORT")
+                            .setRequired(true)
+                            .setPlaceholder("Board ID")
+                            .setMaxLength(100)
+                            .setCustomId("list_id_modal_component")
+                            .setLabel("BOARD ID")
 
-                        let boardID = getListIDsModalShow.fields.getTextInputValue("board_id")
+                        const row = new MessageActionRow().addComponents(boardIdComponent)
+                        getListIDsModal.addComponents(row)
 
-                        await axios.get(`https://trello.com/b/${boardID}.json`)
-                            .then(async function (response) {
-                                let listNames = [];
+                        await interaction.showModal(getListIDsModal)
 
-                                for (let i in response.data.lists) {
-                                    listNames.push(`${response.data.lists[i].name} : ${response.data.lists[i].id}`)
-                                }
+                        const getListIDsFilter = (interaction) => interaction.customId === "getListIDsModal";
 
-                                let embed = new MessageEmbed()
-                                    .setDescription(`\`\`\`ansi\n[0;37m${listNames.join(",\n")}\`\`\``)
-                                    .setColor("GREEN")
-                                await getListIDsModalShow.reply({ embeds: [embed]})
-                            });
+                        await interaction.awaitModalSubmit({ getListIDsFilter, time: 15000 }).then(async interaction => {
+                            let boardID = interaction.fields.getTextInputValue("list_id_modal_component")
+
+                            await axios.get(`https://trello.com/b/${boardID}.json`)
+                                .then(async function (response) {
+                                    let listNames = [];
+
+                                    for (let i in response.data.lists) {
+                                        listNames.push(`${response.data.lists[i].name} : ${response.data.lists[i].id}`)
+                                    }
+
+                                    let embed = new MessageEmbed()
+                                        .setDescription(`\`\`\`ansi\n[0;37m${listNames.join(",\n")}\`\`\``)
+                                        .setColor("GREEN")
+                                    await interaction.reply({ embeds: [embed]})
+                                });
+                        });
                         break;
                     case "get_card_ids":
                         const getCardIDsModal = new Modal()
@@ -320,6 +330,18 @@ module.exports = { // TODO: remove sub commands and rewrite to choices.
                                     await interaction.reply(`\`\`\`ansi\n\u001B[1;32mOrganization ID for ${response.data.name} board: ${response.data.idOrganization} \`\`\``)
                                 })
                         })
+                        break;
+                    case "get_board_ids":
+                        await axios.get(`https://api.trello.com/1/members/me/boards?fields=name,url&key=${db.key}&token=${db.token}`)
+                            .then(async function (response) {
+                                console.log(response)
+
+                                let x = []
+                                for (let i in response.data) {
+                                    x.push(`${response.data[i].name} ::: ${response.data[i].id}`)
+                                }
+                                await interaction.reply(`\`\`\`${x.join(",\n")}\`\`\``)
+                            })
                         break;
                 }
                 break;

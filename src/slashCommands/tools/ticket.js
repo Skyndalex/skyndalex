@@ -57,7 +57,7 @@ module.exports = {
                     .addComponents(
                         new MessageButton()
                             .setStyle(custom?.buttonStyle || "SUCCESS")
-                            .setLabel(custom?.buttonLabel || "Complaints")
+                            .setLabel("\u200b \u200b TESTOWA WIADOMOŚĆ \u200b \u200b \u200b\u202f")
                             .setDisabled(custom?.btnDisabled || false)
                             .setCustomId("enable_complaints"),
                         new MessageButton()

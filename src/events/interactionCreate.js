@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const fs = require("fs");
 const cooldown = new Set();
 module.exports = async (client, interaction) => {
+    console.log(interaction.user.tag + " Success")
     const interactionFiles = fs.readdirSync('./interactions');
 
     for (const folder of interactionFiles) {
@@ -19,7 +20,7 @@ module.exports = async (client, interaction) => {
         if (!interaction.user.bot)
 
     if (cooldown.has(interaction.user.id)) {
-        await interaction.reply({ content: 'wait 3 sec before using command again', ephemeral: true });
+        await interaction.reply({ content: 'wait 3 sec before using this interaction again', ephemeral: true });
     } else {
         await slashCommand.execute(client, interaction);
     }
