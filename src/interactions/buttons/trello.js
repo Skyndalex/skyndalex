@@ -67,18 +67,13 @@ exports.run = async (client, interaction) => {
             let organizationID = boardAddString.fields[1].value;
             let description = boardAddString.fields[2].value;
 
-            await manager.addBoard(bName, description, organizationID,
-                async function (error, addBoard) {
-                if (error) {
-                    interaction.reply(`\`\`\`${error}\`\`\``)
-                } else {
-                    let embedSuccessful = new MessageEmbed()
-                        .setDescription(`\`[${addBoard.name}]\` Successfully added board to your account`)
-                        .setColor("DARK_BUT_NOT_BLACK")
-                    await interaction.reply({ embeds: [embedSuccessful] })
-                }
-
+            const addBoard = await fetch(`https://api.trello.com/1/boards/?name=${bName}&key=${db.key}&token=${db.token}&idOrganization=${organizationID}&desc=${description}`, {
+                method: "POST"
             })
+            const addedBoard = addBoard.json()
+            console.log(addedBoard)
+
+            await interaction.reply("OK")
             break;
     }
 }
