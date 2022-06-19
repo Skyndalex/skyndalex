@@ -30,8 +30,9 @@ exports.run = async (client, interaction) => {
 
             const cardAdd = await fetch(`https://api.trello.com/1/cards?idList=${listID}&key=${db.key}&token=${db.token}&name=${cardName}&description=${cardDesc}`, {
                 method: "POST"
-            })
+            });
             const cardAddedData = await cardAdd.json()
+
             // console.log(json)
 
             let embedSuccessful = new MessageEmbed()
@@ -42,10 +43,20 @@ exports.run = async (client, interaction) => {
         case "trello_add_attach_to_card_confirm":
             if (interaction.message.interaction.user.id !== interaction.user.id) return interaction.reply({ content: "It's not your button!", ephemeral: true })
 
-            let addAttachementToCardString = interaction.message.embeds[0]
+            let addAttachmentToCardString = interaction.message.embeds[0]
+
+            const cardID = addAttachmentToCardString.fields[0].value;
+            const imageURL = addAttachmentToCardString.fields[1].value;
 
 
+            const addAttachmentToCard = await fetch(`https://api.trello.com/1/cards/${cardID}/attachments?key=${db.key}&token=${db.token}&url=${imageURL}`, {
+                method: "POST"
+            });
+            const addedAttachmentToCard = await addAttachmentToCard.json()
 
+            console.log(addedAttachmentToCard)
+
+            await interaction.reply("OK")
             break;
         case "board_add_confirm":
             if (interaction.message.interaction.user.id !== interaction.user.id) return interaction.reply({ content: "It's not your button!", ephemeral: true })
