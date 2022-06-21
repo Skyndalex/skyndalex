@@ -1,8 +1,6 @@
 const { SlashCommandBuilder, ContextMenuCommandBuilder} = require('@discordjs/builders');
-const Trello = require("trello");
-const {MessageEmbed, Modal, MessageActionRow, MessageButton} = require("discord.js");
+const { MessageEmbed, Modal, MessageActionRow, MessageButton } = require("discord.js");
 const { fetch } = require("undici")
-const {check} = require("dogapi/lib/api/serviceCheck");
 exports.run = async (client, interaction) => {
     const db = await r.table("trello").get(interaction.user.id).run(client.con);
     const { authURL } = require("../../config.json").discord;
@@ -16,8 +14,6 @@ exports.run = async (client, interaction) => {
         )
 
     if (!db?.key || !db?.token) return interaction.reply({ content: "You are not authorized!", components: [row], ephemeral: true });
-
-    let manager = new Trello(db?.key, db?.token);
 
     switch (interaction.customId) {
         case "trello_add_card_confirm":
