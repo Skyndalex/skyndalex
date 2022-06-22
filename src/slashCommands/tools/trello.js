@@ -1,5 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const axios = require("axios");
+const { fetch } = require("undici");
+
 const {MessageEmbed, Modal, MessageActionRow, MessageButton, TextInputComponent} = require("discord.js");
 
 module.exports = {
@@ -22,9 +24,7 @@ module.exports = {
                         { name: 'Add board', value: 'add_board' },
                         { name: 'Add checklist to card', value: 'add_checklist_to_card' },
                         { name: 'Add comment to card', value: 'add_comment_to_card' },
-                        { name: 'Add custom field', value: 'add_custom_field' },
-                        { name: 'Add due date to card', value: 'add_due_date_to_card' },
-                        { name: 'Add existing checklist to card', value: 'add_existing_checklist_to_card' },
+                      // { name: 'Add existing checklist to card', value: 'add_existing_checklist_to_card' },
                         { name: 'Add item to checklist', value: 'add_item_to_checklist' },
                         { name: 'Add label on board', value: 'add_label_on_board' },
                         { name: 'Add label to card', value: 'add_label_to_card' },
@@ -313,6 +313,34 @@ module.exports = {
                             await interaction.reply({ embeds: [messageConfirmEmbed4], components: [addCommentConfirm] })
                         })
                         break;
+                    case "add_item_to_checklist":
+                        const addItemToChecklistModal = new Modal()
+                            .setTitle("Add item to checklist")
+                            .setCustomId("add_comment_to_card_modal")
+
+                        const addItemToChecklist_ChecklistID = new TextInputComponent()
+                            .setStyle("SHORT")
+                            .setRequired(true)
+                            .setPlaceholder("Checklist ID (/trello options)")
+                            .setMaxLength(100)
+                            .setCustomId("add_item_to_checklist_checklistId_component")
+                            .setLabel("Checklist ID")
+
+                        const addItemToChecklist_Name = new TextInputComponent()
+                            .setStyle("SHORT")
+                            .setRequired(true)
+                            .setPlaceholder("Your checklist name")
+                            .setMaxLength(100)
+                            .setCustomId("add_item_to_checklist_name_component")
+                            .setLabel("Checklist Name")
+
+                        const addChecklistIdRow = new MessageActionRow().addComponents(addItemToChecklist_ChecklistID);
+                        const addItemToChecklistNameRow = new MessageActionRow().addComponents(addItemToChecklist_Name);
+
+                        addItemToChecklistModal.addComponents(addChecklistIdRow, addItemToChecklistNameRow);
+                        await interaction.showModal(addItemToChecklistModal);
+
+                        break;
                 }
                 const get = await interaction.options.getString("get");
 
@@ -449,6 +477,39 @@ module.exports = {
                                 }
                                 await interaction.reply(`\`\`\`${x.join(",\n")}\`\`\``)
                             })
+                        break;
+                    case "get_check_list":
+                        const getChecklistModal = new Modal()
+                            .setTitle("Get organization ID")
+                            .setCustomId("get_checklist_modal")
+
+                        const getChecklistIdCardComponent = new TextInputComponent()
+                            .setStyle("SHORT")
+                            .setRequired(true)
+                            .setPlaceholder("Card ID")
+                            .setMaxLength(100)
+                            .setCustomId("get_checklist_modal_card_id_component")
+                            .setLabel("Board id")
+
+                        const getChecklistRow = new MessageActionRow().addComponents(getChecklistIdCardComponent)
+
+                        getChecklistModal.addComponents(getChecklistRow)
+
+                        await interaction.showModal(getChecklistModal)
+
+                        const getChecklistFilter = (interaction) => interaction.customId === "get_checklist_modal";
+
+                        await interaction.awaitModalSubmit({ getChecklistFilter, time: 15_000 }).then(async interaction => {
+                            const res = await fetch(`https://api.trello.com/1/checklists?idCard=${interaction.fields.getTextInputValue("get_checklist_modal_card_id_component")}&key=${db.key}&token=${db.token}`,
+                                { method: "POST" }
+                            )
+                            const json = await res.json()
+                            console.log(json)
+
+                            await interaction.reply(
+                                `name: ${json.name}\n\nid: ${json.id}`
+                            )
+                        })
                         break;
                 }
                 break;

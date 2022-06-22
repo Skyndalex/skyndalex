@@ -9,7 +9,7 @@ exports.run = async (client, interaction) => {
         .addComponents(
             new MessageButton()
                 .setURL(authURL)
-                .setLabel("Authorize")
+                .setLabel("You can authorize here")
                 .setStyle("LINK")
         )
 
