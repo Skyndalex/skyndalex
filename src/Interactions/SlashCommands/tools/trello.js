@@ -63,7 +63,7 @@ module.exports = {
         const db = await r.table("trello").get(interaction.user.id).run(client.con);
         switch (interaction.options.getSubcommand()) {
             case "auth":
-                const { authURL } = require("../../config.json").discord
+                const { authURL } = require("../../../config.json").discord
 
                 const row = new MessageActionRow()
                     .addComponents(

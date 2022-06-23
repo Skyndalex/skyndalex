@@ -20,7 +20,7 @@ global.pc = require('picocolors');
 global.hastebin = require("hastebin");
 
 require("./datadog/collectStats").run(client);
-require("./routers/app.js").run(client);
+require("./Routers/app.js").run(client);
 
 r.connect({ db: 'krivebot', host: 'localhost', port: '28015', timeout: 600 },
     function (err, con) {
@@ -31,12 +31,12 @@ r.connect({ db: 'krivebot', host: 'localhost', port: '28015', timeout: 600 },
     }
 );
 
-const commandFolders = fs.readdirSync('./slashCommands');
+const commandFolders = fs.readdirSync('./Interactions/SlashCommands');
 
 for (const folder of commandFolders) {
-    const commandFiles = fs.readdirSync(`./slashCommands/${folder}`).filter((file) => file.endsWith('.js'));
+    const commandFiles = fs.readdirSync(`./Interactions/SlashCommands/${folder}`).filter((file) => file.endsWith('.js'));
     for (const file of commandFiles) {
-        const command = require(`./slashCommands/${folder}/${file}`);
+        const command = require(`./Interactions/SlashCommands/${folder}/${file}`);
         client.slashCommands.set(command.data.name, command);
     }
 }
