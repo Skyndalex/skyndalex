@@ -1,4 +1,4 @@
-const { Modal, MessageActionRow, TextInputComponent } = require("discord.js");
+const { Modal, MessageActionRow, TextInputComponent, MessageButton, MessageEmbed } = require("discord.js");
 module.exports = async (client, interaction) => {
     const addCardModal = new Modal()
         .setTitle("Add card")
@@ -38,7 +38,7 @@ module.exports = async (client, interaction) => {
     await interaction.awaitModalSubmit({ filter, time: 15_000 }).then(async interaction => {
         let name = interaction.fields.getTextInputValue("addCard_component_name")
         let desc = interaction.fields.getTextInputValue("addCard_component_description")
-        let listID = interaction.fields.getTextInputValue("addCard_component_listID")
+        let listid = interaction.fields.getTextInputValue("addCard_component_listID")
 
         let row = new MessageActionRow()
             .addComponents(

@@ -5,11 +5,8 @@ const Base = require('./Base.js');
 const { Collection, Options, Intents } = require('discord.js');
 const r = require('rethinkdb');
 const client = new Base({
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES ],
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS ],
     partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
-    makeCache: Options.cacheWithLimits({
-        PresenceManager: 0,
-    }),
 });
 
 client.slashCommands = new Collection();
@@ -20,7 +17,7 @@ global.pc = require('picocolors');
 global.hastebin = require("hastebin");
 
 require("./datadog/collectStats").run(client);
-require("./Routers/app.js").run(client);
+require("./routers/app.js").run(client);
 
 r.connect({ db: 'krivebot', host: 'localhost', port: '28015', timeout: 600 },
     function (err, con) {
@@ -31,12 +28,12 @@ r.connect({ db: 'krivebot', host: 'localhost', port: '28015', timeout: 600 },
     }
 );
 
-const commandFolders = fs.readdirSync('./Interactions/SlashCommands');
+const commandFolders = fs.readdirSync('./interactions/slashcommands');
 
 for (const folder of commandFolders) {
-    const commandFiles = fs.readdirSync(`./Interactions/SlashCommands/${folder}`).filter((file) => file.endsWith('.js'));
+    const commandFiles = fs.readdirSync(`./interactions/slashcommands/${folder}`).filter((file) => file.endsWith('.js'));
     for (const file of commandFiles) {
-        const command = require(`./Interactions/SlashCommands/${folder}/${file}`);
+        const command = require(`./interactions/slashcommands/${folder}/${file}`);
         client.slashCommands.set(command.data.name, command);
     }
 }

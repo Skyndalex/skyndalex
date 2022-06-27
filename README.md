@@ -21,10 +21,6 @@
 
 ![GitHub issues](https://img.shields.io/github/issues-raw/Skyndalex/skyndalex) ![GitHub pull requests](https://img.shields.io/github/issues-pr/Skyndalex/skyndalex)
 
-# General info
-
-**WARNING: The repository will not be updated until June 1.**
-
 Please note that the repository is constantly under development. I do not consider the code to be stable. Many things will change in the near future.
 
 # Deploying commands

@@ -1,5 +1,5 @@
 const { Client } = require('discord.js');
-const strings = require('./Utils/json/strings.json');
+const strings = require('./utils/json/strings.json');
 
 class Base extends Client {
     constructor(clientOptions) {

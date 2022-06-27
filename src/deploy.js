@@ -5,15 +5,14 @@ const fs = require('fs');
 
 const commands = [];
 const rest = new REST({ version: '9' }).setToken(token);
-
 (async () => {
     try {
-        const commandFolders = fs.readdirSync('./slashCommands');
+        const commandFolders = fs.readdirSync('./interactions/slashcommands');
 
         for (const folder of commandFolders) {
-            const commandFiles = fs.readdirSync(`./slashCommands/${folder}`).filter((file) => file.endsWith('.js'));
+            const commandFiles = fs.readdirSync(`./interactions/slashcommands/${folder}`).filter((file) => file.endsWith('.js'));
             for (const file of commandFiles) {
-                const command = require(`./src/Interactions/SlashCommands/${folder}/${file}`);
+                const command = require(`./interactions/slashcommands/${folder}/${file}`);
                 commands.push(command.data.toJSON());
             }
         }
